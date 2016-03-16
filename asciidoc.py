@@ -25,7 +25,7 @@ import unicodedata
 import zipfile
 
 from ast import literal_eval
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 # Used by asciidocapi.py #
 VERSION = '8.6.10'           # See CHANGELOG file for version history.
@@ -3860,6 +3860,7 @@ class Macros:
 
     def __init__(self):
         self.macros = []        # List of Macros.
+        self.macros_by_prefix = defaultdict(lambda: [])
         self.current = None     # The last matched block macro.
         self.passthroughs = []
         # Initialize default system macro.
@@ -3868,6 +3869,7 @@ class Macros:
         m.prefix = '+'
         m.reo = re.compile(m.pattern)
         self.macros.append(m)
+        self.macros_by_prefix[m.prefix].append(m)
 
     def load(self, entries):
         for entry in entries:
@@ -3877,6 +3879,7 @@ class Macros:
                 # Delete undefined macro.
                 for i, m2 in enumerate(self.macros):
                     if m2.pattern == m.pattern:
+                        self.macros_by_prefix[m2.prefix].remove(m2)
                         del self.macros[i]
                         break
                 else:
@@ -3889,7 +3892,7 @@ class Macros:
                         break
                 else:
                     self.macros.append(m)
-
+                    self.macros_by_prefix[m.prefix].append(m)
     def dump(self):
         write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
         write('[macros]')
@@ -3913,10 +3916,9 @@ class Macros:
         # If callouts is True then only callout macros are processed, if False
         # then all non-callout macros are processed.
         result = text
-        for m in self.macros:
-            if m.prefix == prefix:
-                if callouts ^ (m.name != 'callout'):
-                    result = m.subs(result)
+        for m in self.macros_by_prefix[prefix]:
+            if callouts ^ (m.name != 'callout'):
+                result = m.subs(result)
         return result
 
     def isnext(self):
@@ -3924,32 +3926,30 @@ class Macros:
         reader.skip_blank_lines()
         line = reader.read_next()
         if line:
-            for m in self.macros:
-                if m.prefix == '#':
-                    if m.reo.match(line):
-                        self.current = m
-                        return m
+            for m in self.macros_by_prefix['#']:
+                if m.reo.match(line):
+                    self.current = m
+                    return m
         return False
 
     def match(self, prefix, name, text):
         """Return re match object matching 'text' with macro type 'prefix',
         macro name 'name'."""
-        for m in self.macros:
-            if m.prefix == prefix:
-                mo = m.reo.match(text)
-                if mo:
-                    if m.name == name:
-                        return mo
-                    if re.match(name, mo.group('name')):
-                        return mo
+        for m in self.macros_by_prefix[prefix]:
+            mo = m.reo.match(text)
+            if mo:
+                if m.name == name:
+                    return mo
+                if re.match(name, mo.group('name')):
+                    return mo
         return None
 
     def extract_passthroughs(self, text, prefix=''):
         """ Extract the passthrough text and replace with temporary
         placeholders."""
         self.passthroughs = []
-        for m in self.macros:
-            if m.has_passthrough() and m.prefix == prefix:
+        for m in self.macros_by_prefix[prefix]:
+            if m.has_passthrough():
                 text = m.subs_passthroughs(text, self.passthroughs)
         return text
 
