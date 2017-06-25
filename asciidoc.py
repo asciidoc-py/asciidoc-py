@@ -1220,19 +1220,6 @@ def subs_attrs(lines, dictionary=None):
     else:
         return tuple(result)
 
-def char_encoding():
-    return None
-    encoding = document.attributes.get('encoding')
-    if encoding:
-        try:
-            codecs.lookup(encoding)
-        except LookupError as e:
-            raise EAsciiDoc(str(e))
-    return encoding
-
-def char_len(s):
-    return len(char_decode(s))
-
 east_asian_widths = {'W': 2,   # Wide
                      'F': 2,   # Full-width (wide)
                      'Na': 1,  # Narrow
@@ -1244,29 +1231,10 @@ east_asian_widths = {'W': 2,   # Wide
 column widths."""
 
 def column_width(s):
-    text = char_decode(s)
-    if isinstance(text, str):
-        width = 0
-        for c in text:
-            width += east_asian_widths[unicodedata.east_asian_width(c)]
-        return width
-    else:
-        return len(text)
-
-def char_decode(s):
-    if char_encoding():
-        try:
-            return s.decode(char_encoding())
-        except Exception:
-            raise EAsciiDoc("'%s' codec can't decode \"%s\"" % (char_encoding(), s))
-    else:
-        return s
-
-def char_encode(s):
-    if char_encoding():
-        return s.encode(char_encoding())
-    else:
-        return s
+    width = 0
+    for c in s:
+        width += east_asian_widths[unicodedata.east_asian_width(c)]
+    return width
 
 def date_time_str(t):
     """Convert seconds since the Epoch to formatted local date and time strings."""
@@ -1726,9 +1694,8 @@ class Document(object):
             author = author.strip()
             author = re.sub(r'\s+',' ', author)
         if not initials:
-            initials = (char_decode(firstname)[:1] +
-                       char_decode(middlename)[:1] + char_decode(lastname)[:1])
-            initials = char_encode(initials).upper()
+            initials = (firstname[:1] + middlename[:1] + lastname[:1])
+            initials = initials.upper()
         names = [firstname,middlename,lastname,author,initials]
         for i,v in enumerate(names):
             v = config.subs_specialchars(v)
@@ -2073,7 +2040,7 @@ class Title:
             if len(lines) < 2: return False
             title,ul = lines[:2]
             title_len = column_width(title)
-            ul_len = char_len(ul)
+            ul_len = len(ul)
             if ul_len < 2: return False
             # Fast elimination check.
             if ul[:2] not in Title.underlines: return False
@@ -2245,12 +2212,11 @@ class Section:
         """
         # Replace non-alpha numeric characters in title with underscores and
         # convert to lower case.
-        base_id = re.sub(r'(?u)\W+', '_', char_decode(title)).strip('_').lower()
+        base_id = re.sub(r'(?u)\W+', '_', title).strip('_').lower()
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
             import unicodedata
             base_id = unicodedata.normalize('NFKD', base_id).encode('ascii','ignore')
-        base_id = char_encode(base_id)
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
         idprefix = document.attributes.get('idprefix','_')
