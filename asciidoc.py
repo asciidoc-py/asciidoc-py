@@ -1585,13 +1585,13 @@ class Document(object):
     def translate(self,has_header):
         if self.doctype == 'manpage':
             # Translate mandatory NAME section.
-            if next(Lex) is not Title:
+            if Lex.__next__() is not Title:
                 message.error('name section expected')
             else:
                 Title.translate()
                 if Title.level != 1:
                     message.error('name section title must be at level 1')
-                if not isinstance(next(Lex),Paragraph):
+                if not isinstance(Lex.__next__(),Paragraph):
                     message.error('malformed name section body')
                 lines = reader.read_until(r'^$')
                 s = ' '.join(lines)
@@ -1617,7 +1617,7 @@ class Document(object):
             if self.doctype in ('article','book'):
                 # Translate 'preamble' (untitled elements between header
                 # and first section title).
-                if next(Lex) is not Title:
+                if Lex.__next__() is not Title:
                     stag,etag = config.section2tags('preamble')
                     writer.write(stag,trace='preamble open')
                     Section.translate_body()
@@ -1724,7 +1724,7 @@ class Header:
         raise AssertionError('no class instances allowed')
     @staticmethod
     def parse():
-        assert next(Lex) is Title and Title.level == 0
+        assert Lex.__next__() is Title and Title.level == 0
         attrs = document.attributes # Alias for readability.
         # Postpone title subs until backend conf files have been loaded.
         Title.translate(skipsubs=True)
@@ -1826,7 +1826,7 @@ class AttributeEntry:
         return result
     @staticmethod
     def translate():
-        assert next(Lex) is AttributeEntry
+        assert Lex.__next__() is AttributeEntry
         attr = AttributeEntry    # Alias for brevity.
         reader.read()            # Discard attribute entry from reader.
         while attr.value.endswith(' +'):
@@ -1958,7 +1958,7 @@ class BlockTitle:
         return result
     @staticmethod
     def translate():
-        assert next(Lex) is BlockTitle
+        assert Lex.__next__() is BlockTitle
         reader.read()   # Discard title from reader.
         # Perform title substitutions.
         if not Title.subs:
@@ -2776,7 +2776,7 @@ class List(AbstractBlock):
         writer.write(entrytag[0],trace='list entry open')
         writer.write(labeltag[0],trace='list label open')
         # Write labels.
-        while next(Lex) is self:
+        while Lex.__next__() is self:
             reader.read()   # Discard (already parsed item first line).
             writer.write_tag(self.tag.term, [self.label],
                              self.presubs, self.attributes,trace='list term')
@@ -2802,7 +2802,7 @@ class List(AbstractBlock):
             if continuation: reader.read()  # Discard continuation line.
             while Lex.__next__() in (BlockTitle,AttributeList):
                 # Consume continued element title and attributes.
-                Lex.next().translate()
+                Lex.__next__().translate()
             if not continuation and BlockTitle.title:
                 # Titled elements terminate the list.
                 break
@@ -6069,16 +6069,16 @@ def execute(cmd,opts,args):
 
     1. Check execution:
 
-       >>> import StringIO
-       >>> infile = StringIO.StringIO('Hello *{author}*')
-       >>> outfile = StringIO.StringIO()
+       >>> import io
+       >>> infile = io.StringIO('Hello *{author}*')
+       >>> outfile = io.StringIO()
        >>> opts = []
        >>> opts.append(('--backend','html4'))
        >>> opts.append(('--no-header-footer',None))
        >>> opts.append(('--attribute','author=Joe Bloggs'))
        >>> opts.append(('--out-file',outfile))
        >>> execute(__file__, opts, [infile])
-       >>> print outfile.getvalue()
+       >>> print(outfile.getvalue())
        <p>Hello <strong>Joe Bloggs</strong></p>
 
        >>>

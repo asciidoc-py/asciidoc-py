@@ -139,6 +139,30 @@ class Version(object):
             if result == 0:
                 result = cmp(self.micro, other.micro)
         return result
+    def __lt__(self, other):
+        if self.major < other.major:
+            return True
+
+        elif self.major == other.major:
+            if self.minor < other.minor:
+                return True
+            elif self.minor == other.minor:
+                if self.micro < other.micro:
+                    return True
+        return False
+
+    # (sigh).  Copy-paste
+    def __le__(self, other):
+        if self.major > other.major:
+            return False
+
+        elif self.major <= other.major:
+            if self.minor > other.minor:
+                return False
+            elif self.minor <= other.minor:
+                if self.micro > other.micro:
+                    return False
+        return True
 
 
 class AsciiDocAPI(object):
@@ -191,8 +215,8 @@ class AsciiDocAPI(object):
             try:
                 try:
                     if reload:
-                        import __builtin__  # Because reload() is shadowed.
-                        __builtin__.reload(self.asciidoc)
+                        import importlib  # Because reload() is shadowed.
+                        importlib.reload(self.asciidoc)
                     else:
                         import asciidoc
                         self.asciidoc = asciidoc
@@ -225,7 +249,7 @@ class AsciiDocAPI(object):
             opts('--out-file', outfile)
         if backend is not None:
             opts('--backend', backend)
-        for k,v in self.attributes.items():
+        for k,v in list(self.attributes.items()):
             if v == '' or k[-1] in '!@':
                 s = k
             elif v is None: # A None value undefines the attribute.
@@ -243,7 +267,7 @@ class AsciiDocAPI(object):
                 self.asciidoc.execute(self.cmd, opts.values, args)
             finally:
                 self.messages = self.asciidoc.messages[:]
-        except SystemExit, e:
+        except SystemExit as e:
             if e.code:
                 raise AsciiDocError(self.messages[-1])
 
