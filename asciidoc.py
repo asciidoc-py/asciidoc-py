@@ -1270,7 +1270,7 @@ class Lex:
         return self
 
     @staticmethod
-    def __next__():
+    def next_element():
         """Returns class of next element on the input (None if EOF).  The
         reader is assumed to be at the first line following a previous element,
         end of file or line one.  Exits with the reader pointing to the first
@@ -1585,13 +1585,13 @@ class Document(object):
     def translate(self,has_header):
         if self.doctype == 'manpage':
             # Translate mandatory NAME section.
-            if Lex.__next__() is not Title:
+            if Lex.next_element() is not Title:
                 message.error('name section expected')
             else:
                 Title.translate()
                 if Title.level != 1:
                     message.error('name section title must be at level 1')
-                if not isinstance(Lex.__next__(),Paragraph):
+                if not isinstance(Lex.next_element(),Paragraph):
                     message.error('malformed name section body')
                 lines = reader.read_until(r'^$')
                 s = ' '.join(lines)
@@ -1617,7 +1617,7 @@ class Document(object):
             if self.doctype in ('article','book'):
                 # Translate 'preamble' (untitled elements between header
                 # and first section title).
-                if Lex.__next__() is not Title:
+                if Lex.next_element() is not Title:
                     stag,etag = config.section2tags('preamble')
                     writer.write(stag,trace='preamble open')
                     Section.translate_body()
@@ -1629,11 +1629,11 @@ class Document(object):
             if config.header_footer:
                 hdr = config.subs_section('header',{})
                 writer.write(hdr,trace='header')
-            if Lex.__next__() is not Title:
+            if Lex.next_element() is not Title:
                 Section.translate_body()
         # Process remaining sections.
         while not reader.eof():
-            if Lex.__next__() is not Title:
+            if Lex.next_element() is not Title:
                 raise EAsciiDoc('section title expected')
             Section.translate()
         Section.setlevel(0) # Write remaining unwritten section close tags.
@@ -1724,7 +1724,7 @@ class Header:
         raise AssertionError('no class instances allowed')
     @staticmethod
     def parse():
-        assert Lex.__next__() is Title and Title.level == 0
+        assert Lex.next_element() is Title and Title.level == 0
         attrs = document.attributes # Alias for readability.
         # Postpone title subs until backend conf files have been loaded.
         Title.translate(skipsubs=True)
@@ -1826,7 +1826,7 @@ class AttributeEntry:
         return result
     @staticmethod
     def translate():
-        assert Lex.__next__() is AttributeEntry
+        assert Lex.next_element() is AttributeEntry
         attr = AttributeEntry    # Alias for brevity.
         reader.read()            # Discard attribute entry from reader.
         while attr.value.endswith(' +'):
@@ -1904,7 +1904,7 @@ class AttributeList:
         return result
     @staticmethod
     def translate():
-        assert Lex.__next__() is AttributeList
+        assert Lex.next_element() is AttributeList
         reader.read()   # Discard attribute list from reader.
         attrs = {}
         d = AttributeList.match.groupdict()
@@ -1958,7 +1958,7 @@ class BlockTitle:
         return result
     @staticmethod
     def translate():
-        assert Lex.__next__() is BlockTitle
+        assert Lex.next_element() is BlockTitle
         reader.read()   # Discard title from reader.
         # Perform title substitutions.
         if not Title.subs:
@@ -1994,7 +1994,7 @@ class Title:
     def translate(skipsubs=False):
         """Parse the Title.attributes and Title.level from the reader. The
         real work has already been done by parse()."""
-        assert Lex.__next__() in (Title,FloatingTitle)
+        assert Lex.next_element() in (Title,FloatingTitle)
         # Discard title from reader.
         for i in range(Title.linecount):
             reader.read()
@@ -2172,7 +2172,7 @@ class FloatingTitle(Title):
         return Title.isnext() and AttributeList.style() == 'float'
     @staticmethod
     def translate():
-        assert Lex.__next__() is FloatingTitle
+        assert Lex.next_element() is FloatingTitle
         Title.translate()
         Section.set_id()
         AttributeList.consume(Title.attributes)
@@ -2241,7 +2241,7 @@ class Section:
             AttributeList.attrs['id'] = Section.gen_id(Title.attributes['title'])
     @staticmethod
     def translate():
-        assert Lex.__next__() is Title
+        assert Lex.next_element() is Title
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
@@ -2278,12 +2278,12 @@ class Section:
     @staticmethod
     def translate_body(terminator=Title):
         isempty = True
-        next = Lex.__next__()
+        next = Lex.next_element()
         while next and next is not terminator:
             if isinstance(terminator,DelimitedBlock) and next is Title:
                 message.error('section title not permitted in delimited block')
             next.translate()
-            next = Lex.__next__()
+            next = Lex.next_element()
             isempty = False
         # The section is not empty if contains a subsection.
         if next and isempty and Title.level > document.level:
@@ -2776,7 +2776,7 @@ class List(AbstractBlock):
         writer.write(entrytag[0],trace='list entry open')
         writer.write(labeltag[0],trace='list label open')
         # Write labels.
-        while Lex.__next__() is self:
+        while Lex.next_element() is self:
             reader.read()   # Discard (already parsed item first line).
             writer.write_tag(self.tag.term, [self.label],
                              self.presubs, self.attributes,trace='list term')
@@ -2800,13 +2800,13 @@ class List(AbstractBlock):
         while True:
             continuation = reader.read_next() == '+'
             if continuation: reader.read()  # Discard continuation line.
-            while Lex.__next__() in (BlockTitle,AttributeList):
+            while Lex.next_element() in (BlockTitle,AttributeList):
                 # Consume continued element title and attributes.
-                Lex.__next__().translate()
+                Lex.next_element().translate()
             if not continuation and BlockTitle.title:
                 # Titled elements terminate the list.
                 break
-            next = Lex.__next__()
+            next = Lex.next_element()
             if next in lists.open:
                 break
             elif isinstance(next,List):
@@ -2932,7 +2932,7 @@ class List(AbstractBlock):
             writer.write(stag,trace='list open')
         self.ordinal = 0
         # Process list till list syntax changes or there is a new title.
-        while Lex.__next__() is self and not BlockTitle.title:
+        while Lex.next_element() is self and not BlockTitle.title:
             self.ordinal += 1
             document.attributes['listindex'] = str(self.ordinal)
             if self.type in ('numbered','callout'):
