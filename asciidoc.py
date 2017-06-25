@@ -1253,7 +1253,7 @@ def date_time_str(t):
         time_str += ' ' + time.tzname[0]
     # Attempt to convert the localtime to the output encoding.
     try:
-        time_str = char_encode(time_str.decode(locale.getdefaultlocale()[1]))
+        time_str = time_str.decode(locale.getdefaultlocale()[1])
     except Exception:
         pass
     return date_str, time_str
@@ -2047,7 +2047,7 @@ class Title:
             # Length of underline must be within +-3 of title.
             if not ((ul_len-3 < title_len < ul_len+3)
                     # Next test for backward compatibility.
-                    or (ul_len-3 < char_len(title) < ul_len+3)):
+                    or (ul_len-3 < len(title) < ul_len+3)):
                 return False
             # Check for valid repetition of underline character pairs.
             s = ul[:2]*((ul_len+1)//2)
@@ -5430,17 +5430,15 @@ class Table_OLD(AbstractBlock):
         for row in rows:
             data = []
             start = 0
-            # build an encoded representation
-            row = char_decode(row)
             for c in self.columns:
                 end = start + c.rulerwidth
                 if c is self.columns[-1]:
                     # Text in last column can continue forever.
                     # Use the encoded string to slice, but convert back
                     # to plain string before further processing
-                    data.append(char_encode(row[start:]).strip())
+                    data.append(row[start:].strip())
                 else:
-                    data.append(char_encode(row[start:end]).strip())
+                    data.append(row[start:end].strip())
                 start = end
             result.append(data)
         return result
