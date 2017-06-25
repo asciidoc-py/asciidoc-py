@@ -16,29 +16,29 @@ Doctests:
 
 1. Check execution:
 
-   >>> import StringIO
-   >>> infile = StringIO.StringIO('Hello *{author}*')
-   >>> outfile = StringIO.StringIO()
+   >>> import io
+   >>> infile = io.StringIO('Hello *{author}*')
+   >>> outfile = io.StringIO()
    >>> asciidoc = AsciiDocAPI()
    >>> asciidoc.options('--no-header-footer')
    >>> asciidoc.attributes['author'] = 'Joe Bloggs'
    >>> asciidoc.execute(infile, outfile, backend='html4')
-   >>> print outfile.getvalue()
+   >>> print(outfile.getvalue())
    <p>Hello <strong>Joe Bloggs</strong></p>
 
    >>> asciidoc.attributes['author'] = 'Bill Smith'
-   >>> infile = StringIO.StringIO('Hello _{author}_')
-   >>> outfile = StringIO.StringIO()
+   >>> infile = io.StringIO('Hello _{author}_')
+   >>> outfile = io.StringIO()
    >>> asciidoc.execute(infile, outfile, backend='docbook')
-   >>> print outfile.getvalue()
+   >>> print(outfile.getvalue())
    <simpara>Hello <emphasis>Bill Smith</emphasis></simpara>
 
 2. Check error handling:
 
-   >>> import StringIO
+   >>> import io
    >>> asciidoc = AsciiDocAPI()
-   >>> infile = StringIO.StringIO('---------')
-   >>> outfile = StringIO.StringIO()
+   >>> infile = io.StringIO('---------')
+   >>> outfile = io.StringIO()
    >>> asciidoc.execute(infile, outfile)
    Traceback (most recent call last):
      File "<stdin>", line 1, in <module>
@@ -132,13 +132,7 @@ class Version(object):
         self.minor = int(groups[1])
         self.micro = int(groups[3] or '0')
         self.suffix = groups[4] or ''
-    def __cmp__(self, other):
-        result = cmp(self.major, other.major)
-        if result == 0:
-            result = cmp(self.minor, other.minor)
-            if result == 0:
-                result = cmp(self.micro, other.micro)
-        return result
+
     def __lt__(self, other):
         if self.major < other.major:
             return True
@@ -163,6 +157,12 @@ class Version(object):
                 if self.micro > other.micro:
                     return False
         return True
+
+    def __eq__(self, other):
+        if self.major == other.major and self.minor == other.minor and self.micro == other.micro:
+            return True
+
+        return False
 
 
 class AsciiDocAPI(object):
