@@ -819,7 +819,7 @@ def filter_lines(filter_cmd, lines, attrs={}):
     try:
         p = subprocess.Popen(filter_cmd, shell=True,
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        output = p.communicate(os.linesep.join(lines))[0]
+        output = str(p.communicate(os.linesep.join(lines).encode("utf-8"))[0])
     except Exception:
         raise EAsciiDoc('filter error: %s: %s' % (filter_cmd, sys.exc_info()[1]))
     if output:
@@ -2220,7 +2220,7 @@ class Section:
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
         idprefix = document.attributes.get('idprefix','_')
-        base_id = idprefix + base_id
+        base_id = idprefix + str(base_id)
         i = 1
         while True:
             if i == 1:
