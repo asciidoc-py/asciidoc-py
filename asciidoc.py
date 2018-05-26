@@ -11,7 +11,7 @@ import sys, os, re, time, traceback, tempfile, subprocess, codecs, locale, unico
 ### Used by asciidocapi.py ###
 VERSION = '8.6.10'           # See CHANGLOG file for version history.
 
-MIN_PYTHON_VERSION = '2.6'  # Require this version of Python or better.
+MIN_PYTHON_VERSION = '3.4'  # Require this version of Python or better.
 
 #---------------------------------------------------------------------------
 # Program constants.
@@ -377,101 +377,32 @@ def dovetail_tags(stag,content,etag):
     include extraneous opening and closing line breaks."""
     return dovetail(dovetail(stag,content), etag)
 
-# The following functions are so we don't have to use the dangerous
-# built-in eval() function.
-if float(sys.version[:3]) >= 2.6 or sys.platform[:4] == 'java':
-    # Use AST module if CPython >= 2.6 or Jython.
-    import ast
-    from ast import literal_eval
+# Use AST module if CPython >= 2.6 or Jython.
+import ast
+from ast import literal_eval
 
-    def get_args(val):
-        d = {}
-        args = ast.parse("d(" + val + ")", mode='eval').body.args
-        i = 1
-        for arg in args:
-            if isinstance(arg, ast.Name):
-                d[str(i)] = literal_eval(arg.id)
-            else:
-                d[str(i)] = literal_eval(arg)
-            i += 1
-        return d
-
-    def get_kwargs(val):
-        d = {}
-        args = ast.parse("d(" + val + ")", mode='eval').body.keywords
-        for arg in args:
-            d[arg.arg] = literal_eval(arg.value)
-        return d
-
-    def parse_to_list(val):
-        values = ast.parse("[" + val + "]", mode='eval').body.elts
-        return [literal_eval(v) for v in values]
-
-else:   # Use deprecated CPython compiler module.
-    import compiler
-    from compiler.ast import Const, Dict, Expression, Name, Tuple, UnarySub, Keyword
-
-    # Code from:
-    # http://mail.python.org/pipermail/python-list/2009-September/1219992.html
-    # Modified to use compiler.ast.List as this module has a List
-    def literal_eval(node_or_string):
-        """
-        Safely evaluate an expression node or a string containing a Python
-        expression.  The string or node provided may only consist of the
-        following Python literal structures: strings, numbers, tuples,
-        lists, dicts, booleans, and None.
-        """
-        _safe_names = {'None': None, 'True': True, 'False': False}
-        if isinstance(node_or_string, str):
-            node_or_string = compiler.parse(node_or_string, mode='eval')
-        if isinstance(node_or_string, Expression):
-            node_or_string = node_or_string.node
-        def _convert(node):
-            if isinstance(node, Const) and isinstance(node.value,
-                    (str, int, float, complex)):
-                 return node.value
-            elif isinstance(node, Tuple):
-                return tuple(map(_convert, node.nodes))
-            elif isinstance(node, compiler.ast.List):
-                return list(map(_convert, node.nodes))
-            elif isinstance(node, Dict):
-                return dict((_convert(k), _convert(v)) for k, v
-                            in node.items)
-            elif isinstance(node, Name):
-                if node.name in _safe_names:
-                    return _safe_names[node.name]
-            elif isinstance(node, UnarySub):
-                return -_convert(node.expr)
-            raise ValueError('malformed string')
-        return _convert(node_or_string)
-
-    def get_args(val):
-        d = {}
-        args = compiler.parse("d(" + val + ")", mode='eval').node.args
-        i = 1
-        for arg in args:
-            if isinstance(arg, Keyword):
-                break
+def get_args(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.args
+    i = 1
+    for arg in args:
+        if isinstance(arg, ast.Name):
+            d[str(i)] = literal_eval(arg.id)
+        else:
             d[str(i)] = literal_eval(arg)
-            i = i + 1
-        return d
+        i += 1
+    return d
 
-    def get_kwargs(val):
-        d = {}
-        args = compiler.parse("d(" + val + ")", mode='eval').node.args
-        i = 0
-        for arg in args:
-            if isinstance(arg, Keyword):
-                break
-            i += 1
-        args = args[i:]
-        for arg in args:
-            d[str(arg.name)] = literal_eval(arg.expr)
-        return d
+def get_kwargs(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
+    for arg in args:
+        d[arg.arg] = literal_eval(arg.value)
+    return d
 
-    def parse_to_list(val):
-        values = compiler.parse("[" + val + "]", mode='eval').node.asList()
-        return [literal_eval(v) for v in values]
+def parse_to_list(val):
+    values = ast.parse("[" + val + "]", mode='eval').body.elts
+    return [literal_eval(v) for v in values]
 
 def parse_attributes(attrs,dict):
     """Update a dictionary with name/value attributes from the attrs string.
@@ -819,7 +750,7 @@ def filter_lines(filter_cmd, lines, attrs={}):
     try:
         p = subprocess.Popen(filter_cmd, shell=True,
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        output = str(p.communicate(os.linesep.join(lines).encode("utf-8"))[0])
+        output = p.communicate(os.linesep.join(lines).encode("utf-8"))[0].decode('utf-8')
     except Exception:
         raise EAsciiDoc('filter error: %s: %s' % (filter_cmd, sys.exc_info()[1]))
     if output:
@@ -899,7 +830,7 @@ def system(name, args, is_macro=False, attrs=None):
                 message.warning('%s: non-zero exit status' % syntax)
             try:
                 if os.path.isfile(tmp):
-                    f = open(tmp)
+                    f = open(tmp, encoding='utf-8')
                     try:
                         lines = [s.rstrip() for s in f]
                     finally:
@@ -972,7 +903,7 @@ def system(name, args, is_macro=False, attrs=None):
         elif not is_safe_file(args):
             message.unsafe(syntax)
         else:
-            f = open(args)
+            f = open(args, encoding='utf-8')
             try:
                 result = [s.rstrip() for s in f]
             finally:
@@ -2279,9 +2210,11 @@ class Section:
     def translate_body(terminator=Title):
         isempty = True
         next = Lex.next_element()
+        cnt = 0
         while next and next is not terminator:
             if isinstance(terminator,DelimitedBlock) and next is Title:
                 message.error('section title not permitted in delimited block')
+            cnt += 1
             next.translate()
             next = Lex.next_element()
             isempty = False
@@ -2689,6 +2622,7 @@ class Paragraph(AbstractBlock):
         postsubs = self.parameters.postsubs
         if document.attributes.get('plaintext') is None:
             body = Lex.set_margin(body) # Move body to left margin.
+
         body = Lex.subs(body,presubs)
         template = self.parameters.template
         template = subs_attrs(template,attrs)
@@ -4045,7 +3979,9 @@ class CalloutMap:
 # Input stream Reader and output stream writer classes.
 #---------------------------------------------------------------------------
 
+
 UTF8_BOM = '\xef\xbb\xbf'
+
 
 class Reader1:
     """Line oriented AsciiDoc input file reader. Processes include and
@@ -4053,6 +3989,7 @@ class Reader1:
     trimmed."""
     # This class is not used directly, use Reader class instead.
     READ_BUFFER_MIN = 10        # Read buffer low level.
+
     def __init__(self):
         self.f = None           # Input file object.
         self.fname = None       # Input file name.
@@ -4067,7 +4004,8 @@ class Reader1:
         self.bom = None         # Byte order mark (BOM).
         self.infile = None      # Saved document 'infile' attribute.
         self.indir = None       # Saved document 'indir' attribute.
-    def open(self,fname):
+
+    def open(self, fname):
         self.fname = fname
         message.verbose('reading: '+fname)
         if fname == '<stdin>':
@@ -4075,7 +4013,7 @@ class Reader1:
             self.infile = None
             self.indir = None
         else:
-            self.f = open(fname,'r')
+            self.f = open(fname, 'r', encoding='utf-8')
             self.infile = fname
             self.indir = os.path.dirname(fname)
         document.attributes['infile'] = self.infile
@@ -4089,13 +4027,16 @@ class Reader1:
                 self.bom = UTF8_BOM
             self.unread(self.cursor)
             self.cursor = None
+
     def closefile(self):
         """Used by class methods to close nested include files."""
         self.f.close()
         self.next = []
+
     def close(self):
         self.closefile()
         self.__init__()
+
     def read(self, skip=False):
         """Read next line. Return None if EOF. Expand tabs. Strip trailing
         white space. Maintain self.next read ahead buffer. If skip=True then
@@ -4150,7 +4091,7 @@ class Reader1:
                                 message.verbose('include1: ' + fname, linenos=False)
                                 # Store the include file in memory for later
                                 # retrieval by the {include1:} system attribute.
-                                f = open(fname)
+                                f = open(fname, encoding='utf-8')
                                 try:
                                     config.include1[fname] = [
                                         s.rstrip() for s in f]
@@ -4390,6 +4331,7 @@ class Writer:
         self.fname = None                # Output file name.
         self.lines_out = 0               # Number of lines written.
         self.skip_blank_lines = False    # If True don't output blank lines.
+
     def open(self,fname,bom=None):
         '''
         bom is optional byte order mark.
@@ -4399,7 +4341,7 @@ class Writer:
         if fname == '<stdout>':
             self.f = sys.stdout
         else:
-            self.f = open(fname,'w+')
+            self.f = open(fname, 'w+', encoding='utf-8')
         message.verbose('writing: '+writer.fname,False)
         if bom:
             self.f.write(bom)
@@ -4417,7 +4359,7 @@ class Writer:
         blank line. If argument is None nothing is written. self.newline is
         appended to each line."""
         if 'trace' in kwargs and len(args) > 0:
-            trace(kwargs['trace'],args[0])
+            trace(kwargs['trace'], args[0])
         if len(args) == 0:
             self.write_line()
             self.lines_out = self.lines_out + 1
@@ -6150,7 +6092,7 @@ def execute(cmd,opts,args):
     if len(args) == 0:
         usage('No source file specified')
         sys.exit(1)
-    stdin,stdout = sys.stdin,sys.stdout
+    stdin, stdout = sys.stdin, sys.stdout
     try:
         infile = args[0]
         if infile == '-':
@@ -6175,7 +6117,8 @@ def execute(cmd,opts,args):
         if document.has_errors:
             sys.exit(1)
     finally:
-        sys.stdin,sys.stdout = stdin,stdout
+        sys.stdin, sys.stdout = stdin, stdout
+
 
 if __name__ == '__main__':
     # Process command line options.

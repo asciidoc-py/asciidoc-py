@@ -249,13 +249,13 @@ class AsciiDocAPI(object):
             opts('--out-file', outfile)
         if backend is not None:
             opts('--backend', backend)
-        for k,v in list(self.attributes.items()):
+        for k, v in self.attributes.items():
             if v == '' or k[-1] in '!@':
                 s = k
-            elif v is None: # A None value undefines the attribute.
+            elif v is None:  # A None value undefines the attribute.
                 s = k + '!'
             else:
-                s = '%s=%s' % (k,v)
+                s = '%s=%s' % (k, v)
             opts('--attribute', s)
         args = [infile]
         # The AsciiDoc command was designed to process source text then

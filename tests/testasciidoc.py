@@ -17,11 +17,15 @@ Options:
         Update all test data overwriting existing data'''
 
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __copyright__ = 'Copyright (C) 2009 Stuart Rackham'
 
 
-import os, sys, re, difflib
+import difflib
+import os
+from pathlib import Path
+import re
+import sys
 import time
 
 if sys.platform[:4] == 'java':
@@ -33,9 +37,14 @@ else:
 import asciidocapi
 
 
-BACKENDS = ('html4','xhtml11','docbook','html5')    # Default backends.
-BACKEND_EXT = {'html4':'.html', 'xhtml11':'.html', 'docbook':'.xml',
-        'slidy':'.html','html5':'.html'}
+BACKENDS = ('html4', 'xhtml11', 'docbook', 'html5')    # Default backends.
+BACKEND_EXT = {
+    'html4': '.html',
+    'xhtml11': '.html',
+    'docbook': '.xml',
+    'slidy': '.html',
+    'html5': '.html'
+}
 
 
 def iif(condition, iftrue, iffalse=None):
@@ -54,8 +63,10 @@ def iif(condition, iftrue, iffalse=None):
     else:
         return iffalse
 
+
 def message(msg=''):
     print(msg, file=sys.stderr)
+
 
 def strip_end(lines):
     """
@@ -66,6 +77,7 @@ def strip_end(lines):
             del lines[i]
         else:
             break
+
 
 def normalize_data(lines):
     """
@@ -109,8 +121,10 @@ class AsciiDocTest(object):
         self.options = []
         self.attributes = {'asciidoc-version': 'test'}
         self.backends = BACKENDS
+        self.confdir = None
         self.datadir = None     # Where output files are stored.
         self.disabled = False
+        self.passed = self.skipped = self.failed = 0
 
     def backend_filename(self, backend):
         """
@@ -152,9 +166,9 @@ class AsciiDocTest(object):
                                 self.confdir, os.path.normpath(data[0])))
                 elif directive == 'options':
                     self.options = eval(' '.join(data))
-                    for i,v in enumerate(self.options):
+                    for i, v in enumerate(self.options):
                         if isinstance(v, str):
-                            self.options[i] = (v,None)
+                            self.options[i] = (v, None)
                 elif directive == 'attributes':
                     self.attributes.update(eval(' '.join(data)))
                 elif directive == 'backends':
@@ -186,13 +200,10 @@ class AsciiDocTest(object):
         """
         Return expected test data output for backend.
         """
-        f = open(self.backend_filename(backend))
-        try:
-            result = f.readlines()
+        with open(self.backend_filename(backend), encoding='utf-8') as open_file:
+            result = open_file.readlines()
             # Strip line terminators.
-            result = [ s.rstrip() for s in result ]
-        finally:
-            f.close()
+            result = [s.rstrip() for s in result]
         return result
 
     @mock_localtime
@@ -216,12 +227,9 @@ class AsciiDocTest(object):
         if not os.path.isdir(self.datadir):
             print(('CREATING: %s' % self.datadir))
             os.mkdir(self.datadir)
-        f = open(self.backend_filename(backend),'w+')
-        try:
-            print(('WRITING: %s' % f.name))
-            f.writelines([ s + os.linesep for s in lines])
-        finally:
-            f.close()
+        with open(self.backend_filename(backend), 'w+', encoding='utf-8') as open_file:
+            print(('WRITING: %s' % open_file.name))
+            open_file.writelines([s + os.linesep for s in lines])
 
     def update(self, backend=None, force=False):
         """
@@ -287,41 +295,40 @@ class AsciiDocTest(object):
 
 
 class AsciiDocTests(object):
-
     def __init__(self, conffile):
         """
-        Parse configuration file.
+        Parse configuration file
+        :param conffile:
         """
-        self.conffile = os.path.normpath(conffile)
+        self.conffile = conffile
+        self.passed = self.failed = self.skipped = 0
         # All file names are relative to configuration file directory.
         self.confdir = os.path.dirname(self.conffile)
-        self.datadir = self.confdir # Default expected files directory.
-        self.tests = []             # List of parsed AsciiDocTest objects.
+        self.datadir = self.confdir  # Default expected files directory.
+        self.tests = []              # List of parsed AsciiDocTest objects.
         self.globals = {}
-        f = open(self.conffile)
-        try:
-            lines = Lines(f.readlines())
-        finally:
-            f.close()
-        first = True
-        while not lines.eol():
-            s = lines.read_until(r'^%+$')
-            s = [ l for l in s if l]    # Drop blank lines.
-            # Must be at least one non-blank line in addition to delimiter.
-            if len(s) > 1:
-                # Optional globals precede all tests.
-                if first and re.match(r'^%\s*globals$',s[0]):
-                    self.globals = eval(' '.join(normalize_data(s[1:])))
-                    if 'datadir' in self.globals:
-                        self.datadir = os.path.join(
+        with open(self.conffile, encoding='utf-8') as open_file:
+            lines = Lines(open_file.readlines())
+            first = True
+            while not lines.eol():
+                s = lines.read_until(r'^%+$')
+                s = [l for l in s if l]    # Drop blank lines.
+                # Must be at least one non-blank line in addition to delimiter.
+                if len(s) > 1:
+                    # Optional globals precede all tests.
+                    if first and re.match(r'^%\s*globals$', s[0]):
+                        self.globals = eval(' '.join(normalize_data(s[1:])))
+                        if 'datadir' in self.globals:
+                            self.datadir = os.path.join(
                                 self.confdir,
-                                os.path.normpath(self.globals['datadir']))
-                else:
-                    test = AsciiDocTest()
-                    test.parse(s[1:], self.confdir, self.datadir)
-                    self.tests.append(test)
-                    test.number = len(self.tests)
-                first = False
+                                os.path.normpath(self.globals['datadir'])
+                            )
+                    else:
+                        test = AsciiDocTest()
+                        test.parse(s[1:], self.confdir, self.datadir)
+                        self.tests.append(test)
+                        test.number = len(self.tests)
+                    first = False
 
     def run(self, number=None, backend=None):
         """
@@ -398,47 +405,46 @@ def usage(msg=None):
 
 if __name__ == '__main__':
     # Process command line options.
-    import getopt
-    try:
-        opts,args = getopt.getopt(sys.argv[1:], 'f:', ['force'])
-    except getopt.GetoptError:
-        usage('illegal command options')
-        sys.exit(1)
-    if len(args) == 0:
-        usage()
-        sys.exit(1)
-    conffile = os.path.join(os.path.dirname(sys.argv[0]), 'testasciidoc.conf')
-    force = False
-    for o,v in opts:
-        if o == '--force':
-            force = True
-        if o in ('-f','--conf-file'):
-            conffile = v
-    if not os.path.isfile(conffile):
-        message('missing CONF_FILE: %s' % conffile)
-        sys.exit(1)
-    tests = AsciiDocTests(conffile)
-    cmd = args[0]
-    number = None
-    backend = None
-    for arg in args[1:3]:
-        try:
-            number = int(arg)
-        except ValueError:
-            backend = arg
+    from argparse import ArgumentParser
+
+    desc = 'Run AsciiDoc conformance tests specified in configuration FILE.'
+    parser = ArgumentParser(description=desc)
+    msg = 'Update all test data overwriting existing data'
+    parser.add_argument('--force', dest='force', action='store_true', default=False, help=msg)
+    msg = "Use configuration file CONF_FILE (default configuration file is testasciidoc.conf" \
+          " in testasciidoc.py directory)"
+    parser.add_argument('-f', '--conf-file', dest='conf_file', type=str, help=msg)
+    subparsers = parser.add_subparsers(metavar='COMMAND', dest='command')
+    subparsers.add_parser('list', help='List tests')
+    sub = subparsers.add_parser('run', help='Execute tests')
+    sub.add_argument('number', type=int, metavar='NUMBER', nargs='?')
+    sub.add_argument('backend', metavar='BACKEND', nargs='?')
+    sub = subparsers.add_parser('update', help='Regenerate and update test data')
+    sub.add_argument('number', type=int, metavar='NUMBER', nargs='?')
+    sub.add_argument('backend', metavar='BACKEND', nargs='?')
+    args = parser.parse_args()
+
+    conf_file = str(Path(__file__).resolve().parent / 'testasciidoc.conf')
+    if 'conf_file' in args and args.conf_file is not None:
+        conf_file = str(Path(args.conf_file).resolve())
+    force = args.force
+    if not os.path.exists(conf_file):
+        message('missing CONF_FILE: %s' % str(conf_file))
+        raise SystemExit
+    tests = AsciiDocTests(conf_file)
+    number = args.number if 'number' in args else None
+    backend = args.backend if 'backend' in args else None
     if backend and backend not in BACKENDS:
         message('illegal BACKEND: %s' % backend)
-        sys.exit(1)
-    if number is not None and  number not in list(range(1, len(tests.tests)+1)):
+        raise SystemExit
+    if number is not None and number not in list(range(1, len(tests.tests)+1)):
         message('illegal test NUMBER: %d' % number)
-        sys.exit(1)
-    if cmd == 'run':
+        raise SystemExit
+    if args.command == 'run':
         tests.run(number, backend)
         if tests.failed:
-            sys.exit(1)
-    elif cmd == 'update':
+            raise SystemExit
+    elif args.command == 'update':
         tests.update(number, backend, force=force)
-    elif cmd == 'list':
+    elif args.command == 'list':
         tests.list()
-    else:
-        usage('illegal COMMAND: %s' % cmd)

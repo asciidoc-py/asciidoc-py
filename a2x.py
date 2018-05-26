@@ -11,13 +11,13 @@ Email:     srackham@gmail.com
 
 import os
 import fnmatch
-import HTMLParser
+from html.parser import HTMLParser
 import re
 import shutil
 import subprocess
 import sys
 import traceback
-import urlparse
+from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
 import mimetypes
@@ -76,7 +76,7 @@ def warning(msg):
     errmsg('WARNING: %s' % msg)
 
 def infomsg(msg):
-    print '%s: %s' % (PROG,msg)
+    print('%s: %s' % (PROG,msg))
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
@@ -102,16 +102,16 @@ class AttrDict(dict):
     def __getattr__(self, key):
         try:
             return self[key]
-        except KeyError, k:
+        except KeyError as k:
             if self.has_key('_default'):
                 return self['_default']
             else:
-                raise AttributeError, k
+                raise AttributeError from k
     def __setattr__(self, key, value):
         self[key] = value
     def __delattr__(self, key):
         try: del self[key]
-        except KeyError, k: raise AttributeError, k
+        except KeyError as k: raise AttributeError from k
     def __repr__(self):
         return '<AttrDict ' + dict.__repr__(self) + '>'
     def __getstate__(self):
@@ -220,12 +220,12 @@ def shell(cmd, raise_error=True):
     try:
         popen = subprocess.Popen(cmd, stdout=stdout, stderr=stderr,
                 shell=True, env=ENV)
-    except OSError, e:
+    except OSError as e:
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
     if OPTIONS.verbose:
-        print stdoutdata
-        print stderrdata
+        print(stdoutdata)
+        print(stderrdata)
     if popen.returncode != 0 and raise_error:
         die('%s returned non-zero exit status %d' % (cmd, popen.returncode))
     return (stdoutdata, stderrdata, popen.returncode)
@@ -240,7 +240,7 @@ def find_resources(files, tagname, attrname, filter=None):
     The filter function takes a dictionary of tag attributes and returns True if
     the URI is to be included.
     '''
-    class FindResources(HTMLParser.HTMLParser):
+    class FindResources(HTMLParser):
         # Nested parser class shares locals with enclosing function.
         def handle_startendtag(self, tag, attrs):
             self.handle_starttag(tag, attrs)
@@ -248,7 +248,7 @@ def find_resources(files, tagname, attrname, filter=None):
             attrs = dict(attrs)
             if tag == tagname and (filter is None or filter(attrs)):
                 # Accept only local URIs.
-                uri = urlparse.urlparse(attrs[attrname])
+                uri = urlparse(attrs[attrname])
                 if uri[0] in ('','file') and not uri[1] and uri[2]:
                     result.append(uri[2])
     if isinstance(files, str):
