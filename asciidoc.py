@@ -2147,11 +2147,11 @@ class Section:
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
             import unicodedata
-            base_id = unicodedata.normalize('NFKD', base_id).encode('ascii','ignore')
+            base_id = unicodedata.normalize('NFKD', base_id).encode('ascii','ignore').decode('ascii')
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
         idprefix = document.attributes.get('idprefix','_')
-        base_id = idprefix + str(base_id)
+        base_id = idprefix + base_id
         i = 1
         while True:
             if i == 1:
