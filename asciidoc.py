@@ -3980,7 +3980,7 @@ class CalloutMap:
 #---------------------------------------------------------------------------
 
 
-UTF8_BOM = '\xef\xbb\xbf'
+UTF8_BOM = b'\xef\xbb\xbf'.decode('utf-8')
 
 
 class Reader1:
@@ -4021,7 +4021,7 @@ class Reader1:
         self._lineno = 0            # The last line read from file object f.
         self.next = []
         # Prefill buffer by reading the first line and then pushing it back.
-        if Reader1.read(self):
+        if self.read():
             if self.cursor[2].startswith(UTF8_BOM):
                 self.cursor[2] = self.cursor[2][len(UTF8_BOM):]
                 self.bom = UTF8_BOM
