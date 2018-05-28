@@ -22,17 +22,12 @@ __copyright__ = 'Copyright (C) 2009 Stuart Rackham'
 
 
 import difflib
+import io
 import os
 from pathlib import Path
 import re
 import sys
 import time
-
-if sys.platform[:4] == 'java':
-    # Jython cStringIO is more compatible with CPython StringIO.
-    import io as StringIO
-else:
-    import io
 
 import asciidocapi
 

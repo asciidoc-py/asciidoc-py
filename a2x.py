@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 '''
 a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
       file formats)
@@ -21,7 +21,6 @@ from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
 import mimetypes
-import codecs
 
 PROG = os.path.basename(os.path.splitext(__file__)[0])
 VERSION = '8.6.10'
@@ -70,13 +69,13 @@ XSLTPROC_OPTS = ''
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
 def errmsg(msg):
-    sys.stderr.write('%s: %s\n' % (PROG,msg))
+    print('%s: %s\n' % (PROG, msg), file=sys.stderr)
 
 def warning(msg):
     errmsg('WARNING: %s' % msg)
 
 def infomsg(msg):
-    print('%s: %s' % (PROG,msg))
+    print('%s: %s' % (PROG, msg))
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
@@ -103,15 +102,17 @@ class AttrDict(dict):
         try:
             return self[key]
         except KeyError as k:
-            if self.has_key('_default'):
+            if '_default' in self:
                 return self['_default']
             else:
                 raise AttributeError from k
     def __setattr__(self, key, value):
         self[key] = value
     def __delattr__(self, key):
-        try: del self[key]
-        except KeyError as k: raise AttributeError from k
+        try:
+            del self[key]
+        except KeyError as k:
+            raise AttributeError from k
     def __repr__(self):
         return '<AttrDict ' + dict.__repr__(self) + '>'
     def __getstate__(self):
@@ -148,18 +149,12 @@ def find_executable(file_name):
     return result
 
 def write_file(filename, data, mode='w', encoding='utf-8'):
-    f = codecs.open(filename, mode, encoding)
-    try:
+    with open(filename, mode=mode, encoding=encoding) as f:
         f.write(data)
-    finally:
-        f.close()
 
-def read_file(filename, mode='r'):
-    f = open(filename, mode)
-    try:
+def read_file(filename, mode='r', encoding='utf-8'):
+    with open(filename, mode=mode, encoding=encoding) as f:
         return f.read()
-    finally:
-        f.close()
 
 def shell_cd(path):
     verbose('chdir %s' % path)
@@ -219,7 +214,7 @@ def shell(cmd, raise_error=True):
     stdout = stderr = subprocess.PIPE
     try:
         popen = subprocess.Popen(cmd, stdout=stdout, stderr=stderr,
-                shell=True, env=ENV)
+                                 shell=True, env=ENV)
     except OSError as e:
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
@@ -438,7 +433,7 @@ class A2X(AttrDict):
         for f in conf_files:
             if os.path.isfile(f):
                 verbose('loading configuration file: %s' % f)
-                execfile(f, globals())
+                exec(open(f).read(), globals())
 
     def process_options(self):
         '''
