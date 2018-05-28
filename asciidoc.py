@@ -6167,10 +6167,10 @@ if __name__ == '__main__':
         Plugin.type = plugin
         config.init(sys.argv[0])
         config.verbose = bool(set(['-v','--verbose']) & set(opt_names))
-        getattr(Plugin,cmd)(args)
+        getattr(Plugin, cmd)(args)
     else:
         # Execute asciidoc.
         try:
-            execute(sys.argv[0],opts,args)
+            execute(sys.argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)
