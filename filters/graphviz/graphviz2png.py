@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import os, sys, subprocess
 from optparse import *
@@ -65,7 +65,7 @@ LICENSE
 
     def __init__(self, argv=None):
         # Run dot, get the list of supported formats. It's prefixed by some junk.
-        format_output = str( subprocess.Popen(["dot", "-T?"], stderr=subprocess.PIPE, stdout=subprocess.PIPE).communicate()[1] )
+        format_output = subprocess.Popen(["dot", "-T?"], stderr=subprocess.PIPE, stdout=subprocess.PIPE).communicate()[1].decode('utf-8')
         # The junk contains : and ends with :. So we split it, then strip the final endline, then split the list for future usage.
         supported_formats = format_output.split(": ")[2][:-1].split(" ")
 

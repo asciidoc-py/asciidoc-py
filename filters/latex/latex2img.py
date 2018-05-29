@@ -89,19 +89,17 @@ def print_verbose(line):
     if verbose:
         print_stderr(line)
 
-def write_file(filename, data, mode='w'):
-    f = open(filename, mode)
-    try:
+def write_file(filename, data, mode='w', encoding='utf-8'):
+    if 'b' in mode:
+        encoding = None
+    with open(filename, mode, encoding=encoding) as f:
         f.write(data)
-    finally:
-        f.close()
 
-def read_file(filename, mode='r'):
-    f = open(filename, mode)
-    try:
+def read_file(filename, mode='r', encoding='utf-8'):
+    if 'b' in mode:
+        encoding = None
+    with open(filename, mode, encoding=encoding) as f:
         return f.read()
-    finally:
-        f.close()
 
 def run(cmd):
     global verbose
