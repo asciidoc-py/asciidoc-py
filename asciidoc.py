@@ -6,7 +6,8 @@ Copyright (C) 2002-2010 Stuart Rackham. Free use of this software is granted
 under the terms of the GNU General Public License (GPL).
 """
 
-import sys, os, re, time, traceback, tempfile, subprocess, codecs, locale, unicodedata, copy
+import sys, os, re, time, traceback, tempfile, subprocess, locale, unicodedata, copy
+import math
 
 ### Used by asciidocapi.py ###
 VERSION = '8.6.10'           # See CHANGLOG file for version history.
@@ -376,6 +377,15 @@ def dovetail_tags(stag,content,etag):
     content line with the end tag. This ensures verbatim elements don't
     include extraneous opening and closing line breaks."""
     return dovetail(dovetail(stag,content), etag)
+
+
+def py2round(n, d=0):
+    """Utility function to get python2 rounding in python3. Python3 changed it such that
+    given two equally close multiples, it'll round towards the even choice. For example,
+    round(42.5) == 42 instead of the expected round(42.5) == 43). This function gives us
+    back that functionality."""
+    p = 10 ** d
+    return float(math.floor((n * p) + math.copysign(0.5, n))) / p
 
 # Use AST module if CPython >= 2.6 or Jython.
 import ast
@@ -3243,14 +3253,14 @@ class Table(AbstractBlock):
                 col.pcwidth = (float(col.width)/props)*100
             col.abswidth = self.abswidth * (col.pcwidth/100)
             if config.pageunits in ('cm','mm','in','em'):
-                col.abswidth = '%.2f' % round(col.abswidth,2)
+                col.abswidth = '%.2f' % py2round(col.abswidth, 2)
             else:
-                col.abswidth = '%d' % round(col.abswidth)
+                col.abswidth = '%d' % py2round(col.abswidth)
             percents += col.pcwidth
             col.pcwidth = int(col.pcwidth)
-        if round(percents) > 100:
+        if py2round(percents) > 100:
             self.error('total width exceeds 100%%: %s' % cols,self.start)
-        elif round(percents) < 100:
+        elif py2round(percents) < 100:
             self.error('total width less than 100%%: %s' % cols,self.start)
     def build_colspecs(self):
         """
