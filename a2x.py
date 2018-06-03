@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 '''
 a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
       file formats)
@@ -11,20 +11,19 @@ Email:     srackham@gmail.com
 
 import os
 import fnmatch
-import HTMLParser
+from html.parser import HTMLParser
 import re
 import shutil
 import subprocess
 import sys
 import traceback
-import urlparse
+from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
 import mimetypes
-import codecs
 
 PROG = os.path.basename(os.path.splitext(__file__)[0])
-VERSION = '8.6.9'
+VERSION = '8.6.10'
 
 # AsciiDoc global configuration file directory.
 # NOTE: CONF_DIR is "fixed up" by Makefile -- don't rename or change syntax.
@@ -70,13 +69,13 @@ XSLTPROC_OPTS = ''
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
 def errmsg(msg):
-    sys.stderr.write('%s: %s\n' % (PROG,msg))
+    print('%s: %s\n' % (PROG, msg), file=sys.stderr)
 
 def warning(msg):
     errmsg('WARNING: %s' % msg)
 
 def infomsg(msg):
-    print '%s: %s' % (PROG,msg)
+    print('%s: %s' % (PROG, msg))
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
@@ -102,16 +101,18 @@ class AttrDict(dict):
     def __getattr__(self, key):
         try:
             return self[key]
-        except KeyError, k:
-            if self.has_key('_default'):
+        except KeyError as k:
+            if '_default' in self:
                 return self['_default']
             else:
-                raise AttributeError, k
+                raise AttributeError from k
     def __setattr__(self, key, value):
         self[key] = value
     def __delattr__(self, key):
-        try: del self[key]
-        except KeyError, k: raise AttributeError, k
+        try:
+            del self[key]
+        except KeyError as k:
+            raise AttributeError from k
     def __repr__(self):
         return '<AttrDict ' + dict.__repr__(self) + '>'
     def __getstate__(self):
@@ -148,18 +149,12 @@ def find_executable(file_name):
     return result
 
 def write_file(filename, data, mode='w', encoding='utf-8'):
-    f = codecs.open(filename, mode, encoding)
-    try:
+    with open(filename, mode=mode, encoding=encoding) as f:
         f.write(data)
-    finally:
-        f.close()
 
-def read_file(filename, mode='r'):
-    f = open(filename, mode)
-    try:
+def read_file(filename, mode='r', encoding='utf-8'):
+    with open(filename, mode=mode, encoding=encoding) as f:
         return f.read()
-    finally:
-        f.close()
 
 def shell_cd(path):
     verbose('chdir %s' % path)
@@ -219,13 +214,13 @@ def shell(cmd, raise_error=True):
     stdout = stderr = subprocess.PIPE
     try:
         popen = subprocess.Popen(cmd, stdout=stdout, stderr=stderr,
-                shell=True, env=ENV)
-    except OSError, e:
+                                 shell=True, env=ENV)
+    except OSError as e:
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
     if OPTIONS.verbose:
-        print stdoutdata
-        print stderrdata
+        print(stdoutdata)
+        print(stderrdata)
     if popen.returncode != 0 and raise_error:
         die('%s returned non-zero exit status %d' % (cmd, popen.returncode))
     return (stdoutdata, stderrdata, popen.returncode)
@@ -240,7 +235,7 @@ def find_resources(files, tagname, attrname, filter=None):
     The filter function takes a dictionary of tag attributes and returns True if
     the URI is to be included.
     '''
-    class FindResources(HTMLParser.HTMLParser):
+    class FindResources(HTMLParser):
         # Nested parser class shares locals with enclosing function.
         def handle_startendtag(self, tag, attrs):
             self.handle_starttag(tag, attrs)
@@ -248,7 +243,7 @@ def find_resources(files, tagname, attrname, filter=None):
             attrs = dict(attrs)
             if tag == tagname and (filter is None or filter(attrs)):
                 # Accept only local URIs.
-                uri = urlparse.urlparse(attrs[attrname])
+                uri = urlparse(attrs[attrname])
                 if uri[0] in ('','file') and not uri[1] and uri[2]:
                     result.append(uri[2])
     if isinstance(files, str):
@@ -438,7 +433,7 @@ class A2X(AttrDict):
         for f in conf_files:
             if os.path.isfile(f):
                 verbose('loading configuration file: %s' % f)
-                execfile(f, globals())
+                exec(open(f).read(), globals())
 
     def process_options(self):
         '''

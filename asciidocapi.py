@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 asciidocapi - AsciiDoc API wrapper class.
 
@@ -52,7 +52,7 @@ under the terms of the GNU General Public License (GPL).
 
 """
 
-import sys,os,re,imp
+import sys,os,re
 
 API_VERSION = '0.1.2'
 MIN_ASCIIDOC_VERSION = '8.4.1'  # Minimum acceptable AsciiDoc version.
@@ -226,11 +226,18 @@ class AsciiDocAPI(object):
                 del sys.path[0]
         else:
             # The import statement can only handle .py or .pyc files, have to
-            # use imp.load_source() for scripts with other names.
+            # use importlib for scripts with other names.
             try:
-                imp.load_source('asciidoc', self.cmd)
-                import asciidoc
-                self.asciidoc = asciidoc
+                # Remove use of imp when Python 3.4 support is dropped
+                if sys.version_info[1] < 5:
+                    import imp
+                    module = imp.load_source('asciidoc', self.cmd)
+                else:
+                    import importlib.util
+                    spec = importlib.util.spec_from_file_location('asciidoc', self.cmd)
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                self.asciidoc = module
             except ImportError:
                 raise AsciiDocError('failed to import ' + self.cmd)
         if Version(self.asciidoc.VERSION) < Version(MIN_ASCIIDOC_VERSION):
@@ -249,13 +256,13 @@ class AsciiDocAPI(object):
             opts('--out-file', outfile)
         if backend is not None:
             opts('--backend', backend)
-        for k,v in list(self.attributes.items()):
+        for k, v in self.attributes.items():
             if v == '' or k[-1] in '!@':
                 s = k
-            elif v is None: # A None value undefines the attribute.
+            elif v is None:  # A None value undefines the attribute.
                 s = k + '!'
             else:
-                s = '%s=%s' % (k,v)
+                s = '%s=%s' % (k, v)
             opts('--attribute', s)
         args = [infile]
         # The AsciiDoc command was designed to process source text then

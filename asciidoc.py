@@ -6,12 +6,14 @@ Copyright (C) 2002-2010 Stuart Rackham. Free use of this software is granted
 under the terms of the GNU General Public License (GPL).
 """
 
-import sys, os, re, time, traceback, tempfile, subprocess, codecs, locale, unicodedata, copy
+import sys, os, re, time, traceback, tempfile, subprocess, locale, unicodedata, copy
+from collections import OrderedDict
+import math
 
 ### Used by asciidocapi.py ###
-VERSION = '8.6.9'           # See CHANGLOG file for version history.
+VERSION = '8.6.10'           # See CHANGLOG file for version history.
 
-MIN_PYTHON_VERSION = '2.4'  # Require this version of Python or better.
+MIN_PYTHON_VERSION = '3.4'  # Require this version of Python or better.
 
 #---------------------------------------------------------------------------
 # Program constants.
@@ -36,54 +38,9 @@ OR, AND = ',', '+'              # Attribute list separators.
 # Utility functions and classes.
 #---------------------------------------------------------------------------
 
-class EAsciiDoc(Exception): pass
+class EAsciiDoc(Exception):
+    pass
 
-class OrderedDict(dict):
-    """
-    Dictionary ordered by insertion order.
-    Python Cookbook: Ordered Dictionary, Submitter: David Benjamin.
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/107747
-    """
-    def __init__(self, d=None, **kwargs):
-        self._keys = []
-        if d is None: d = kwargs
-        dict.__init__(self, d)
-    def __delitem__(self, key):
-        dict.__delitem__(self, key)
-        self._keys.remove(key)
-    def __setitem__(self, key, item):
-        dict.__setitem__(self, key, item)
-        if key not in self._keys: self._keys.append(key)
-    def clear(self):
-        dict.clear(self)
-        self._keys = []
-    def copy(self):
-        d = dict.copy(self)
-        d._keys = self._keys[:]
-        return d
-    def items(self):
-        return list(zip(self._keys, list(self.values())))
-    def keys(self):
-        return self._keys
-    def popitem(self):
-        try:
-            key = self._keys[-1]
-        except IndexError:
-            raise KeyError('dictionary is empty')
-        val = self[key]
-        del self[key]
-        return (key, val)
-    def setdefault(self, key, failobj = None):
-        dict.setdefault(self, key, failobj)
-        if key not in self._keys: self._keys.append(key)
-    def update(self, d=None, **kwargs):
-        if d is None:
-            d = kwargs
-        dict.update(self, d)
-        for key in list(d.keys()):
-            if key not in self._keys: self._keys.append(key)
-    def values(self):
-        return list(map(self.get, self._keys))
 
 class AttrDict(dict):
     """
@@ -105,6 +62,7 @@ class AttrDict(dict):
         return dict(self)
     def __setstate__(self,value):
         for k,v in list(value.items()): self[k]=v
+
 
 class InsensitiveDict(dict):
     """
@@ -377,101 +335,41 @@ def dovetail_tags(stag,content,etag):
     include extraneous opening and closing line breaks."""
     return dovetail(dovetail(stag,content), etag)
 
-# The following functions are so we don't have to use the dangerous
-# built-in eval() function.
-if float(sys.version[:3]) >= 2.6 or sys.platform[:4] == 'java':
-    # Use AST module if CPython >= 2.6 or Jython.
-    import ast
-    from ast import literal_eval
 
-    def get_args(val):
-        d = {}
-        args = ast.parse("d(" + val + ")", mode='eval').body.args
-        i = 1
-        for arg in args:
-            if isinstance(arg, ast.Name):
-                d[str(i)] = literal_eval(arg.id)
-            else:
-                d[str(i)] = literal_eval(arg)
-            i += 1
-        return d
+def py2round(n, d=0):
+    """Utility function to get python2 rounding in python3. Python3 changed it such that
+    given two equally close multiples, it'll round towards the even choice. For example,
+    round(42.5) == 42 instead of the expected round(42.5) == 43). This function gives us
+    back that functionality."""
+    p = 10 ** d
+    return float(math.floor((n * p) + math.copysign(0.5, n))) / p
 
-    def get_kwargs(val):
-        d = {}
-        args = ast.parse("d(" + val + ")", mode='eval').body.keywords
-        for arg in args:
-            d[arg.arg] = literal_eval(arg.value)
-        return d
+# Use AST module if CPython >= 2.6 or Jython.
+import ast
+from ast import literal_eval
 
-    def parse_to_list(val):
-        values = ast.parse("[" + val + "]", mode='eval').body.elts
-        return [literal_eval(v) for v in values]
-
-else:   # Use deprecated CPython compiler module.
-    import compiler
-    from compiler.ast import Const, Dict, Expression, Name, Tuple, UnarySub, Keyword
-
-    # Code from:
-    # http://mail.python.org/pipermail/python-list/2009-September/1219992.html
-    # Modified to use compiler.ast.List as this module has a List
-    def literal_eval(node_or_string):
-        """
-        Safely evaluate an expression node or a string containing a Python
-        expression.  The string or node provided may only consist of the
-        following Python literal structures: strings, numbers, tuples,
-        lists, dicts, booleans, and None.
-        """
-        _safe_names = {'None': None, 'True': True, 'False': False}
-        if isinstance(node_or_string, str):
-            node_or_string = compiler.parse(node_or_string, mode='eval')
-        if isinstance(node_or_string, Expression):
-            node_or_string = node_or_string.node
-        def _convert(node):
-            if isinstance(node, Const) and isinstance(node.value,
-                    (str, int, float, complex)):
-                 return node.value
-            elif isinstance(node, Tuple):
-                return tuple(map(_convert, node.nodes))
-            elif isinstance(node, compiler.ast.List):
-                return list(map(_convert, node.nodes))
-            elif isinstance(node, Dict):
-                return dict((_convert(k), _convert(v)) for k, v
-                            in node.items)
-            elif isinstance(node, Name):
-                if node.name in _safe_names:
-                    return _safe_names[node.name]
-            elif isinstance(node, UnarySub):
-                return -_convert(node.expr)
-            raise ValueError('malformed string')
-        return _convert(node_or_string)
-
-    def get_args(val):
-        d = {}
-        args = compiler.parse("d(" + val + ")", mode='eval').node.args
-        i = 1
-        for arg in args:
-            if isinstance(arg, Keyword):
-                break
+def get_args(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.args
+    i = 1
+    for arg in args:
+        if isinstance(arg, ast.Name):
+            d[str(i)] = literal_eval(arg.id)
+        else:
             d[str(i)] = literal_eval(arg)
-            i = i + 1
-        return d
+        i += 1
+    return d
 
-    def get_kwargs(val):
-        d = {}
-        args = compiler.parse("d(" + val + ")", mode='eval').node.args
-        i = 0
-        for arg in args:
-            if isinstance(arg, Keyword):
-                break
-            i += 1
-        args = args[i:]
-        for arg in args:
-            d[str(arg.name)] = literal_eval(arg.expr)
-        return d
+def get_kwargs(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
+    for arg in args:
+        d[arg.arg] = literal_eval(arg.value)
+    return d
 
-    def parse_to_list(val):
-        values = compiler.parse("[" + val + "]", mode='eval').node.asList()
-        return [literal_eval(v) for v in values]
+def parse_to_list(val):
+    values = ast.parse("[" + val + "]", mode='eval').body.elts
+    return [literal_eval(v) for v in values]
 
 def parse_attributes(attrs,dict):
     """Update a dictionary with name/value attributes from the attrs string.
@@ -819,7 +717,7 @@ def filter_lines(filter_cmd, lines, attrs={}):
     try:
         p = subprocess.Popen(filter_cmd, shell=True,
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        output = str(p.communicate(os.linesep.join(lines).encode("utf-8"))[0])
+        output = p.communicate(os.linesep.join(lines).encode("utf-8"))[0].decode('utf-8')
     except Exception:
         raise EAsciiDoc('filter error: %s: %s' % (filter_cmd, sys.exc_info()[1]))
     if output:
@@ -899,7 +797,7 @@ def system(name, args, is_macro=False, attrs=None):
                 message.warning('%s: non-zero exit status' % syntax)
             try:
                 if os.path.isfile(tmp):
-                    f = open(tmp)
+                    f = open(tmp, encoding='utf-8')
                     try:
                         lines = [s.rstrip() for s in f]
                     finally:
@@ -972,7 +870,7 @@ def system(name, args, is_macro=False, attrs=None):
         elif not is_safe_file(args):
             message.unsafe(syntax)
         else:
-            f = open(args)
+            f = open(args, encoding='utf-8')
             try:
                 result = [s.rstrip() for s in f]
             finally:
@@ -2216,11 +2114,11 @@ class Section:
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
             import unicodedata
-            base_id = unicodedata.normalize('NFKD', base_id).encode('ascii','ignore')
+            base_id = unicodedata.normalize('NFKD', base_id).encode('ascii','ignore').decode('ascii')
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
         idprefix = document.attributes.get('idprefix','_')
-        base_id = idprefix + str(base_id)
+        base_id = idprefix + base_id
         i = 1
         while True:
             if i == 1:
@@ -2279,9 +2177,11 @@ class Section:
     def translate_body(terminator=Title):
         isempty = True
         next = Lex.next_element()
+        cnt = 0
         while next and next is not terminator:
             if isinstance(terminator,DelimitedBlock) and next is Title:
                 message.error('section title not permitted in delimited block')
+            cnt += 1
             next.translate()
             next = Lex.next_element()
             isempty = False
@@ -2689,6 +2589,7 @@ class Paragraph(AbstractBlock):
         postsubs = self.parameters.postsubs
         if document.attributes.get('plaintext') is None:
             body = Lex.set_margin(body) # Move body to left margin.
+
         body = Lex.subs(body,presubs)
         template = self.parameters.template
         template = subs_attrs(template,attrs)
@@ -3309,14 +3210,14 @@ class Table(AbstractBlock):
                 col.pcwidth = (float(col.width)/props)*100
             col.abswidth = self.abswidth * (col.pcwidth/100)
             if config.pageunits in ('cm','mm','in','em'):
-                col.abswidth = '%.2f' % round(col.abswidth,2)
+                col.abswidth = '%.2f' % py2round(col.abswidth, 2)
             else:
-                col.abswidth = '%d' % round(col.abswidth)
+                col.abswidth = '%d' % py2round(col.abswidth)
             percents += col.pcwidth
             col.pcwidth = int(col.pcwidth)
-        if round(percents) > 100:
+        if py2round(percents) > 100:
             self.error('total width exceeds 100%%: %s' % cols,self.start)
-        elif round(percents) < 100:
+        elif py2round(percents) < 100:
             self.error('total width less than 100%%: %s' % cols,self.start)
     def build_colspecs(self):
         """
@@ -4045,7 +3946,9 @@ class CalloutMap:
 # Input stream Reader and output stream writer classes.
 #---------------------------------------------------------------------------
 
-UTF8_BOM = '\xef\xbb\xbf'
+
+UTF8_BOM = b'\xef\xbb\xbf'.decode('utf-8')
+
 
 class Reader1:
     """Line oriented AsciiDoc input file reader. Processes include and
@@ -4053,6 +3956,7 @@ class Reader1:
     trimmed."""
     # This class is not used directly, use Reader class instead.
     READ_BUFFER_MIN = 10        # Read buffer low level.
+
     def __init__(self):
         self.f = None           # Input file object.
         self.fname = None       # Input file name.
@@ -4067,7 +3971,8 @@ class Reader1:
         self.bom = None         # Byte order mark (BOM).
         self.infile = None      # Saved document 'infile' attribute.
         self.indir = None       # Saved document 'indir' attribute.
-    def open(self,fname):
+
+    def open(self, fname):
         self.fname = fname
         message.verbose('reading: '+fname)
         if fname == '<stdin>':
@@ -4075,7 +3980,7 @@ class Reader1:
             self.infile = None
             self.indir = None
         else:
-            self.f = open(fname,'r')
+            self.f = open(fname, 'r', encoding='utf-8')
             self.infile = fname
             self.indir = os.path.dirname(fname)
         document.attributes['infile'] = self.infile
@@ -4083,19 +3988,22 @@ class Reader1:
         self._lineno = 0            # The last line read from file object f.
         self.next = []
         # Prefill buffer by reading the first line and then pushing it back.
-        if Reader1.read(self):
+        if self.read():
             if self.cursor[2].startswith(UTF8_BOM):
                 self.cursor[2] = self.cursor[2][len(UTF8_BOM):]
                 self.bom = UTF8_BOM
             self.unread(self.cursor)
             self.cursor = None
+
     def closefile(self):
         """Used by class methods to close nested include files."""
         self.f.close()
         self.next = []
+
     def close(self):
         self.closefile()
         self.__init__()
+
     def read(self, skip=False):
         """Read next line. Return None if EOF. Expand tabs. Strip trailing
         white space. Maintain self.next read ahead buffer. If skip=True then
@@ -4150,7 +4058,7 @@ class Reader1:
                                 message.verbose('include1: ' + fname, linenos=False)
                                 # Store the include file in memory for later
                                 # retrieval by the {include1:} system attribute.
-                                f = open(fname)
+                                f = open(fname, encoding='utf-8')
                                 try:
                                     config.include1[fname] = [
                                         s.rstrip() for s in f]
@@ -4390,6 +4298,7 @@ class Writer:
         self.fname = None                # Output file name.
         self.lines_out = 0               # Number of lines written.
         self.skip_blank_lines = False    # If True don't output blank lines.
+
     def open(self,fname,bom=None):
         '''
         bom is optional byte order mark.
@@ -4399,7 +4308,7 @@ class Writer:
         if fname == '<stdout>':
             self.f = sys.stdout
         else:
-            self.f = open(fname,'w+')
+            self.f = open(fname, 'w+', encoding='utf-8')
         message.verbose('writing: '+writer.fname,False)
         if bom:
             self.f.write(bom)
@@ -4417,7 +4326,7 @@ class Writer:
         blank line. If argument is None nothing is written. self.newline is
         appended to each line."""
         if 'trace' in kwargs and len(args) > 0:
-            trace(kwargs['trace'],args[0])
+            trace(kwargs['trace'], args[0])
         if len(args) == 0:
             self.write_line()
             self.lines_out = self.lines_out + 1
@@ -6150,7 +6059,7 @@ def execute(cmd,opts,args):
     if len(args) == 0:
         usage('No source file specified')
         sys.exit(1)
-    stdin,stdout = sys.stdin,sys.stdout
+    stdin, stdout = sys.stdin, sys.stdout
     try:
         infile = args[0]
         if infile == '-':
@@ -6175,7 +6084,8 @@ def execute(cmd,opts,args):
         if document.has_errors:
             sys.exit(1)
     finally:
-        sys.stdin,sys.stdout = stdin,stdout
+        sys.stdin, sys.stdout = stdin, stdout
+
 
 if __name__ == '__main__':
     # Process command line options.
@@ -6224,10 +6134,10 @@ if __name__ == '__main__':
         Plugin.type = plugin
         config.init(sys.argv[0])
         config.verbose = bool(set(['-v','--verbose']) & set(opt_names))
-        getattr(Plugin,cmd)(args)
+        getattr(Plugin, cmd)(args)
     else:
         # Execute asciidoc.
         try:
-            execute(sys.argv[0],opts,args)
+            execute(sys.argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)

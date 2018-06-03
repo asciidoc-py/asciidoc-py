@@ -1,3 +1,6 @@
+.idea/
+.DS_Store
+
 *.pyc
 
 # ignore test products

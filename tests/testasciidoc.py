@@ -21,21 +21,25 @@ __version__ = '0.1.1'
 __copyright__ = 'Copyright (C) 2009 Stuart Rackham'
 
 
-import os, sys, re, difflib
+import difflib
+import io
+import os
+from pathlib import Path
+import re
+import sys
 import time
-
-if sys.platform[:4] == 'java':
-    # Jython cStringIO is more compatible with CPython StringIO.
-    import io as StringIO
-else:
-    import io
 
 import asciidocapi
 
 
-BACKENDS = ('html4','xhtml11','docbook','html5')    # Default backends.
-BACKEND_EXT = {'html4':'.html', 'xhtml11':'.html', 'docbook':'.xml',
-        'slidy':'.html','html5':'.html'}
+BACKENDS = ('html4', 'xhtml11', 'docbook', 'html5')    # Default backends.
+BACKEND_EXT = {
+    'html4': '.html',
+    'xhtml11': '.html',
+    'docbook': '.xml',
+    'slidy': '.html',
+    'html5': '.html'
+}
 
 
 def iif(condition, iftrue, iffalse=None):
@@ -54,8 +58,10 @@ def iif(condition, iftrue, iffalse=None):
     else:
         return iffalse
 
+
 def message(msg=''):
     print(msg, file=sys.stderr)
+
 
 def strip_end(lines):
     """
@@ -66,6 +72,7 @@ def strip_end(lines):
             del lines[i]
         else:
             break
+
 
 def normalize_data(lines):
     """
@@ -109,8 +116,10 @@ class AsciiDocTest(object):
         self.options = []
         self.attributes = {'asciidoc-version': 'test'}
         self.backends = BACKENDS
+        self.confdir = None
         self.datadir = None     # Where output files are stored.
         self.disabled = False
+        self.passed = self.skipped = self.failed = 0
 
     def backend_filename(self, backend):
         """
@@ -152,9 +161,9 @@ class AsciiDocTest(object):
                                 self.confdir, os.path.normpath(data[0])))
                 elif directive == 'options':
                     self.options = eval(' '.join(data))
-                    for i,v in enumerate(self.options):
+                    for i, v in enumerate(self.options):
                         if isinstance(v, str):
-                            self.options[i] = (v,None)
+                            self.options[i] = (v, None)
                 elif directive == 'attributes':
                     self.attributes.update(eval(' '.join(data)))
                 elif directive == 'backends':
@@ -186,13 +195,10 @@ class AsciiDocTest(object):
         """
         Return expected test data output for backend.
         """
-        f = open(self.backend_filename(backend))
-        try:
-            result = f.readlines()
+        with open(self.backend_filename(backend), encoding='utf-8') as open_file:
+            result = open_file.readlines()
             # Strip line terminators.
-            result = [ s.rstrip() for s in result ]
-        finally:
-            f.close()
+            result = [s.rstrip() for s in result]
         return result
 
     @mock_localtime
@@ -216,12 +222,9 @@ class AsciiDocTest(object):
         if not os.path.isdir(self.datadir):
             print(('CREATING: %s' % self.datadir))
             os.mkdir(self.datadir)
-        f = open(self.backend_filename(backend),'w+')
-        try:
-            print(('WRITING: %s' % f.name))
-            f.writelines([ s + os.linesep for s in lines])
-        finally:
-            f.close()
+        with open(self.backend_filename(backend), 'w+', encoding='utf-8') as open_file:
+            print(('WRITING: %s' % open_file.name))
+            open_file.writelines([s + os.linesep for s in lines])
 
     def update(self, backend=None, force=False):
         """
@@ -287,41 +290,40 @@ class AsciiDocTest(object):
 
 
 class AsciiDocTests(object):
-
     def __init__(self, conffile):
         """
-        Parse configuration file.
+        Parse configuration file
+        :param conffile:
         """
-        self.conffile = os.path.normpath(conffile)
+        self.conffile = conffile
+        self.passed = self.failed = self.skipped = 0
         # All file names are relative to configuration file directory.
         self.confdir = os.path.dirname(self.conffile)
-        self.datadir = self.confdir # Default expected files directory.
-        self.tests = []             # List of parsed AsciiDocTest objects.
+        self.datadir = self.confdir  # Default expected files directory.
+        self.tests = []              # List of parsed AsciiDocTest objects.
         self.globals = {}
-        f = open(self.conffile)
-        try:
-            lines = Lines(f.readlines())
-        finally:
-            f.close()
-        first = True
-        while not lines.eol():
-            s = lines.read_until(r'^%+$')
-            s = [ l for l in s if l]    # Drop blank lines.
-            # Must be at least one non-blank line in addition to delimiter.
-            if len(s) > 1:
-                # Optional globals precede all tests.
-                if first and re.match(r'^%\s*globals$',s[0]):
-                    self.globals = eval(' '.join(normalize_data(s[1:])))
-                    if 'datadir' in self.globals:
-                        self.datadir = os.path.join(
+        with open(self.conffile, encoding='utf-8') as open_file:
+            lines = Lines(open_file.readlines())
+            first = True
+            while not lines.eol():
+                s = lines.read_until(r'^%+$')
+                s = [l for l in s if l]    # Drop blank lines.
+                # Must be at least one non-blank line in addition to delimiter.
+                if len(s) > 1:
+                    # Optional globals precede all tests.
+                    if first and re.match(r'^%\s*globals$', s[0]):
+                        self.globals = eval(' '.join(normalize_data(s[1:])))
+                        if 'datadir' in self.globals:
+                            self.datadir = os.path.join(
                                 self.confdir,
-                                os.path.normpath(self.globals['datadir']))
-                else:
-                    test = AsciiDocTest()
-                    test.parse(s[1:], self.confdir, self.datadir)
-                    self.tests.append(test)
-                    test.number = len(self.tests)
-                first = False
+                                os.path.normpath(self.globals['datadir'])
+                            )
+                    else:
+                        test = AsciiDocTest()
+                        test.parse(s[1:], self.confdir, self.datadir)
+                        self.tests.append(test)
+                        test.number = len(self.tests)
+                    first = False
 
     def run(self, number=None, backend=None):
         """
@@ -429,7 +431,7 @@ if __name__ == '__main__':
     if backend and backend not in BACKENDS:
         message('illegal BACKEND: %s' % backend)
         sys.exit(1)
-    if number is not None and  number not in list(range(1, len(tests.tests)+1)):
+    if number is not None and  number not in range(1, len(tests.tests)+1):
         message('illegal test NUMBER: %d' % number)
         sys.exit(1)
     if cmd == 'run':
