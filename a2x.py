@@ -214,16 +214,16 @@ def shell(cmd, raise_error=True):
     stdout = stderr = subprocess.PIPE
     try:
         popen = subprocess.Popen(cmd, stdout=stdout, stderr=stderr,
-                                 shell=True, env=ENV)
+                                 shell=True, universal_newlines=True, env=ENV)
     except OSError as e:
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
     if OPTIONS.verbose:
-        print(stdoutdata.decode('utf-8'))
-        print(stderrdata.decode('utf-8'))
+        print(stdoutdata)
+        print(stderrdata)
     if popen.returncode != 0 and raise_error:
         die('%s returned non-zero exit status %d' % (cmd, popen.returncode))
-    return (stdoutdata.decode('utf-8'), stderrdata.decode('utf-8'), popen.returncode)
+    return (stdoutdata, stderrdata, popen.returncode)
 
 def find_resources(files, tagname, attrname, filter=None):
     '''
