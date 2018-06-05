@@ -32,11 +32,12 @@ import time
 import asciidocapi
 
 
-BACKENDS = ('html4', 'xhtml11', 'docbook', 'html5')    # Default backends.
+BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')    # Default backends.
 BACKEND_EXT = {
     'html4': '.html',
     'xhtml11': '.html',
     'docbook': '.xml',
+    'docbook5': '.xml',
     'slidy': '.html',
     'html5': '.html'
 }
