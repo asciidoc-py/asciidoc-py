@@ -859,11 +859,8 @@ def system(name, args, is_macro=False, attrs=None):
                 message.warning('%s: non-zero exit status' % syntax)
             try:
                 if os.path.isfile(tmp):
-                    f = open(tmp, encoding='utf-8')
-                    try:
+                    with open(tmp, encoding='utf-8') as f:
                         lines = [s.rstrip() for s in f]
-                    finally:
-                        f.close()
                 else:
                     lines = []
             except Exception:
@@ -932,11 +929,8 @@ def system(name, args, is_macro=False, attrs=None):
         elif not is_safe_file(args):
             message.unsafe(syntax)
         else:
-            f = open(args, encoding='utf-8')
-            try:
+            with open(args, encoding='utf-8') as f:
                 result = [s.rstrip() for s in f]
-            finally:
-                f.close()
             if result:
                 result = subs_attrs(result)
                 result = separator.join(result)
@@ -4214,12 +4208,8 @@ class Reader1:
                                 message.verbose('include1: ' + fname, linenos=False)
                                 # Store the include file in memory for later
                                 # retrieval by the {include1:} system attribute.
-                                f = open(fname, encoding='utf-8')
-                                try:
-                                    config.include1[fname] = [
-                                        s.rstrip() for s in f]
-                                finally:
-                                    f.close()
+                                with open(fname, encoding='utf-8') as f:
+                                    config.include1[fname] = [s.rstrip() for s in f]
                             return '{include1:%s}' % fname
                         else:
                             # This is a configuration dump, just pass the macro
