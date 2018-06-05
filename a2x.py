@@ -219,11 +219,11 @@ def shell(cmd, raise_error=True):
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
     if OPTIONS.verbose:
-        print(stdoutdata)
-        print(stderrdata)
+        print(stdoutdata.decode('utf-8'))
+        print(stderrdata.decode('utf-8'))
     if popen.returncode != 0 and raise_error:
         die('%s returned non-zero exit status %d' % (cmd, popen.returncode))
-    return (stdoutdata, stderrdata, popen.returncode)
+    return (stdoutdata.decode('utf-8'), stderrdata.decode('utf-8'), popen.returncode)
 
 def find_resources(files, tagname, attrname, filter=None):
     '''
