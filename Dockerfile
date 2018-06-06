@@ -82,3 +82,5 @@ RUN xmlcatalog --noout --add "delegatePublic" \
         "http://www.oasis-open.org/docbook/" \
         "file:///etc/xml/docbook" \
         /etc/xml/catalog
+
+WORKDIR "/srv/asciidoc"
