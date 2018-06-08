@@ -30,7 +30,7 @@ SUBS_NORMAL = ('specialcharacters','quotes','attributes',
     'specialwords','replacements','macros','replacements2')
 SUBS_VERBATIM = ('specialcharacters','callouts')
 
-NAME_RE = r'(?u)[^\W\d][-\w]*'  # Valid section or attribute name.
+NAME_RE = r'[^\W\d][-\w]*'  # Valid section or attribute name.
 OR, AND = ',', '+'              # Attribute list separators.
 
 
