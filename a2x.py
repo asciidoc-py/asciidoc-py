@@ -337,14 +337,11 @@ def get_source_options(asciidoc_file):
     result = []
     if os.path.isfile(asciidoc_file):
         options = ''
-        f = open(asciidoc_file)
-        try:
+        with open(asciidoc_file) as f:
             for line in f:
                 mo = re.search(r'^//\s*a2x:', line)
                 if mo:
                     options += ' ' + line[mo.end():].strip()
-        finally:
-            f.close()
         parse_options()
     return result
 
@@ -459,12 +456,9 @@ class A2X(AttrDict):
         if self.resource_manifest:
             if not os.path.isfile(self.resource_manifest):
                 die('missing --resource-manifest: %s' % self.resource_manifest)
-            f = open(self.resource_manifest)
-            try:
+            with open(self.resource_manifest) as f:
                 for r in f:
                     self.resources.append(r.strip())
-            finally:
-                f.close()
         for r in self.resources:
             r = os.path.expanduser(r)
             r = os.path.expandvars(r)

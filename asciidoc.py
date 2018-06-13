@@ -30,7 +30,7 @@ SUBS_NORMAL = ('specialcharacters','quotes','attributes',
     'specialwords','replacements','macros','replacements2')
 SUBS_VERBATIM = ('specialcharacters','callouts')
 
-NAME_RE = r'(?u)[^\W\d][-\w]*'  # Valid section or attribute name.
+NAME_RE = r'[^\W\d][-\w]*'  # Valid section or attribute name.
 OR, AND = ',', '+'              # Attribute list separators.
 
 
@@ -463,7 +463,7 @@ def parse_options(options,allowed,errmsg):
 
 def symbolize(s):
     """Drop non-symbol characters and convert to lowercase."""
-    return re.sub(r'(?u)[^\w\-_]', '', s).lower()
+    return re.sub(r'[^\w\-_]', '', s).lower()
 
 def is_name(s):
     """Return True if s is valid attribute, macro or tag name
@@ -797,11 +797,8 @@ def system(name, args, is_macro=False, attrs=None):
                 message.warning('%s: non-zero exit status' % syntax)
             try:
                 if os.path.isfile(tmp):
-                    f = open(tmp, encoding='utf-8')
-                    try:
+                    with open(tmp, encoding='utf-8') as f:
                         lines = [s.rstrip() for s in f]
-                    finally:
-                        f.close()
                 else:
                     lines = []
             except Exception:
@@ -870,11 +867,8 @@ def system(name, args, is_macro=False, attrs=None):
         elif not is_safe_file(args):
             message.unsafe(syntax)
         else:
-            f = open(args, encoding='utf-8')
-            try:
+            with open(args, encoding='utf-8') as f:
                 result = [s.rstrip() for s in f]
-            finally:
-                f.close()
             if result:
                 result = subs_attrs(result)
                 result = separator.join(result)
@@ -1752,7 +1746,7 @@ class AttributeEntry:
                 attr.name = attr.name[:-1]
                 attr.value = None
             # Strip white space and illegal name chars.
-            attr.name = re.sub(r'(?u)[^\w\-_]', '', attr.name).lower()
+            attr.name = re.sub(r'[^\w\-_]', '', attr.name).lower()
             # Don't override most command-line attributes.
             if attr.name in config.cmd_attrs \
                     and attr.name not in ('trace','numbered'):
@@ -1952,7 +1946,7 @@ class Title:
             if ul != s[:ul_len]: return False
             # Don't be fooled by back-to-back delimited blocks, require at
             # least one alphanumeric character in title.
-            if not re.search(r'(?u)\w',title): return False
+            if not re.search(r'\w',title): return False
             mo = re.match(Title.pattern, title)
             if mo:
                 Title.attributes = mo.groupdict()
@@ -2110,7 +2104,7 @@ class Section:
         """
         # Replace non-alpha numeric characters in title with underscores and
         # convert to lower case.
-        base_id = re.sub(r'(?u)\W+', '_', title).strip('_').lower()
+        base_id = re.sub(r'\W+', '_', title).strip('_').lower()
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
             import unicodedata
@@ -3608,7 +3602,7 @@ class Tables(AbstractBlocks):
 
 class Macros:
     # Default system macro syntax.
-    SYS_RE = r'(?u)^(?P<name>[\\]?\w(\w|-)*?)::(?P<target>\S*?)' + \
+    SYS_RE = r'^(?P<name>[\\]?\w(\w|-)*?)::(?P<target>\S*?)' + \
              r'(\[(?P<attrlist>.*?)\])$'
     def __init__(self):
         self.macros = []        # List of Macros.
@@ -4058,12 +4052,8 @@ class Reader1:
                                 message.verbose('include1: ' + fname, linenos=False)
                                 # Store the include file in memory for later
                                 # retrieval by the {include1:} system attribute.
-                                f = open(fname, encoding='utf-8')
-                                try:
-                                    config.include1[fname] = [
-                                        s.rstrip() for s in f]
-                                finally:
-                                    f.close()
+                                with open(fname, encoding='utf-8') as f:
+                                    config.include1[fname] = [s.rstrip() for s in f]
                             return '{include1:%s}' % fname
                         else:
                             # This is a configuration dump, just pass the macro
@@ -4488,7 +4478,7 @@ class Config:
         rdr.open(fname)
         message.linenos = None
         self.fname = fname
-        reo = re.compile(r'(?u)^\[(?P<section>\+?[^\W\d][\w-]*)\]\s*$')
+        reo = re.compile(r'^\[(?P<section>\+?[^\W\d][\w-]*)\]\s*$')
         sections = OrderedDict()
         section,contents = '',[]
         while not rdr.eof():
