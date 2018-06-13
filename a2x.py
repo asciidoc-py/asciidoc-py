@@ -254,15 +254,8 @@ def find_resources(files, tagname, attrname, filter=None):
         if OPTIONS.dry_run:
             continue
         parser = FindResources()
-        # HTMLParser has problems with non-ASCII strings.
-        # See http://bugs.python.org/issue3932
         contents = read_file(filename)
-        mo = re.search(r'\A<\?xml.* encoding="(.*?)"', contents)
-        if mo:
-            encoding = mo.group(1)
-            parser.feed(contents.decode(encoding))
-        else:
-            parser.feed(contents)
+        parser.feed(contents)
         parser.close()
     result = list(set(result))   # Drop duplicate values.
     result.sort()
