@@ -254,7 +254,10 @@ def find_resources(files, tagname, attrname, filter=None):
         if OPTIONS.dry_run:
             continue
         parser = FindResources()
-        contents = read_file(filename)
+        with open(filename, 'rb') as open_file:
+            contents = open_file.read()
+        mo = re.search(b'\A<\?xml.* encoding="(.*?)"', contents)
+        contents = contents.decode(mo.group(1).decode('utf-8') if mo else 'utf-8')
         parser.feed(contents)
         parser.close()
     result = list(set(result))   # Drop duplicate values.
@@ -330,7 +333,7 @@ def get_source_options(asciidoc_file):
     result = []
     if os.path.isfile(asciidoc_file):
         options = ''
-        with open(asciidoc_file) as f:
+        with open(asciidoc_file, encoding='utf-8') as f:
             for line in f:
                 mo = re.search(r'^//\s*a2x:', line)
                 if mo:
@@ -631,7 +634,7 @@ class A2X(AttrDict):
         shell('"%s" --backend docbook -a "a2x-format=%s" %s --out-file "%s" "%s"' %
              (self.asciidoc, self.format, self.asciidoc_opts, docbook_file, self.asciidoc_file))
         if not self.no_xmllint and XMLLINT:
-            shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
+            shell('"%s" --noout --valid "%s"' % (XMLLINT, docbook_file))
 
     def to_xhtml(self):
         self.to_docbook()
