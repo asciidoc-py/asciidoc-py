@@ -214,7 +214,7 @@ def shell(cmd, raise_error=True):
     stdout = stderr = subprocess.PIPE
     try:
         popen = subprocess.Popen(cmd, stdout=stdout, stderr=stderr,
-                                 shell=True, env=ENV)
+                                 shell=True, universal_newlines=True, env=ENV)
     except OSError as e:
         die('failed: %s: %s' % (cmd, e))
     stdoutdata, stderrdata = popen.communicate()
@@ -254,15 +254,11 @@ def find_resources(files, tagname, attrname, filter=None):
         if OPTIONS.dry_run:
             continue
         parser = FindResources()
-        # HTMLParser has problems with non-ASCII strings.
-        # See http://bugs.python.org/issue3932
-        contents = read_file(filename)
-        mo = re.search(r'\A<\?xml.* encoding="(.*?)"', contents)
-        if mo:
-            encoding = mo.group(1)
-            parser.feed(contents.decode(encoding))
-        else:
-            parser.feed(contents)
+        with open(filename, 'rb') as open_file:
+            contents = open_file.read()
+        mo = re.search(b'\A<\?xml.* encoding="(.*?)"', contents)
+        contents = contents.decode(mo.group(1).decode('utf-8') if mo else 'utf-8')
+        parser.feed(contents)
         parser.close()
     result = list(set(result))   # Drop duplicate values.
     result.sort()
@@ -337,7 +333,7 @@ def get_source_options(asciidoc_file):
     result = []
     if os.path.isfile(asciidoc_file):
         options = ''
-        with open(asciidoc_file) as f:
+        with open(asciidoc_file, encoding='utf-8') as f:
             for line in f:
                 mo = re.search(r'^//\s*a2x:', line)
                 if mo:
