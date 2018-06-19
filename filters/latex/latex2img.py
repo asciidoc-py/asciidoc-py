@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 '''
 NAME
     latex2img - Converts LaTeX source to PNG or SVG file
