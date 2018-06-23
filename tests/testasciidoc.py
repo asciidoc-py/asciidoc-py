@@ -86,7 +86,7 @@ def normalize_data(lines):
 def mock_localtime(f, _localtime=time.localtime):
     """Mock time module to generate stable output."""
     _frozentime = 0X3DE170D6
-    _frozentz = 'Pacific/Auckland'
+    _frozentz = 'UTC+00'
 
     def _frozen_localtime(t=_frozentime + 1):
         assert t > _frozentime, 'File created before first public release'
