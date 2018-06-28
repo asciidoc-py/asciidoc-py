@@ -5631,7 +5631,8 @@ class Table_OLD(AbstractBlock):
             result.append(data)
         return result
 
-    def parse_csv(self, rows):
+    @staticmethod
+    def parse_csv(rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         import io
@@ -5645,7 +5646,7 @@ class Table_OLD(AbstractBlock):
             raise EAsciiDoc('csv parse error: %s' % row)
         return result
 
-    def parse_dsv(self,rows):
+    def parse_dsv(self, rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         separator = self.attributes.get('separator',':')
