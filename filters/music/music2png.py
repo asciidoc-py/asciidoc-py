@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 '''
 NAME
     music2png - Converts textual music notation to classically notated PNG file
