@@ -161,7 +161,8 @@ class Message:
         self.messages = []
         self.prev_msg = ''
 
-    def stdout(self, msg):
+    @staticmethod
+    def stdout(msg):
         print(msg)
 
     def stderr(self, msg=''):
