@@ -4523,7 +4523,8 @@ class Reader(Reader1):
             self.cursor = save_cursor
         return tuple(result)
 
-    def skip_blank_lines(self):
+    @staticmethod
+    def skip_blank_lines():
         reader.read_until(r'\s*\S+')
 
     def read_until(self,terminators,same_file=False):
