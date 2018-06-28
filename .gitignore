@@ -14,3 +14,13 @@ tests/data/*.png
 # ignore doc products
 doc/*.md5
 doc/*.ly
+doc/*.svg
+doc/*.png
+doc/*.1
+doc/*.html
+
+# ignore the configure/make products
+/autom4te.cache/
+/config.*
+/configure
+Makefile
