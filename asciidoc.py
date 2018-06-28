@@ -6,7 +6,16 @@ Copyright (C) 2002-2010 Stuart Rackham. Free use of this software is granted
 under the terms of the GNU General Public License (GPL).
 """
 
-import sys, os, re, time, traceback, tempfile, subprocess, locale, unicodedata, copy
+import sys
+import os
+import re
+import time
+import traceback
+import tempfile
+import subprocess
+import locale
+import unicodedata
+import copy
 from collections import OrderedDict
 import math
 
@@ -5303,7 +5312,6 @@ class Config:
 # Deprecated old table classes follow.
 # Naming convention is an _OLD name suffix.
 # These will be removed from future versions of AsciiDoc
-# ---------------------------------------------------------------------------
 
 def join_lines_OLD(lines):
     """Return a list in which lines terminated with the backslash line
@@ -5649,22 +5657,24 @@ class Table_OLD(AbstractBlock):
     def parse_dsv(self, rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
-        separator = self.attributes.get('separator',':')
+        separator = self.attributes.get('separator', ':')
         separator = literal_eval('"'+separator+'"')
         if len(separator) != 1:
             raise EAsciiDoc('malformed dsv separator: %s' % separator)
-        # TODO If separator is preceeded by an odd number of backslashes then
+        # TODO: If separator is preceded by an odd number of backslashes then
         # it is escaped and should not delimit.
         result = []
         for row in rows:
             # Skip blank lines
-            if row == '': continue
-            # Unescape escaped characters.
-            row = literal_eval('"'+row.replace('"','\\"')+'"')
+            if row == '':
+                continue
+            # Un-escape escaped characters.
+            row = literal_eval('"'+row.replace('"', '\\"')+'"')
             data = row.split(separator)
             data = [s.strip() for s in data]
             result.append(data)
         return result
+
     def translate(self):
         message.deprecated('old tables syntax')
         AbstractBlock.translate(self)
@@ -5679,36 +5689,36 @@ class Table_OLD(AbstractBlock):
         # Mix in document attribute list.
         AttributeList.consume(attrs)
         # Validate overridable attributes.
-        for k,v in list(attrs.items()):
+        for k, v in list(attrs.items()):
             if k == 'format':
                 if v not in self.FORMATS:
-                    raise EAsciiDoc('illegal [%s] %s: %s' % (self.defname,k,v))
+                    raise EAsciiDoc('illegal [%s] %s: %s' % (self.defname, k, v))
                 self.format = v
             elif k == 'tablewidth':
                 try:
                     self.tablewidth = float(attrs['tablewidth'])
                 except Exception:
-                    raise EAsciiDoc('illegal [%s] %s: %s' % (self.defname,k,v))
+                    raise EAsciiDoc('illegal [%s] %s: %s' % (self.defname, k, v))
         self.merge_attributes(attrs)
         # Parse table ruler.
         ruler = reader.read()
-        assert re.match(self.delimiter,ruler)
+        assert re.match(self.delimiter, ruler)
         self.parse_ruler(ruler)
         # Read the entire table.
         table = []
         while True:
             line = reader.read_next()
             # Table terminated by underline followed by a blank line or EOF.
-            if len(table) > 0 and re.match(self.underline,table[-1]):
-                if line in ('',None):
-                    break;
+            if len(table) > 0 and re.match(self.underline, table[-1]):
+                if line in ('', None):
+                    break
             if line is None:
                 raise EAsciiDoc('closing [%s] underline expected' % self.defname)
             table.append(reader.read())
         # EXPERIMENTAL: The number of lines in the table, requested by Benjamin Klum.
         self.attributes['rows'] = str(len(table))
         if self.check_msg:  # Skip if table definition was marked invalid.
-            message.warning('skipping [%s] table: %s' % (self.defname,self.check_msg))
+            message.warning('skipping [%s] table: %s' % (self.defname, self.check_msg))
             return
         self.push_blockname('table')
         # Generate colwidths and colspecs.
@@ -5721,12 +5731,12 @@ class Table_OLD(AbstractBlock):
         # (the tab character does not appear elsewhere since it is expanded on
         # input) which are replaced after template attribute substitution.
         headrows = footrows = []
-        bodyrows,table = self.split_rows(table)
+        bodyrows, table = self.split_rows(table)
         if table:
             headrows = bodyrows
-            bodyrows,table = self.split_rows(table)
+            bodyrows, table = self.split_rows(table)
             if table:
-                footrows,table = self.split_rows(table)
+                footrows, table = self.split_rows(table)
         if headrows:
             headrows = self.parse_rows(headrows, self.headrow, self.headdata)
             headrows = writer.newline.join(headrows)
@@ -5738,7 +5748,7 @@ class Table_OLD(AbstractBlock):
         bodyrows = self.parse_rows(bodyrows, self.bodyrow, self.bodydata)
         bodyrows = writer.newline.join(bodyrows)
         self.attributes['bodyrows'] = '\x07bodyrows\x07'
-        table = subs_attrs(config.sections[self.template],self.attributes)
+        table = subs_attrs(config.sections[self.template], self.attributes)
         table = writer.newline.join(table)
         # Before we finish replace the table head, foot and body place holders
         # with the real data.
@@ -5747,17 +5757,21 @@ class Table_OLD(AbstractBlock):
         if footrows:
             table = table.replace('\x07footrows\x07', footrows, 1)
         table = table.replace('\x07bodyrows\x07', bodyrows, 1)
-        writer.write(table,trace='table')
+        writer.write(table, trace='table')
         self.pop_blockname()
+
 
 class Tables_OLD(AbstractBlocks):
     """List of tables."""
     BLOCK_TYPE = Table_OLD
     PREFIX = 'old_tabledef-'
+
     def __init__(self):
         AbstractBlocks.__init__(self)
-    def load(self,sections):
-        AbstractBlocks.load(self,sections)
+
+    def load(self, sections):
+        AbstractBlocks.load(self, sections)
+
     def validate(self):
         # Does not call AbstractBlocks.validate().
         # Check we have a default table definition,
@@ -5768,20 +5782,31 @@ class Tables_OLD(AbstractBlocks):
         else:
             raise EAsciiDoc('missing section: [OLD_tabledef-default]')
         # Set default table defaults.
-        if default.format is None: default.subs = 'fixed'
+        if default.format is None:
+            default.subs = 'fixed'
         # Propagate defaults to unspecified table parameters.
         for b in self.blocks:
             if b is not default:
-                if b.fillchar is None: b.fillchar = default.fillchar
-                if b.format is None: b.format = default.format
-                if b.template is None: b.template = default.template
-                if b.colspec is None: b.colspec = default.colspec
-                if b.headrow is None: b.headrow = default.headrow
-                if b.footrow is None: b.footrow = default.footrow
-                if b.bodyrow is None: b.bodyrow = default.bodyrow
-                if b.headdata is None: b.headdata = default.headdata
-                if b.footdata is None: b.footdata = default.footdata
-                if b.bodydata is None: b.bodydata = default.bodydata
+                if b.fillchar is None:
+                    b.fillchar = default.fillchar
+                if b.format is None:
+                    b.format = default.format
+                if b.template is None:
+                    b.template = default.template
+                if b.colspec is None:
+                    b.colspec = default.colspec
+                if b.headrow is None:
+                    b.headrow = default.headrow
+                if b.footrow is None:
+                    b.footrow = default.footrow
+                if b.bodyrow is None:
+                    b.bodyrow = default.bodyrow
+                if b.headdata is None:
+                    b.headdata = default.headdata
+                if b.footdata is None:
+                    b.footdata = default.footdata
+                if b.bodydata is None:
+                    b.bodydata = default.bodydata
         # Check all tables have valid fill character.
         for b in self.blocks:
             if not b.fillchar or len(b.fillchar) != 1:
@@ -5811,19 +5836,23 @@ class Tables_OLD(AbstractBlocks):
             b.validate()
             if config.verbose:
                 if b.check_msg:
-                    message.warning('[%s] table definition: %s' % (b.defname,b.check_msg))
+                    message.warning('[%s] table definition: %s' % (b.defname, b.check_msg))
+
 
 # End of deprecated old table classes.
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # filter and theme plugin commands.
-#---------------------------------------------------------------------------
-import shutil, zipfile
+# ---------------------------------------------------------------------------
+import shutil
+import zipfile
+
 
 def die(msg):
     message.stderr(msg)
     sys.exit(1)
+
 
 def extract_zip(zip_file, destdir):
     """
@@ -5857,6 +5886,7 @@ def extract_zip(zip_file, destdir):
     finally:
         zipo.close()
 
+
 def create_zip(zip_file, src, skip_hidden=False):
     """
     Create Zip file. If src is a directory archive all contained files and
@@ -5883,7 +5913,7 @@ def create_zip(zip_file, src, skip_hidden=False):
                             message.verbose('skipping: %s' % os.path.join(arcroot, d))
                             del dirs[dirs.index(d)]
                 for f in files:
-                    filename = os.path.join(root,f)
+                    filename = os.path.join(root, f)
                     arcname = os.path.join(arcroot, f)
                     if skip_hidden and f.startswith('.'):
                         message.verbose('skipping: %s' % arcname)
@@ -5895,11 +5925,12 @@ def create_zip(zip_file, src, skip_hidden=False):
     finally:
         zipo.close()
 
+
 class Plugin:
     """
     --filter and --theme option commands.
     """
-    CMDS = ('install','remove','list','build')
+    CMDS = ('install', 'remove', 'list', 'build')
 
     type = None     # 'backend', 'filter' or 'theme'.
 
@@ -5907,7 +5938,7 @@ class Plugin:
     def get_dir():
         """
         Return plugins path (.asciidoc/filters or .asciidoc/themes) in user's
-        home direcory or None if user home not defined.
+        home directory or None if user home not defined.
         """
         result = userdir()
         if result:
@@ -5921,16 +5952,14 @@ class Plugin:
         args[0] is plugin zip file path.
         args[1] is optional destination plugins directory.
         """
-        if len(args) not in (1,2):
-            die('invalid number of arguments: --%s install %s'
-                    % (Plugin.type, ' '.join(args)))
+        if len(args) not in (1, 2):
+            die('invalid number of arguments: --%s install %s' % (Plugin.type, ' '.join(args)))
         zip_file = args[0]
         if not os.path.isfile(zip_file):
             die('file not found: %s' % zip_file)
-        reo = re.match(r'^\w+',os.path.split(zip_file)[1])
+        reo = re.match(r'^\w+', os.path.split(zip_file)[1])
         if not reo:
-            die('file name does not start with legal %s name: %s'
-                    % (Plugin.type, zip_file))
+            die('file name does not start with legal %s name: %s' % (Plugin.type, zip_file))
         plugin_name = reo.group()
         if len(args) == 2:
             plugins_dir = args[1]
@@ -5961,11 +5990,10 @@ class Plugin:
         args[0] is plugin name.
         args[1] is optional plugin directory (defaults to ~/.asciidoc/<plugin_name>).
         """
-        if len(args) not in (1,2):
-            die('invalid number of arguments: --%s remove %s'
-                    % (Plugin.type, ' '.join(args)))
+        if len(args) not in (1, 2):
+            die('invalid number of arguments: --%s remove %s' % (Plugin.type, ' '.join(args)))
         plugin_name = args[0]
-        if not re.match(r'^\w+$',plugin_name):
+        if not re.match(r'^\w+$', plugin_name):
             die('illegal %s name: %s' % (Plugin.type, plugin_name))
         if len(args) == 2:
             d = args[1]
@@ -5992,7 +6020,7 @@ class Plugin:
         for d in [os.path.join(d, Plugin.type+'s') for d in config.get_load_dirs()]:
             if os.path.isdir(d):
                 for f in os.walk(d).next()[1]:
-                    message.stdout(os.path.join(d,f))
+                    message.stdout(os.path.join(d, f))
 
     @staticmethod
     def build(args):
@@ -6002,8 +6030,7 @@ class Plugin:
         args[1] is plugin directory.
         """
         if len(args) != 2:
-            die('invalid number of arguments: --%s build %s'
-                    % (Plugin.type, ' '.join(args)))
+            die('invalid number of arguments: --%s build %s' % (Plugin.type, ' '.join(args)))
         zip_file = args[0]
         plugin_source = args[1]
         if not (os.path.isdir(plugin_source) or os.path.isfile(plugin_source)):
@@ -6014,9 +6041,9 @@ class Plugin:
             die('failed to create %s: %s' % (zip_file, str(e)))
 
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Application code.
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Constants
 # ---------
 APP_FILE = None             # This file's full path.
@@ -6042,7 +6069,7 @@ macros = Macros()           # Macro definitions.
 calloutmap = CalloutMap()   # Coordinates callouts and callout list.
 trace = Trace()             # Implements trace attribute processing.
 
-### Used by asciidocapi.py ###
+# Used by asciidocapi.py #
 # List of message strings written to stderr.
 messages = message.messages
 
@@ -6053,7 +6080,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
     DocBook file written to file object dst."""
     def load_conffiles(include=[], exclude=[]):
         # Load conf files specified on the command-line and by the conf-files attribute.
-        files = document.attributes.get('conf-files','')
+        files = document.attributes.get('conf-files', '')
         files = [f.strip() for f in files.split('|') if f.strip()]
         files += confiles
         if files:
@@ -6067,28 +6094,30 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         for f in config.filters:
             if not config.find_config_dir('filters', f):
                 raise EAsciiDoc('missing filter: %s' % f)
-        if doctype not in (None,'article','manpage','book'):
+        if doctype not in (None, 'article', 'manpage', 'book'):
             raise EAsciiDoc('illegal document type')
         # Set processing options.
         for o in options:
-            if o == '-c': config.dumping = True
-            if o == '-s': config.header_footer = False
-            if o == '-v': config.verbose = True
+            if o == '-c':
+                config.dumping = True
+            if o == '-s':
+                config.header_footer = False
+            if o == '-v':
+                config.verbose = True
         document.update_attributes()
         if '-e' not in options:
             # Load asciidoc.conf files in two passes: the first for attributes
             # the second for everything. This is so that locally set attributes
             # available are in the global asciidoc.conf
-            if not config.load_from_dirs('asciidoc.conf',include=['attributes']):
+            if not config.load_from_dirs('asciidoc.conf', include=['attributes']):
                 raise EAsciiDoc('configuration file asciidoc.conf missing')
             load_conffiles(include=['attributes'])
             config.load_from_dirs('asciidoc.conf')
             if infile != '<stdin>':
                 indir = os.path.dirname(infile)
-                config.load_file('asciidoc.conf', indir,
-                                include=['attributes','titles','specialchars'])
+                config.load_file('asciidoc.conf', indir, include=['attributes', 'titles', 'specialchars'])
         else:
-            load_conffiles(include=['attributes','titles','specialchars'])
+            load_conffiles(include=['attributes', 'titles', 'specialchars'])
         document.update_attributes()
         # Check the infile exists.
         if infile != '<stdin>':
@@ -6099,7 +6128,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         # Open input file and parse document header.
         reader.tabsize = config.tabsize
         reader.open(infile)
-        has_header = document.parse_header(doctype,backend)
+        has_header = document.parse_header(doctype, backend)
         # doctype is now finalized.
         document.attributes['doctype-'+document.doctype] = ''
         config.set_theme_attributes()
@@ -6127,7 +6156,8 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
                 f = os.path.splitext(infile)[0]
                 doc_conffiles = [
                         f for f in (f+'.conf', f+'-'+document.backend+'.conf')
-                        if os.path.isfile(f) ]
+                        if os.path.isfile(f)
+                ]
                 for f in doc_conffiles:
                     config.load_file(f)
         load_conffiles()
@@ -6142,9 +6172,9 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         attrs.update(config.cmd_attrs)
         if 'title' in attrs:    # Don't pass the header title.
             del attrs['title']
-        for k,v in list(attrs.items()):
+        for k, v in list(attrs.items()):
             if v:
-                args += ' --attribute "%s=%s"' % (k,v)
+                args += ' --attribute "%s=%s"' % (k, v)
             else:
                 args += ' --attribute "%s"' % k
         document.attributes['asciidoc-args'] = args
@@ -6159,7 +6189,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         document.attributes.update(AttributeEntry.attributes)
         document.update_attributes()
         # Set the default embedded icons directory.
-        if 'data-uri' in  document.attributes and not os.path.isdir(document.attributes['iconsdir']):
+        if 'data-uri' in document.attributes and not os.path.isdir(document.attributes['iconsdir']):
             document.attributes['iconsdir'] = os.path.join(
                      document.attributes['asciidoc-confdir'], 'images/icons')
         # Configuration is fully loaded.
@@ -6178,7 +6208,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
             try:
                 writer.open(outfile, reader.bom)
                 try:
-                    document.translate(has_header) # Generate the output.
+                    document.translate(has_header)  # Generate the output.
                 finally:
                     writer.close()
             finally:
@@ -6194,7 +6224,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         if reader.cursor:
             msg = message.format('', msg)
         if isinstance(e, EAsciiDoc):
-            message.stderr('%s%s' % (msg,str(e)))
+            message.stderr('%s%s' % (msg, str(e)))
         else:
             if __name__ == '__main__':
                 message.stderr(msg+'unexpected error:')
@@ -6202,13 +6232,15 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
                 traceback.print_exc(file=sys.stderr)
                 message.stderr('-'*60)
             else:
-                message.stderr('%sunexpected error: %s' % (msg,str(e)))
+                message.stderr('%sunexpected error: %s' % (msg, str(e)))
         sys.exit(1)
+
 
 def usage(msg=''):
     if msg:
         message.stderr(msg)
     show_help('default', sys.stderr)
+
 
 def show_help(topic, f=None):
     """Print help topic to file object f."""
@@ -6245,8 +6277,9 @@ def show_help(topic, f=None):
         for line in lines:
             print(line, file=f)
 
-### Used by asciidocapi.py ###
-def execute(cmd,opts,args):
+
+# Used by asciidocapi.py #
+def execute(cmd, opts, args):
     """
     Execute asciidoc with command-line options and arguments.
     cmd is asciidoc command or asciidoc.py path.
@@ -6282,10 +6315,10 @@ def execute(cmd,opts,args):
     outfile = None
     options = []
     help_option = False
-    for o,v in opts:
-        if o in ('--help','-h'):
+    for o, v in opts:
+        if o in ('--help', '-h'):
             help_option = True
-        #DEPRECATED: --unsafe option.
+        # DEPRECATED: --unsafe option.
         if o == '--unsafe':
             document.safe = False
         if o == '--safe':
@@ -6293,40 +6326,40 @@ def execute(cmd,opts,args):
         if o == '--version':
             print(('asciidoc %s' % VERSION))
             sys.exit(0)
-        if o in ('-b','--backend'):
+        if o in ('-b', '--backend'):
             backend = v
-        if o in ('-c','--dump-conf'):
+        if o in ('-c', '--dump-conf'):
             options.append('-c')
-        if o in ('-d','--doctype'):
+        if o in ('-d', '--doctype'):
             doctype = v
-        if o in ('-e','--no-conf'):
+        if o in ('-e', '--no-conf'):
             options.append('-e')
-        if o in ('-f','--conf-file'):
+        if o in ('-f', '--conf-file'):
             confiles.append(v)
         if o == '--filter':
             config.filters.append(v)
-        if o in ('-n','--section-numbers'):
+        if o in ('-n', '--section-numbers'):
             o = '-a'
             v = 'numbered'
         if o == '--theme':
             o = '-a'
             v = 'theme='+v
-        if o in ('-a','--attribute'):
+        if o in ('-a', '--attribute'):
             e = parse_entry(v, allow_name_only=True)
             if not e:
                 usage('Illegal -a option: %s' % v)
                 sys.exit(1)
-            k,v = e
+            k, v = e
             # A @ suffix denotes don't override existing document attributes.
             if v and v[-1] == '@':
                 document.attributes[k] = v[:-1]
             else:
                 config.cmd_attrs[k] = v
-        if o in ('-o','--out-file'):
+        if o in ('-o', '--out-file'):
             outfile = v
-        if o in ('-s','--no-header-footer'):
+        if o in ('-s', '--no-header-footer'):
             options.append('-s')
-        if o in ('-v','--verbose'):
+        if o in ('-v', '--verbose'):
             options.append('-v')
     if help_option:
         if len(args) == 0:
@@ -6372,13 +6405,12 @@ if __name__ == '__main__':
     # Process command line options.
     import getopt
     try:
-        #DEPRECATED: --unsafe option.
-        opts,args = getopt.getopt(sys.argv[1:],
-            'a:b:cd:ef:hno:svw:',
-            ['attribute=','backend=','conf-file=','doctype=','dump-conf',
-            'help','no-conf','no-header-footer','out-file=',
-            'section-numbers','verbose','version','safe','unsafe',
-            'doctest','filter=','theme='])
+        # DEPRECATED: --unsafe option.
+        opts, args = getopt.getopt(sys.argv[1:], 'a:b:cd:ef:hno:svw:',
+                                   ['attribute=', 'backend=', 'conf-file=', 'doctype=', 'dump-conf',
+                                    'help', 'no-conf', 'no-header-footer', 'out-file=',
+                                    'section-numbers', 'verbose', 'version', 'safe', 'unsafe',
+                                    'doctest', 'filter=', 'theme='])
     except getopt.GetoptError:
         message.stderr('illegal command options')
         sys.exit(1)
@@ -6387,7 +6419,7 @@ if __name__ == '__main__':
         # Run module doctests.
         import doctest
         options = doctest.NORMALIZE_WHITESPACE + doctest.ELLIPSIS
-        failures,tries = doctest.testmod(optionflags=options)
+        failures, tries = doctest.testmod(optionflags=options)
         if failures == 0:
             message.stderr('All doctests passed')
             sys.exit(0)
@@ -6395,8 +6427,8 @@ if __name__ == '__main__':
             sys.exit(1)
     # Look for plugin management commands.
     count = 0
-    for o,v in opts:
-        if o in ('-b','--backend','--filter','--theme'):
+    for o, v in opts:
+        if o in ('-b', '--backend', '--filter', '--theme'):
             if o == '-b':
                 o = '--backend'
             plugin = o[2:]
@@ -6414,7 +6446,7 @@ if __name__ == '__main__':
             die('illegal --%s command: %s' % (plugin, cmd))
         Plugin.type = plugin
         config.init(sys.argv[0])
-        config.verbose = bool(set(['-v','--verbose']) & set(opt_names))
+        config.verbose = bool(set(['-v', '--verbose']) & set(opt_names))
         getattr(Plugin, cmd)(args)
     else:
         # Execute asciidoc.
