@@ -1782,7 +1782,7 @@ class Header:
                 # mantitle is lowered only if in ALL CAPS
                 if mantitle == mantitle.upper():
                     mantitle = mantitle.lower()
-                attrs['mantitle'] = mantitle;
+                attrs['mantitle'] = mantitle
                 attrs['manvolnum'] = mo.group('manvolnum').strip()
 
 
@@ -2077,7 +2077,7 @@ class Title:
             # least one alphanumeric character in title.
 
             if not re.search(r'\w', title):
-		return False
+                return False
 
             mo = re.match(Title.pattern, title)
             if mo:
@@ -2554,27 +2554,30 @@ class AbstractBlock:
                 self.mo = mo
                 result = True
         return result
+
     def translate(self):
         """Translate block from document reader."""
         if not self.presubs:
             self.presubs = config.subsnormal
         if reader.cursor:
             self.start = reader.cursor[:]
+
     def push_blockname(self, blockname=None):
-        '''
+        """
         On block entry set the 'blockname' attribute.
         Only applies to delimited blocks, lists and tables.
-        '''
+        """
         if blockname is None:
             blockname = self.attributes.get('style', self.short_name()).lower()
         trace('push blockname', blockname)
         self.blocknames.append(blockname)
         document.attributes['blockname'] = blockname
+
     def pop_blockname(self):
-        '''
+        """
         On block exits restore previous (parent) 'blockname' attribute or
         undefine it if we're no longer inside a block.
-        '''
+        """
         assert len(self.blocknames) > 0
         blockname = self.blocknames.pop()
         trace('pop blockname', blockname)
@@ -2582,7 +2585,8 @@ class AbstractBlock:
             document.attributes['blockname'] = None
         else:
             document.attributes['blockname'] = self.blocknames[-1]
-    def merge_attributes(self,attrs,params=[]):
+
+    def merge_attributes(self, attrs, params=[]):
         """
         Use the current block's attribute list (attrs dictionary) to build a
         dictionary of block processing parameters (self.parameters) and tag
@@ -2611,10 +2615,9 @@ class AbstractBlock:
         def check_array_parameter(param):
             # Check the parameter is a sequence type.
             if not is_array(self.parameters[param]):
-                message.error('malformed %s parameter: %s' %
-                        (param, self.parameters[param]))
+                message.error('malformed %s parameter: %s' % (param, self.parameters[param]))
                 # Revert to default value.
-                self.parameters[param] = getattr(self,param)
+                self.parameters[param] = getattr(self, param)
 
         params = list(self.PARAM_NAMES) + params
         self.attributes = {}
@@ -2626,7 +2629,7 @@ class AbstractBlock:
         # Start with configuration file defaults.
         self.parameters = AttrDict()
         for name in params:
-            self.parameters[name] = getattr(self,name)
+            self.parameters[name] = getattr(self, name)
         # Load the selected style attributes.
         posattrs = self.posattrs
         if posattrs and posattrs[0] == 'style':
@@ -2636,27 +2639,27 @@ class AbstractBlock:
             style = None
         if not style:
             # Use explicit style attribute, fall back to default style.
-            style = self.attributes.get('style',self.style)
+            style = self.attributes.get('style', self.style)
         if style:
             if not is_name(style):
                 message.error('illegal style name: %s' % style)
                 style = self.style
             # Lists have implicit styles and do their own style checks.
-            elif style not in self.styles and not isinstance(self,List):
-                message.warning('missing style: [%s]: %s' % (self.defname,style))
+            elif style not in self.styles and not isinstance(self, List):
+                message.warning('missing style: [%s]: %s' % (self.defname, style))
                 style = self.style
             if style in self.styles:
                 self.attributes['style'] = style
-                for k,v in list(self.styles[style].items()):
+                for k, v in list(self.styles[style].items()):
                     if k == 'posattrs':
                         posattrs = v
                     elif k in params:
                         self.parameters[k] = v
-                    elif not k in self.attributes:
+                    elif k not in self.attributes:
                         # Style attributes don't take precedence over explicit.
                         self.attributes[k] = v
         # Set named positional attributes.
-        for i,v in enumerate(posattrs):
+        for i, v in enumerate(posattrs):
             if str(i+1) in self.attributes:
                 self.attributes[v] = self.attributes[str(i+1)]
         # Override config and style attributes with attribute list attributes.
@@ -2665,21 +2668,24 @@ class AbstractBlock:
         check_array_parameter('presubs')
         check_array_parameter('postsubs')
 
+
 class AbstractBlocks:
     """List of block definitions."""
     PREFIX = ''         # Conf file section name prefix set in derived classes.
     BLOCK_TYPE = None   # Block type set in derived classes.
+
     def __init__(self):
-        self.current=None
+        self.current = None
         self.blocks = []        # List of Block objects.
         self.default = None     # Default Block.
         self.delimiters = None  # Combined delimiters regular expression.
-    def load(self,sections):
+
+    def load(self, sections):
         """Load block definition from 'sections' dictionary."""
         for k in list(sections.keys()):
-            if re.match(r'^'+ self.PREFIX + r'.+$',k):
+            if re.match(r'^' + self.PREFIX + r'.+$', k):
                 d = {}
-                parse_entries(sections.get(k,()),d)
+                parse_entries(sections.get(k, ()), d)
                 for b in self.blocks:
                     if b.defname == k:
                         break
@@ -2687,18 +2693,21 @@ class AbstractBlocks:
                     b = self.BLOCK_TYPE()
                     self.blocks.append(b)
                 try:
-                    b.load(k,d)
+                    b.load(k, d)
                 except EAsciiDoc as e:
-                    raise EAsciiDoc('[%s] %s' % (k,str(e)))
+                    raise EAsciiDoc('[%s] %s' % (k, str(e)))
+
     def dump(self):
         for b in self.blocks:
             b.dump()
+
     def isnext(self):
         for b in self.blocks:
             if b.isnext():
                 self.current = b
-                return True;
+                return True
         return False
+
     def validate(self):
         """Validate the block definitions."""
         # Validate delimiters and build combined lists delimiter pattern.
@@ -2710,25 +2719,31 @@ class AbstractBlocks:
                 delimiters.append(b.delimiter)
         self.delimiters = re_join(delimiters)
 
+
 class Paragraph(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
-        self.text=None          # Text in first line of paragraph.
+        self.text = None          # Text in first line of paragraph.
+
     def load(self,name,entries):
         AbstractBlock.load(self,name,entries)
+
     def dump(self):
         AbstractBlock.dump(self)
-        write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
+        write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
         write('')
+
     def isnext(self):
         result = AbstractBlock.isnext(self)
         if result:
             self.text = self.mo.groupdict().get('text')
         return result
+
     def translate(self):
         AbstractBlock.translate(self)
         attrs = self.mo.groupdict().copy()
-        if 'text' in attrs: del attrs['text']
+        if 'text' in attrs:
+            del attrs['text']
         BlockTitle.consume(attrs)
         AttributeList.consume(attrs)
         self.merge_attributes(attrs)
@@ -2740,26 +2755,29 @@ class Paragraph(AbstractBlock):
         presubs = self.parameters.presubs
         postsubs = self.parameters.postsubs
         if document.attributes.get('plaintext') is None:
-            body = Lex.set_margin(body) # Move body to left margin.
+            body = Lex.set_margin(body)  # Move body to left margin.
 
-        body = Lex.subs(body,presubs)
+        body = Lex.subs(body, presubs)
         template = self.parameters.template
-        template = subs_attrs(template,attrs)
-        stag = config.section2tags(template, self.attributes,skipend=True)[0]
+        template = subs_attrs(template, attrs)
+        stag = config.section2tags(template, self.attributes, skipend=True)[0]
         if self.parameters.filter:
-            body = filter_lines(self.parameters.filter,body,self.attributes)
-        body = Lex.subs(body,postsubs)
-        etag = config.section2tags(template, self.attributes,skipstart=True)[1]
+            body = filter_lines(self.parameters.filter, body, self.attributes)
+        body = Lex.subs(body, postsubs)
+        etag = config.section2tags(template, self.attributes, skipstart=True)[1]
         # Write start tag, content, end tag.
-        writer.write(dovetail_tags(stag,body,etag),trace='paragraph')
+        writer.write(dovetail_tags(stag, body, etag), trace='paragraph')
+
 
 class Paragraphs(AbstractBlocks):
     """List of paragraph definitions."""
     BLOCK_TYPE = Paragraph
     PREFIX = 'paradef-'
+
     def __init__(self):
         AbstractBlocks.__init__(self)
-        self.terminators=None    # List of compiled re's.
+        self.terminators = None    # List of compiled re's.
+
     def initialize(self):
         self.terminators = [
                 re.compile(r'^\+$|^$'),
@@ -2768,8 +2786,10 @@ class Paragraphs(AbstractBlocks):
                 re.compile(tables.delimiters),
                 re.compile(tables_OLD.delimiters),
             ]
-    def load(self,sections):
-        AbstractBlocks.load(self,sections)
+
+    def load(self, sections):
+        AbstractBlocks.load(self, sections)
+
     def validate(self):
         AbstractBlocks.validate(self)
         # Check we have a default paragraph definition, put it last in list.
@@ -2782,39 +2802,44 @@ class Paragraphs(AbstractBlocks):
         else:
             raise EAsciiDoc('missing section: [paradef-default]')
 
+
 class List(AbstractBlock):
-    NUMBER_STYLES= ('arabic','loweralpha','upperalpha','lowerroman',
-                    'upperroman')
+    NUMBER_STYLES = ('arabic', 'loweralpha', 'upperalpha', 'lowerroman', 'upperroman')
+
     def __init__(self):
         AbstractBlock.__init__(self)
-        self.CONF_ENTRIES += ('type','tags')
+        self.CONF_ENTRIES += ('type', 'tags')
         self.PARAM_NAMES += ('tags',)
         # listdef conf file parameters.
-        self.type=None
-        self.tags=None      # Name of listtags-<tags> conf section.
+        self.type = None
+        self.tags = None      # Name of listtags-<tags> conf section.
         # Calculated parameters.
-        self.tag=None       # Current tags AttrDict.
-        self.label=None     # List item label (labeled lists).
-        self.text=None      # Text in first line of list item.
-        self.index=None     # Matched delimiter 'index' group (numbered lists).
-        self.type=None      # List type ('numbered','bulleted','labeled').
-        self.ordinal=None   # Current list item ordinal number (1..)
-        self.number_style=None # Current numbered list style ('arabic'..)
-    def load(self,name,entries):
-        AbstractBlock.load(self,name,entries)
+        self.tag = None       # Current tags AttrDict.
+        self.label = None     # List item label (labeled lists).
+        self.text = None      # Text in first line of list item.
+        self.index = None     # Matched delimiter 'index' group (numbered lists).
+        self.type = None      # List type ('numbered','bulleted','labeled').
+        self.ordinal = None   # Current list item ordinal number (1..)
+        self.number_style = None  # Current numbered list style ('arabic'..)
+
+    def load(self, name, entries):
+        AbstractBlock.load(self, name, entries)
+
     def dump(self):
         AbstractBlock.dump(self)
-        write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
-        write('type='+self.type)
-        write('tags='+self.tags)
+        write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
+        write('type='+ self.type)
+        write('tags='+ self.tags)
         write('')
+
     def validate(self):
         AbstractBlock.validate(self)
         tags = [self.tags]
         tags += [s['tags'] for s in list(self.styles.values()) if 'tags' in s]
         for t in tags:
             if t not in lists.tags:
-                self.error('missing section: [listtags-%s]' % t,halt=True)
+                self.error('missing section: [listtags-%s]' % t, halt=True)
+
     def isnext(self):
         result = AbstractBlock.isnext(self)
         if result:
@@ -2822,38 +2847,42 @@ class List(AbstractBlock):
             self.text = self.mo.groupdict().get('text')
             self.index = self.mo.groupdict().get('index')
         return result
+
     def translate_entry(self):
         assert self.type == 'labeled'
         entrytag = subs_tag(self.tag.entry, self.attributes)
         labeltag = subs_tag(self.tag.label, self.attributes)
-        writer.write(entrytag[0],trace='list entry open')
-        writer.write(labeltag[0],trace='list label open')
+        writer.write(entrytag[0], trace='list entry open')
+        writer.write(labeltag[0], trace='list label open')
         # Write labels.
         while Lex.next_element() is self:
             reader.read()   # Discard (already parsed item first line).
             writer.write_tag(self.tag.term, [self.label],
-                             self.presubs, self.attributes,trace='list term')
-            if self.text: break
-        writer.write(labeltag[1],trace='list label close')
+                             self.presubs, self.attributes, trace='list term')
+            if self.text:
+                break
+        writer.write(labeltag[1], trace='list label close')
         # Write item text.
         self.translate_item()
-        writer.write(entrytag[1],trace='list entry close')
+        writer.write(entrytag[1], trace='list entry close')
+
     def translate_item(self):
         if self.type == 'callout':
             self.attributes['coids'] = calloutmap.calloutids(self.ordinal)
         itemtag = subs_tag(self.tag.item, self.attributes)
-        writer.write(itemtag[0],trace='list item open')
+        writer.write(itemtag[0], trace='list item open')
         # Write ItemText.
         text = reader.read_until(lists.terminators)
         if self.text:
             text = [self.text] + list(text)
         if text:
-            writer.write_tag(self.tag.text, text, self.presubs, self.attributes,trace='list text')
+            writer.write_tag(self.tag.text, text, self.presubs, self.attributes, trace='list text')
         # Process explicit and implicit list item continuations.
         while True:
             continuation = reader.read_next() == '+'
-            if continuation: reader.read()  # Discard continuation line.
-            while Lex.next_element() in (BlockTitle,AttributeList):
+            if continuation:
+                reader.read()  # Discard continuation line.
+            while Lex.next_element() in (BlockTitle, AttributeList):
                 # Consume continued element title and attributes.
                 Lex.next_element().translate()
             if not continuation and BlockTitle.title:
@@ -2862,18 +2891,18 @@ class List(AbstractBlock):
             next = Lex.next_element()
             if next in lists.open:
                 break
-            elif isinstance(next,List):
+            elif isinstance(next, List):
                 next.translate()
-            elif isinstance(next,Paragraph) and 'listelement' in next.options:
+            elif isinstance(next, Paragraph) and 'listelement' in next.options:
                 next.translate()
             elif continuation:
                 # This is where continued elements are processed.
                 if next is Title:
-                    message.error('section title not allowed in list item',halt=True)
+                    message.error('section title not allowed in list item', halt=True)
                 next.translate()
             else:
                 break
-        writer.write(itemtag[1],trace='list item close')
+        writer.write(itemtag[1], trace='list item close')
 
     @staticmethod
     def calc_style(index):
@@ -2894,12 +2923,12 @@ class List(AbstractBlock):
         return style
 
     @staticmethod
-    def calc_index(index,style):
+    def calc_index(index, style):
         """Return the ordinal number of (1...) of the list item index
         for the given list style."""
         def roman_to_int(roman):
             roman = roman.lower()
-            digits = {'i':1,'v':5,'x':10}
+            digits = {'i': 1, 'v': 5, 'x': 10}
             result = 0
             for i in range(len(roman)):
                 digit = digits[roman[i]]
@@ -2928,41 +2957,43 @@ class List(AbstractBlock):
         """Check calculated self.ordinal (1,2,...) against the item number
         in the document (self.index) and check the number style is the same as
         the first item (self.number_style)."""
-        assert self.type in ('numbered','callout')
+        assert self.type in ('numbered', 'callout')
         if self.index:
             style = self.calc_style(self.index)
             if style != self.number_style:
                 message.warning('list item style: expected %s got %s' %
-                        (self.number_style,style), offset=1)
-            ordinal = self.calc_index(self.index,style)
+                        (self.number_style, style), offset=1)
+            ordinal = self.calc_index(self.index, style)
             if ordinal != self.ordinal:
                 message.warning('list item index: expected %s got %s' %
-                        (self.ordinal,ordinal), offset=1)
+                        (self.ordinal, ordinal), offset=1)
 
     def check_tags(self):
         """ Check that all necessary tags are present. """
         tags = set(Lists.TAGS)
         if self.type != 'labeled':
-            tags = tags.difference(['entry','label','term'])
+            tags = tags.difference(['entry', 'label', 'term'])
         missing = tags.difference(list(self.tag.keys()))
         if missing:
             self.error('missing tag(s): %s' % ','.join(missing), halt=True)
+
     def translate(self):
         AbstractBlock.translate(self)
-        if self.short_name() in ('bibliography','glossary','qanda'):
+        if self.short_name() in ('bibliography', 'glossary', 'qanda'):
             message.deprecated('old %s list syntax' % self.short_name())
         lists.open.append(self)
         attrs = self.mo.groupdict().copy()
-        for k in ('label','text','index'):
-            if k in attrs: del attrs[k]
+        for k in ('label', 'text', 'index'):
+            if k in attrs:
+                del attrs[k]
         if self.index:
             # Set the numbering style from first list item.
             attrs['style'] = self.calc_style(self.index)
         BlockTitle.consume(attrs)
         AttributeList.consume(attrs)
-        self.merge_attributes(attrs,['tags'])
+        self.merge_attributes(attrs, ['tags'])
         self.push_blockname()
-        if self.type in ('numbered','callout'):
+        if self.type in ('numbered', 'callout'):
             self.number_style = self.attributes.get('style')
             if self.number_style not in self.NUMBER_STYLES:
                 message.error('illegal numbered list style: %s' % self.number_style)
@@ -2973,24 +3004,24 @@ class List(AbstractBlock):
         if 'width' in self.attributes:
             # Set horizontal list 'labelwidth' and 'itemwidth' attributes.
             v = str(self.attributes['width'])
-            mo = re.match(r'^(\d{1,2})%?$',v)
+            mo = re.match(r'^(\d{1,2})%?$', v)
             if mo:
                 labelwidth = int(mo.group(1))
                 self.attributes['labelwidth'] = str(labelwidth)
                 self.attributes['itemwidth'] = str(100-labelwidth)
             else:
                 self.error('illegal attribute value: width="%s"' % v)
-        stag,etag = subs_tag(self.tag.list, self.attributes)
+        stag, etag = subs_tag(self.tag.list, self.attributes)
         if stag:
-            writer.write(stag,trace='list open')
+            writer.write(stag, trace='list open')
         self.ordinal = 0
         # Process list till list syntax changes or there is a new title.
         while Lex.next_element() is self and not BlockTitle.title:
             self.ordinal += 1
             document.attributes['listindex'] = str(self.ordinal)
-            if self.type in ('numbered','callout'):
+            if self.type in ('numbered', 'callout'):
                 self.check_index()
-            if self.type in ('bulleted','numbered','callout'):
+            if self.type in ('bulleted', 'numbered', 'callout'):
                 reader.read()   # Discard (already parsed item first line).
                 self.translate_item()
             elif self.type == 'labeled':
@@ -2998,7 +3029,7 @@ class List(AbstractBlock):
             else:
                 raise AssertionError('illegal [%s] list type' % self.defname)
         if etag:
-            writer.write(etag,trace='list close')
+            writer.write(etag, trace='list close')
         if self.type == 'callout':
             calloutmap.validate(self.ordinal)
             calloutmap.listclose()
@@ -3007,17 +3038,20 @@ class List(AbstractBlock):
             document.attributes['listindex'] = str(lists.open[-1].ordinal)
         self.pop_blockname()
 
+
 class Lists(AbstractBlocks):
     """List of List objects."""
     BLOCK_TYPE = List
     PREFIX = 'listdef-'
-    TYPES = ('bulleted','numbered','labeled','callout')
-    TAGS = ('list', 'entry','item','text', 'label','term')
+    TYPES = ('bulleted', 'numbered', 'labeled', 'callout')
+    TAGS = ('list', 'entry', 'item', 'text', 'label', 'term')
+
     def __init__(self):
         AbstractBlocks.__init__(self)
         self.open = []  # A stack of the current and parent lists.
-        self.tags={}    # List tags dictionary. Each entry is a tags AttrDict.
-        self.terminators=None    # List of compiled re's.
+        self.tags = {}    # List tags dictionary. Each entry is a tags AttrDict.
+        self.terminators = None    # List of compiled re's.
+
     def initialize(self):
         self.terminators = [
                 re.compile(r'^\+$|^$'),
@@ -3027,106 +3061,118 @@ class Lists(AbstractBlocks):
                 re.compile(tables.delimiters),
                 re.compile(tables_OLD.delimiters),
             ]
-    def load(self,sections):
-        AbstractBlocks.load(self,sections)
+
+    def load(self, sections):
+        AbstractBlocks.load(self, sections)
         self.load_tags(sections)
-    def load_tags(self,sections):
+
+    def load_tags(self, sections):
         """
         Load listtags-* conf file sections to self.tags.
         """
         for section in list(sections.keys()):
-            mo = re.match(r'^listtags-(?P<name>\w+)$',section)
+            mo = re.match(r'^listtags-(?P<name>\w+)$', section)
             if mo:
                 name = mo.group('name')
                 if name in self.tags:
                     d = self.tags[name]
                 else:
                     d = AttrDict()
-                parse_entries(sections.get(section,()),d)
+                parse_entries(sections.get(section, ()), d)
                 for k in list(d.keys()):
                     if k not in self.TAGS:
-                        message.warning('[%s] contains illegal list tag: %s' %
-                                (section,k))
+                        message.warning('[%s] contains illegal list tag: %s' % (section, k))
                 self.tags[name] = d
+
     def validate(self):
         AbstractBlocks.validate(self)
         for b in self.blocks:
             # Check list has valid type.
-            if not b.type in Lists.TYPES:
+            if b.type not in Lists.TYPES:
                 raise EAsciiDoc('[%s] illegal type' % b.defname)
             b.validate()
+
     def dump(self):
         AbstractBlocks.dump(self)
-        for k,v in list(self.tags.items()):
+        for k, v in list(self.tags.items()):
             dump_section('listtags-'+k, v)
 
 
 class DelimitedBlock(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
-    def load(self,name,entries):
-        AbstractBlock.load(self,name,entries)
+
+    def load(self, name, entries):
+        AbstractBlock.load(self, name, entries)
+
     def dump(self):
         AbstractBlock.dump(self)
-        write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
+        write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
         write('')
+
     def isnext(self):
         return AbstractBlock.isnext(self)
+
     def translate(self):
         AbstractBlock.translate(self)
         reader.read()   # Discard delimiter.
         self.merge_attributes(AttributeList.attrs)
-        if not 'skip' in self.parameters.options:
+        if 'skip' not in self.parameters.options:
             BlockTitle.consume(self.attributes)
             AttributeList.consume()
         self.push_blockname()
         options = self.parameters.options
         if 'skip' in options:
-            reader.read_until(self.delimiter,same_file=True)
+            reader.read_until(self.delimiter, same_file=True)
         elif safe() and self.defname == 'blockdef-backend':
             message.unsafe('Backend Block')
-            reader.read_until(self.delimiter,same_file=True)
+            reader.read_until(self.delimiter, same_file=True)
         else:
             template = self.parameters.template
-            template = subs_attrs(template,self.attributes)
+            template = subs_attrs(template, self.attributes)
             name = self.short_name()+' block'
             if 'sectionbody' in options:
                 # The body is treated like a section body.
-                stag,etag = config.section2tags(template,self.attributes)
-                writer.write(stag,trace=name+' open')
+                stag, etag = config.section2tags(template, self.attributes)
+                writer.write(stag, trace=name+' open')
                 Section.translate_body(self)
-                writer.write(etag,trace=name+' close')
+                writer.write(etag, trace=name+' close')
             else:
-                stag = config.section2tags(template,self.attributes,skipend=True)[0]
-                body = reader.read_until(self.delimiter,same_file=True)
+                stag = config.section2tags(template, self.attributes, skipend=True)[0]
+                body = reader.read_until(self.delimiter, same_file=True)
                 presubs = self.parameters.presubs
                 postsubs = self.parameters.postsubs
-                body = Lex.subs(body,presubs)
+                body = Lex.subs(body, presubs)
                 if self.parameters.filter:
-                    body = filter_lines(self.parameters.filter,body,self.attributes)
-                body = Lex.subs(body,postsubs)
+                    body = filter_lines(self.parameters.filter, body, self.attributes)
+                body = Lex.subs(body, postsubs)
                 # Write start tag, content, end tag.
-                etag = config.section2tags(template,self.attributes,skipstart=True)[1]
-                writer.write(dovetail_tags(stag,body,etag),trace=name)
-            trace(self.short_name()+' block close',etag)
+                etag = config.section2tags(template, self.attributes, skipstart=True)[1]
+                writer.write(dovetail_tags(stag, body, etag), trace=name)
+            trace(self.short_name()+' block close', etag)
         if reader.eof():
-            self.error('missing closing delimiter',self.start)
+            self.error('missing closing delimiter', self.start)
         else:
             delimiter = reader.read()   # Discard delimiter line.
-            assert re.match(self.delimiter,delimiter)
+            assert re.match(self.delimiter, delimiter)
         self.pop_blockname()
+
 
 class DelimitedBlocks(AbstractBlocks):
     """List of delimited blocks."""
     BLOCK_TYPE = DelimitedBlock
     PREFIX = 'blockdef-'
+
     def __init__(self):
         AbstractBlocks.__init__(self)
-    def load(self,sections):
+
+    def load(self, sections):
         """Update blocks defined in 'sections' dictionary."""
-        AbstractBlocks.load(self,sections)
+        AbstractBlocks.load(self, sections)
+
     def validate(self):
         AbstractBlocks.validate(self)
+
 
 class Column:
     """Table column."""
@@ -3138,6 +3184,7 @@ class Column:
         self.abswidth = None    # 1..   (page units).
         self.pcwidth = None     # 1..99 (percentage).
 
+
 class Cell:
     def __init__(self, data, span_spec=None, align_spec=None, style=None):
         self.data = data
@@ -3145,12 +3192,14 @@ class Cell:
         self.halign, self.valign = Table.parse_align_spec(align_spec)
         self.style = style
         self.reserved = False
+
     def __repr__(self):
         return '<Cell: %d.%d %s.%s %s "%s">' % (
                 self.span, self.vspan,
                 self.halign, self.valign,
                 self.style or '',
                 self.data)
+
     def clone_reserve(self):
         """Return a clone of self to reserve vertically spanned cell."""
         result = copy.copy(self)
@@ -3158,33 +3207,36 @@ class Cell:
         result.reserved = True
         return result
 
+
 class Table(AbstractBlock):
-    ALIGN = {'<':'left', '>':'right', '^':'center'}
-    VALIGN = {'<':'top', '>':'bottom', '^':'middle'}
-    FORMATS = ('psv','csv','dsv')
+    ALIGN = {'<': 'left', '>': 'right', '^': 'center'}
+    VALIGN = {'<': 'top', '>': 'bottom', '^': 'middle'}
+    FORMATS = ('psv', 'csv', 'dsv')
     SEPARATORS = dict(
         csv=',',
         dsv=r':|\n',
         # The count and align group matches are not exact.
         psv=r'((?<!\S)((?P<span>[\d.]+)(?P<op>[*+]))?(?P<align>[<\^>.]{,3})?(?P<style>[a-z])?)?\|'
     )
+
     def __init__(self):
         AbstractBlock.__init__(self)
-        self.CONF_ENTRIES += ('format','tags','separator')
+        self.CONF_ENTRIES += ('format', 'tags', 'separator')
         # tabledef conf file parameters.
-        self.format='psv'
-        self.separator=None
-        self.tags=None          # Name of tabletags-<tags> conf section.
+        self.format = 'psv'
+        self.separator = None
+        self.tags = None          # Name of tabletags-<tags> conf section.
         # Calculated parameters.
-        self.abswidth=None      # 1..   (page units).
+        self.abswidth = None      # 1..   (page units).
         self.pcwidth = None     # 1..99 (percentage).
-        self.rows=[]            # Parsed rows, each row is a list of Cells.
-        self.columns=[]         # List of Columns.
+        self.rows = []            # Parsed rows, each row is a list of Cells.
+        self.columns = []         # List of Columns.
+
     @staticmethod
     def parse_align_spec(align_spec):
         """
         Parse AsciiDoc cell alignment specifier and return 2-tuple with
-        horizonatal and vertical alignment names. Unspecified alignments
+        horizontal and vertical alignment names. Unspecified alignments
         set to None.
         """
         result = (None, None)
@@ -3194,10 +3246,11 @@ class Table(AbstractBlock):
                 result = (Table.ALIGN.get(mo.group(1)),
                           Table.VALIGN.get(mo.group(3)))
         return result
+
     @staticmethod
     def parse_span_spec(span_spec):
         """
-        Parse AsciiDoc cell span specifier and return 2-tuple with horizonatal
+        Parse AsciiDoc cell span specifier and return 2-tuple with horizontal
         and vertical span counts. Set default values (1,1) if not
         specified.
         """
@@ -3208,32 +3261,36 @@ class Table(AbstractBlock):
                 result = (mo.group(1) and int(mo.group(1)),
                           mo.group(3) and int(mo.group(3)))
         return (result[0] or 1, result[1] or 1)
-    def load(self,name,entries):
-        AbstractBlock.load(self,name,entries)
+
+    def load(self, name, entries):
+        AbstractBlock.load(self, name, entries)
+
     def dump(self):
         AbstractBlock.dump(self)
-        write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
+        write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
         write('format='+self.format)
         write('')
+
     def validate(self):
         AbstractBlock.validate(self)
         if self.format not in Table.FORMATS:
-            self.error('illegal format=%s' % self.format,halt=True)
+            self.error('illegal format=%s' % self.format, halt=True)
         self.tags = self.tags or 'default'
         tags = [self.tags]
         tags += [s['tags'] for s in list(self.styles.values()) if 'tags' in s]
         for t in tags:
             if t not in tables.tags:
-                self.error('missing section: [tabletags-%s]' % t,halt=True)
+                self.error('missing section: [tabletags-%s]' % t, halt=True)
         if self.separator:
             # Evaluate escape characters.
             self.separator = literal_eval('"'+self.separator+'"')
-        #TODO: Move to class Tables
+        # TODO: Move to class Tables
         # Check global table parameters.
         elif config.pagewidth is None:
             self.error('missing [miscellaneous] entry: pagewidth')
         elif config.pageunits is None:
             self.error('missing [miscellaneous] entry: pageunits')
+
     def validate_attributes(self):
         """Validate and parse table attributes."""
         # Set defaults.
@@ -3242,22 +3299,22 @@ class Table(AbstractBlock):
         separator = self.separator
         abswidth = float(config.pagewidth)
         pcwidth = 100.0
-        for k,v in list(self.attributes.items()):
+        for k, v in list(self.attributes.items()):
             if k == 'format':
                 if v not in self.FORMATS:
-                    self.error('illegal %s=%s' % (k,v))
+                    self.error('illegal %s=%s' % (k, v))
                 else:
                     format = v
             elif k == 'tags':
                 if v not in tables.tags:
-                    self.error('illegal %s=%s' % (k,v))
+                    self.error('illegal %s=%s' % (k, v))
                 else:
                     tags = v
             elif k == 'separator':
                 separator = v
             elif k == 'width':
-                if not re.match(r'^\d{1,3}%$',v) or int(v[:-1]) > 100:
-                    self.error('illegal %s=%s' % (k,v))
+                if not re.match(r'^\d{1,3}%$', v) or int(v[:-1]) > 100:
+                    self.error('illegal %s=%s' % (k, v))
                 else:
                     abswidth = float(v[:-1])/100 * config.pagewidth
                     pcwidth = float(v[:-1])
@@ -3270,17 +3327,18 @@ class Table(AbstractBlock):
                 separator = ','
         else:
             if not is_re(separator):
-                self.error('illegal regular expression: separator=%s' %
-                        separator)
+                self.error('illegal regular expression: separator=%s' % separator)
         self.parameters.format = format
         self.parameters.tags = tags
         self.parameters.separator = separator
         self.abswidth = abswidth
         self.pcwidth = pcwidth
-    def get_tags(self,params):
-        tags = self.get_param('tags',params)
+
+    def get_tags(self, params):
+        tags = self.get_param('tags', params)
         assert(tags and tags in tables.tags)
         return tables.tags[tags]
+
     def get_style(self,prefix):
         """
         Return the style dictionary whose name starts with 'prefix'.
@@ -3295,6 +3353,7 @@ class Table(AbstractBlock):
         else:
             self.error('missing style: %s*' % prefix)
             return None
+
     def parse_cols(self, cols, halign, valign):
         """
         Build list of column objects from table 'cols', 'halign' and 'valign'
@@ -3307,11 +3366,11 @@ class Table(AbstractBlock):
         reo1 = re.compile(COLS_RE1)
         reo2 = re.compile(COLS_RE2)
         cols = str(cols)
-        if re.match(r'^\d+$',cols):
+        if re.match(r'^\d+$', cols):
             for i in range(int(cols)):
                 self.columns.append(Column())
         else:
-            for col in re.split(r'\s*,\s*',cols):
+            for col in re.split(r'\s*,\s*', cols):
                 mo = reo1.match(col)
                 if not mo:
                     mo = reo2.match(col)
@@ -3323,21 +3382,24 @@ class Table(AbstractBlock):
                                    self.get_style(mo.group('style')))
                         )
                 else:
-                    self.error('illegal column spec: %s' % col,self.start)
+                    self.error('illegal column spec: %s' % col, self.start)
         # Set column (and indirectly cell) default alignments.
         for col in self.columns:
             col.halign = col.halign or halign or document.attributes.get('halign') or 'left'
             col.valign = col.valign or valign or document.attributes.get('valign') or 'top'
         # Validate widths and calculate missing widths.
-        n = 0; percents = 0; props = 0
+        n = 0
+        percents = 0
+        props = 0
         for col in self.columns:
             if col.width:
-                if col.width[-1] == '%': percents += int(col.width[:-1])
-                else: props += int(col.width)
+                if col.width[-1] == '%':
+                    percents += int(col.width[:-1])
+                else:
+                    props += int(col.width)
                 n += 1
         if percents > 0 and props > 0:
-            self.error('mixed percent and proportional widths: %s'
-                    % cols,self.start)
+            self.error('mixed percent and proportional widths: %s' % cols, self.start)
         pcunits = percents > 0
         # Fill in missing widths.
         if n < len(self.columns) and percents < 100:
@@ -3361,16 +3423,17 @@ class Table(AbstractBlock):
             else:
                 col.pcwidth = (float(col.width)/props)*100
             col.abswidth = self.abswidth * (col.pcwidth/100)
-            if config.pageunits in ('cm','mm','in','em'):
+            if config.pageunits in ('cm', 'mm', 'in', 'em'):
                 col.abswidth = '%.2f' % py2round(col.abswidth, 2)
             else:
                 col.abswidth = '%d' % py2round(col.abswidth)
             percents += col.pcwidth
             col.pcwidth = int(col.pcwidth)
         if py2round(percents) > 100:
-            self.error('total width exceeds 100%%: %s' % cols,self.start)
+            self.error('total width exceeds 100%%: %s' % cols, self.start)
         elif py2round(percents) < 100:
-            self.error('total width less than 100%%: %s' % cols,self.start)
+            self.error('total width less than 100%%: %s' % cols, self.start)
+
     def build_colspecs(self):
         """
         Generate column related substitution attributes.
@@ -3393,6 +3456,7 @@ class Table(AbstractBlock):
             i += 1
         if cols:
             self.attributes['colspecs'] = writer.newline.join(cols)
+
     def parse_rows(self, text):
         """
         Parse the table source text into self.rows (a list of rows, each row
@@ -5319,7 +5383,7 @@ class Table_OLD(AbstractBlock):
         """Parse ruler calculating underline and ruler column widths."""
         fc = re.escape(self.fillchar)
         # Strip and save optional tablewidth from end of ruler.
-        mo = re.match(r'^(.*'+fc+r'+)([\d\.]+)$',ruler)
+        mo = re.match(r'^(.*'+fc+r'+)([\d\.]+)$', ruler)
         if mo:
             ruler = mo.group(1)
             self.tablewidth = float(mo.group(2))
