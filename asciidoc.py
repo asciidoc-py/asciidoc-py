@@ -4527,7 +4527,7 @@ class Reader(Reader1):
     def skip_blank_lines():
         reader.read_until(r'\s*\S+')
 
-    def read_until(self,terminators,same_file=False):
+    def read_until(self, terminators, same_file=False):
         """Like read() but reads lines up to (but not including) the first line
         that matches the terminator regular expression, regular expression
         object or list of regular expression objects. If same_file is True then
@@ -4536,8 +4536,8 @@ class Reader(Reader1):
         if same_file:
             fname = self.cursor[0]
         result = []
-        if not isinstance(terminators,list):
-            if isinstance(terminators,str):
+        if not isinstance(terminators, list):
+            if isinstance(terminators, str):
                 terminators = [re.compile(terminators)]
             else:
                 terminators = [terminators]
@@ -4553,6 +4553,7 @@ class Reader(Reader1):
             result.append(s)
         return tuple(result)
 
+
 class Writer:
     """Writes lines to output file."""
     def __init__(self):
@@ -4562,28 +4563,31 @@ class Writer:
         self.lines_out = 0               # Number of lines written.
         self.skip_blank_lines = False    # If True don't output blank lines.
 
-    def open(self,fname,bom=None):
-        '''
+    def open(self, fname, bom=None):
+        """
         bom is optional byte order mark.
         http://en.wikipedia.org/wiki/Byte-order_mark
-        '''
+        """
         self.fname = fname
         if fname == '<stdout>':
             self.f = sys.stdout
         else:
             self.f = open(fname, 'w+', encoding='utf-8')
-        message.verbose('writing: '+writer.fname,False)
+        message.verbose('writing: '+writer.fname, False)
         if bom:
             self.f.write(bom)
         self.lines_out = 0
+
     def close(self):
         if self.fname != '<stdout>':
             self.f.close()
+
     def write_line(self, line=None):
         if not (self.skip_blank_lines and (not line or not line.strip())):
             self.f.write((line or '') + self.newline)
             self.lines_out = self.lines_out + 1
-    def write(self,*args,**kwargs):
+
+    def write(self, *args, **kwargs):
         """Iterates arguments, writes tuple and list arguments one line per
         element, else writes argument as single line. If no arguments writes
         blank line. If argument is None nothing is written. self.newline is
@@ -4600,16 +4604,17 @@ class Writer:
                         self.write_line(s)
                 elif arg is not None:
                     self.write_line(arg)
-    def write_tag(self,tag,content,subs=None,d=None,**kwargs):
+
+    def write_tag(self, tag, content, subs=None, d=None, **kwargs):
         """Write content enveloped by tag.
         Substitutions specified in the 'subs' list are perform on the
         'content'."""
         if subs is None:
             subs = config.subsnormal
-        stag,etag = subs_tag(tag,d)
-        content = Lex.subs(content,subs)
+        stag, etag = subs_tag(tag, d)
+        content = Lex.subs(content, subs)
         if 'trace' in kwargs:
-            trace(kwargs['trace'],[stag]+content+[etag])
+            trace(kwargs['trace'], [stag]+content+[etag])
         if stag:
             self.write(stag)
         if content:
@@ -4617,25 +4622,27 @@ class Writer:
         if etag:
             self.write(etag)
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Configuration file processing.
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+
 def _subs_specialwords(mo):
     """Special word substitution function called by
     Config.subs_specialwords()."""
     word = mo.re.pattern                    # The special word.
     template = config.specialwords[word]    # The corresponding markup template.
-    if not template in config.sections:
+    if template not in config.sections:
         raise EAsciiDoc('missing special word template [%s]' % template)
     if mo.group()[0] == '\\':
         return mo.group()[1:]   # Return escaped word.
     args = {}
     args['words'] = mo.group()  # The full match string is argument 'words'.
-    args.update(mo.groupdict()) # Add other named match groups to the arguments.
+    args.update(mo.groupdict())  # Add other named match groups to the arguments.
     # Delete groups that didn't participate in match.
-    for k,v in list(args.items()):
-        if v is None: del args[k]
-    lines = subs_attrs(config.sections[template],args)
+    for k, v in list(args.items()):
+        if v is None:
+            del args[k]
+    lines = subs_attrs(config.sections[template], args)
     if len(lines) == 0:
         result = ''
     elif len(lines) == 1:
@@ -4644,17 +4651,17 @@ def _subs_specialwords(mo):
         result = writer.newline.join(lines)
     return result
 
+
 class Config:
     """Methods to process configuration files."""
     # Non-template section name regexp's.
-    ENTRIES_SECTIONS= ('tags','miscellaneous','attributes','specialcharacters',
-            'specialwords','macros','replacements','quotes','titles',
-            r'paradef-.+',r'listdef-.+',r'blockdef-.+',r'tabledef-.+',
-            r'tabletags-.+',r'listtags-.+','replacements[23]',
-            r'old_tabledef-.+')
+    ENTRIES_SECTIONS = ('tags', 'miscellaneous', 'attributes', 'specialcharacters',
+                        'specialwords', 'macros', 'replacements', 'quotes', 'titles',
+                        r'paradef-.+', r'listdef-.+', r'blockdef-.+', r'tabledef-.+',
+                        r'tabletags-.+', r'listtags-.+', 'replacements[23]', r'old_tabledef-.+')
+
     def __init__(self):
-        self.sections = OrderedDict()   # Keyed by section name containing
-                                        # lists of section lines.
+        self.sections = OrderedDict()   # Keyed by section name containing lists of section lines.
         # Command-line options.
         self.verbose = False
         self.header_footer = True       # -s, --no-header-footer option.
@@ -4671,12 +4678,10 @@ class Config:
         self.tags = {}          # Values contain (stag,etag) tuples.
         self.specialchars = {}  # Values of special character substitutions.
         self.specialwords = {}  # Name is special word pattern, value is macro.
-        self.replacements = OrderedDict()   # Key is find pattern, value is
-                                            #replace pattern.
+        self.replacements = OrderedDict()   # Key is find pattern, value is replace pattern.
         self.replacements2 = OrderedDict()
         self.replacements3 = OrderedDict()
-        self.specialsections = {} # Name is special section name pattern, value
-                                  # is corresponding section name.
+        self.specialsections = {}  # Name is special section name pattern, value is corresponding section name.
         self.quotes = OrderedDict()    # Values contain corresponding tag name.
         self.fname = ''         # Most recently loaded configuration file name.
         self.conf_attrs = {}    # Attributes entries from conf files.
@@ -4693,8 +4698,7 @@ class Config:
         cmd is the asciidoc command or asciidoc.py path.
         """
         if float(sys.version[:3]) < float(MIN_PYTHON_VERSION):
-            message.stderr('FAILED: Python %s or better required' %
-                    MIN_PYTHON_VERSION)
+            message.stderr('FAILED: Python %s or better required' % MIN_PYTHON_VERSION)
             sys.exit(1)
         if not os.path.exists(cmd):
             message.stderr('FAILED: Missing asciidoc command: %s' % cmd)
@@ -4706,7 +4710,7 @@ class Config:
         global USER_DIR
         USER_DIR = userdir()
         if USER_DIR is not None:
-            USER_DIR = os.path.join(USER_DIR,'.asciidoc')
+            USER_DIR = os.path.join(USER_DIR, '.asciidoc')
             if not os.path.isdir(USER_DIR):
                 USER_DIR = None
 
@@ -4739,7 +4743,7 @@ class Config:
                         sections[section] = contents
         if dir:
             fname = os.path.join(dir, fname)
-        # Sliently skip missing configuration file.
+        # Silently skip missing configuration file.
         if not os.path.isfile(fname):
             return False
         # Don't load conf files twice (local and application conf files are the
@@ -4753,17 +4757,17 @@ class Config:
         self.fname = fname
         reo = re.compile(r'^\[(?P<section>\+?[^\W\d][\w-]*)\]\s*$')
         sections = OrderedDict()
-        section,contents = '',[]
+        section, contents = '', []
         while not rdr.eof():
             s = rdr.read()
             if s and s[0] == '#':       # Skip comment lines.
                 continue
-            if s[:2] == '\\#':          # Unescape lines starting with '#'.
+            if s[:2] == '\\#':          # Un-escape lines starting with '#'.
                 s = s[1:]
             s = s.rstrip()
             found = reo.findall(str(s))
             if found:
-                update_section(section) # Store previous section.
+                update_section(section)  # Store previous section.
                 section = found[0].lower()
                 contents = []
             else:
@@ -4777,14 +4781,14 @@ class Config:
             for s in set(sections) & set(exclude):
                 del sections[s]
         attrs = {}
-        self.load_sections(sections,attrs)
+        self.load_sections(sections, attrs)
         if not include:
             # If all sections are loaded mark this file as loaded.
             self.loaded.append(os.path.realpath(fname))
-        document.update_attributes(attrs) # So they are available immediately.
+        document.update_attributes(attrs)  # So they are available immediately.
         return True
 
-    def load_sections(self,sections,attrs=None):
+    def load_sections(self, sections, attrs=None):
         """
         Loads sections dictionary. Each dictionary entry contains a
         list of lines.
@@ -4792,13 +4796,13 @@ class Config:
         """
         # Delete trailing blank lines from sections.
         for k in list(sections.keys()):
-            for i in range(len(sections[k])-1,-1,-1):
+            for i in range(len(sections[k])-1, -1, -1):
                 if not sections[k][i]:
                     del sections[k][i]
                 elif not self.entries_section(k):
                     break
         # Update new sections.
-        for k,v in list(sections.items()):
+        for k, v in list(sections.items()):
             if k.startswith('+'):
                 # Append section.
                 k = k[1:]
@@ -4812,18 +4816,16 @@ class Config:
         self.parse_tags()
         # Internally [miscellaneous] section entries are just attributes.
         d = {}
-        parse_entries(sections.get('miscellaneous',()), d, unquote=True,
-                allow_name_only=True)
-        parse_entries(sections.get('attributes',()), d, unquote=True,
-                allow_name_only=True)
-        update_attrs(self.conf_attrs,d)
+        parse_entries(sections.get('miscellaneous', ()), d, unquote=True, allow_name_only=True)
+        parse_entries(sections.get('attributes', ()), d, unquote=True, allow_name_only=True)
+        update_attrs(self.conf_attrs, d)
         if attrs is not None:
             attrs.update(d)
         d = {}
-        parse_entries(sections.get('titles',()),d)
+        parse_entries(sections.get('titles', ()), d)
         Title.load(d)
-        parse_entries(sections.get('specialcharacters',()),self.specialchars,escape_delimiter=False)
-        parse_entries(sections.get('quotes',()),self.quotes)
+        parse_entries(sections.get('specialcharacters', ()), self.specialchars, escape_delimiter=False)
+        parse_entries(sections.get('quotes', ()), self.quotes)
         self.parse_specialwords()
         self.parse_replacements()
         self.parse_replacements('replacements2')
@@ -4834,7 +4836,7 @@ class Config:
         blocks.load(sections)
         tables_OLD.load(sections)
         tables.load(sections)
-        macros.load(sections.get('macros',()))
+        macros.load(sections.get('macros', ()))
 
     def get_load_dirs(self):
         """
