@@ -18,6 +18,8 @@ import unicodedata
 import copy
 from collections import OrderedDict
 import math
+import shutil
+import zipfile
 
 # Used by asciidocapi.py #
 VERSION = '8.6.10'           # See CHANGELOG file for version history.
@@ -1543,7 +1545,7 @@ class Document(object):
         specified.
         """
         assert self.level == 0
-        # Skip comments and attribute entries that preceed the header.
+        # Skip comments and attribute entries that precede the header.
         self.consume_attributes_and_comments()
         if doctype is not None:
             # Command-line overrides header.
@@ -2533,7 +2535,7 @@ class AbstractBlock:
         all_styles_have_template = True
         for k, v in list(self.styles.items()):
             t = v.get('template')
-            if t and not t in config.sections:
+            if t and t not in config.sections:
                 # Defer check if template name contains attributes.
                 if not re.search(r'{.+}', t):
                     message.warning('missing template section: [%s]' % t)
@@ -2587,7 +2589,7 @@ class AbstractBlock:
     def pop_blockname(self):
         """
         On block exits restore previous (parent) 'blockname' attribute or
-        undefine it if we're no longer inside a block.
+        un-define it if we're no longer inside a block.
         """
         assert len(self.blocknames) > 0
         blockname = self.blocknames.pop()
@@ -2736,8 +2738,8 @@ class Paragraph(AbstractBlock):
         AbstractBlock.__init__(self)
         self.text = None          # Text in first line of paragraph.
 
-    def load(self,name,entries):
-        AbstractBlock.load(self,name,entries)
+    def load(self, name, entries):
+        AbstractBlock.load(self, name, entries)
 
     def dump(self):
         AbstractBlock.dump(self)
@@ -2972,12 +2974,10 @@ class List(AbstractBlock):
         if self.index:
             style = self.calc_style(self.index)
             if style != self.number_style:
-                message.warning('list item style: expected %s got %s' %
-                        (self.number_style, style), offset=1)
+                message.warning('list item style: expected %s got %s' % (self.number_style, style), offset=1)
             ordinal = self.calc_index(self.index, style)
             if ordinal != self.ordinal:
-                message.warning('list item index: expected %s got %s' %
-                        (self.ordinal, ordinal), offset=1)
+                message.warning('list item index: expected %s got %s' % (self.ordinal, ordinal), offset=1)
 
     def check_tags(self):
         """ Check that all necessary tags are present. """
@@ -3350,7 +3350,7 @@ class Table(AbstractBlock):
         assert(tags and tags in tables.tags)
         return tables.tags[tags]
 
-    def get_style(self,prefix):
+    def get_style(self, prefix):
         """
         Return the style dictionary whose name starts with 'prefix'.
         """
@@ -3771,7 +3771,7 @@ class Tables(AbstractBlocks):
     def __init__(self):
         AbstractBlocks.__init__(self)
         # Table tags dictionary. Each entry is a tags dictionary.
-        self.tags={}
+        self.tags = {}
 
     def load(self, sections):
         AbstractBlocks.load(self, sections)
@@ -4132,8 +4132,7 @@ class Macro:
                 return mo.group()
             d = mo.groupdict()
             if 'passtext' not in d:
-                message.warning('passthrough macro %s: missing passtext group' %
-                        d.get('name', ''))
+                message.warning('passthrough macro %s: missing passtext group' % d.get('name', ''))
                 return mo.group()
             passtext = d['passtext']
             if re.search('\x07\\d+\x07', passtext):
@@ -4633,10 +4632,10 @@ class Writer:
         if etag:
             self.write(etag)
 
+
 # ---------------------------------------------------------------------------
 # Configuration file processing.
 # ---------------------------------------------------------------------------
-
 def _subs_specialwords(mo):
     """Special word substitution function called by
     Config.subs_specialwords()."""
@@ -5151,26 +5150,25 @@ class Config:
         # TODO: This is virtually the same as parse_replacements() and should
         # be factored to single routine.
         d = {}
-        parse_entries(self.sections.get('specialsections',()),d,unquote=True)
-        for pat,sectname in list(d.items()):
+        parse_entries(self.sections.get('specialsections', ()), d, unquote=True)
+        for pat, sectname in list(d.items()):
             pat = strip_quotes(pat)
             if not is_re(pat):
-                raise EAsciiDoc('[specialsections] entry ' \
-                                'is not a valid regular expression: %s' % pat)
+                raise EAsciiDoc('[specialsections] entry is not a valid regular expression: %s' % pat)
             if sectname is None:
                 if pat in self.specialsections:
                     del self.specialsections[pat]
             else:
                 self.specialsections[pat] = sectname
 
-    def parse_replacements(self,sect='replacements'):
+    def parse_replacements(self, sect='replacements'):
         """Parse replacements section into self.replacements dictionary."""
         d = OrderedDict()
-        parse_entries(self.sections.get(sect,()), d, unquote=True)
-        for pat,rep in list(d.items()):
-            if not self.set_replacement(pat, rep, getattr(self,sect)):
-                raise EAsciiDoc('[%s] entry in %s is not a valid' \
-                    ' regular expression: %s' % (sect,self.fname,pat))
+        parse_entries(self.sections.get(sect, ()), d, unquote=True)
+        for pat, rep in list(d.items()):
+            if not self.set_replacement(pat, rep, getattr(self, sect)):
+                raise EAsciiDoc('[%s] entry in %s is not a valid '
+                                'regular expression: %s' % (sect, self.fname, pat))
 
     @staticmethod
     def set_replacement(pat, rep, replacements):
@@ -5185,25 +5183,23 @@ class Config:
             replacements[pat] = strip_quotes(rep)
         return True
 
-    def subs_replacements(self,s,sect='replacements'):
+    def subs_replacements(self, s, sect='replacements'):
         """Substitute patterns from self.replacements in 's'."""
         result = s
-        for pat,rep in list(getattr(self,sect).items()):
+        for pat, rep in list(getattr(self, sect).items()):
             result = re.sub(pat, rep, result)
         return result
 
     def parse_specialwords(self):
         """Parse special words section into self.specialwords dictionary."""
         reo = re.compile(r'(?:\s|^)(".+?"|[^"\s]+)(?=\s|$)')
-        for line in self.sections.get('specialwords',()):
+        for line in self.sections.get('specialwords', ()):
             e = parse_entry(line)
             if not e:
-                raise EAsciiDoc('[specialwords] entry in %s is malformed: %s' \
-                    % (self.fname,line))
+                raise EAsciiDoc('[specialwords] entry in %s is malformed: %s' % (self.fname, line))
             name, wordlist = e
             if not is_name(name):
-                raise EAsciiDoc('[specialwords] name in %s is illegal: %s' \
-                    % (self.fname,name))
+                raise EAsciiDoc('[specialwords] name in %s is illegal: %s' % (self.fname, name))
             if wordlist is None:
                 # Un-define all words associated with 'name'.
                 for k, v in list(self.specialwords.items()):
@@ -5214,12 +5210,11 @@ class Config:
                 for word in words:
                     word = strip_quotes(word)
                     if not is_re(word):
-                        raise EAsciiDoc('[specialwords] entry in %s ' \
-                            'is not a valid regular expression: %s' \
-                            % (self.fname,word))
+                        raise EAsciiDoc('[specialwords] entry in %s '
+                                        'is not a valid regular expression: %s' % (self.fname, word))
                     self.specialwords[word] = name
 
-    def subs_specialchars(self,s):
+    def subs_specialchars(self, s):
         """Perform special character substitution on string 's'."""
         """It may seem like a good idea to escape special characters with a '\'
         character, the reason we don't is because the escape character itself
@@ -5227,17 +5222,17 @@ class Config:
         problematic. Use the predefined {amp},{lt},{gt} attributes instead."""
         result = ''
         for ch in s:
-            result = result + self.specialchars.get(ch,ch)
+            result = result + self.specialchars.get(ch, ch)
         return result
 
-    def subs_specialchars_reverse(self,s):
+    def subs_specialchars_reverse(self, s):
         """Perform reverse special character substitution on string 's'."""
         result = s
         for k, v in list(self.specialchars.items()):
             result = result.replace(v, k)
         return result
 
-    def subs_specialwords(self,s):
+    def subs_specialwords(self, s):
         """Search for word patterns from self.specialwords in 's' and
         substitute using corresponding macro."""
         result = s
@@ -5245,11 +5240,11 @@ class Config:
             result = re.sub(word, _subs_specialwords, result)
         return result
 
-    def expand_templates(self,entries):
+    def expand_templates(self, entries):
         """Expand any template::[] macros in a list of section entries."""
         result = []
         for line in entries:
-            mo = macros.match('+',r'template',line)
+            mo = macros.match('+', r'template', line)
             if mo:
                 s = mo.group('attrlist')
                 if s in self.sections:
@@ -5404,7 +5399,7 @@ class Table_OLD(AbstractBlock):
 
     def dump(self):
         AbstractBlock.dump(self)
-        write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
+        write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
         write('fillchar='+self.fillchar)
         write('format='+self.format)
         if self.colspec:
@@ -5531,7 +5526,7 @@ class Table_OLD(AbstractBlock):
             else:
                     # Size proportional to page width.
                 colfraction = width/totalwidth
-            c.colwidth = colfraction * config.pagewidth # To page units.
+            c.colwidth = colfraction * config.pagewidth  # To page units.
             if self.tablewidth is not None:
                 c.colwidth = c.colwidth * self.tablewidth   # Scale factor.
                 if self.tablewidth > 1:
@@ -5847,10 +5842,6 @@ class Tables_OLD(AbstractBlocks):
 # ---------------------------------------------------------------------------
 # filter and theme plugin commands.
 # ---------------------------------------------------------------------------
-import shutil
-import zipfile
-
-
 def die(msg):
     message.stderr(msg)
     sys.exit(1)
