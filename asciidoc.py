@@ -4865,7 +4865,7 @@ class Config:
         if dirs is None:
             dirs = self.get_load_dirs()
         for d in dirs:
-            f = os.path.join(d,filename)
+            f = os.path.join(d, filename)
             if os.path.isfile(f):
                 result.append(f)
         return result
@@ -4874,10 +4874,10 @@ class Config:
         """
         Load conf file from dirs list.
         If dirs not specified try all the well known locations.
-        Return False if no file was sucessfully loaded.
+        Return False if no file was successfully loaded.
         """
         count = 0
-        for f in self.find_in_dirs(filename,dirs):
+        for f in self.find_in_dirs(filename, dirs):
             if self.load_file(f, include=include):
                 count += 1
         return count != 0
@@ -4896,15 +4896,15 @@ class Config:
         conf2 = document.backend + '-' + document.doctype + '.conf'
         # First search for filter backends.
         for d in [os.path.join(d, 'backends', document.backend) for d in dirs]:
-            if self.load_file(conf,d):
+            if self.load_file(conf, d):
                 result = os.path.join(d, conf)
-            self.load_file(conf2,d)
+            self.load_file(conf2, d)
         if not result:
             # Search in the normal locations.
             for d in dirs:
-                if self.load_file(conf,d):
+                if self.load_file(conf, d):
                     result = os.path.join(d, conf)
-                self.load_file(conf2,d)
+                self.load_file(conf2, d)
         return result
 
     def load_filters(self, dirs=None):
@@ -4919,15 +4919,15 @@ class Config:
             dirs = self.get_load_dirs()
         for d in dirs:
             # Load filter .conf files.
-            filtersdir = os.path.join(d,'filters')
-            for dirpath,dirnames,filenames in os.walk(filtersdir):
+            filtersdir = os.path.join(d, 'filters')
+            for dirpath, dirnames, filenames in os.walk(filtersdir):
                 subdirs = dirpath[len(filtersdir):].split(os.path.sep)
                 # True if processing a filter specified by a --filter option.
                 filter_opt = len(subdirs) > 1 and subdirs[1] in self.filters
                 if '__noautoload__' not in filenames or filter_opt:
                     for f in filenames:
-                        if re.match(r'^.+\.conf$',f):
-                            self.load_file(f,dirpath)
+                        if re.match(r'^.+\.conf$', f):
+                            self.load_file(f, dirpath)
 
     def find_config_dir(self, *dirnames):
         """
@@ -4952,7 +4952,7 @@ class Config:
             else:
                 message.warning('missing theme: %s' % theme, linenos=False)
 
-    def load_miscellaneous(self,d):
+    def load_miscellaneous(self, d):
         """Set miscellaneous configuration entries from dictionary 'd'."""
         def set_if_int_ge(name, d, min_value):
             if name in d:
@@ -4964,7 +4964,7 @@ class Config:
                 except ValueError:
                     raise EAsciiDoc('illegal [miscellaneous] %s entry' % name)
         set_if_int_ge('tabsize', d, 0)
-        set_if_int_ge('textwidth', d, 1) # DEPRECATED: Old tables only.
+        set_if_int_ge('textwidth', d, 1)  # DEPRECATED: Old tables only.
 
         if 'pagewidth' in d:
             try:
@@ -4981,16 +4981,14 @@ class Config:
             # Convert escape sequences to their character values.
             self.newline = literal_eval('"'+d['newline']+'"')
         if 'subsnormal' in d:
-            self.subsnormal = parse_options(d['subsnormal'],SUBS_OPTIONS,
-                    'illegal [%s] %s: %s' %
-                    ('miscellaneous','subsnormal',d['subsnormal']))
+            self.subsnormal = parse_options(d['subsnormal'], SUBS_OPTIONS,
+                                            'illegal [%s] %s: %s' % ('miscellaneous', 'subsnormal', d['subsnormal']))
         if 'subsverbatim' in d:
-            self.subsverbatim = parse_options(d['subsverbatim'],SUBS_OPTIONS,
-                    'illegal [%s] %s: %s' %
-                    ('miscellaneous','subsverbatim',d['subsverbatim']))
+            self.subsverbatim = parse_options(d['subsverbatim'], SUBS_OPTIONS, 'illegal [%s] %s: %s'
+                                              % ('miscellaneous', 'subsverbatim', d['subsverbatim']))
 
     def validate(self):
-        """Check the configuration for internal consistancy. Called after all
+        """Check the configuration for internal consistency. Called after all
         configuration files have been loaded."""
         message.linenos = False     # Disable document line numbers.
         # Heuristic to validate that at least one configuration file was loaded.
@@ -4999,29 +4997,28 @@ class Config:
         # Check special characters are only one character long.
         for k in list(self.specialchars.keys()):
             if len(k) != 1:
-                raise EAsciiDoc('[specialcharacters] ' \
-                                'must be a single character: %s' % k)
+                raise EAsciiDoc('[specialcharacters] must be a single character: %s' % k)
         # Check all special words have a corresponding inline macro body.
         for macro in list(self.specialwords.values()):
             if not is_name(macro):
                 raise EAsciiDoc('illegal special word name: %s' % macro)
-            if not macro in self.sections:
+            if macro not in self.sections:
                 message.warning('missing special word macro: [%s]' % macro)
         # Check all text quotes have a corresponding tag.
         for q in list(self.quotes.keys())[:]:
             tag = self.quotes[q]
             if not tag:
-                del self.quotes[q]  # Undefine quote.
+                del self.quotes[q]  # Un-define quote.
             else:
                 if tag[0] == '#':
                     tag = tag[1:]
-                if not tag in self.tags:
-                    message.warning('[quotes] %s missing tag definition: %s' % (q,tag))
+                if tag not in self.tags:
+                    message.warning('[quotes] %s missing tag definition: %s' % (q, tag))
         # Check all specialsections section names exist.
-        for k,v in list(self.specialsections.items()):
+        for k, v in list(self.specialsections.items()):
             if not v:
                 del self.specialsections[k]
-            elif not v in self.sections:
+            elif v not in self.sections:
                 message.warning('missing specialsections section: [%s]' % v)
         paragraphs.validate()
         lists.validate()
@@ -5031,13 +5028,13 @@ class Config:
         macros.validate()
         message.linenos = None
 
-    def entries_section(self,section_name):
+    def entries_section(self, section_name):
         """
         Return True if conf file section contains entries, not a markup
         template.
         """
         for name in self.ENTRIES_SECTIONS:
-            if re.match(name,section_name):
+            if re.match(name, section_name):
                 return True
         return False
 
@@ -5047,36 +5044,36 @@ class Config:
         hdr = ''
         hdr = hdr + '#' + writer.newline
         hdr = hdr + '# Generated by AsciiDoc %s for %s %s.%s' % \
-            (VERSION,document.backend,document.doctype,writer.newline)
+            (VERSION, document.backend, document.doctype, writer.newline)
         t = time.asctime(time.localtime(time.time()))
-        hdr = hdr + '# %s%s' % (t,writer.newline)
+        hdr = hdr + '# %s%s' % (t, writer.newline)
         hdr = hdr + '#' + writer.newline
         sys.stdout.write(hdr)
         # Dump special sections.
         # Dump only the configuration file and command-line attributes.
-        # [miscellanous] entries are dumped as part of the [attributes].
+        # [miscellaneous] entries are dumped as part of the [attributes].
         d = {}
         d.update(self.conf_attrs)
         d.update(self.cmd_attrs)
-        dump_section('attributes',d)
+        dump_section('attributes', d)
         Title.dump()
-        dump_section('quotes',self.quotes)
-        dump_section('specialcharacters',self.specialchars)
+        dump_section('quotes', self.quotes)
+        dump_section('specialcharacters', self.specialchars)
         d = {}
-        for k,v in list(self.specialwords.items()):
+        for k, v in list(self.specialwords.items()):
             if v in d:
-                d[v] = '%s "%s"' % (d[v],k)   # Append word list.
+                d[v] = '%s "%s"' % (d[v], k)   # Append word list.
             else:
                 d[v] = '"%s"' % k
-        dump_section('specialwords',d)
-        dump_section('replacements',self.replacements)
-        dump_section('replacements2',self.replacements2)
-        dump_section('replacements3',self.replacements3)
-        dump_section('specialsections',self.specialsections)
+        dump_section('specialwords', d)
+        dump_section('replacements', self.replacements)
+        dump_section('replacements2', self.replacements2)
+        dump_section('replacements3', self.replacements3)
+        dump_section('specialsections', self.specialsections)
         d = {}
-        for k,v in list(self.tags.items()):
+        for k, v in list(self.tags.items()):
             d[k] = '%s|%s' % v
-        dump_section('tags',d)
+        dump_section('tags', d)
         paragraphs.dump()
         lists.dump()
         blocks.dump()
@@ -5086,17 +5083,17 @@ class Config:
         # Dump remaining sections.
         for k in list(self.sections.keys()):
             if not self.entries_section(k):
-                sys.stdout.write('[%s]%s' % (k,writer.newline))
+                sys.stdout.write('[%s]%s' % (k, writer.newline))
                 for line in self.sections[k]:
-                    sys.stdout.write('%s%s' % (line,writer.newline))
+                    sys.stdout.write('%s%s' % (line, writer.newline))
                 sys.stdout.write(writer.newline)
 
-    def subs_section(self,section,d):
+    def subs_section(self, section, d):
         """Section attribute substitution using attributes from
-        document.attributes and 'd'.  Lines containing undefinded
+        document.attributes and 'd'.  Lines containing undefined
         attributes are deleted."""
         if section in self.sections:
-            return subs_attrs(self.sections[section],d)
+            return subs_attrs(self.sections[section], d)
         else:
             message.warning('missing section: [%s]' % section)
             return ()
@@ -5104,15 +5101,15 @@ class Config:
     def parse_tags(self):
         """Parse [tags] section entries into self.tags dictionary."""
         d = {}
-        parse_entries(self.sections.get('tags',()),d)
-        for k,v in list(d.items()):
+        parse_entries(self.sections.get('tags', ()), d)
+        for k, v in list(d.items()):
             if v is None:
                 if k in self.tags:
                     del self.tags[k]
             elif v == '':
-                self.tags[k] = (None,None)
+                self.tags[k] = (None, None)
             else:
-                mo = re.match(r'(?P<stag>.*)\|(?P<etag>.*)',v)
+                mo = re.match(r'(?P<stag>.*)\|(?P<etag>.*)', v)
                 if mo:
                     self.tags[k] = (mo.group('stag'), mo.group('etag'))
                 else:
@@ -5123,18 +5120,20 @@ class Config:
         [tags] section. Raise error if not found. If a dictionary 'd' is
         passed then merge with document attributes and perform attribute
         substitution on tags."""
-        if not name in self.tags:
+        if name not in self.tags:
             raise EAsciiDoc('missing tag: %s' % name)
-        stag,etag = self.tags[name]
+        stag, etag = self.tags[name]
         if d is not None:
             # TODO: Should we warn if substitution drops a tag?
             if stag:
-                stag = subs_attrs(stag,d)
+                stag = subs_attrs(stag, d)
             if etag:
-                etag = subs_attrs(etag,d)
-        if stag is None: stag = ''
-        if etag is None: etag = ''
-        return (stag,etag)
+                etag = subs_attrs(etag, d)
+        if stag is None:
+            stag = ''
+        if etag is None:
+            etag = ''
+        return (stag, etag)
 
     def parse_specialsections(self):
         """Parse specialsections section to self.specialsections dictionary."""
@@ -5190,13 +5189,13 @@ class Config:
             if not e:
                 raise EAsciiDoc('[specialwords] entry in %s is malformed: %s' \
                     % (self.fname,line))
-            name,wordlist = e
+            name, wordlist = e
             if not is_name(name):
                 raise EAsciiDoc('[specialwords] name in %s is illegal: %s' \
                     % (self.fname,name))
             if wordlist is None:
-                # Undefine all words associated with 'name'.
-                for k,v in list(self.specialwords.items()):
+                # Un-define all words associated with 'name'.
+                for k, v in list(self.specialwords.items()):
                     if v == name:
                         del self.specialwords[k]
             else:
@@ -5223,7 +5222,7 @@ class Config:
     def subs_specialchars_reverse(self,s):
         """Perform reverse special character substitution on string 's'."""
         result = s
-        for k,v in list(self.specialchars.items()):
+        for k, v in list(self.specialchars.items()):
             result = result.replace(v, k)
         return result
 
@@ -5252,7 +5251,7 @@ class Config:
         return result
 
     def expand_all_templates(self):
-        for k,v in list(self.sections.items()):
+        for k, v in list(self.sections.items()):
             self.sections[k] = self.expand_templates(v)
 
     def section2tags(self, section, d={}, skipstart=False, skipend=False):
@@ -5272,7 +5271,7 @@ class Config:
         in_stag = True
         for s in body:
             if in_stag:
-                mo = re.match(r'(?P<stag>.*)\|(?P<etag>.*)',s)
+                mo = re.match(r'(?P<stag>.*)\|(?P<etag>.*)', s)
                 if mo:
                     if mo.group('stag'):
                         stag.append(mo.group('stag'))
@@ -5297,13 +5296,14 @@ class Config:
             stag = [x.replace(chr(0), title) for x in stag]
             etag = [x.replace(chr(0), title) for x in etag]
             d['title'] = title
-        return (stag,etag)
+        return (stag, etag)
 
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Deprecated old table classes follow.
 # Naming convention is an _OLD name suffix.
 # These will be removed from future versions of AsciiDoc
+# ---------------------------------------------------------------------------
 
 def join_lines_OLD(lines):
     """Return a list in which lines terminated with the backslash line
@@ -5326,6 +5326,7 @@ def join_lines_OLD(lines):
         result.append(s)
     return result
 
+
 class Column_OLD:
     """Table column."""
     def __init__(self):
@@ -5333,36 +5334,39 @@ class Column_OLD:
         self.rulerwidth = None
         self.colwidth = None    # Output width in page units.
 
+
 class Table_OLD(AbstractBlock):
     COL_STOP = r"(`|'|\.)"  # RE.
-    ALIGNMENTS = {'`':'left', "'":'right', '.':'center'}
-    FORMATS = ('fixed','csv','dsv')
+    ALIGNMENTS = {'`': 'left', "'": 'right', '.': 'center'}
+    FORMATS = ('fixed', 'csv', 'dsv')
+
     def __init__(self):
         AbstractBlock.__init__(self)
-        self.CONF_ENTRIES += ('template','fillchar','format','colspec',
-                              'headrow','footrow','bodyrow','headdata',
+        self.CONF_ENTRIES += ('template', 'fillchar', 'format', 'colspec',
+                              'headrow', 'footrow', 'bodyrow', 'headdata',
                               'footdata', 'bodydata')
         # Configuration parameters.
-        self.fillchar=None
-        self.format=None    # 'fixed','csv','dsv'
-        self.colspec=None
-        self.headrow=None
-        self.footrow=None
-        self.bodyrow=None
-        self.headdata=None
-        self.footdata=None
-        self.bodydata=None
+        self.fillchar = None
+        self.format = None    # 'fixed','csv','dsv'
+        self.colspec = None
+        self.headrow = None
+        self.footrow = None
+        self.bodyrow = None
+        self.headdata = None
+        self.footdata = None
+        self.bodydata = None
         # Calculated parameters.
-        self.underline=None     # RE matching current table underline.
-        self.isnumeric=False    # True if numeric ruler.
-        self.tablewidth=None    # Optional table width scale factor.
-        self.columns=[]         # List of Columns.
+        self.underline = None     # RE matching current table underline.
+        self.isnumeric = False    # True if numeric ruler.
+        self.tablewidth = None    # Optional table width scale factor.
+        self.columns = []         # List of Columns.
         # Other.
-        self.check_msg=''       # Message set by previous self.validate() call.
-    def load(self,name,entries):
-        AbstractBlock.load(self,name,entries)
+        self.check_msg = ''       # Message set by previous self.validate() call.
+
+    def load(self, name, entries):
+        AbstractBlock.load(self, name, entries)
         """Update table definition from section entries in 'entries'."""
-        for k,v in list(entries.items()):
+        for k, v in list(entries.items()):
             if k == 'fillchar':
                 if v and len(v) == 1:
                     self.fillchar = v
@@ -5387,6 +5391,7 @@ class Table_OLD(AbstractBlock):
                 self.footdata = v
             elif k == 'bodydata':
                 self.bodydata = v
+
     def dump(self):
         AbstractBlock.dump(self)
         write = lambda s: sys.stdout.write('%s%s' % (s,writer.newline))
@@ -5405,6 +5410,7 @@ class Table_OLD(AbstractBlock):
             write('footdata='+self.footdata)
         write('bodydata='+self.bodydata)
         write('')
+
     def validate(self):
         AbstractBlock.validate(self)
         """Check table definition and set self.check_msg if invalid else set
@@ -5431,9 +5437,11 @@ class Table_OLD(AbstractBlock):
         else:
             # No errors.
             self.check_msg = ''
+
     def isnext(self):
         return AbstractBlock.isnext(self)
-    def parse_ruler(self,ruler):
+
+    def parse_ruler(self, ruler):
         """Parse ruler calculating underline and ruler column widths."""
         fc = re.escape(self.fillchar)
         # Strip and save optional tablewidth from end of ruler.
@@ -5456,15 +5464,15 @@ class Table_OLD(AbstractBlock):
             self.isnumeric = False
         # Underlines must be 3 or more fillchars.
         self.underline = r'^' + fc + r'{3,}$'
-        splits = re.split(self.COL_STOP,ruler)[1:]
+        splits = re.split(self.COL_STOP, ruler)[1:]
         # Build self.columns.
-        for i in range(0,len(splits),2):
+        for i in range(0, len(splits), 2):
             c = Column_OLD()
             c.colalign = self.ALIGNMENTS[splits[i]]
             s = splits[i+1]
             if self.isnumeric:
                 # Strip trailing fillchars.
-                s = re.sub(fc+r'+$','',s)
+                s = re.sub(fc+r'+$', '', s)
                 if s == '':
                     c.rulerwidth = None
                 else:
@@ -5476,7 +5484,7 @@ class Table_OLD(AbstractBlock):
                     except ValueError:
                         raise EAsciiDoc('malformed ruler: bad width')
             else:   # Calculate column width from inter-fillchar intervals.
-                if not re.match(r'^'+fc+r'+$',s):
+                if not re.match(r'^'+fc+r'+$', s):
                     raise EAsciiDoc('malformed ruler: illegal fillchars')
                 c.rulerwidth = len(s)+1
             self.columns.append(c)
@@ -5488,6 +5496,7 @@ class Table_OLD(AbstractBlock):
                 if c.rulerwidth is None:
                     c.rulerwidth = prevwidth
                 prevwidth = c.rulerwidth
+
     def build_colspecs(self):
         """Generate colwidths and colspecs. This can only be done after the
         table arguments have been parsed since we use the table format."""
@@ -5516,7 +5525,7 @@ class Table_OLD(AbstractBlock):
             if self.tablewidth is not None:
                 c.colwidth = c.colwidth * self.tablewidth   # Scale factor.
                 if self.tablewidth > 1:
-                    c.colwidth = c.colwidth/100 # tablewidth is in percent.
+                    c.colwidth = c.colwidth/100  # tablewidth is in percent.
         # Build colspecs.
         if self.colspec:
             cols = []
@@ -5526,13 +5535,14 @@ class Table_OLD(AbstractBlock):
                 self.attributes['colalign'] = c.colalign
                 self.attributes['colwidth'] = str(int(c.colwidth))
                 self.attributes['colnumber'] = str(i + 1)
-                s = subs_attrs(self.colspec,self.attributes)
+                s = subs_attrs(self.colspec, self.attributes)
                 if not s:
                     message.warning('colspec dropped: contains undefined attribute')
                 else:
                     cols.append(s)
             self.attributes['colspecs'] = writer.newline.join(cols)
-    def split_rows(self,rows):
+
+    def split_rows(self, rows):
         """Return a two item tuple containing a list of lines up to but not
         including the next underline (continued lines are joined ) and the
         tuple of all lines after the underline."""
@@ -5545,6 +5555,7 @@ class Table_OLD(AbstractBlock):
         if i >= len(rows):
             raise EAsciiDoc('closing [%s] underline expected' % self.defname)
         return (join_lines_OLD(rows[:i]), rows[i+1:])
+
     def parse_rows(self, rows, rtag, dtag):
         """Parse rows list using the row and data tags. Returns a substituted
         list of output lines."""
@@ -5558,15 +5569,16 @@ class Table_OLD(AbstractBlock):
         elif self.format == 'dsv':
             rows = self.parse_dsv(rows)
         else:
-            assert True,'illegal table format'
+            assert True, 'illegal table format'
         # Substitute and indent all data in all rows.
-        stag,etag = subs_tag(rtag,self.attributes)
+        stag, etag = subs_tag(rtag, self.attributes)
         for row in rows:
             result.append('  '+stag)
-            for data in self.subs_row(row,dtag):
+            for data in self.subs_row(row, dtag):
                 result.append('    '+data)
             result.append('  '+etag)
         return result
+
     def subs_row(self, data, dtag):
         """Substitute the list of source row data elements using the data tag.
         Returns a substituted list of output table data items."""
@@ -5584,7 +5596,7 @@ class Table_OLD(AbstractBlock):
             self.attributes['colalign'] = c.colalign
             self.attributes['colwidth'] = str(int(c.colwidth))
             self.attributes['colnumber'] = str(i + 1)
-            stag,etag = subs_tag(dtag,self.attributes)
+            stag, etag = subs_tag(dtag, self.attributes)
             # Insert AsciiDoc line break (' +') where row data has newlines
             # ('\n').  This is really only useful when the table format is csv
             # and the output markup is HTML. It's also a bit dubious in that it
@@ -5592,13 +5604,14 @@ class Table_OLD(AbstractBlock):
             subs = self.get_subs()[0]
             if 'replacements2' in subs:
                 # Insert line breaks in cell data.
-                d = re.sub(r'(?m)\n',r' +\n',d)
+                d = re.sub(r'(?m)\n', r' +\n', d)
                 d = d.split('\n')    # So writer.newline is written.
             else:
                 d = [d]
-            result = result + [stag] + Lex.subs(d,subs) + [etag]
+            result = result + [stag] + Lex.subs(d, subs) + [etag]
         return result
-    def parse_fixed(self,rows):
+
+    def parse_fixed(self, rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         result = []
@@ -5617,20 +5630,21 @@ class Table_OLD(AbstractBlock):
                 start = end
             result.append(data)
         return result
-    def parse_csv(self,rows):
+
+    def parse_csv(self, rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         import io
         import csv
         result = []
-        rdr = csv.reader(io.StringIO('\r\n'.join(rows)),
-            skipinitialspace=True)
+        rdr = csv.reader(io.StringIO('\r\n'.join(rows)), skipinitialspace=True)
         try:
             for row in rdr:
                 result.append(row)
         except Exception:
             raise EAsciiDoc('csv parse error: %s' % row)
         return result
+
     def parse_dsv(self,rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
