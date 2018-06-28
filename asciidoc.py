@@ -179,7 +179,7 @@ class Message:
             self.stderr(msg)
 
     def warning(self, msg, linenos=True, offset=0):
-        msg = self.format(msg,'WARNING: ', linenos, offset=offset)
+        msg = self.format(msg, 'WARNING: ', linenos, offset=offset)
         document.has_warnings = True
         self.stderr(msg)
 
