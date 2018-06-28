@@ -1499,7 +1499,8 @@ class Document(object):
         else:
             self.attributes[old] = self.attributes[new]
 
-    def consume_attributes_and_comments(self, comments_only=False, noblanks=False):
+    @staticmethod
+    def consume_attributes_and_comments(comments_only=False, noblanks=False):
         """
         Returns True if one or more attributes or comments were consumed.
         If 'noblanks' is True then consummation halts if a blank line is
