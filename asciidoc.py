@@ -4838,7 +4838,8 @@ class Config:
         tables.load(sections)
         macros.load(sections.get('macros', ()))
 
-    def get_load_dirs(self):
+    @staticmethod
+    def get_load_dirs():
         """
         Return list of well known paths with conf files.
         """
