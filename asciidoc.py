@@ -1149,7 +1149,7 @@ def subs_attrs(lines, dictionary=None):
         skipped = re.search(r'(?su)\{[^\\\W][-\w]*?\}(?!\\)', line)
         if skipped:
             trace('dropped line', line)
-            continue;
+            continue
         # Expand system attributes (eval has precedence).
         reos = [
             re.compile(r'(?su)\{(?P<action>eval):(?P<expr>.*?)\}(?!\\)'),
