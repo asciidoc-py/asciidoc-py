@@ -266,10 +266,10 @@ def is_safe_file(fname, directory=None):
     elif directory == '':
         directory = '.'
     return (
-        not safe()
-        or file_in(fname, directory)
-        or file_in(fname, APP_DIR)
-        or file_in(fname, CONF_DIR)
+        not safe() or
+        file_in(fname, directory) or
+        file_in(fname, APP_DIR) or
+        file_in(fname, CONF_DIR)
     )
 
 
@@ -1648,9 +1648,9 @@ class Document(object):
         attrs = self.attributes  # Alias for readability.
         s = s.strip()
         mo = re.match(r'^(?P<name1>[^<>\s]+)'
-                '(\s+(?P<name2>[^<>\s]+))?'
-                '(\s+(?P<name3>[^<>\s]+))?'
-                '(\s+<(?P<email>\S+)>)?$', s)
+                      '(\s+(?P<name2>[^<>\s]+))?'
+                      '(\s+(?P<name3>[^<>\s]+))?'
+                      '(\s+<(?P<email>\S+)>)?$', s)
         if not mo:
             # Names that don't match the formal specification.
             if s:
