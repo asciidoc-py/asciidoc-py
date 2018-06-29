@@ -6,20 +6,27 @@ Copyright (C) 2002-2010 Stuart Rackham. Free use of this software is granted
 under the terms of the GNU General Public License (GPL).
 """
 
-import sys
+import ast
+import copy
+import csv
+import doctest
+import getopt
+import io
+import locale
+import math
 import os
 import re
+import shutil
+import subprocess
+import sys
+import tempfile
 import time
 import traceback
-import tempfile
-import subprocess
-import locale
 import unicodedata
-import copy
-from collections import OrderedDict
-import math
-import shutil
 import zipfile
+
+from ast import literal_eval
+from collections import OrderedDict
 
 # Used by asciidocapi.py #
 VERSION = '8.6.10'           # See CHANGELOG file for version history.
@@ -393,10 +400,6 @@ def py2round(n, d=0):
     back that functionality."""
     p = 10 ** d
     return float(math.floor((n * p) + math.copysign(0.5, n))) / p
-
-# Use AST module if CPython >= 2.6 or Jython.
-import ast
-from ast import literal_eval
 
 
 def get_args(val):
@@ -2263,7 +2266,6 @@ class Section:
         base_id = re.sub(r'\W+', '_', title).strip('_').lower()
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
-            import unicodedata
             base_id = unicodedata.normalize('NFKD', base_id).encode('ascii', 'ignore').decode('ascii')
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
@@ -3620,8 +3622,6 @@ class Table(AbstractBlock):
         Parse the table source text and return a list of rows, each row
         is a list of Cells.
         """
-        import io
-        import csv
         rows = []
         rdr = csv.reader(io.StringIO('\r\n'.join(text)),
                          delimiter=self.parameters.separator, skipinitialspace=True)
@@ -5640,8 +5640,6 @@ class Table_OLD(AbstractBlock):
     def parse_csv(rows):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
-        import io
-        import csv
         result = []
         rdr = csv.reader(io.StringIO('\r\n'.join(rows)), skipinitialspace=True)
         try:
@@ -6283,7 +6281,6 @@ def execute(cmd, opts, args):
 
     1. Check execution:
 
-       >>> import io
        >>> infile = io.StringIO('Hello *{author}*')
        >>> outfile = io.StringIO()
        >>> opts = []
@@ -6396,7 +6393,6 @@ def execute(cmd, opts, args):
 
 if __name__ == '__main__':
     # Process command line options.
-    import getopt
     try:
         # DEPRECATED: --unsafe option.
         opts, args = getopt.getopt(sys.argv[1:], 'a:b:cd:ef:hno:svw:',
@@ -6410,7 +6406,6 @@ if __name__ == '__main__':
     opt_names = [opt[0] for opt in opts]
     if '--doctest' in opt_names:
         # Run module doctests.
-        import doctest
         options = doctest.NORMALIZE_WHITESPACE + doctest.ELLIPSIS
         failures, tries = doctest.testmod(optionflags=options)
         if failures == 0:
