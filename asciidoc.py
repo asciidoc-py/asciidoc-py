@@ -324,7 +324,7 @@ def re_join(relist):
     for s in relist:
         result.append(re.sub(r'\?P<\S+?>', '', s))
     result = ')|('.join(result)
-    result = '('+result+')'
+    result = '(' + result + ')'
     return result
 
 
@@ -344,12 +344,12 @@ def rstrip_list(s):
     """
     Return list with empty items from end of list removed.
     """
-    for i in range(len(s)-1, -1, -1):
+    for i in range(len(s) - 1, -1, -1):
         if s[i]:
             break
     else:
         return []
-    return s[:i+1]
+    return s[:i + 1]
 
 
 def strip_list(s):
@@ -447,8 +447,8 @@ def parse_attributes(attrs, dict):
     def f(*args, **keywords):
         # Name and add arguments '1','2'... to keywords.
         for i in range(len(args)):
-            if not str(i+1) in keywords:
-                keywords[str(i+1)] = args[i]
+            if not str(i + 1) in keywords:
+                keywords[str(i + 1)] = args[i]
         return keywords
 
     if not attrs:
@@ -488,7 +488,8 @@ def parse_named_attributes(s, attrs):
     attrs: 'star="sun",planet="earth"'
     dict: {'planet':'earth', 'star':'sun'}
     """
-    def f(**keywords): return keywords
+    def f(**keywords):
+        return keywords
 
     try:
         d = {}
@@ -505,7 +506,7 @@ def parse_list(s):
     try:
         result = tuple(parse_to_list(s))
     except Exception:
-        raise EAsciiDoc('malformed list: '+s)
+        raise EAsciiDoc('malformed list: ' + s)
     return result
 
 
@@ -531,7 +532,7 @@ def symbolize(s):
 def is_name(s):
     """Return True if s is valid attribute, macro or tag name
     (starts with alpha containing alphanumeric and dashes only)."""
-    return re.match(r'^'+NAME_RE+r'$', s) is not None
+    return re.match(r'^' + NAME_RE + r'$', s) is not None
 
 
 def subs_quotes(text):
@@ -542,7 +543,7 @@ def subs_quotes(text):
         i = q.find('|')
         if i != -1 and q != '|' and q != '||':
             lq = q[:i]      # Left quote.
-            rq = q[i+1:]    # Right quote.
+            rq = q[i + 1:]    # Right quote.
         else:
             lq = rq = q
         tag = config.quotes[q]
@@ -552,16 +553,16 @@ def subs_quotes(text):
         if tag[0] == '#':
             tag = tag[1:]
             # Unconstrained quotes can appear anywhere.
-            reo = re.compile(r'(?msu)(^|.)(\[(?P<attrlist>[^[\]]+?)\])?'
-                             + r'(?:' + re.escape(lq) + r')'
-                             + r'(?P<content>.+?)(?:'+re.escape(rq)+r')')
+            reo = re.compile(r'(?msu)(^|.)(\[(?P<attrlist>[^[\]]+?)\])?' +
+                             r'(?:' + re.escape(lq) + r')' +
+                             r'(?P<content>.+?)(?:' + re.escape(rq) + r')')
         else:
             # The text within constrained quotes must be bounded by white space.
             # Non-word (\W) characters are allowed at boundaries to accommodate
             # enveloping quotes and punctuation e.g. a='x', ('x'), 'x', ['x'].
-            reo = re.compile(r'(?msu)(^|[^\w;:}])(\[(?P<attrlist>[^[\]]+?)\])?'
-                             + r'(?:' + re.escape(lq) + r')'
-                             + r'(?P<content>\S|\S.*?\S)(?:'+re.escape(rq)+r')(?=\W|$)')
+            reo = re.compile(r'(?msu)(^|[^\w;:}])(\[(?P<attrlist>[^[\]]+?)\])?' +
+                             r'(?:' + re.escape(lq) + r')' +
+                             r'(?P<content>\S|\S.*?\S)(?:' + re.escape(rq) + r')(?=\W|$)')
         pos = 0
         while True:
             mo = reo.search(text, pos)
@@ -569,7 +570,7 @@ def subs_quotes(text):
                 break
             if text[mo.start()] == '\\':
                 # Delete leading backslash.
-                text = text[:mo.start()] + text[mo.start()+1:]
+                text = text[:mo.start()] + text[mo.start() + 1:]
                 # Skip past start of match.
                 pos = mo.start() + 1
             else:
@@ -593,7 +594,7 @@ def subs_tag(tag, dict={}):
         return [None, None]
     result = s.split('|')
     if len(result) == 1:
-        return result+[None]
+        return result + [None]
     elif len(result) == 2:
         return result
     else:
@@ -673,14 +674,14 @@ def dump_section(name, dict, f=sys.stdout):
         k = k.replace('=', r'\=')    # Escape = in name.
         # Quote if necessary.
         if len(k) != len(k.strip()):
-            k = '"'+k+'"'
+            k = '"' + k + '"'
         if v and len(v) != len(v.strip()):
-            v = '"'+v+'"'
+            v = '"' + v + '"'
         if v is None:
             # Don't dump undefined attributes.
             continue
         else:
-            s = k+'='+v
+            s = k + '=' + v
         if s[0] == '#':
             s = '\\' + s    # Escape so not treated as comment lines.
         f.write('%s%s' % (s, writer.newline))
@@ -968,7 +969,7 @@ def system(name, args, is_macro=False, attrs=None):
         assert False
     if result and name in ('eval3', 'sys3'):
         macros.passthroughs.append(result)
-        result = '\x07' + str(len(macros.passthroughs)-1) + '\x07'
+        result = '\x07' + str(len(macros.passthroughs) - 1) + '\x07'
     return result
 
 
@@ -992,7 +993,7 @@ def subs_attrs(lines, dictionary=None):
         result = start
         for c in text[start:]:
             # Skip braces that are followed by a backslash.
-            if result == len(text)-1 or text[result+1] != '\\':
+            if result == len(text) - 1 or text[result + 1] != '\\':
                 if c == '{':
                     n = n + 1
                 elif c == '}':
@@ -1050,12 +1051,12 @@ def subs_attrs(lines, dictionary=None):
                 pos = mo.start() + len(s)
         # Expand conditional attributes.
         # Single name -- higher precedence.
-        reo1 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w]*?)' \
-                          r'(?P<op>\=|\?|!|#|%|@|\$)' \
+        reo1 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w]*?)'
+                          r'(?P<op>\=|\?|!|#|%|@|\$)'
                           r'(?P<value>.*?)\}(?!\\)')
         # Multiple names (n1,n2,... or n1+n2+...) -- lower precedence.
-        reo2 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w'+OR+AND+r']*?)' \
-                          r'(?P<op>\=|\?|!|#|%|@|\$)' \
+        reo2 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w' + OR + AND + r']*?)'
+                          r'(?P<op>\=|\?|!|#|%|@|\$)'
                           r'(?P<value>.*?)\}(?!\\)')
         for reo in [reo1, reo2]:
             pos = 0
@@ -1095,7 +1096,7 @@ def subs_attrs(lines, dictionary=None):
                 op = mo.group('op')
                 # mo.end() not good enough because '{x={y}}' matches '{x={y}'.
                 end = end_brace(line, mo.start())
-                rval = line[mo.start('value'):end-1]
+                rval = line[mo.start('value'):end - 1]
                 UNDEFINED = '{zzzzz}'
                 if lval is None:
                     if op == '=':
@@ -1128,12 +1129,12 @@ def subs_attrs(lines, dictionary=None):
                         if len(v) not in (2, 3):
                             message.error('illegal attribute syntax: %s' % attr)
                             s = ''
-                        elif not is_re('^'+v[0]+'$'):
+                        elif not is_re('^' + v[0] + '$'):
                             message.error('illegal attribute regexp: %s' % attr)
                             s = ''
                         else:
                             v = [s.replace('\\:', ':') for s in v]
-                            re_mo = re.match('^'+v[0]+'$', lval)
+                            re_mo = re.match('^' + v[0] + '$', lval)
                             if op == '@':
                                 if re_mo:
                                     s = v[1]         # {<name>@<re>:<v1>[:<v2>]}
@@ -1380,7 +1381,7 @@ class Lex:
                 width = i
         # Strip margin width from all lines.
         for i in range(len(lines)):
-            lines[i] = ' '*margin + lines[i][width:]
+            lines[i] = ' ' * margin + lines[i][width:]
         return lines
 
 
@@ -1458,14 +1459,14 @@ class Document(object):
                 self.attributes['docfile'] = self.infile
                 self.attributes['docdir'] = os.path.dirname(self.infile)
                 self.attributes['docname'] = os.path.splitext(
-                        os.path.basename(self.infile))[0]
+                    os.path.basename(self.infile))[0]
         if self.outfile:
             if self.outfile != '<stdout>':
                 self.attributes['outfile'] = self.outfile
                 self.attributes['outdir'] = os.path.dirname(self.outfile)
                 if self.infile == '<stdin>':
                     self.attributes['docname'] = os.path.splitext(
-                            os.path.basename(self.outfile))[0]
+                        os.path.basename(self.outfile))[0]
                 ext = os.path.splitext(self.outfile)[1][1:]
             elif config.outfilesuffix:
                 ext = config.outfilesuffix[1:]
@@ -1473,7 +1474,7 @@ class Document(object):
                 ext = ''
             if ext:
                 self.attributes['filetype'] = ext
-                self.attributes['filetype-'+ext] = ''
+                self.attributes['filetype-' + ext] = ''
 
     def load_lang(self):
         """
@@ -1557,8 +1558,7 @@ class Document(object):
             # Was not set on command-line or in document header.
             self.doctype = DEFAULT_DOCTYPE
         # Process document header.
-        has_header = (Title.isnext() and Title.level == 0
-                      and AttributeList.style() != 'float')
+        has_header = (Title.isnext() and Title.level == 0 and AttributeList.style() != 'float')
         if self.doctype == 'manpage' and not has_header:
             message.error('manpage document title is mandatory', halt=True)
         if has_header:
@@ -1606,7 +1606,7 @@ class Document(object):
                 if len(names) > 9:
                     message.warning('too many manpage names')
                 for i, name in enumerate(names):
-                    self.attributes['manname%d' % (i+1)] = name
+                    self.attributes['manname%d' % (i + 1)] = name
         if has_header:
             # Do postponed substitutions (backend confs have been loaded).
             self.attributes['doctitle'] = Title.dosubs(self.attributes['doctitle'])
@@ -1957,7 +1957,7 @@ class AttributeList:
             if 'options' in d:
                 options = parse_options(d['options'], (), 'illegal option name')
                 for option in options:
-                    d[option+'-option'] = ''
+                    d[option + '-option'] = ''
 
 
 class BlockTitle:
@@ -2010,7 +2010,7 @@ class Title:
     level = 0
     attributes = {}
     sectname = None
-    section_numbers = [0]*len(underlines)
+    section_numbers = [0] * len(underlines)
     dump_dict = {}
     linecount = None    # Number of lines in title (1 or 2).
 
@@ -2080,13 +2080,11 @@ class Title:
             # Fast elimination check.
             if ul[:2] not in Title.underlines:
                 return False
-            # Length of underline must be within +-3 of title.
-            if not ((ul_len-3 < title_len < ul_len+3)
-                    # Next test for backward compatibility.
-                    or (ul_len-3 < len(title) < ul_len+3)):
+            # Length of underline must be within +/- 3 of title. Next, test for backward compatibility.
+            if not ((ul_len-3 < title_len < ul_len+3) or (ul_len-3 < len(title) < ul_len+3)):
                 return False
             # Check for valid repetition of underline character pairs.
-            s = ul[:2]*((ul_len+1)//2)
+            s = ul[:2] * ((ul_len + 1) // 2)
             if ul != s[:ul_len]:
                 return False
             # Don't be fooled by back-to-back delimited blocks, require at
@@ -2303,7 +2301,7 @@ class Section:
                 and prev_sectname in ('colophon', 'abstract',
                                       'dedication', 'glossary', 'bibliography'):
             message.error('%s section cannot contain sub-sections' % prev_sectname)
-        if Title.level > document.level+1:
+        if Title.level > document.level + 1:
             # Sub-sections of multi-part book level zero Preface and Appendices
             # are meant to be out of sequence.
             if document.doctype == 'book' \
@@ -2314,7 +2312,7 @@ class Section:
             else:
                 message.warning('section title out of sequence: '
                                 'expected level %d, got level %d'
-                                % (document.level+1, Title.level))
+                                % (document.level + 1, Title.level))
         Section.set_id()
         Section.setlevel(Title.level)
         if 'numbered' in document.attributes:
@@ -2388,7 +2386,7 @@ class AbstractBlock:
         if i == -1:
             return self.defname
         else:
-            return self.defname[i+1:]
+            return self.defname[i + 1:]
 
     def error(self, msg, cursor=None, halt=False):
         message.error('[%s] %s' % (self.defname, msg), cursor, halt)
@@ -2397,7 +2395,7 @@ class AbstractBlock:
         """Return True if param matches an allowed configuration file entry
         name."""
         for s in self.CONF_ENTRIES:
-            if re.match('^'+s+'$', param):
+            if re.match('^' + s + '$', param):
                 return True
         return False
 
@@ -2495,26 +2493,26 @@ class AbstractBlock:
     def dump(self):
         """Write block definition to stdout."""
         write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
-        write('['+self.defname+']')
+        write('[' + self.defname + ']')
         if self.is_conf_entry('delimiter'):
-            write('delimiter='+self.delimiter)
+            write('delimiter=' + self.delimiter)
         if self.template:
-            write('template='+self.template)
+            write('template=' + self.template)
         if self.options:
-            write('options='+','.join(self.options))
+            write('options=' + ','.join(self.options))
         if self.presubs:
             if self.postsubs:
-                write('presubs='+','.join(self.presubs))
+                write('presubs=' + ','.join(self.presubs))
             else:
-                write('subs='+','.join(self.presubs))
+                write('subs=' + ','.join(self.presubs))
         if self.postsubs:
-            write('postsubs='+','.join(self.postsubs))
+            write('postsubs=' + ','.join(self.postsubs))
         if self.filter:
-            write('filter='+self.filter)
+            write('filter=' + self.filter)
         if self.posattrs:
-            write('posattrs='+','.join(self.posattrs))
+            write('posattrs=' + ','.join(self.posattrs))
         if self.style:
-            write('style='+self.style)
+            write('style=' + self.style)
         if self.styles:
             for style, d in list(self.styles.items()):
                 s = ''
@@ -2675,8 +2673,8 @@ class AbstractBlock:
                         self.attributes[k] = v
         # Set named positional attributes.
         for i, v in enumerate(posattrs):
-            if str(i+1) in self.attributes:
-                self.attributes[v] = self.attributes[str(i+1)]
+            if str(i + 1) in self.attributes:
+                self.attributes[v] = self.attributes[str(i + 1)]
         # Override config and style attributes with attribute list attributes.
         self.update_parameters(attrs)
         check_array_parameter('options')
@@ -2795,12 +2793,12 @@ class Paragraphs(AbstractBlocks):
 
     def initialize(self):
         self.terminators = [
-                re.compile(r'^\+$|^$'),
-                re.compile(AttributeList.pattern),
-                re.compile(blocks.delimiters),
-                re.compile(tables.delimiters),
-                re.compile(tables_OLD.delimiters),
-            ]
+            re.compile(r'^\+$|^$'),
+            re.compile(AttributeList.pattern),
+            re.compile(blocks.delimiters),
+            re.compile(tables.delimiters),
+            re.compile(tables_OLD.delimiters),
+        ]
 
     def load(self, sections):
         AbstractBlocks.load(self, sections)
@@ -2843,8 +2841,8 @@ class List(AbstractBlock):
     def dump(self):
         AbstractBlock.dump(self)
         write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
-        write('type='+ self.type)
-        write('tags='+ self.tags)
+        write('type=' + self.type)
+        write('tags=' + self.tags)
         write('')
 
     def validate(self):
@@ -2948,7 +2946,7 @@ class List(AbstractBlock):
             for i in range(len(roman)):
                 digit = digits[roman[i]]
                 # If next digit is larger this digit is negative.
-                if i+1 < len(roman) and digits[roman[i+1]] > digit:
+                if i + 1 < len(roman) and digits[roman[i + 1]] > digit:
                     result -= digit
                 else:
                     result += digit
@@ -3021,7 +3019,7 @@ class List(AbstractBlock):
             if mo:
                 labelwidth = int(mo.group(1))
                 self.attributes['labelwidth'] = str(labelwidth)
-                self.attributes['itemwidth'] = str(100-labelwidth)
+                self.attributes['itemwidth'] = str(100 - labelwidth)
             else:
                 self.error('illegal attribute value: width="%s"' % v)
         stag, etag = subs_tag(self.tag.list, self.attributes)
@@ -3067,13 +3065,13 @@ class Lists(AbstractBlocks):
 
     def initialize(self):
         self.terminators = [
-                re.compile(r'^\+$|^$'),
-                re.compile(AttributeList.pattern),
-                re.compile(lists.delimiters),
-                re.compile(blocks.delimiters),
-                re.compile(tables.delimiters),
-                re.compile(tables_OLD.delimiters),
-            ]
+            re.compile(r'^\+$|^$'),
+            re.compile(AttributeList.pattern),
+            re.compile(lists.delimiters),
+            re.compile(blocks.delimiters),
+            re.compile(tables.delimiters),
+            re.compile(tables_OLD.delimiters),
+        ]
 
     def load(self, sections):
         AbstractBlocks.load(self, sections)
@@ -3108,7 +3106,7 @@ class Lists(AbstractBlocks):
     def dump(self):
         AbstractBlocks.dump(self)
         for k, v in list(self.tags.items()):
-            dump_section('listtags-'+k, v)
+            dump_section('listtags-' + k, v)
 
 
 class DelimitedBlock(AbstractBlock):
@@ -3143,13 +3141,13 @@ class DelimitedBlock(AbstractBlock):
         else:
             template = self.parameters.template
             template = subs_attrs(template, self.attributes)
-            name = self.short_name()+' block'
+            name = self.short_name() + ' block'
             if 'sectionbody' in options:
                 # The body is treated like a section body.
                 stag, etag = config.section2tags(template, self.attributes)
-                writer.write(stag, trace=name+' open')
+                writer.write(stag, trace=name + ' open')
                 Section.translate_body(self)
-                writer.write(etag, trace=name+' close')
+                writer.write(etag, trace=name + ' close')
             else:
                 stag = config.section2tags(template, self.attributes, skipend=True)[0]
                 body = reader.read_until(self.delimiter, same_file=True)
@@ -3162,7 +3160,7 @@ class DelimitedBlock(AbstractBlock):
                 # Write start tag, content, end tag.
                 etag = config.section2tags(template, self.attributes, skipstart=True)[1]
                 writer.write(dovetail_tags(stag, body, etag), trace=name)
-            trace(self.short_name()+' block close', etag)
+            trace(self.short_name() + ' block close', etag)
         if reader.eof():
             self.error('missing closing delimiter', self.start)
         else:
@@ -3208,10 +3206,10 @@ class Cell:
 
     def __repr__(self):
         return '<Cell: %d.%d %s.%s %s "%s">' % (
-                self.span, self.vspan,
-                self.halign, self.valign,
-                self.style or '',
-                self.data)
+            self.span, self.vspan,
+            self.halign, self.valign,
+            self.style or '',
+            self.data)
 
     def clone_reserve(self):
         """Return a clone of self to reserve vertically spanned cell."""
@@ -3281,7 +3279,7 @@ class Table(AbstractBlock):
     def dump(self):
         AbstractBlock.dump(self)
         write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
-        write('format='+self.format)
+        write('format=' + self.format)
         write('')
 
     def validate(self):
@@ -3296,7 +3294,7 @@ class Table(AbstractBlock):
                 self.error('missing section: [tabletags-%s]' % t, halt=True)
         if self.separator:
             # Evaluate escape characters.
-            self.separator = literal_eval('"'+self.separator+'"')
+            self.separator = literal_eval('"' + self.separator + '"')
         # TODO: Move to class Tables
         # Check global table parameters.
         elif config.pagewidth is None:
@@ -3329,7 +3327,7 @@ class Table(AbstractBlock):
                 if not re.match(r'^\d{1,3}%$', v) or int(v[:-1]) > 100:
                     self.error('illegal %s=%s' % (k, v))
                 else:
-                    abswidth = float(v[:-1])/100 * config.pagewidth
+                    abswidth = float(v[:-1]) / 100 * config.pagewidth
                     pcwidth = float(v[:-1])
         # Calculate separator if it has not been specified.
         if not separator:
@@ -3417,13 +3415,13 @@ class Table(AbstractBlock):
         # Fill in missing widths.
         if n < len(self.columns) and percents < 100:
             if pcunits:
-                width = float(100 - percents)/float(len(self.columns) - n)
+                width = float(100 - percents) / float(len(self.columns) - n)
             else:
                 width = 1
             for col in self.columns:
                 if not col.width:
                     if pcunits:
-                        col.width = str(int(width))+'%'
+                        col.width = str(int(width)) + '%'
                         percents += width
                     else:
                         col.width = str(width)
@@ -3434,8 +3432,8 @@ class Table(AbstractBlock):
             if pcunits:
                 col.pcwidth = float(col.width[:-1])
             else:
-                col.pcwidth = (float(col.width)/props)*100
-            col.abswidth = self.abswidth * (col.pcwidth/100)
+                col.pcwidth = (float(col.width) / props) * 100
+            col.abswidth = self.abswidth * (col.pcwidth / 100)
             if config.pageunits in ('cm', 'mm', 'in', 'em'):
                 col.abswidth = '%.2f' % py2round(col.abswidth, 2)
             else:
@@ -3499,9 +3497,9 @@ class Table(AbstractBlock):
                         # Generate ensuing reserved cells spanned vertically by
                         # the current cell.
                         for j in range(1, cell.vspan):
-                            if ri+j not in reserved:
-                                reserved[ri+j] = {}
-                            reserved[ri+j][ci] = cell.clone_reserve()
+                            if ri + j not in reserved:
+                                reserved[ri + j] = {}
+                            reserved[ri + j][ci] = cell.clone_reserve()
                 ci += cell.span
                 if ci <= colcount:
                     row.append(cell)
@@ -3522,7 +3520,7 @@ class Table(AbstractBlock):
                     empty = False
                     break
             if empty:
-                message.warning('table row %d: empty spanned row' % (ri+1))
+                message.warning('table row %d: empty spanned row' % (ri + 1))
         # Check that all row spans match.
         for ri, row in enumerate(self.rows):
             row_span = 0
@@ -3531,9 +3529,9 @@ class Table(AbstractBlock):
             if ri == 0:
                 header_span = row_span
             if row_span < header_span:
-                message.warning('table row %d: does not span all columns' % (ri+1))
+                message.warning('table row %d: does not span all columns' % (ri + 1))
             if row_span > header_span:
-                message.warning('table row %d: exceeds columns span' % (ri+1))
+                message.warning('table row %d: exceeds columns span' % (ri + 1))
 
     def subs_rows(self, rows, rowtype='body'):
         """
@@ -3574,12 +3572,12 @@ class Table(AbstractBlock):
             self.attributes['valign'] = cell.valign or col.valign
             self.attributes['colabswidth'] = col.abswidth
             self.attributes['colpcwidth'] = col.pcwidth
-            self.attributes['colnumber'] = str(i+1)
+            self.attributes['colnumber'] = str(i + 1)
             self.attributes['colspan'] = str(cell.span)
             self.attributes['colstart'] = self.attributes['colnumber']
-            self.attributes['colend'] = str(i+cell.span)
+            self.attributes['colend'] = str(i + cell.span)
             self.attributes['rowspan'] = str(cell.vspan)
-            self.attributes['morerows'] = str(cell.vspan-1)
+            self.attributes['morerows'] = str(cell.vspan - 1)
             # Fill missing column data with blanks.
             if i > len(self.columns) - 1:
                 data = ''
@@ -3648,7 +3646,7 @@ class Table(AbstractBlock):
             else:
                 self.error('illegal table cell operator')
         text = '\n'.join(text)
-        separator = '(?msu)'+self.parameters.separator
+        separator = '(?msu)' + self.parameters.separator
         format = self.parameters.format
         start = 0
         span = None
@@ -3660,7 +3658,7 @@ class Table(AbstractBlock):
         for mo in re.finditer(separator, text):
             data += text[start:mo.start()]
             if data.endswith('\\'):
-                data = data[:-1]+mo.group()  # Reinstate escaped separators.
+                data = data[:-1] + mo.group()  # Reinstate escaped separators.
             else:
                 append_cell(data, span, op, align, style)
                 span = mo.groupdict().get('span')
@@ -3735,7 +3733,7 @@ class Table(AbstractBlock):
         # input) which are replaced after template attribute substitution.
         headrows = footrows = bodyrows = None
         for option in self.parameters.options:
-            self.attributes[option+'-option'] = ''
+            self.attributes[option + '-option'] = ''
         if self.rows and 'header' in self.parameters.options:
             headrows = self.subs_rows(self.rows[0:1], 'header')
             self.attributes['headrows'] = '\x07headrows\x07'
@@ -3853,7 +3851,7 @@ class Tables(AbstractBlocks):
     def dump(self):
         AbstractBlocks.dump(self)
         for k, v in list(self.tags.items()):
-            dump_section('tabletags-'+k, v)
+            dump_section('tabletags-' + k, v)
 
 
 class Macros:
@@ -3959,7 +3957,7 @@ class Macros:
     def restore_passthroughs(self, text):
         """ Replace passthough placeholders with the original passthrough text."""
         for i, v in enumerate(self.passthroughs):
-            text = text.replace('\x07'+str(i)+'\x07', self.passthroughs[i])
+            text = text.replace('\x07' + str(i) + '\x07', self.passthroughs[i])
         return text
 
 
@@ -3985,10 +3983,10 @@ class Macro:
             suffix = '-blockmacro'
         else:
             suffix = '-inlinemacro'
-        if name+suffix in config.sections:
-            return name+suffix
+        if name + suffix in config.sections:
+            return name + suffix
         else:
-            message.warning('missing macro section: [%s]' % (name+suffix))
+            message.warning('missing macro section: [%s]' % (name + suffix))
             return None
 
     def load(self, entry):
@@ -4061,7 +4059,7 @@ class Macro:
                     if 'options' in d:
                         options = parse_options(d['options'], (), '%s: illegal option name' % name)
                         for option in options:
-                            d[option+'-option'] = ''
+                            d[option + '-option'] = ''
                     # Substitute single quoted attribute values in block macros.
                     if self.prefix == '#':
                         AttributeList.subs(d)
@@ -4154,7 +4152,7 @@ class Macro:
             # Tabs guarantee the placeholders are unambiguous.
             result = (
                 text[mo.start():mo.start('passtext')] +
-                '\x07' + str(len(passthroughs)-1) + '\x07' +
+                '\x07' + str(len(passthroughs) - 1) + '\x07' +
                 text[mo.end('passtext'):mo.end()]
             )
             return result
@@ -4196,7 +4194,7 @@ class CalloutMap:
                 result += ' ' + self.calloutid(self.listnumber, coindex)
             return result.strip()
         else:
-            message.warning('no callouts refer to list item '+str(listindex))
+            message.warning('no callouts refer to list item ' + str(listindex))
             return ''
 
     def validate(self, maxlistindex):
@@ -4236,7 +4234,7 @@ class Reader1:
 
     def open(self, fname):
         self.fname = fname
-        message.verbose('reading: '+fname)
+        message.verbose('reading: ' + fname)
         if fname == '<stdin>':
             self.f = sys.stdin
             self.infile = None
@@ -4445,7 +4443,7 @@ class Reader(Reader1):
             target = mo.group('target')
             attrlist = mo.group('attrlist')
             if name == 'endif':
-                self.depth = self.depth-1
+                self.depth = self.depth - 1
             else:
                 if not target and name in ('ifdef', 'ifndef'):
                     raise EAsciiDoc('missing macro target: %s' % result)
@@ -4481,7 +4479,7 @@ class Reader(Reader1):
                     if self.skip:
                         self.skipto = self.depth
                         self.skipname = target
-                    self.depth = self.depth+1
+                    self.depth = self.depth + 1
             result = self.read()
         if result:
             # Expand executable block macros.
@@ -4526,7 +4524,7 @@ class Reader(Reader1):
             while i < count and not self.eof():
                 result.append(self.read())
                 putback.append(self.cursor)
-                i = i+1
+                i = i + 1
             while putback:
                 self.unread(putback.pop())
         finally:
@@ -4583,7 +4581,7 @@ class Writer:
             self.f = sys.stdout
         else:
             self.f = open(fname, 'w+', encoding='utf-8')
-        message.verbose('writing: '+writer.fname, False)
+        message.verbose('writing: ' + writer.fname, False)
         if bom:
             self.f.write(bom)
         self.lines_out = 0
@@ -4624,7 +4622,7 @@ class Writer:
         stag, etag = subs_tag(tag, d)
         content = Lex.subs(content, subs)
         if 'trace' in kwargs:
-            trace(kwargs['trace'], [stag]+content+[etag])
+            trace(kwargs['trace'], [stag] + content + [etag])
         if stag:
             self.write(stag)
         if content:
@@ -4806,7 +4804,7 @@ class Config:
         """
         # Delete trailing blank lines from sections.
         for k in list(sections.keys()):
-            for i in range(len(sections[k])-1, -1, -1):
+            for i in range(len(sections[k]) - 1, -1, -1):
                 if not sections[k][i]:
                     del sections[k][i]
                 elif not self.entries_section(k):
@@ -4989,7 +4987,7 @@ class Config:
             self.outfilesuffix = d['outfilesuffix']
         if 'newline' in d:
             # Convert escape sequences to their character values.
-            self.newline = literal_eval('"'+d['newline']+'"')
+            self.newline = literal_eval('"' + d['newline'] + '"')
         if 'subsnormal' in d:
             self.subsnormal = parse_options(d['subsnormal'], SUBS_OPTIONS,
                                             'illegal [%s] %s: %s' % ('miscellaneous', 'subsnormal', d['subsnormal']))
@@ -5322,7 +5320,7 @@ def join_lines_OLD(lines):
             continuation = True
             continue
         if continuation:
-            result.append(s+line)
+            result.append(s + line)
             s = ''
             continuation = False
         else:
@@ -5400,20 +5398,20 @@ class Table_OLD(AbstractBlock):
     def dump(self):
         AbstractBlock.dump(self)
         write = lambda s: sys.stdout.write('%s%s' % (s, writer.newline))
-        write('fillchar='+self.fillchar)
-        write('format='+self.format)
+        write('fillchar=' + self.fillchar)
+        write('format=' + self.format)
         if self.colspec:
-            write('colspec='+self.colspec)
+            write('colspec=' + self.colspec)
         if self.headrow:
-            write('headrow='+self.headrow)
+            write('headrow=' + self.headrow)
         if self.footrow:
-            write('footrow='+self.footrow)
-        write('bodyrow='+self.bodyrow)
+            write('footrow=' + self.footrow)
+        write('bodyrow=' + self.bodyrow)
         if self.headdata:
-            write('headdata='+self.headdata)
+            write('headdata=' + self.headdata)
         if self.footdata:
-            write('footdata='+self.footdata)
-        write('bodydata='+self.bodydata)
+            write('footdata=' + self.footdata)
+        write('bodydata=' + self.bodydata)
         write('')
 
     def validate(self):
@@ -5450,7 +5448,7 @@ class Table_OLD(AbstractBlock):
         """Parse ruler calculating underline and ruler column widths."""
         fc = re.escape(self.fillchar)
         # Strip and save optional tablewidth from end of ruler.
-        mo = re.match(r'^(.*'+fc+r'+)([\d\.]+)$', ruler)
+        mo = re.match(r'^(.*' + fc + r'+)([\d\.]+)$', ruler)
         if mo:
             ruler = mo.group(1)
             self.tablewidth = float(mo.group(2))
@@ -5462,7 +5460,7 @@ class Table_OLD(AbstractBlock):
         if ruler[1] != self.fillchar:
             # If the first column does not start with a fillchar then numeric.
             self.isnumeric = True
-        elif ruler[1:] == self.fillchar*len(ruler[1:]):
+        elif ruler[1:] == self.fillchar * len(ruler[1:]):
             # The case of one column followed by fillchars is numeric.
             self.isnumeric = True
         else:
@@ -5474,10 +5472,10 @@ class Table_OLD(AbstractBlock):
         for i in range(0, len(splits), 2):
             c = Column_OLD()
             c.colalign = self.ALIGNMENTS[splits[i]]
-            s = splits[i+1]
+            s = splits[i + 1]
             if self.isnumeric:
                 # Strip trailing fillchars.
-                s = re.sub(fc+r'+$', '', s)
+                s = re.sub(fc + r'+$', '', s)
                 if s == '':
                     c.rulerwidth = None
                 else:
@@ -5489,9 +5487,9 @@ class Table_OLD(AbstractBlock):
                     except ValueError:
                         raise EAsciiDoc('malformed ruler: bad width')
             else:   # Calculate column width from inter-fillchar intervals.
-                if not re.match(r'^'+fc+r'+$', s):
+                if not re.match(r'^' + fc + r'+$', s):
                     raise EAsciiDoc('malformed ruler: illegal fillchars')
-                c.rulerwidth = len(s)+1
+                c.rulerwidth = len(s) + 1
             self.columns.append(c)
         # Fill in unspecified ruler widths.
         if self.isnumeric:
@@ -5519,18 +5517,18 @@ class Table_OLD(AbstractBlock):
             if self.format == 'fixed':
                 if self.tablewidth is None:
                     # Size proportional to ruler width.
-                    colfraction = width/config.textwidth
+                    colfraction = width / config.textwidth
                 else:
                     # Size proportional to page width.
-                    colfraction = width/totalwidth
+                    colfraction = width / totalwidth
             else:
                     # Size proportional to page width.
-                colfraction = width/totalwidth
+                colfraction = width / totalwidth
             c.colwidth = colfraction * config.pagewidth  # To page units.
             if self.tablewidth is not None:
                 c.colwidth = c.colwidth * self.tablewidth   # Scale factor.
                 if self.tablewidth > 1:
-                    c.colwidth = c.colwidth/100  # tablewidth is in percent.
+                    c.colwidth = c.colwidth / 100  # tablewidth is in percent.
         # Build colspecs.
         if self.colspec:
             cols = []
@@ -5554,12 +5552,12 @@ class Table_OLD(AbstractBlock):
         reo = re.compile(self.underline)
         i = 0
         while not reo.match(rows[i]):
-            i = i+1
+            i = i + 1
         if i == 0:
             raise EAsciiDoc('missing table rows')
         if i >= len(rows):
             raise EAsciiDoc('closing [%s] underline expected' % self.defname)
-        return (join_lines_OLD(rows[:i]), rows[i+1:])
+        return (join_lines_OLD(rows[:i]), rows[i + 1:])
 
     def parse_rows(self, rows, rtag, dtag):
         """Parse rows list using the row and data tags. Returns a substituted
@@ -5578,10 +5576,10 @@ class Table_OLD(AbstractBlock):
         # Substitute and indent all data in all rows.
         stag, etag = subs_tag(rtag, self.attributes)
         for row in rows:
-            result.append('  '+stag)
+            result.append('  ' + stag)
             for data in self.subs_row(row, dtag):
-                result.append('    '+data)
-            result.append('  '+etag)
+                result.append('    ' + data)
+            result.append('  ' + etag)
         return result
 
     def subs_row(self, data, dtag):
@@ -5653,7 +5651,7 @@ class Table_OLD(AbstractBlock):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         separator = self.attributes.get('separator', ':')
-        separator = literal_eval('"'+separator+'"')
+        separator = literal_eval('"' + separator + '"')
         if len(separator) != 1:
             raise EAsciiDoc('malformed dsv separator: %s' % separator)
         # TODO: If separator is preceded by an odd number of backslashes then
@@ -5664,7 +5662,7 @@ class Table_OLD(AbstractBlock):
             if row == '':
                 continue
             # Un-escape escaped characters.
-            row = literal_eval('"'+row.replace('"', '\\"')+'"')
+            row = literal_eval('"' + row.replace('"', '\\"') + '"')
             data = row.split(separator)
             data = [s.strip() for s in data]
             result.append(data)
@@ -5933,7 +5931,7 @@ class Plugin:
         """
         result = userdir()
         if result:
-            result = os.path.join(result, '.asciidoc', Plugin.type+'s')
+            result = os.path.join(result, '.asciidoc', Plugin.type + 's')
         return result
 
     @staticmethod
@@ -6008,7 +6006,7 @@ class Plugin:
         """
         List all plugin directories (global and local).
         """
-        for d in [os.path.join(d, Plugin.type+'s') for d in config.get_load_dirs()]:
+        for d in [os.path.join(d, Plugin.type + 's') for d in config.get_load_dirs()]:
             if os.path.isdir(d):
                 for f in os.walk(d).next()[1]:
                     message.stdout(os.path.join(d, f))
@@ -6121,7 +6119,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         reader.open(infile)
         has_header = document.parse_header(doctype, backend)
         # doctype is now finalized.
-        document.attributes['doctype-'+document.doctype] = ''
+        document.attributes['doctype-' + document.doctype] = ''
         config.set_theme_attributes()
         # Load backend configuration files.
         if '-e' not in options:
@@ -6131,8 +6129,8 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
                 raise EAsciiDoc('missing backend conf file: %s' % f)
             document.attributes['backend-confdir'] = os.path.dirname(conffile)
         # backend is now known.
-        document.attributes['backend-'+document.backend] = ''
-        document.attributes[document.backend+'-'+document.doctype] = ''
+        document.attributes['backend-' + document.backend] = ''
+        document.attributes[document.backend + '-' + document.doctype] = ''
         doc_conffiles = []
         if '-e' not in options:
             # Load filters and language file.
@@ -6146,8 +6144,8 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
                 # Load document specific configuration files.
                 f = os.path.splitext(infile)[0]
                 doc_conffiles = [
-                        f for f in (f+'.conf', f+'-'+document.backend+'.conf')
-                        if os.path.isfile(f)
+                    f for f in (f + '.conf', f + '-' + document.backend + '.conf')
+                    if os.path.isfile(f)
                 ]
                 for f in doc_conffiles:
                     config.load_file(f)
@@ -6181,8 +6179,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         document.update_attributes()
         # Set the default embedded icons directory.
         if 'data-uri' in document.attributes and not os.path.isdir(document.attributes['iconsdir']):
-            document.attributes['iconsdir'] = os.path.join(
-                     document.attributes['asciidoc-confdir'], 'images/icons')
+            document.attributes['iconsdir'] = os.path.join(document.attributes['asciidoc-confdir'], 'images/icons')
         # Configuration is fully loaded.
         config.expand_all_templates()
         # Check configuration for consistency.
@@ -6218,10 +6215,10 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
             message.stderr('%s%s' % (msg, str(e)))
         else:
             if __name__ == '__main__':
-                message.stderr(msg+'unexpected error:')
-                message.stderr('-'*60)
+                message.stderr(msg + 'unexpected error:')
+                message.stderr('-' * 60)
                 traceback.print_exc(file=sys.stderr)
-                message.stderr('-'*60)
+                message.stderr('-' * 60)
             else:
                 message.stderr('%sunexpected error: %s' % (msg, str(e)))
         sys.exit(1)
@@ -6333,7 +6330,7 @@ def execute(cmd, opts, args):
             v = 'numbered'
         if o == '--theme':
             o = '-a'
-            v = 'theme='+v
+            v = 'theme=' + v
         if o in ('-a', '--attribute'):
             e = parse_entry(v, allow_name_only=True)
             if not e:
