@@ -9,7 +9,6 @@ under the terms of the GNU General Public License (GPL).
 import ast
 import copy
 import csv
-import doctest
 import getopt
 import io
 import locale
@@ -6403,6 +6402,7 @@ if __name__ == '__main__':
     opt_names = [opt[0] for opt in opts]
     if '--doctest' in opt_names:
         # Run module doctests.
+        import doctest
         options = doctest.NORMALIZE_WHITESPACE + doctest.ELLIPSIS
         failures, tries = doctest.testmod(optionflags=options)
         if failures == 0:
