@@ -10,6 +10,7 @@ CHANGELOG
 CHANGELOG.txt
 asciidoc.conf
 docbook45.conf
+docbook5.conf
 help.conf
 html4.conf
 html5.conf

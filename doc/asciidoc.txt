@@ -160,6 +160,9 @@ configuration files. Backend specific attributes are listed in the
 docbook45::
   Outputs DocBook XML 4.5 markup.
 
+docbook5::
+  Outputs DocBook XML 5.0 markup.
+
 html4::
   This backend generates plain HTML 4.01 Transitional markup.
 
