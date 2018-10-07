@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import os, sys, subprocess
-from optparse import *
+import argparse
 
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
-__VERSION__ = '1.1.4'
+__VERSION__ = '1.1.5'
 
 class EApp(Exception):
     '''Application specific exception.'''
@@ -72,39 +72,31 @@ LICENSE
         if not argv:
             argv = sys.argv
 
-        self.usage = '%prog [options] inputfile'
+        self.usage = '%(prog)s [options] infile'
         self.version = 'Version: %s\n' % __VERSION__
         self.version += 'Copyright(c) 2008-2009: %s\n' % __AUTHOR__
 
-        self.option_list = [
-            Option("-o", "--outfile", action="store",
+        self.parser = argparse.ArgumentParser(usage=self.usage)
+        self.parser.add_argument("-o", "--outfile", action="store",
                 dest="outfile",
-                help="Output file"),
-            Option("-L", "--layout", action="store",
-                dest="layout", default="dot", type="choice",
+                help="Output file")
+        self.parser.add_argument("-L", "--layout", action="store",
+                dest="layout", default="dot",
                 choices=['dot','neato','twopi','circo','fdp'],
-                help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>"),
-            Option("-F", "--format", action="store",
-                dest="format", default="png", type="choice",
+                help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>")
+        self.parser.add_argument("-F", "--format", action="store",
+                dest="format", default="png",
                 choices=supported_formats,
-                help="Format type. FORMAT=<" + "|".join(supported_formats) + ">"),
-            Option("--debug", action="store_true",
+                help="Format type. FORMAT=<" + "|".join(supported_formats) + ">")
+        self.parser.add_argument("--debug", action="store_true",
                 dest="do_debug",
-                help=SUPPRESS_HELP),
-            Option("-v", "--verbose", action="store_true",
+                help=argparse.SUPPRESS)
+        self.parser.add_argument("-v", "--verbose", action="store_true",
                 dest="do_verbose", default=False,
-                help="verbose output"),
-            ]
-
-        self.parser = OptionParser( usage=self.usage, version=self.version,
-                                    option_list=self.option_list)
-        (self.options, self.args) = self.parser.parse_args()
-
-        if len(self.args) != 1:
-            self.parser.print_help()
-            sys.exit(1)
-
-        self.options.infile = self.args[0]
+                help="verbose output")
+        self.parser.add_argument("infile", action="store", help="Input file")
+        self.parser.add_argument('--version', action='version', version=self.version)
+        self.options = self.parser.parse_args()
 
     def systemcmd(self, cmd):
         if self.options.do_verbose:
@@ -142,6 +134,7 @@ LICENSE
         if self.options.format == '':
             self.options.format = 'png'
 
+        infile = self.options.infile
         if self.options.infile == '-':
             if self.options.outfile is None:
                 sys.stderr.write('OUTFILE must be specified')
