@@ -3583,7 +3583,7 @@ class Table(AbstractBlock):
             else:
                 data = cell.data
             if rowtype == 'header':
-                # Use table style unless overriden by cell style.
+                # Use table style unless overridden by cell style.
                 colstyle = cell.style
             else:
                 # If the cell style is not defined use the column style.

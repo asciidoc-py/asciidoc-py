@@ -95,7 +95,7 @@ class AttrDict(dict):
     """
     Like a dictionary except values can be accessed as attributes i.e. obj.foo
     can be used in addition to obj['foo'].
-    If self._default has been set then it will be returned if a non-existant
+    If self._default has been set then it will be returned if a non-existent
     attribute is accessed (instead of raising an AttributeError).
     """
     def __getattr__(self, key):
