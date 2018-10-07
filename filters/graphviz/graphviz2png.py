@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-import os, sys, subprocess
+import os
+import sys
+import subprocess
 import argparse
 
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
@@ -77,23 +79,15 @@ LICENSE
         self.version += 'Copyright(c) 2008-2009: %s\n' % __AUTHOR__
 
         self.parser = argparse.ArgumentParser(usage=self.usage)
-        self.parser.add_argument("-o", "--outfile", action="store",
-                dest="outfile",
-                help="Output file")
-        self.parser.add_argument("-L", "--layout", action="store",
-                dest="layout", default="dot",
-                choices=['dot','neato','twopi','circo','fdp'],
-                help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>")
-        self.parser.add_argument("-F", "--format", action="store",
-                dest="format", default="png",
-                choices=supported_formats,
-                help="Format type. FORMAT=<" + "|".join(supported_formats) + ">")
-        self.parser.add_argument("--debug", action="store_true",
-                dest="do_debug",
-                help=argparse.SUPPRESS)
-        self.parser.add_argument("-v", "--verbose", action="store_true",
-                dest="do_verbose", default=False,
-                help="verbose output")
+        self.parser.add_argument("-o", "--outfile", action="store", dest="outfile", help="Output file")
+        self.parser.add_argument("-L", "--layout", action="store", dest="layout", default="dot",
+                                 choices=['dot', 'neato', 'twopi', 'circo', 'fdp'],
+                                 help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>")
+        self.parser.add_argument("-F", "--format", action="store", dest="format", default="png",
+                                 choices=supported_formats,
+                                 help="Format type. FORMAT=<" + "|".join(supported_formats) + ">")
+        self.parser.add_argument("--debug", action="store_true", dest="do_debug", help=argparse.SUPPRESS)
+        self.parser.add_argument("-v", "--verbose", action="store_true", dest="do_verbose", default=False, help="verbose output")
         self.parser.add_argument("infile", action="store", help="Input file")
         self.parser.add_argument('--version', action='version', version=self.version)
         self.options = self.parser.parse_args()
@@ -117,12 +111,10 @@ LICENSE
         if not os.path.isdir(outdir):
             raise EApp('directory does not exist: %s' % outdir)
 
-        basefile = os.path.splitext(outfile)[0]
         saved_cwd = os.getcwd()
         os.chdir(outdir)
         try:
-            cmd = '%s -T%s "%s" > "%s"' % (
-                  self.options.layout, self.options.format, infile, outfile)
+            cmd = '%s -T%s "%s" > "%s"' % (self.options.layout, self.options.format, infile, outfile)
             self.systemcmd(cmd)
         finally:
             os.chdir(saved_cwd)
