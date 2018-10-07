@@ -15,7 +15,7 @@ See the link:README.html[README] page.
 Installing from the Github repository
 -------------------------------------
 The AsciiDoc repository is hosted by https://github.com[Github].
-To browse the repository go to https://github.com/asciidoc/asciidoc.
+To browse the repository go to https://github.com/asciidoc/asciidoc-py3.
 You can install AsciiDoc from the repository if you don't have an up to
 date packaged version or want to get the latest version from the master branch:
 
@@ -29,7 +29,7 @@ date packaged version or want to get the latest version from the master branch:
 
 [subs="attributes"]
   $ cd ~/bin
-  $ git clone https://github.com/asciidoc/asciidoc asciidoc-{revnumber}
+  $ git clone https://github.com/asciidoc/asciidoc-py3 asciidoc-{revnumber}
   $ git checkout {revnumber}
 
 You now have two choices: you can run asciidoc locally from your
