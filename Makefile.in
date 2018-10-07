@@ -152,6 +152,7 @@ uninstall:
 	rm -f $(DESTDIR)/$(progdir)/a2x
 	rm -f $(DESTDIR)/$(progdir)/a2x.py
 	rm -f $(DESTDIR)/$(manpdir)/asciidoc.1
+	rm -f $(DESTDIR)/$(manpdir)/testasciidoc.1
 	rm -f $(DESTDIR)/$(manpdir)/a2x.1
 	rm -rf $(DESTDIR)/$(confdir)
 	rm -rf $(DESTDIR)/$(docdir)
