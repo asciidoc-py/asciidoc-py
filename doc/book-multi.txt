@@ -46,7 +46,7 @@ Optional part introduction goes here.
 
 The First Chapter
 -----------------
-Chapters can be grouped by preceeding them with a level 0 Book Part
+Chapters can be grouped by preceding them with a level 0 Book Part
 title.
 
 Book chapters are at level 1 and can contain sub-sections nested up to

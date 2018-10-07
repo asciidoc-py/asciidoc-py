@@ -35,7 +35,7 @@ OPTIONS
 BUGS
     - Code on the same line as a block comment is treated as comment.
       Keywords inside literal strings are highlighted.
-    - There doesn't appear to be an easy way to accomodate linuxdoc so
+    - There doesn't appear to be an easy way to accommodate linuxdoc so
       just pass it through without markup.
 
 AUTHOR

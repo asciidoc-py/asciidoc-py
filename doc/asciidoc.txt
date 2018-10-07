@@ -5687,7 +5687,7 @@ repository].
 Install the highlighter by copying `asciidoc.vim` to your
 `$HOME/.vim/syntax` directory (create it if it doesn't already exist).
 
-To enable syntax highlighing:
+To enable syntax highlighting:
 
 - Put a Vim 'autocmd' in your Vim configuration file (see the
   <<X61,example vimrc file>>).
