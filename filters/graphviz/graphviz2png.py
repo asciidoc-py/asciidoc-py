@@ -81,11 +81,9 @@ LICENSE
         self.parser = argparse.ArgumentParser(usage=self.usage)
         self.parser.add_argument("-o", "--outfile", action="store", dest="outfile", help="Output file")
         self.parser.add_argument("-L", "--layout", action="store", dest="layout", default="dot",
-                                 choices=['dot', 'neato', 'twopi', 'circo', 'fdp'],
-                                 help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>")
+                                 choices=['dot', 'neato', 'twopi', 'circo', 'fdp'], help="Layout type")
         self.parser.add_argument("-F", "--format", action="store", dest="format", default="png",
-                                 choices=supported_formats,
-                                 help="Format type. FORMAT=<" + "|".join(supported_formats) + ">")
+                                 choices=supported_formats, help="Format type")
         self.parser.add_argument("--debug", action="store_true", dest="do_debug", help=argparse.SUPPRESS)
         self.parser.add_argument("-v", "--verbose", action="store_true", dest="do_verbose", default=False, help="verbose output")
         self.parser.add_argument("infile", action="store", help="Input file")
