@@ -552,14 +552,14 @@ def subs_quotes(text):
         if tag[0] == '#':
             tag = tag[1:]
             # Unconstrained quotes can appear anywhere.
-            reo = re.compile(r'(?msu)(^|.)(\[(?P<attrlist>[^[\]]+?)\])?' +
+            reo = re.compile(r'(?ms)(^|.)(\[(?P<attrlist>[^[\]]+?)\])?' +
                              r'(?:' + re.escape(lq) + r')' +
                              r'(?P<content>.+?)(?:' + re.escape(rq) + r')')
         else:
             # The text within constrained quotes must be bounded by white space.
             # Non-word (\W) characters are allowed at boundaries to accommodate
             # enveloping quotes and punctuation e.g. a='x', ('x'), 'x', ['x'].
-            reo = re.compile(r'(?msu)(^|[^\w;:}])(\[(?P<attrlist>[^[\]]+?)\])?' +
+            reo = re.compile(r'(?ms)(^|[^\w;:}])(\[(?P<attrlist>[^[\]]+?)\])?' +
                              r'(?:' + re.escape(lq) + r')' +
                              r'(?P<content>\S|\S.*?\S)(?:' + re.escape(rq) + r')(?=\W|$)')
         pos = 0
@@ -1035,7 +1035,7 @@ def subs_attrs(lines, dictionary=None):
         line = line.replace('\\}', '}\\')
         # Expand simple attributes ({name}).
         # Nested attributes not allowed.
-        reo = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w]*?)\}(?!\\)')
+        reo = re.compile(r'(?s)\{(?P<name>[^\\\W][-\w]*?)\}(?!\\)')
         pos = 0
         while True:
             mo = reo.search(line, pos)
@@ -1050,11 +1050,11 @@ def subs_attrs(lines, dictionary=None):
                 pos = mo.start() + len(s)
         # Expand conditional attributes.
         # Single name -- higher precedence.
-        reo1 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w]*?)'
+        reo1 = re.compile(r'(?s)\{(?P<name>[^\\\W][-\w]*?)'
                           r'(?P<op>\=|\?|!|#|%|@|\$)'
                           r'(?P<value>.*?)\}(?!\\)')
         # Multiple names (n1,n2,... or n1+n2+...) -- lower precedence.
-        reo2 = re.compile(r'(?su)\{(?P<name>[^\\\W][-\w' + OR + AND + r']*?)'
+        reo2 = re.compile(r'(?s)\{(?P<name>[^\\\W][-\w' + OR + AND + r']*?)'
                           r'(?P<op>\=|\?|!|#|%|@|\$)'
                           r'(?P<value>.*?)\}(?!\\)')
         for reo in [reo1, reo2]:
@@ -1161,14 +1161,14 @@ def subs_attrs(lines, dictionary=None):
                 line = line[:mo.start()] + s + line[end:]
                 pos = mo.start() + len(s)
         # Drop line if it contains  unsubstituted {name} references.
-        skipped = re.search(r'(?su)\{[^\\\W][-\w]*?\}(?!\\)', line)
+        skipped = re.search(r'(?s)\{[^\\\W][-\w]*?\}(?!\\)', line)
         if skipped:
             trace('dropped line', line)
             continue
         # Expand system attributes (eval has precedence).
         reos = [
-            re.compile(r'(?su)\{(?P<action>eval):(?P<expr>.*?)\}(?!\\)'),
-            re.compile(r'(?su)\{(?P<action>[^\\\W][-\w]*?):(?P<expr>.*?)\}(?!\\)'),
+            re.compile(r'(?s)\{(?P<action>eval):(?P<expr>.*?)\}(?!\\)'),
+            re.compile(r'(?s)\{(?P<action>[^\\\W][-\w]*?):(?P<expr>.*?)\}(?!\\)'),
         ]
         skipped = False
         for reo in reos:
@@ -3645,7 +3645,7 @@ class Table(AbstractBlock):
             else:
                 self.error('illegal table cell operator')
         text = '\n'.join(text)
-        separator = '(?msu)' + self.parameters.separator
+        separator = '(?ms)' + self.parameters.separator
         format = self.parameters.format
         start = 0
         span = None
