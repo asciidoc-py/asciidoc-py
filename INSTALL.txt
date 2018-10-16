@@ -12,15 +12,16 @@ Prerequisites
 See the link:README.html[README] page.
 
 
-Installing from the Github repository
+Installing from the GitHub repository
 -------------------------------------
-The AsciiDoc repository is hosted by https://github.com[Github].
+The AsciiDoc repository is hosted by https://github.com[GitHub].
 To browse the repository go to https://github.com/asciidoc/asciidoc-py3.
 You can install AsciiDoc from the repository if you don't have an up to
-date packaged version or want to get the latest version from the master branch:
+date packaged version, or you want to get the latest version from the master 
+branch:
 
 - Make sure you have https://git-scm.com/[Git]
-  installed, you can check with:
+  installed; you can check with:
 
   $ git --version
 
@@ -39,7 +40,7 @@ system-wide install.
 Running asciidoc from your local copy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Create a symlink to the AsciiDoc script in a search `PATH` directory
-so it's easy to execute `asciidoc` from the command-line, for example:
+so it's easy to execute `asciidoc` from the command line, for example:
 
 [subs="attributes"]
   $ ln -s ~/bin/asciidoc-{revnumber}/asciidoc.py ~/bin/asciidoc
@@ -76,12 +77,12 @@ NOTE: Unless you are <<X3,installing on Microsoft Windows>> you should
 use the tarball and not the zip file to install the the distribution
 (the tarball contains symlinks).
 
-If your flavor or UNIX or Linux does not have a packaged AsciiDoc
+If your flavor of UNIX or Linux does not have a packaged AsciiDoc
 distribution or if you prefer to install the latest AsciiDoc version
-from source use the `configure` shell script in the tarball root
+from source, use the `configure` shell script in the tarball root
 directory.
 
-The `autoconf(1)` generated `configure` script creates a make file
+The `autoconf(1)`-generated `configure` script creates a `Makefile`
 that is tailored for your system. To install:
 
 [subs="attributes"]
@@ -99,7 +100,7 @@ To uninstall AsciiDoc:
   $ sudo make uninstall
 
 If Vim is installed on your system the AsciiDoc Vim syntax highlighter
-and filetype detection scripts will be install in the global Vim
+and filetype detection scripts will be installed in the global Vim
 configuration file directory (`asciidoc.vim` in the `syntax` directory
 and `asciidoc_filetype.vim` in the `ftdetect` directory).
 
@@ -108,8 +109,8 @@ and `asciidoc_filetype.vim` in the `ftdetect` directory).
 Microsoft Windows installation
 ------------------------------
 AsciiDoc is developed and tested on Linux but there seem to be quite a
-few people using it on Windows.  To install AsciiDoc on Windows unzip
-the distribution Zip file contents:
+few people using it on Windows. To install AsciiDoc on Windows unzip
+the distribution zip file contents:
 
 [subs="attributes"]
   $ unzip asciidoc-{revnumber}.zip
@@ -130,12 +131,12 @@ http://dblatex.sourceforge.net/[dblatex] and AsciiDoc.
 Testing your installation
 -------------------------
 Test out asciidoc by changing to the AsciiDoc application directory
-and convert the User Guide document (`./doc/asciidoc.txt`) to XHTML
+and converting the User Guide document (`./doc/asciidoc.txt`) to XHTML
 (`./doc/asciidoc.html`):
 
   $ python asciidoc.py doc/asciidoc.txt
 
-link:testasciidoc.html[testasciidoc] offers a more extensive set of
+The link:testasciidoc.html[testasciidoc] tool offers a more extensive set of
 conformance tests, though you do need to create the test data before
 running the tests (this in itself is a good post-install test):
 
@@ -187,9 +188,9 @@ The following platform specific AsciiDoc packages are available:
   Philips] for writing the ebuild.
 
 *Fedora Linux*::
-  With help from Terje Røsten, Chris Wright added asciidoc to Fedora
+  With help from Terje Røsten, Chris Wright added AsciiDoc to Fedora
   Extras which is available in the default installation. To install
-  asciidoc execute the following command:
+  AsciiDoc execute the following command:
 
   $ yum install asciidoc
 
@@ -213,11 +214,11 @@ The following platform specific AsciiDoc packages are available:
 
 *Red Hat Enterprise Linux, Fedora and CentOS packages*::
   Dag Wieers has built AsciiDoc RPMs for a number of Red Hat based
-  distributions, they can be downloaded from
+  distributions. They can be downloaded from
   http://dag.wieers.com/rpm/packages/asciidoc/.
 
-*CSW Package for Sun Solaris*::
-  Ben Walton has created a CSW package for AsciiDoc, you can find it
+*Solaris (CSW Package)*::
+  Ben Walton has created a CSW package for AsciiDoc. You can find it
   here: http://opencsw.org/packages/asciidoc.
 
 See also link:userguide.html#X38[Packager Notes] in the 'AsciiDoc User
