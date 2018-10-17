@@ -13,7 +13,7 @@ Version 9.0.0 (Unreleased)
 - Add docbook5 backend
 - Fix misspellings in various files and documents
 - Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
-- Use 'with' context statement for opening and closing files instead of older try/finally pattern.
+- Use "with" context statement for opening and closing files instead of older try/finally pattern.
 
 .Bug fixes
 - Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
