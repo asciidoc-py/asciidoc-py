@@ -177,8 +177,11 @@ class AsciiDocAPI(object):
         self.options = Options()
         self.attributes = {}
         self.messages = []
-        # Search for the asciidoc command file.
-        # Try ASCIIDOC_PY environment variable first.
+        # Search for the asciidoc command file in that order :
+        # - ASCIIDOC_PY environment variable
+        # - asciidoc_py function argument
+        # - sibling (preferred to shell search paths, to ensure version matching)
+        # - shell search paths
         cmd = os.environ.get('ASCIIDOC_PY')
         if cmd:
             if not os.path.isfile(cmd):
@@ -189,16 +192,23 @@ class AsciiDocAPI(object):
             if not os.path.isfile(cmd):
                 raise AsciiDocError('missing file: %s' % cmd)
         else:
-            # Try shell search paths.
+            # try to find sibling
+            this_path = os.path.dirname(os.path.realpath(__file__))
+            # Try sibling paths.
             for fname in ['asciidoc.py','asciidoc.pyc','asciidoc']:
-                cmd = find_in_path(fname)
+                cmd = find_in_path(fname, path=this_path)
                 if cmd: break
             else:
-                # Finally try current working directory.
-                for cmd in ['asciidoc.py','asciidoc.pyc','asciidoc']:
-                    if os.path.isfile(cmd): break
+                # Try shell search paths.
+                for fname in ['asciidoc.py','asciidoc.pyc','asciidoc']:
+                    cmd = find_in_path(fname)
+                    if cmd: break
                 else:
-                    raise AsciiDocError('failed to locate asciidoc')
+                    # Finally try current working directory.
+                    for cmd in ['asciidoc.py','asciidoc.pyc','asciidoc']:
+                        if os.path.isfile(cmd): break
+                    else:
+                        raise AsciiDocError('failed to locate asciidoc')
         self.cmd = os.path.realpath(cmd)
         self.__import_asciidoc()
 
