@@ -143,8 +143,8 @@ fixconfpath:
 		chmod +x $$f; \
 	done
 
-.PHONY: version
-version:
+.PHONY: vers_update
+vers_update:
 	@for f in $(prog); do \
 		echo "Setting VERSION in $$f"; \
 		$(SED) "s#^VERSION = '.*'#VERSION = '$(ASCIIDOCVERSION)'#" $$f > $$f.out; \
