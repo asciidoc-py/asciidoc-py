@@ -2,6 +2,10 @@
 .DS_Store
 
 *.pyc
+*.egg-info/
+build/
+dist/
+__pycache__/
 
 # ignore test products
 tests/data/*.html

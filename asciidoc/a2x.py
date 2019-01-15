@@ -22,12 +22,10 @@ import zipfile
 import xml.dom.minidom
 import mimetypes
 
-PROG = os.path.basename(os.path.splitext(__file__)[0])
-VERSION = '8.6.10'
+from . import CONF_DIR
+from .__metadata__ import __version__ as VERSION
 
-# AsciiDoc global configuration file directory.
-# NOTE: CONF_DIR is "fixed up" by Makefile -- don't rename or change syntax.
-CONF_DIR = '/etc/asciidoc'
+PROG = os.path.basename(os.path.splitext(__file__)[0])
 
 
 ######################################################################
@@ -821,11 +819,7 @@ class A2X(AttrDict):
             shell_rm(html_file)
 
 
-#####################################################################
-# Script main line.
-#####################################################################
-
-if __name__ == '__main__':
+def cli():
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
     from optparse import OptionParser
     parser = OptionParser(usage='usage: %prog [OPTIONS] SOURCE_FILE',
@@ -948,3 +942,10 @@ if __name__ == '__main__':
         a2x.execute()
     except KeyboardInterrupt:
         sys.exit(1)
+
+#####################################################################
+# Script main line.
+#####################################################################
+
+if __name__ == '__main__':
+    cli()

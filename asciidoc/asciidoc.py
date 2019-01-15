@@ -27,8 +27,8 @@ import zipfile
 from ast import literal_eval
 from collections import OrderedDict
 
-# Used by asciidocapi.py #
-VERSION = '8.6.10'           # See CHANGELOG file for version history.
+from . import CONF_DIR
+from .__metadata__ import __version__ as VERSION
 
 MIN_PYTHON_VERSION = '3.4'  # Require this version of Python or better.
 
@@ -40,8 +40,8 @@ DEFAULT_DOCTYPE = 'article'
 # Allowed substitution options for List, Paragraph and DelimitedBlock
 # definition subs entry.
 SUBS_OPTIONS = ('specialcharacters', 'quotes', 'specialwords',
-                'replacements', 'attributes', 'macros', 'callouts', 'normal', 'verbatim',
-                'none', 'replacements2', 'replacements3')
+                'replacements', 'attributes', 'macros', 'callouts',
+                'normal', 'verbatim', 'none', 'replacements2', 'replacements3')
 # Default value for unspecified subs and presubs configuration file entries.
 SUBS_NORMAL = ('specialcharacters', 'quotes', 'attributes',
                'specialwords', 'replacements', 'macros', 'replacements2')
@@ -6037,8 +6037,7 @@ class Plugin:
 APP_FILE = None             # This file's full path.
 APP_DIR = None              # This file's directory.
 USER_DIR = None             # ~/.asciidoc
-# Global configuration files directory (set by Makefile build target).
-CONF_DIR = '/etc/asciidoc'
+
 HELP_FILE = 'help.conf'     # Default (English) help file.
 
 # Globals
@@ -6386,8 +6385,7 @@ def execute(cmd, opts, args):
     finally:
         sys.stdin, sys.stdout = stdin, stdout
 
-
-if __name__ == '__main__':
+def cli():
     # Process command line options.
     try:
         # DEPRECATED: --unsafe option.
@@ -6439,3 +6437,6 @@ if __name__ == '__main__':
             execute(sys.argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)
+
+if __name__ == '__main__':
+    cli()    
