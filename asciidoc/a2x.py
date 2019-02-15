@@ -22,9 +22,11 @@ import zipfile
 import xml.dom.minidom
 import mimetypes
 
-from . import CONF_DIR
-from .__metadata__ import __version__ as VERSION
-
+CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
+METADATA = {}
+with open(os.path.join(os.path.dirname(__file__), '__metadata__.py')) as f:
+    exec(f.read(), METADATA)
+VERSION = METADATA['__version__']
 PROG = os.path.basename(os.path.splitext(__file__)[0])
 
 
@@ -66,18 +68,23 @@ XSLTPROC_OPTS = ''
 
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
+
 def errmsg(msg):
     print('%s: %s\n' % (PROG, msg), file=sys.stderr)
+
 
 def warning(msg):
     errmsg('WARNING: %s' % msg)
 
+
 def infomsg(msg):
     print('%s: %s' % (PROG, msg))
+
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
     sys.exit(exit_code)
+
 
 def trace():
     """Print traceback to stderr."""
@@ -85,9 +92,11 @@ def trace():
     traceback.print_exc(file=sys.stderr)
     errmsg('-'*60)
 
+
 def verbose(msg):
     if OPTIONS.verbose or OPTIONS.dry_run:
         infomsg(msg)
+
 
 class AttrDict(dict):
     """
