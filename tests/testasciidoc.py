@@ -285,10 +285,10 @@ class AsciiDocTest(object):
                         self.failed += 1
                         lines = lines[3:]
                         print(('FAILED: %s: %s' % (backend, fromfile)))
-                        #message('+++ %s' % fromfile)
-                        #message('--- got')
-                        #for line in lines:
-                        #    message(line)
+                        message('+++ %s' % fromfile)
+                        message('--- got')
+                        for line in lines:
+                            message(line)
                         message()
                     else:
                         self.passed += 1
