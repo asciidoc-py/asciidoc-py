@@ -84,13 +84,15 @@ class Options(object):
     """
     def __init__(self, values=[]):
         self.values = values[:]
+
     def __call__(self, name, value=None):
         """Shortcut for append method."""
         self.append(name, value)
+
     def append(self, name, value=None):
-        if type(value) in (int,float):
+        if type(value) in (int, float):
             value = str(value)
-        self.values.append((name,value))
+        self.values.append((name, value))
 
 
 class Version(object):
@@ -176,74 +178,26 @@ class AsciiDocAPI(object):
         Locate and import asciidoc.py.
         Initialize instance attributes.
         """
+        self.asciidoc = None
         self.options = Options()
         self.attributes = {}
         self.messages = []
-        # Search for the asciidoc command file.
-        # Try ASCIIDOC_PY environment variable first.
-        cmd = os.environ.get('ASCIIDOC_PY')
-        if cmd:
-            if not os.path.isfile(cmd):
-                raise AsciiDocError('missing ASCIIDOC_PY file: %s' % cmd)
-        elif asciidoc_py:
-            # Next try path specified by caller.
-            cmd = asciidoc_py
-            if not os.path.isfile(cmd):
-                raise AsciiDocError('missing file: %s' % cmd)
-        else:
-            # Try shell search paths.
-            for fname in ['asciidoc.py', 'asciidoc.pyc', 'asciidoc']:
-                cmd = find_in_path(fname)
-                if cmd:
-                    break
-            else:
-                # Finally try current working directory.
-                for cmd in ['asciidoc.py', 'asciidoc.pyc', 'asciidoc']:
-                    if os.path.isfile(cmd):
-                        break
-                else:
-                    raise AsciiDocError('failed to locate asciidoc')
-        self.cmd = os.path.realpath(cmd)
         self.__import_asciidoc()
 
     def __import_asciidoc(self, reload=False):
-        '''
-        Import asciidoc module (script or compiled .pyc).
-        See
-        http://groups.google.com/group/asciidoc/browse_frm/thread/66e7b59d12cd2f91
-        for an explanation of why a seemingly straight-forward job turned out
-        quite complicated.
-        '''
-        if os.path.splitext(self.cmd)[1] in ['.py','.pyc']:
-            sys.path.insert(0, os.path.dirname(self.cmd))
-            try:
-                try:
-                    if reload:
-                        import importlib  # Because reload() is shadowed.
-                        importlib.reload(self.asciidoc)
-                    else:
-                        import asciidoc
-                        self.asciidoc = asciidoc
-                except ImportError:
-                    raise AsciiDocError('failed to import ' + self.cmd)
-            finally:
-                del sys.path[0]
-        else:
-            # The import statement can only handle .py or .pyc files, have to
-            # use importlib for scripts with other names.
-            try:
-                # Remove use of imp when Python 3.4 support is dropped
-                if sys.version_info[1] < 5:
-                    import imp
-                    module = imp.load_source('asciidoc', self.cmd)
-                else:
-                    import importlib.util
-                    spec = importlib.util.spec_from_file_location('asciidoc', self.cmd)
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-                self.asciidoc = module
-            except ImportError:
-                raise AsciiDocError('failed to import ' + self.cmd)
+        """
+        Import asciidoc module or reload it if necessary.
+        """
+        try:
+            if reload:
+                import importlib  # Because reload() is shadowed.
+                importlib.reload(self.asciidoc)
+            else:
+                from asciidoc import asciidoc
+                self.asciidoc = asciidoc
+        except ImportError:
+            raise AsciiDocError('failed to import ' + self.cmd)
+
         if Version(self.asciidoc.VERSION) < Version(MIN_ASCIIDOC_VERSION):
             raise AsciiDocError(
                 'asciidocapi %s requires asciidoc %s or better'
@@ -275,7 +229,7 @@ class AsciiDocAPI(object):
         self.__import_asciidoc(reload=True)
         try:
             try:
-                self.asciidoc.execute(self.cmd, opts.values, args)
+                self.asciidoc.execute('asciidoc', opts.values, args)
             finally:
                 self.messages = self.asciidoc.messages[:]
         except SystemExit as e:
