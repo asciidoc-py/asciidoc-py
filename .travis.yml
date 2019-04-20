@@ -12,7 +12,7 @@ service:
 
 before_script:
   # Get the MAJOR.MINOR version of Python
-  - export PYTHON_VERSION=$(python -c "import sys; print('{}.{}'.format(*sys.version_info))”)
+  - export PYTHON_VERSION=$(python -c "import sys; print('{}.{}'.format(*sys.version_info))")
   - echo "Building Docker for Python Version - ${PYTHON_VERSION}"
   - docker build --build-arg PYTHON_VERSION=${PYTHON_VERSION} -t asciidoc/asciidoc-py3:${PYTHON_VERSION} .
   - docker run -it --rm -d -v $(pwd):/srv/asciidoc --name asciidoc asciidoc/asciidoc-py3:${PYTHON_VERSION} /bin/bash
