@@ -3,6 +3,21 @@ AsciiDoc ChangeLog
 
 :website: http://asciidoc.org/
 
+Version 9.0.0 (Unreleased)
+--------------------------
+.Additions and changes
+- Port asciidoc to run on Python 3.4+ (see https://github.com/asciidoc/asciidoc for the EOL Python 2 implementation)
+- Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead
+- Implement Dockerfile for running asciidoc
+- Add Catalan translation
+- Add docbook5 backend
+- Fix misspellings in various files and documents
+- Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
+- Use "with" context statement for opening and closing files instead of older try/finally pattern.
+
+.Bug fixes
+- Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
+- Properly capture and use colophon, dedication, and preface for docbooks in japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
 
 Version 8.6.10 (2017-09-22)
 ---------------------------
