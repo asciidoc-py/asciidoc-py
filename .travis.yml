@@ -18,6 +18,7 @@ before_script:
   - docker run -it --rm -d -v $(pwd):/srv/asciidoc --name asciidoc asciidoc/asciidoc-py3:${PYTHON_VERSION} /bin/bash
 
 script:
+  - docker exec -it asciidoc python --version
   - docker exec -it asciidoc time python tests/testasciidoc.py update
   - docker exec -it asciidoc python asciidoc.py --doctest
   - docker exec -it asciidoc python asciidocapi.py
