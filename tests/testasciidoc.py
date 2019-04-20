@@ -17,7 +17,7 @@ Options:
         Update all test data overwriting existing data'''
 
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __copyright__ = 'Copyright (C) 2009 Stuart Rackham'
 
 
@@ -29,8 +29,16 @@ import re
 import sys
 import time
 
-import asciidocapi
+sys.path.append(
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            ".."
+        )
+    )
+)
 
+from asciidoc import asciidoc
 
 BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')    # Default backends.
 BACKEND_EXT = {
@@ -196,7 +204,8 @@ class AsciiDocTest(object):
         """
         Return expected test data output for backend.
         """
-        with open(self.backend_filename(backend), encoding='utf-8') as open_file:
+        filename = self.backend_filename(backend)
+        with open(filename, encoding='utf-8') as open_file:
             result = open_file.readlines()
             # Strip line terminators.
             result = [s.rstrip() for s in result]
@@ -207,12 +216,20 @@ class AsciiDocTest(object):
         """
         Generate and return test data output for backend.
         """
-        asciidoc = asciidocapi.AsciiDocAPI()
-        asciidoc.options.values = self.options
-        asciidoc.attributes = self.attributes
-        infile = self.source
+        asciidoc.reset_asciidoc()
         outfile = io.StringIO()
-        asciidoc.execute(infile, outfile, backend)
+        options = self.options[:]
+        options.append(('--out-file', outfile))
+        options.append(('--backend', backend))
+        for k, v in self.attributes.items():
+            if v == '' or k[-1] in '!@':
+                s = str(k)
+            elif v is None:
+                s = k + '!'
+            else:
+                s = '%s=%s' % (k, v)
+            options.append(('--attribute', s))
+        asciidoc.execute('asciidoc', options, [self.source])
         return outfile.getvalue().splitlines()
 
     def update_expected(self, backend):
@@ -265,7 +282,7 @@ class AsciiDocTest(object):
                         lines.append(line)
                     if lines:
                         result = False
-                        self.failed +=1
+                        self.failed += 1
                         lines = lines[3:]
                         print(('FAILED: %s: %s' % (backend, fromfile)))
                         message('+++ %s' % fromfile)

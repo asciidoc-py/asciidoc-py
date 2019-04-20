@@ -27,8 +27,12 @@ import zipfile
 from ast import literal_eval
 from collections import OrderedDict
 
-# Used by asciidocapi.py #
-VERSION = '8.6.10'           # See CHANGELOG file for version history.
+CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
+METADATA = {}
+with open(os.path.join(os.path.dirname(__file__), '__metadata__.py')) as f:
+    exec(f.read(), METADATA)
+VERSION = METADATA['__version__']
+
 
 MIN_PYTHON_VERSION = '3.4'  # Require this version of Python or better.
 
@@ -40,8 +44,8 @@ DEFAULT_DOCTYPE = 'article'
 # Allowed substitution options for List, Paragraph and DelimitedBlock
 # definition subs entry.
 SUBS_OPTIONS = ('specialcharacters', 'quotes', 'specialwords',
-                'replacements', 'attributes', 'macros', 'callouts', 'normal', 'verbatim',
-                'none', 'replacements2', 'replacements3')
+                'replacements', 'attributes', 'macros', 'callouts',
+                'normal', 'verbatim', 'none', 'replacements2', 'replacements3')
 # Default value for unspecified subs and presubs configuration file entries.
 SUBS_NORMAL = ('specialcharacters', 'quotes', 'attributes',
                'specialwords', 'replacements', 'macros', 'replacements2')
@@ -1259,6 +1263,11 @@ class Lex:
         return self
 
     @staticmethod
+    def reset_class():
+        Lex.prev_element = None
+        Lex.prev_cursor = None
+
+    @staticmethod
     def next_element():
         """Returns class of next element on the input (None if EOF).  The
         reader is assumed to be at the first line following a previous element,
@@ -1814,6 +1823,15 @@ class AttributeEntry:
         raise AssertionError('no class instances allowed')
 
     @staticmethod
+    def reset_class():
+        AttributeEntry.pattern = None
+        AttributeEntry.subs = None
+        AttributeEntry.name = None
+        AttributeEntry.name2 = None
+        AttributeEntry.value = None
+        AttributeEntry.attributes = {}
+
+    @staticmethod
     def isnext():
         result = False  # Assume not next.
         if not AttributeEntry.pattern:
@@ -1901,6 +1919,12 @@ class AttributeList:
         raise AssertionError('no class instances allowed')
 
     @staticmethod
+    def reset_class():
+        AttributeList.pattern = None
+        AttributeList.match = None
+        AttributeList.attrs = {}
+
+    @staticmethod
     def initialize():
         if 'attributelist-pattern' not in document.attributes:
             message.error("[attributes] missing 'attributelist-pattern' entry")
@@ -1968,6 +1992,11 @@ class BlockTitle:
         raise AssertionError('no class instances allowed')
 
     @staticmethod
+    def reset_class():
+        BlockTitle.title = None
+        BlockTitle.pattern = None
+
+    @staticmethod
     def isnext():
         result = False  # Assume not next.
         line = reader.read_next()
@@ -2015,6 +2044,17 @@ class Title:
 
     def __init__(self):
         raise AssertionError('no class instances allowed')
+
+    @staticmethod
+    def reset_class():
+        Title.subs = ()
+        Title.pattern = None
+        Title.level = 0
+        Title.attributes = {}
+        Title.sectname = None
+        Title.section_numbers = [0] * len(Title.underlines)
+        Title.dump_dict = {}
+        Title.linecount = None
 
     @staticmethod
     def translate(skipsubs=False):
@@ -2237,6 +2277,11 @@ class Section:
         raise AssertionError('no class instances allowed')
 
     @staticmethod
+    def reset_class():
+        Section.endtags = []
+        Section.ids = []
+
+    @staticmethod
     def savetag(level, etag):
         """Save section end."""
         Section.endtags.append((level, etag))
@@ -2378,6 +2423,10 @@ class AbstractBlock:
         self.parameters = None
         # Leading delimiter match object.
         self.mo = None
+
+    @staticmethod
+    def reset_class():
+        AbstractBlock.blocknames = []
 
     def short_name(self):
         """ Return the text following the first dash in the section name."""
@@ -4707,13 +4756,10 @@ class Config:
         if float(sys.version[:3]) < float(MIN_PYTHON_VERSION):
             message.stderr('FAILED: Python %s or better required' % MIN_PYTHON_VERSION)
             sys.exit(1)
-        if not os.path.exists(cmd):
-            message.stderr('FAILED: Missing asciidoc command: %s' % cmd)
-            sys.exit(1)
         global APP_FILE
-        APP_FILE = os.path.realpath(cmd)
+        APP_FILE = os.path.dirname(os.path.realpath(__file__))
         global APP_DIR
-        APP_DIR = os.path.dirname(APP_FILE)
+        APP_DIR = os.path.dirname(__file__)
         global USER_DIR
         USER_DIR = userdir()
         if USER_DIR is not None:
@@ -5923,6 +5969,10 @@ class Plugin:
     type = None     # 'backend', 'filter' or 'theme'.
 
     @staticmethod
+    def reset_class():
+        Plugin.type = None
+
+    @staticmethod
     def get_dir():
         """
         Return plugins path (.asciidoc/filters or .asciidoc/themes) in user's
@@ -6037,8 +6087,7 @@ class Plugin:
 APP_FILE = None             # This file's full path.
 APP_DIR = None              # This file's directory.
 USER_DIR = None             # ~/.asciidoc
-# Global configuration files directory (set by Makefile build target).
-CONF_DIR = '/etc/asciidoc'
+
 HELP_FILE = 'help.conf'     # Default (English) help file.
 
 # Globals
@@ -6061,6 +6110,33 @@ trace = Trace()             # Implements trace attribute processing.
 # List of message strings written to stderr.
 messages = message.messages
 
+
+def reset_asciidoc():
+    global document, config, reader, writer, message
+    global paragraphs, lists, blocks, tables_OLD, tables
+    global macros, calloutmap, trace
+
+    document = Document()
+    config = Config()
+    reader = Reader()
+    writer = Writer()
+    message = Message()
+    paragraphs = Paragraphs()
+    lists = Lists()
+    blocks = DelimitedBlocks()
+    tables_OLD = Tables_OLD()
+    tables = Tables()
+    macros = Macros()
+    calloutmap = CalloutMap()
+    trace = Trace()
+
+    Lex.reset_class()
+    AttributeEntry.reset_class()
+    Title.reset_class()
+    BlockTitle.reset_class()
+    Section.reset_class()
+    AbstractBlock.reset_class()
+    Plugin.reset_class()
 
 def asciidoc(backend, doctype, confiles, infile, outfile, options):
     """Convert AsciiDoc document to DocBook document of type doctype
@@ -6386,8 +6462,7 @@ def execute(cmd, opts, args):
     finally:
         sys.stdin, sys.stdout = stdin, stdout
 
-
-if __name__ == '__main__':
+def cli():
     # Process command line options.
     try:
         # DEPRECATED: --unsafe option.
@@ -6439,3 +6514,6 @@ if __name__ == '__main__':
             execute(sys.argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)
+
+if __name__ == '__main__':
+    cli()    

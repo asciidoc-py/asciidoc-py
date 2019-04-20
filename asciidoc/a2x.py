@@ -22,12 +22,12 @@ import zipfile
 import xml.dom.minidom
 import mimetypes
 
+CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
+METADATA = {}
+with open(os.path.join(os.path.dirname(__file__), '__metadata__.py')) as f:
+    exec(f.read(), METADATA)
+VERSION = METADATA['__version__']
 PROG = os.path.basename(os.path.splitext(__file__)[0])
-VERSION = '8.6.10'
-
-# AsciiDoc global configuration file directory.
-# NOTE: CONF_DIR is "fixed up" by Makefile -- don't rename or change syntax.
-CONF_DIR = '/etc/asciidoc'
 
 
 ######################################################################
@@ -68,18 +68,23 @@ XSLTPROC_OPTS = ''
 
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
+
 def errmsg(msg):
     print('%s: %s\n' % (PROG, msg), file=sys.stderr)
+
 
 def warning(msg):
     errmsg('WARNING: %s' % msg)
 
+
 def infomsg(msg):
     print('%s: %s' % (PROG, msg))
+
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
     sys.exit(exit_code)
+
 
 def trace():
     """Print traceback to stderr."""
@@ -87,9 +92,11 @@ def trace():
     traceback.print_exc(file=sys.stderr)
     errmsg('-'*60)
 
+
 def verbose(msg):
     if OPTIONS.verbose or OPTIONS.dry_run:
         infomsg(msg)
+
 
 class AttrDict(dict):
     """
@@ -821,11 +828,7 @@ class A2X(AttrDict):
             shell_rm(html_file)
 
 
-#####################################################################
-# Script main line.
-#####################################################################
-
-if __name__ == '__main__':
+def cli():
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
     from optparse import OptionParser
     parser = OptionParser(usage='usage: %prog [OPTIONS] SOURCE_FILE',
@@ -948,3 +951,10 @@ if __name__ == '__main__':
         a2x.execute()
     except KeyboardInterrupt:
         sys.exit(1)
+
+#####################################################################
+# Script main line.
+#####################################################################
+
+if __name__ == '__main__':
+    cli()
