@@ -1,10 +1,11 @@
-dist: trusty
-sudo: true
+dist: xenial  # required for Python >= 3.7 (travis-ci/travis-ci#9069)
 language: python
 python:
   - 3.4
   - 3.5
   - 3.6
+  - 3.7
+      
 install:
   - sudo apt-get update -yq2
   - sudo apt-get install -yq2 --no-install-recommends dvipng graphviz imagemagick lilypond source-highlight texlive-latex-base
