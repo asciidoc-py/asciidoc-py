@@ -433,7 +433,7 @@ class A2X(AttrDict):
         Validate and command options and set defaults.
         '''
         if not os.path.isfile(self.asciidoc_file):
-            die('missing SOURCE_FILE: %s' % self.asciidoc_file)
+            die('missing ASCIIDOC_FILE: %s' % self.asciidoc_file)
         self.asciidoc_file = os.path.abspath(self.asciidoc_file)
         if os.path.splitext(self.asciidoc_file)[1].lower() == '.xml':
             self.skip_asciidoc = True
@@ -827,122 +827,119 @@ class A2X(AttrDict):
 
 if __name__ == '__main__':
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
-    from optparse import OptionParser
-    parser = OptionParser(usage='usage: %prog [OPTIONS] SOURCE_FILE',
-        version='%s %s' % (PROG,VERSION),
+    from argparse import ArgumentParser
+    parser = ArgumentParser(usage='usage: %(prog)s [OPTIONS] ASCIIDOC_FILE',
         description=description)
-    parser.add_option('-a', '--attribute',
+    parser.add_argument('--version', action='version', version='{} {}'.format(PROG, VERSION))
+    parser.add_argument('-a', '--attribute',
         action='append', dest='attributes', default=[], metavar='ATTRIBUTE',
         help='set asciidoc attribute value')
-    parser.add_option('--asciidoc-opts',
+    parser.add_argument('--asciidoc-opts',
         action='append', dest='asciidoc_opts', default=[],
         metavar='ASCIIDOC_OPTS', help='asciidoc options')
     #DEPRECATED
-    parser.add_option('--copy',
+    parser.add_argument('--copy',
         action='store_true', dest='copy', default=False,
         help='DEPRECATED: does nothing')
-    parser.add_option('--conf-file',
+    parser.add_argument('--conf-file',
         dest='conf_file', default=None, metavar='CONF_FILE',
         help='configuration file')
-    parser.add_option('-D', '--destination-dir',
+    parser.add_argument('-D', '--destination-dir',
         action='store', dest='destination_dir', default=None, metavar='PATH',
-        help='output directory (defaults to SOURCE_FILE directory)')
-    parser.add_option('-d','--doctype',
+        help='output directory (defaults to ASCIIDOC_FILE directory)')
+    parser.add_argument('-d','--doctype',
         action='store', dest='doctype', metavar='DOCTYPE',
         choices=('article','manpage','book'),
         help='article, manpage, book')
-    parser.add_option('-b','--backend',
+    parser.add_argument('-b','--backend',
         action='store', dest='backend', metavar='BACKEND',
         help='name of backend plugin')
-    parser.add_option('--epubcheck',
+    parser.add_argument('--epubcheck',
         action='store_true', dest='epubcheck', default=False,
         help='check EPUB output with epubcheck')
-    parser.add_option('-f','--format',
+    parser.add_argument('-f','--format',
         action='store', dest='format', metavar='FORMAT', default = 'pdf',
         choices=('chunked','epub','htmlhelp','manpage','pdf', 'text',
                  'xhtml','dvi','ps','tex','docbook'),
         help='chunked, epub, htmlhelp, manpage, pdf, text, xhtml, dvi, ps, tex, docbook')
-    parser.add_option('--icons',
+    parser.add_argument('--icons',
         action='store_true', dest='icons', default=False,
         help='use admonition, callout and navigation icons')
-    parser.add_option('--icons-dir',
+    parser.add_argument('--icons-dir',
         action='store', dest='icons_dir',
         default=None, metavar='PATH',
         help='admonition and navigation icon directory')
-    parser.add_option('-k', '--keep-artifacts',
+    parser.add_argument('-k', '--keep-artifacts',
         action='store_true', dest='keep_artifacts', default=False,
         help='do not delete temporary build files')
-    parser.add_option('--lynx',
+    parser.add_argument('--lynx',
         action='store_true', dest='lynx', default=False,
         help='use lynx to generate text files')
-    parser.add_option('-L', '--no-xmllint',
+    parser.add_argument('-L', '--no-xmllint',
         action='store_true', dest='no_xmllint', default=False,
         help='do not check asciidoc output with xmllint')
-    parser.add_option('-n','--dry-run',
+    parser.add_argument('-n','--dry-run',
         action='store_true', dest='dry_run', default=False,
         help='just print the commands that would have been executed')
-    parser.add_option('-r','--resource',
+    parser.add_argument('-r','--resource',
         action='append', dest='resources', default=[],
         metavar='PATH',
         help='resource file or directory containing resource files')
-    parser.add_option('-m', '--resource-manifest',
+    parser.add_argument('-m', '--resource-manifest',
         action='store', dest='resource_manifest', default=None, metavar='FILE',
         help='read resources from FILE')
     #DEPRECATED
-    parser.add_option('--resource-dir',
+    parser.add_argument('--resource-dir',
         action='append', dest='resources', default=[],
         metavar='PATH',
         help='DEPRECATED: use --resource')
     #DEPRECATED
-    parser.add_option('-s','--skip-asciidoc',
+    parser.add_argument('-s','--skip-asciidoc',
         action='store_true', dest='skip_asciidoc', default=False,
         help='DEPRECATED: redundant')
-    parser.add_option('--stylesheet',
+    parser.add_argument('--stylesheet',
         action='store', dest='stylesheet', default=None,
         metavar='STYLESHEET',
         help='HTML CSS stylesheet file name')
     #DEPRECATED
-    parser.add_option('--safe',
+    parser.add_argument('--safe',
         action='store_true', dest='safe', default=False,
         help='DEPRECATED: does nothing')
-    parser.add_option('--dblatex-opts',
+    parser.add_argument('--dblatex-opts',
         action='append', dest='dblatex_opts', default=[],
         metavar='DBLATEX_OPTS', help='dblatex options')
-    parser.add_option('--backend-opts',
+    parser.add_argument('--backend-opts',
         action='append', dest='backend_opts', default=[],
         metavar='BACKEND_OPTS', help='backend plugin options')
-    parser.add_option('--fop',
+    parser.add_argument('--fop',
         action='store_true', dest='fop', default=False,
         help='use FOP to generate PDF files')
-    parser.add_option('--fop-opts',
+    parser.add_argument('--fop-opts',
         action='append', dest='fop_opts', default=[],
         metavar='FOP_OPTS', help='options for FOP pdf generation')
-    parser.add_option('--xsltproc-opts',
+    parser.add_argument('--xsltproc-opts',
         action='append', dest='xsltproc_opts', default=[],
         metavar='XSLTPROC_OPTS', help='xsltproc options for XSL stylesheets')
-    parser.add_option('--xsl-file',
+    parser.add_argument('--xsl-file',
         action='store', dest='xsl_file', metavar='XSL_FILE',
         help='custom XSL stylesheet')
-    parser.add_option('-v', '--verbose',
+    parser.add_argument('-v', '--verbose',
         action='count', dest='verbose', default=0,
         help='increase verbosity')
-    if len(sys.argv) == 1:
-        parser.parse_args(['--help'])
+    parser.add_argument("asciidoc_file", action="store", help="AsciiDoc source file")
     source_options = get_source_options(sys.argv[-1])
     argv = source_options + sys.argv[1:]
-    opts, args = parser.parse_args(argv)
-    if len(args) != 1:
-        parser.error('incorrect number of arguments')
+    opts = parser.parse_args(argv)
     opts.asciidoc_opts = ' '.join(opts.asciidoc_opts)
     opts.dblatex_opts = ' '.join(opts.dblatex_opts)
     opts.fop_opts = ' '.join(opts.fop_opts)
     opts.xsltproc_opts = ' '.join(opts.xsltproc_opts)
     opts.backend_opts = ' '.join(opts.backend_opts)
-    opts = eval(str(opts))  # Convert optparse.Values to dict.
+    opts = vars(opts)  # Convert argparse.Values to dict.
     a2x = A2X(opts)
     OPTIONS = a2x           # verbose and dry_run used by utility functions.
     verbose('args: %r' % argv)
-    a2x.asciidoc_file = args[0]
+    a2x.asciidoc_file = opts['asciidoc_file']
     try:
         a2x.load_conf()
         a2x.execute()
