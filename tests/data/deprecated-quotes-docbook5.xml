@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <date>2002-11-25</date>
+</info>
+<simpara><phrase role="foo">fun with text</phrase>.
+<phrase role="foo">fun with text</phrase>.
+fun with text.
+More <emphasis role="strong">fun with text</emphasis>.
+Yet more <emphasis role="strong">fun with text</emphasis>.
+Yet more <literal>fun with text</literal>.
+Yet more <emphasis>fun with text</emphasis>.</simpara>
+<simpara>Yet more <emphasis>fun with text</emphasis>.</simpara>
+<simpara>Yet more <emphasis>fun with text</emphasis>.</simpara>
+</article>

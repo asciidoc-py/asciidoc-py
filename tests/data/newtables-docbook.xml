@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>AsciiDoc New tables</title>
+</articleinfo>
+<simpara><emphasis role="strong">New in version 8.3.0</emphasis></simpara>
+<simpara>I&#8217;ve finally come up with a <emphasis>new tables</emphasis> syntax that I&#8217;m happy with
+and can at last remove this footnote from the <emphasis>User Guide</emphasis>: &#8220;The
+current table syntax is overly complicated and unwieldy to edit,
+hopefully a more usable syntax will appear in future versions of
+AsciiDoc.&#8221;</simpara>
+<sidebar>
+<title>Update</title>
+<simpara>The following additions were made at AsciiDoc 8.4.4:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Cell column and row spanning.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Styles can be applied per cell.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vertical cell alignment can be applied to columns and cells.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>See the examples at the end of this document.</simpara>
+</sidebar>
+<simpara>At first glance it doesn&#8217;t look much different to the old syntax but
+it&#8217;s a lot more flexible, easier to enter and supports a lot of column
+styles (for example the <emphasis>asciidoc</emphasis> style supports AsciiDoc block and
+inline elements).  The old tables syntax has been deprecated but is
+currently still processed.  Here are some examples of AsciiDoc <emphasis>new
+tables</emphasis>:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Simple table</title>
+<?dbhtml table-width="15%"?>
+<?dbfo table-width="15%"?>
+<?dblatex table-width="15%"?>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="21*"/>
+<colspec colname="col_2" colwidth="21*"/>
+<colspec colname="col_3" colwidth="21*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>6</simpara></entry>
+<entry align="left" valign="top"><simpara>C</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>[width="15%"]
+|=======
+|1 |2 |A
+|3 |4 |B
+|5 |6 |C
+|=======</screen>
+</para></formalpara>
+<table
+frame="topbot"
+rowsep="1" colsep="1"
+>
+<title>Table with title, header and footer</title>
+<?dbhtml table-width="40%"?>
+<?dbfo table-width="40%"?>
+<?dblatex table-width="40%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="85*"/>
+<colspec colname="col_2" colwidth="85*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Column 1 </entry>
+<entry align="left" valign="top">Column 2</entry>
+</row>
+</thead>
+<tfoot>
+<row>
+<entry align="left" valign="top"><simpara>6</simpara></entry>
+<entry align="left" valign="top"><simpara>Three items</simpara></entry>
+</row>
+</tfoot>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>Item 1</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>Item 2</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>Item 3</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.An example table
+[width="40%",frame="topbot",options="header,footer"]
+|======================
+|Column 1 |Column 2
+|1        |Item 1
+|2        |Item 2
+|3        |Item 3
+|6        |Three items
+|======================</screen>
+</para></formalpara>
+<table
+frame="topbot"
+rowsep="1" colsep="1"
+>
+<title>Columns formatted with strong, monospaced and emphasis styles</title>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="85*"/>
+<colspec colname="col_3" colwidth="85*"/>
+<thead>
+<row>
+<entry align="right" valign="top">      </entry>
+<entry align="center" valign="top" namest="col_2" nameend="col_3">Columns 2 and 3</entry>
+</row>
+</thead>
+<tfoot>
+<row>
+<entry align="right" valign="top"><simpara><emphasis role="strong">footer 1</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><literal>footer 2</literal></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>footer 3</emphasis></simpara></entry>
+</row>
+</tfoot>
+<tbody>
+<row>
+<entry align="right" valign="top"><simpara><emphasis role="strong">1</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><literal>Item 1</literal></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>Item 1</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="right" valign="top"><simpara><emphasis role="strong">2</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><literal>Item 2</literal></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>Item 2</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="right" valign="top"><simpara><emphasis role="strong">3</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><literal>Item 3</literal></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>Item 3</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="right" valign="top"><simpara><emphasis role="strong">4</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><literal>Item 4</literal></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>Item 4</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.An example table
+[width="50%",cols="&gt;s,^2m,^2e",frame="topbot",options="header,footer"]
+|==========================
+|      2+|Columns 2 and 3
+|1       |Item 1  |Item 1
+|2       |Item 2  |Item 2
+|3       |Item 3  |Item 3
+|4       |Item 4  |Item 4
+|footer 1|footer 2|footer 3
+|==========================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>A table with externally sourced CSV data</title>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="11*"/>
+<colspec colname="col_2" colwidth="22*"/>
+<colspec colname="col_3" colwidth="22*"/>
+<colspec colname="col_4" colwidth="22*"/>
+<colspec colname="col_5" colwidth="22*"/>
+<thead>
+<row>
+<entry align="center" valign="top">ID</entry>
+<entry align="left" valign="top">Customer Name</entry>
+<entry align="left" valign="top">Contact Name</entry>
+<entry align="left" valign="top">Customer Address</entry>
+<entry align="left" valign="top">Phone</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center" valign="top"><simpara>AROUT</simpara></entry>
+<entry align="left" valign="top"><simpara>Around the Horn</simpara></entry>
+<entry align="left" valign="top"><simpara>Thomas Hardy</simpara></entry>
+<entry align="left" valign="top"><simpara>120 Hanover Sq.
+London</simpara></entry>
+<entry align="left" valign="top"><simpara>(171) 555-7788</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BERGS</simpara></entry>
+<entry align="left" valign="top"><simpara>Berglunds snabbkop</simpara></entry>
+<entry align="left" valign="top"><simpara>Christina Berglund</simpara></entry>
+<entry align="left" valign="top"><simpara>Berguvsvagen  8
+Lulea</simpara></entry>
+<entry align="left" valign="top"><simpara>0921-12 34 65</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BLAUS</simpara></entry>
+<entry align="left" valign="top"><simpara>Blauer See Delikatessen</simpara></entry>
+<entry align="left" valign="top"><simpara>Hanna Moos</simpara></entry>
+<entry align="left" valign="top"><simpara>Forsterstr. 57
+Mannheim</simpara></entry>
+<entry align="left" valign="top"><simpara>0621-08460</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BLONP</simpara></entry>
+<entry align="left" valign="top"><simpara>Blondel pere et fils</simpara></entry>
+<entry align="left" valign="top"><simpara>Frederique Citeaux</simpara></entry>
+<entry align="left" valign="top"><simpara>24, place Kleber
+Strasbourg</simpara></entry>
+<entry align="left" valign="top"><simpara>88.60.15.31</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BOLID</simpara></entry>
+<entry align="left" valign="top"><simpara>Bolido Comidas preparadas</simpara></entry>
+<entry align="left" valign="top"><simpara>Martin Sommer</simpara></entry>
+<entry align="left" valign="top"><simpara>C/ Araquil, 67
+Madrid</simpara></entry>
+<entry align="left" valign="top"><simpara>(91) 555 22 82</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BONAP</simpara></entry>
+<entry align="left" valign="top"><simpara>Bon app'</simpara></entry>
+<entry align="left" valign="top"><simpara>Laurence Lebihan</simpara></entry>
+<entry align="left" valign="top"><simpara>12, rue des Bouchers
+Marseille</simpara></entry>
+<entry align="left" valign="top"><simpara>91.24.45.40</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BOTTM</simpara></entry>
+<entry align="left" valign="top"><simpara>Bottom-Dollar Markets</simpara></entry>
+<entry align="left" valign="top"><simpara>Elizabeth Lincoln</simpara></entry>
+<entry align="left" valign="top"><simpara>23 Tsawassen Blvd.
+Tsawassen</simpara></entry>
+<entry align="left" valign="top"><simpara>(604) 555-4729</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>BSBEV</simpara></entry>
+<entry align="left" valign="top"><simpara>B&#8217;s Beverages</simpara></entry>
+<entry align="left" valign="top"><simpara>Victoria Ashworth</simpara></entry>
+<entry align="left" valign="top"><simpara>Fauntleroy Circus
+London</simpara></entry>
+<entry align="left" valign="top"><simpara>(171) 555-1212</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>CACTU</simpara></entry>
+<entry align="left" valign="top"><simpara>Cactus Comidas para llevar</simpara></entry>
+<entry align="left" valign="top"><simpara>Patricio Simpson</simpara></entry>
+<entry align="left" valign="top"><simpara>Cerrito 333
+Buenos Aires</simpara></entry>
+<entry align="left" valign="top"><simpara>(1) 135-5555</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen> [format="csv",cols="^1,4*2",options="header"]
+ |===================================================
+ ID,Customer Name,Contact Name,Customer Address,Phone
+ include::customers.csv[]
+ |===================================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>DVS formatted table</title>
+<?dbhtml table-width="70%"?>
+<?dbfo table-width="70%"?>
+<?dblatex table-width="70%"?>
+<tgroup cols="7">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="43*"/>
+<colspec colname="col_3" colwidth="43*"/>
+<colspec colname="col_4" colwidth="43*"/>
+<colspec colname="col_5" colwidth="43*"/>
+<colspec colname="col_6" colwidth="43*"/>
+<colspec colname="col_7" colwidth="43*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>root</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>0</simpara></entry>
+<entry align="left" valign="top"><simpara>0</simpara></entry>
+<entry align="left" valign="top"><simpara>root</simpara></entry>
+<entry align="left" valign="top"><simpara>/root</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/bash</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>daemon</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>daemon</simpara></entry>
+<entry align="left" valign="top"><simpara>/usr/sbin</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/sh</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>bin</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>bin</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/sh</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sys</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>sys</simpara></entry>
+<entry align="left" valign="top"><simpara>/dev</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/sh</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>sync</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>65534</simpara></entry>
+<entry align="left" valign="top"><simpara>sync</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/sync</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>games</simpara></entry>
+<entry align="left" valign="top"><simpara>x</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>60</simpara></entry>
+<entry align="left" valign="top"><simpara>games</simpara></entry>
+<entry align="left" valign="top"><simpara>/usr/games</simpara></entry>
+<entry align="left" valign="top"><simpara>/bin/sh</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>[width="70%",format="dsv"]
+|====================================
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+sys:x:3:3:sys:/dev:/bin/sh
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/bin/sh
+|====================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Horizontal and vertical source data</title>
+<?dbhtml table-width="80%"?>
+<?dbfo table-width="80%"?>
+<?dblatex table-width="80%"?>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="60*"/>
+<colspec colname="col_2" colwidth="40*"/>
+<colspec colname="col_3" colwidth="40*"/>
+<colspec colname="col_4" colwidth="200*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Date </entry>
+<entry align="center" valign="top">Duration </entry>
+<entry align="center" valign="top">Avg HR </entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>22-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>10:24</simpara></entry>
+<entry align="center" valign="top"><simpara>157</simpara></entry>
+<entry align="left" valign="top"><simpara>Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>22-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>23:03</simpara></entry>
+<entry align="center" valign="top"><simpara>152</simpara></entry>
+<entry align="left" valign="top"><simpara>Back-to-back with previous interval.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>24-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>40:00</simpara></entry>
+<entry align="center" valign="top"><simpara>145</simpara></entry>
+<entry align="left" valign="top"><simpara>Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>Short cells can be entered horizontally, longer cells vertically.  The
+default behavior is to strip leading and trailing blank lines within a
+cell. These characteristics aid readability and data entry.</simpara>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.Windtrainer workouts
+[width="80%",cols="3,^2,^2,10",options="header"]
+|=========================================================
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 |10:24 | 157 |
+Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.
+
+|22-Aug-08 |23:03 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 |40:00 | 145 |
+Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).
+
+|=========================================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Default and verse styles</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Default paragraphs </entry>
+<entry align="center" valign="top">Centered verses</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Per id.</simpara>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara></entry>
+<entry align="center" valign="top"><literallayout>Per id.
+
+Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</literallayout></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>[cols=",^v",options="header"]
+|===================================
+|Default paragraphs |Centered verses
+2*|Per id.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+|===================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Horizontal and vertial headings</title>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="43*"/>
+<colspec colname="col_3" colwidth="43*"/>
+<colspec colname="col_4" colwidth="43*"/>
+<colspec colname="col_5" colwidth="43*"/>
+<thead>
+<row>
+<entry align="left" valign="top">      </entry>
+<entry align="left" valign="top">West </entry>
+<entry align="left" valign="top">Central </entry>
+<entry align="left" valign="top">East </entry>
+<entry align="left" valign="top"> Total</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Q1</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>270</simpara></entry>
+<entry align="left" valign="top"><simpara>292</simpara></entry>
+<entry align="left" valign="top"><simpara>342</simpara></entry>
+<entry align="left" valign="top"><simpara>904</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Q2</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>322</simpara></entry>
+<entry align="left" valign="top"><simpara>276</simpara></entry>
+<entry align="left" valign="top"><simpara>383</simpara></entry>
+<entry align="left" valign="top"><simpara>981</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Q3</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>298</simpara></entry>
+<entry align="left" valign="top"><simpara>252</simpara></entry>
+<entry align="left" valign="top"><simpara>274</simpara></entry>
+<entry align="left" valign="top"><simpara>824</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong">Q4</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>344</simpara></entry>
+<entry align="left" valign="top"><simpara>247</simpara></entry>
+<entry align="left" valign="top"><simpara>402</simpara></entry>
+<entry align="left" valign="top"><simpara>993</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.Horizontal and vertial headings
+[cols="h,4*",options="header",width="50%"]
+|==================================
+|      |West |Central |East | Total
+|Q1    |270  |292     |342  | 904
+|Q2    |322  |276     |383  | 981
+|Q3    |298  |252     |274  | 824
+|Q4    |344  |247     |402  | 993
+|==================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="0" colsep="1"
+>
+<title>AsciiDoc style in first column, Literal in second</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Output markup </entry>
+<entry align="left" valign="top">AsciiDoc source</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<screen>Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</screen>
+<formalpara><title>Code filter example</title><para>
+<programlisting language="python" linenumbering="unnumbered">''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word</programlisting>
+</para></formalpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>
+Nulla porttitor vulputate libero.
+</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</itemizedlist></entry>
+<entry align="left" valign="top"><literallayout class="monospaced">Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.</literallayout></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>[cols="asciidoc,literal",options="header",grid="cols"]
+|==================================
+|Output markup |AsciiDoc source
+2*|
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+   ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|==================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Cell containing lots of example markup elements</title>
+<tgroup cols="1">
+<colspec colname="col_1" colwidth="100*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>URLs</emphasis>:
+<ulink url="http://asciidoc.org/">The AsciiDoc home page</ulink>,
+<ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink>,
+<ulink url="mailto:joe.bloggs@example.com">email Joe Bloggs</ulink>,
+<ulink url="mailto:joe.bloggs@example.com">joe.bloggs@example.com</ulink>,
+<ulink url="callto:joe.bloggs">joe.bloggs</ulink>.</simpara>
+<simpara><emphasis>Link</emphasis>: See <link linkend="X1">AsciiDoc source</link>.</simpara>
+<simpara><emphasis>Emphasized text</emphasis>, <emphasis role="strong">Strong text</emphasis>, <literal>Monospaced text</literal>, &#8220;Quoted text&#8221;.</simpara>
+<simpara><emphasis>Subscripts and superscripts</emphasis>: e<superscript>&#960;i</superscript>+1 = 0. H<subscript>2</subscript>O and x<superscript>10</superscript>.
+Some <superscript>super text</superscript> and <subscript>some sub text</subscript></simpara>
+<simpara><emphasis>Replacements</emphasis>: &#169; copyright, &#8482; trademark, &#174; registered trademark,&#8201;&#8212;&#8201;em dash, &#8230; ellipsis, &#8594; right arrow, &#8592; left arrow, &#8658; right
+double arrow, &#8656; left double arrow.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara id="X1"><title>AsciiDoc source</title><para>
+<screen>|====================================================================
+|'URLs':
+http://asciidoc.org/[The AsciiDoc home page],
+http://asciidoc.org/,
+mailto:joe.bloggs@example.com[email Joe Bloggs],
+joe.bloggs@example.com,
+callto:joe.bloggs[].
+
+'Link': See &lt;&lt;X1,AsciiDoc source&gt;&gt;.
+
+'Emphasized text', *Strong text*, +Monospaced text+, ``Quoted text''.
+
+'Subscripts and superscripts': e^{amp}#960;i^+1 = 0. H~2~O and x^10^.
+Some ^super text^ and ~some sub text~
+
+'Replacements': (C) copyright, (TM) trademark, (R) registered trademark,
+-- em dash, ... ellipsis, -&gt; right arrow, &lt;- left arrow, =&gt; right
+double arrow, &lt;= left double arrow.
+|====================================================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Nested table</title>
+<?dbhtml table-width="75%"?>
+<?dbfo table-width="75%"?>
+<?dblatex table-width="75%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="106*"/>
+<colspec colname="col_2" colwidth="212*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Normal cell</simpara></entry>
+<entry align="left" valign="top"><simpara>Cell with nested table</simpara>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="66*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Nested table cell 1</simpara></entry>
+<entry align="left" valign="top"><simpara>Nested table cell 2</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>[width="75%",cols="1,2a"]
+|==============================================
+|Normal cell
+
+|Cell with nested table
+
+[cols="2,1"]
+!==============================================
+!Nested table cell 1 !Nested table cell 2
+!==============================================
+
+|==============================================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Spans, alignments and styles</title>
+<?dbhtml table-width="25%"?>
+<?dbfo table-width="25%"?>
+<?dblatex table-width="25%"?>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="27*"/>
+<colspec colname="col_2" colwidth="27*"/>
+<colspec colname="col_3" colwidth="27*"/>
+<colspec colname="col_4" colwidth="27*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>1</emphasis></simpara></entry>
+<entry align="right" valign="top"><simpara><emphasis role="strong">2</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara>3</simpara></entry>
+<entry align="right" valign="top"><simpara><emphasis role="strong">4</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara><emphasis>5</emphasis></simpara></entry>
+<entry align="center" valign="middle" namest="col_2" nameend="col_3" morerows="1"><simpara><literal>6</literal></simpara></entry>
+<entry align="left" valign="bottom" morerows="2"><simpara><literal>7</literal></simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara><emphasis>8</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>9</emphasis></simpara></entry>
+<entry align="right" valign="top" namest="col_2" nameend="col_3"><simpara><literal>10</literal></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.Spans, alignments and styles
+[cols="e,m,^,&gt;s",width="25%"]
+|================
+|1 &gt;s|2 |3 |4
+^|5 2.2+^.^|6 .3+&lt;.&gt;m|7
+^|8
+|9 2+&gt;|10
+|================</screen>
+</para></formalpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Three panes</title>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="66*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><bridgehead id="_top_left_pane" renderas="sect2">Top Left Pane</bridgehead>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara></entry>
+<entry align="left" valign="top" morerows="1"><bridgehead id="_right_pane" renderas="sect2">Right Pane</bridgehead>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<screen>Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</screen>
+<formalpara><title>Code filter example</title><para>
+<programlisting language="python" linenumbering="unnumbered">''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word</programlisting>
+</para></formalpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>
+Nulla porttitor vulputate libero.
+</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</itemizedlist></entry>
+</row>
+<row>
+<entry align="left" valign="top"><bridgehead id="_bottom_left_pane" renderas="sect2">Bottom Left Pane</bridgehead>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<simpara>Consul <emphasis role="strong">necessitatibus</emphasis> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<simpara>
+Nulla porttitor vulputate libero.
+</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Fusce euismod commodo velit.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Vivamus fringilla mi eu lacus.
+</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</itemizedlist></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>.Three panes
+[cols="a,2a"]
+|==================================
+|
+[float]
+Top Left Pane
+~~~~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+.2+|
+[float]
+Right Pane
+~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|
+[float]
+Bottom Left Pane
+~~~~~~~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|==================================</screen>
+</para></formalpara>
+<section id="_combinations_of_emphasis_align_emphasis_emphasis_frame_emphasis_emphasis_grid_emphasis_emphasis_valign_emphasis_and_emphasis_halign_emphasis_attributes">
+<title>Combinations of <emphasis>align</emphasis>, <emphasis>frame</emphasis>, <emphasis>grid</emphasis>, <emphasis>valign</emphasis> and <emphasis>halign</emphasis> attributes</title>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="20*"/>
+<colspec colname="col_2" colwidth="20*"/>
+<colspec colname="col_3" colwidth="20*"/>
+<colspec colname="col_4" colwidth="20*"/>
+<colspec colname="col_5" colwidth="20*"/>
+<thead>
+<row>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top">frame </entry>
+<entry align="left" valign="top"> grid </entry>
+<entry align="left" valign="top">valign </entry>
+<entry align="left" valign="top">halign</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><literallayout>&nbsp;
+&nbsp;
+&nbsp;</literallayout></entry>
+<entry align="left" valign="top"><simpara>all</simpara></entry>
+<entry align="left" valign="top"><simpara>all</simpara></entry>
+<entry align="left" valign="top"><simpara>top</simpara></entry>
+<entry align="left" valign="top"><simpara>left</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>:frame: all
+:grid: all
+:halign: left
+:valign: top
+
+[options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</screen>
+</para></formalpara>
+<table
+frame="sides"
+rowsep="1" colsep="0"
+>
+<title>Table test</title>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="43*"/>
+<colspec colname="col_3" colwidth="43*"/>
+<colspec colname="col_4" colwidth="43*"/>
+<colspec colname="col_5" colwidth="43*"/>
+<thead>
+<row>
+<entry align="center" valign="middle"></entry>
+<entry align="center" valign="middle">frame </entry>
+<entry align="center" valign="middle"> grid </entry>
+<entry align="center" valign="middle">valign </entry>
+<entry align="center" valign="middle">halign</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="center" valign="middle"><literallayout>&nbsp;
+&nbsp;
+&nbsp;</literallayout></entry>
+<entry align="center" valign="middle"><simpara>sides</simpara></entry>
+<entry align="center" valign="middle"><simpara>rows</simpara></entry>
+<entry align="center" valign="middle"><simpara>middle</simpara></entry>
+<entry align="center" valign="middle"><simpara>center</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>:frame: sides
+:grid: rows
+:halign: center
+:valign: middle
+
+.Table test
+[width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</screen>
+</para></formalpara>
+<informaltable
+frame="topbot"
+rowsep="0" colsep="1"
+>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="43*"/>
+<colspec colname="col_3" colwidth="43*"/>
+<colspec colname="col_4" colwidth="43*"/>
+<colspec colname="col_5" colwidth="43*"/>
+<thead>
+<row>
+<entry align="right" valign="bottom"></entry>
+<entry align="right" valign="bottom">frame </entry>
+<entry align="right" valign="bottom"> grid </entry>
+<entry align="right" valign="bottom">valign </entry>
+<entry align="right" valign="bottom">halign</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="right" valign="bottom"><literallayout>&nbsp;
+&nbsp;
+&nbsp;</literallayout></entry>
+<entry align="right" valign="bottom"><simpara>topbot</simpara></entry>
+<entry align="right" valign="bottom"><simpara>cols</simpara></entry>
+<entry align="right" valign="bottom"><simpara>bottom</simpara></entry>
+<entry align="right" valign="bottom"><simpara>right</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>:frame: topbot
+:grid: cols
+:halign: right
+:valign: bottom
+
+[align="right",width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</screen>
+</para></formalpara>
+<informaltable
+frame="none"
+rowsep="0" colsep="0"
+>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="43*"/>
+<colspec colname="col_2" colwidth="43*"/>
+<colspec colname="col_3" colwidth="43*"/>
+<colspec colname="col_4" colwidth="43*"/>
+<colspec colname="col_5" colwidth="43*"/>
+<thead>
+<row>
+<entry align="left" valign="top"></entry>
+<entry align="left" valign="top">frame </entry>
+<entry align="left" valign="top"> grid </entry>
+<entry align="left" valign="top">valign </entry>
+<entry align="left" valign="top">halign</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><literallayout>&nbsp;
+&nbsp;
+&nbsp;</literallayout></entry>
+<entry align="left" valign="top"><simpara>none</simpara></entry>
+<entry align="left" valign="top"><simpara>none</simpara></entry>
+<entry align="left" valign="top"><simpara>top</simpara></entry>
+<entry align="left" valign="top"><simpara>left</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<formalpara><title>AsciiDoc source</title><para>
+<screen>:frame: none
+:grid: none
+:halign: left
+:valign: top
+
+[align="center",width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</screen>
+</para></formalpara>
+</section>
+</article>

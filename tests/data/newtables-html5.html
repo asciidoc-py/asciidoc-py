@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<title>AsciiDoc New tables</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>AsciiDoc New tables</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><strong>New in version 8.3.0</strong></p></div>
+<div class="paragraph"><p>I&#8217;ve finally come up with a <em>new tables</em> syntax that I&#8217;m happy with
+and can at last remove this footnote from the <em>User Guide</em>: &#8220;The
+current table syntax is overly complicated and unwieldy to edit,
+hopefully a more usable syntax will appear in future versions of
+AsciiDoc.&#8221;</p></div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Update</div>
+<div class="paragraph"><p>The following additions were made at AsciiDoc 8.4.4:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Cell column and row spanning.
+</p>
+</li>
+<li>
+<p>
+Styles can be applied per cell.
+</p>
+</li>
+<li>
+<p>
+Vertical cell alignment can be applied to columns and cells.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>See the examples at the end of this document.</p></div>
+</div></div>
+<div class="paragraph"><p>At first glance it doesn&#8217;t look much different to the old syntax but
+it&#8217;s a lot more flexible, easier to enter and supports a lot of column
+styles (for example the <em>asciidoc</em> style supports AsciiDoc block and
+inline elements).  The old tables syntax has been deprecated but is
+currently still processed.  Here are some examples of AsciiDoc <em>new
+tables</em>:</p></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:15%;
+">
+<caption class="title">Table 1. Simple table</caption>
+<col style="width:33%;">
+<col style="width:33%;">
+<col style="width:33%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">B</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">C</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>[width="15%"]
+|=======
+|1 |2 |A
+|3 |4 |B
+|5 |6 |C
+|=======</pre>
+</div></div>
+<table class="tableblock frame-topbot grid-all"
+style="
+width:40%;
+">
+<caption class="title">Table 2. Table with title, header and footer</caption>
+<col style="width:50%;">
+<col style="width:50%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Column 1 </th>
+<th class="tableblock halign-left valign-top" >Column 2</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Three items</p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Item 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Item 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Item 3</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.An example table
+[width="40%",frame="topbot",options="header,footer"]
+|======================
+|Column 1 |Column 2
+|1        |Item 1
+|2        |Item 2
+|3        |Item 3
+|6        |Three items
+|======================</pre>
+</div></div>
+<table class="tableblock frame-topbot grid-all"
+style="
+width:50%;
+">
+<caption class="title">Table 3. Columns formatted with strong, monospaced and emphasis styles</caption>
+<col style="width:20%;">
+<col style="width:40%;">
+<col style="width:40%;">
+<thead>
+<tr>
+<th class="tableblock halign-right valign-top" >      </th>
+<th class="tableblock halign-center valign-top" colspan="2" >Columns 2 and 3</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>footer 1</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock monospaced">footer 2</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>footer 3</em></p></td>
+</tr>
+</tfoot>
+<tbody>
+<tr>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>1</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock monospaced">Item 1</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>Item 1</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>2</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock monospaced">Item 2</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>Item 2</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>3</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock monospaced">Item 3</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>Item 3</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>4</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock monospaced">Item 4</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>Item 4</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.An example table
+[width="50%",cols="&gt;s,^2m,^2e",frame="topbot",options="header,footer"]
+|==========================
+|      2+|Columns 2 and 3
+|1       |Item 1  |Item 1
+|2       |Item 2  |Item 2
+|3       |Item 3  |Item 3
+|4       |Item 4  |Item 4
+|footer 1|footer 2|footer 3
+|==========================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 4. A table with externally sourced CSV data</caption>
+<col style="width:11%;">
+<col style="width:22%;">
+<col style="width:22%;">
+<col style="width:22%;">
+<col style="width:22%;">
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top" >ID</th>
+<th class="tableblock halign-left valign-top" >Customer Name</th>
+<th class="tableblock halign-left valign-top" >Contact Name</th>
+<th class="tableblock halign-left valign-top" >Customer Address</th>
+<th class="tableblock halign-left valign-top" >Phone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">AROUT</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Around the Horn</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Thomas Hardy</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">120 Hanover Sq.
+London</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">(171) 555-7788</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BERGS</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Berglunds snabbkop</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Christina Berglund</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Berguvsvagen  8
+Lulea</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0921-12 34 65</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BLAUS</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Blauer See Delikatessen</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Hanna Moos</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Forsterstr. 57
+Mannheim</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0621-08460</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BLONP</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Blondel pere et fils</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Frederique Citeaux</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">24, place Kleber
+Strasbourg</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">88.60.15.31</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BOLID</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Bolido Comidas preparadas</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Martin Sommer</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">C/ Araquil, 67
+Madrid</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">(91) 555 22 82</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BONAP</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Bon app'</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Laurence Lebihan</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">12, rue des Bouchers
+Marseille</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">91.24.45.40</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BOTTM</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Bottom-Dollar Markets</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Elizabeth Lincoln</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">23 Tsawassen Blvd.
+Tsawassen</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">(604) 555-4729</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">BSBEV</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">B&#8217;s Beverages</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Victoria Ashworth</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Fauntleroy Circus
+London</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">(171) 555-1212</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">CACTU</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Cactus Comidas para llevar</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Patricio Simpson</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Cerrito 333
+Buenos Aires</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">(1) 135-5555</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre> [format="csv",cols="^1,4*2",options="header"]
+ |===================================================
+ ID,Customer Name,Contact Name,Customer Address,Phone
+ include::customers.csv[]
+ |===================================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:70%;
+">
+<caption class="title">Table 5. DVS formatted table</caption>
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<col style="width:14%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">root</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">root</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/root</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/bash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">daemon</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">daemon</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/usr/sbin</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/sh</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">bin</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">bin</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/sh</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">sys</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">sys</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/dev</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/sh</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">sync</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">65534</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">sync</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/sync</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">games</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">x</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">60</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">games</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/usr/games</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">/bin/sh</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>[width="70%",format="dsv"]
+|====================================
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+bin:x:2:2:bin:/bin:/bin/sh
+sys:x:3:3:sys:/dev:/bin/sh
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/bin/sh
+|====================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:80%;
+">
+<caption class="title">Table 6. Horizontal and vertical source data</caption>
+<col style="width:17%;">
+<col style="width:11%;">
+<col style="width:11%;">
+<col style="width:58%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Date </th>
+<th class="tableblock halign-center valign-top" >Duration </th>
+<th class="tableblock halign-center valign-top" >Avg HR </th>
+<th class="tableblock halign-left valign-top" >Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">22-Aug-08</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">10:24</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">157</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">22-Aug-08</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">23:03</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">152</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Back-to-back with previous interval.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">24-Aug-08</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">40:00</p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">145</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph"><p>Short cells can be entered horizontally, longer cells vertically.  The
+default behavior is to strip leading and trailing blank lines within a
+cell. These characteristics aid readability and data entry.</p></div>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.Windtrainer workouts
+[width="80%",cols="3,^2,^2,10",options="header"]
+|=========================================================
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 |10:24 | 157 |
+Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.
+
+|22-Aug-08 |23:03 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 |40:00 | 145 |
+Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).
+
+|=========================================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 7. Default and verse styles</caption>
+<col style="width:50%;">
+<col style="width:50%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Default paragraphs </th>
+<th class="tableblock halign-center valign-top" >Centered verses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Per id.</p>
+<p class="tableblock">Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p>
+<p class="tableblock">Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></td>
+<td class="tableblock halign-center valign-top" ><div class="verse">Per id.
+
+Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</div></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>[cols=",^v",options="header"]
+|===================================
+|Default paragraphs |Centered verses
+2*|Per id.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+|===================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:50%;
+">
+<caption class="title">Table 8. Horizontal and vertial headings</caption>
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >      </th>
+<th class="tableblock halign-left valign-top" >West </th>
+<th class="tableblock halign-left valign-top" >Central </th>
+<th class="tableblock halign-left valign-top" >East </th>
+<th class="tableblock halign-left valign-top" > Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock header">Q1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">270</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">292</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">342</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">904</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock header">Q2</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">322</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">276</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">383</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">981</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock header">Q3</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">298</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">252</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">274</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">824</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock header">Q4</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">344</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">247</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">402</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">993</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.Horizontal and vertial headings
+[cols="h,4*",options="header",width="50%"]
+|==================================
+|      |West |Central |East | Total
+|Q1    |270  |292     |342  | 904
+|Q2    |322  |276     |383  | 981
+|Q3    |298  |252     |274  | 824
+|Q4    |344  |247     |402  | 993
+|==================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-cols"
+style="
+width:100%;
+">
+<caption class="title">Table 9. AsciiDoc style in first column, Literal in second</caption>
+<col style="width:50%;">
+<col style="width:50%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" >Output markup </th>
+<th class="tableblock halign-left valign-top" >AsciiDoc source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Code filter example</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">''' A multi-line</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    comment.'''</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">def</span></span> <span style="font-weight: bold"><span style="color: #000000">sub_word</span></span><span style="color: #990000">(</span>mo<span style="color: #990000">):</span>
+<span style="font-style: italic"><span style="color: #9A1900">    ''' Single line comment.'''</span></span>
+    word <span style="color: #990000">=</span> mo<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">group</span></span><span style="color: #990000">(</span><span style="color: #FF0000">'word'</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> word <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> keywords<span style="color: #990000">[</span>language<span style="color: #990000">]:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> quote <span style="color: #990000">+</span> word <span style="color: #990000">+</span> quote
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span><span style="color: #990000">:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> word</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+<li>
+<p>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Nulla porttitor vulputate libero.
+</p>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+</ol></div>
+</li>
+</ul></div></div></td>
+<td class="tableblock halign-left valign-top" ><div class="literal monospaced"><pre>Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.</pre></div></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>[cols="asciidoc,literal",options="header",grid="cols"]
+|==================================
+|Output markup |AsciiDoc source
+2*|
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+   ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|==================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 10. Cell containing lots of example markup elements</caption>
+<col style="width:100%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><em>URLs</em>:
+<a href="http://asciidoc.org/">The AsciiDoc home page</a>,
+<a href="http://asciidoc.org/">http://asciidoc.org/</a>,
+<a href="mailto:joe.bloggs@example.com">email Joe Bloggs</a>,
+<a href="mailto:joe.bloggs@example.com">joe.bloggs@example.com</a>,
+<a href="callto:joe.bloggs">joe.bloggs</a>.</p>
+<p class="tableblock"><em>Link</em>: See <a href="#X1">AsciiDoc source</a>.</p>
+<p class="tableblock"><em>Emphasized text</em>, <strong>Strong text</strong>, <span class="monospaced">Monospaced text</span>, &#8220;Quoted text&#8221;.</p>
+<p class="tableblock"><em>Subscripts and superscripts</em>: e<sup>&#960;i</sup>+1 = 0. H<sub>2</sub>O and x<sup>10</sup>.
+Some <sup>super text</sup> and <sub>some sub text</sub></p>
+<p class="tableblock"><em>Replacements</em>: &#169; copyright, &#8482; trademark, &#174; registered trademark,&#8201;&#8212;&#8201;em dash, &#8230; ellipsis, &#8594; right arrow, &#8592; left arrow, &#8658; right
+double arrow, &#8656; left double arrow.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock" id="X1">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>|====================================================================
+|'URLs':
+http://asciidoc.org/[The AsciiDoc home page],
+http://asciidoc.org/,
+mailto:joe.bloggs@example.com[email Joe Bloggs],
+joe.bloggs@example.com,
+callto:joe.bloggs[].
+
+'Link': See &lt;&lt;X1,AsciiDoc source&gt;&gt;.
+
+'Emphasized text', *Strong text*, +Monospaced text+, ``Quoted text''.
+
+'Subscripts and superscripts': e^{amp}#960;i^+1 = 0. H~2~O and x^10^.
+Some ^super text^ and ~some sub text~
+
+'Replacements': (C) copyright, (TM) trademark, (R) registered trademark,
+-- em dash, ... ellipsis, -&gt; right arrow, &lt;- left arrow, =&gt; right
+double arrow, &lt;= left double arrow.
+|====================================================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:75%;
+">
+<caption class="title">Table 11. Nested table</caption>
+<col style="width:33%;">
+<col style="width:66%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Normal cell</p></td>
+<td class="tableblock halign-left valign-top" ><div><div class="paragraph"><p>Cell with nested table</p></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<col style="width:66%;">
+<col style="width:33%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Nested table cell 1</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">Nested table cell 2</p></td>
+</tr>
+</tbody>
+</table></div></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>[width="75%",cols="1,2a"]
+|==============================================
+|Normal cell
+
+|Cell with nested table
+
+[cols="2,1"]
+!==============================================
+!Nested table cell 1 !Nested table cell 2
+!==============================================
+
+|==============================================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:25%;
+">
+<caption class="title">Table 12. Spans, alignments and styles</caption>
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;">
+<col style="width:25%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><em>1</em></p></td>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>2</strong></p></td>
+<td class="tableblock halign-center valign-top" ><p class="tableblock">3</p></td>
+<td class="tableblock halign-right valign-top" ><p class="tableblock"><strong>4</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>5</em></p></td>
+<td class="tableblock halign-center valign-middle" colspan="2" rowspan="2" ><p class="tableblock monospaced">6</p></td>
+<td class="tableblock halign-left valign-bottom" rowspan="3" ><p class="tableblock monospaced">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" ><p class="tableblock"><em>8</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><p class="tableblock"><em>9</em></p></td>
+<td class="tableblock halign-right valign-top" colspan="2" ><p class="tableblock monospaced">10</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.Spans, alignments and styles
+[cols="e,m,^,&gt;s",width="25%"]
+|================
+|1 &gt;s|2 |3 |4
+^|5 2.2+^.^|6 .3+&lt;.&gt;m|7
+^|8
+|9 2+&gt;|10
+|================</pre>
+</div></div>
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<caption class="title">Table 13. Three panes</caption>
+<col style="width:33%;">
+<col style="width:66%;">
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><h3 id="_top_left_pane" class="float">Top Left Pane</h3>
+<div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div>
+<div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div></div></td>
+<td class="tableblock halign-left valign-top" rowspan="2" ><div><h3 id="_right_pane" class="float">Right Pane</h3>
+<div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Code filter example</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">''' A multi-line</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    comment.'''</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">def</span></span> <span style="font-weight: bold"><span style="color: #000000">sub_word</span></span><span style="color: #990000">(</span>mo<span style="color: #990000">):</span>
+<span style="font-style: italic"><span style="color: #9A1900">    ''' Single line comment.'''</span></span>
+    word <span style="color: #990000">=</span> mo<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">group</span></span><span style="color: #990000">(</span><span style="color: #FF0000">'word'</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> word <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> keywords<span style="color: #990000">[</span>language<span style="color: #990000">]:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> quote <span style="color: #990000">+</span> word <span style="color: #990000">+</span> quote
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span><span style="color: #990000">:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> word</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+<li>
+<p>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Nulla porttitor vulputate libero.
+</p>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+</ol></div>
+</li>
+</ul></div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" ><div><h3 id="_bottom_left_pane" class="float">Bottom Left Pane</h3>
+<div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div>
+<div class="paragraph"><p>Consul <strong>necessitatibus</strong> per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+<li>
+<p>
+Donec eget arcu bibendum nunc
+    consequat lobortis.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Nulla porttitor vulputate libero.
+</p>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Fusce euismod commodo velit.
+</p>
+</li>
+<li>
+<p>
+Vivamus fringilla mi eu lacus.
+</p>
+</li>
+</ol></div>
+</li>
+</ul></div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>.Three panes
+[cols="a,2a"]
+|==================================
+|
+[float]
+Top Left Pane
+~~~~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+.2+|
+[float]
+Right Pane
+~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+-----------------------------------
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+-----------------------------------
+
+.Code filter example
+[source,python]
+-----------------------------------
+''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word
+-----------------------------------
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|
+[float]
+Bottom Left Pane
+~~~~~~~~~~~~~~~~
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+Consul *necessitatibus* per id,
+consetetur, eu pro everti postulant
+homero verear ea mea, qui.
+
+- Lorem ipsum dolor sit amet,
+  consectetuer adipiscing elit.
+  * Fusce euismod commodo velit.
+  * Qui in magna commodo, est labitur
+    dolorum an. Est ne magna primis
+    adolescens. Sit munere ponderum
+    dignissim et. Minim luptatum et vel.
+  * Vivamus fringilla mi eu lacus.
+  * Donec eget arcu bibendum nunc
+    consequat lobortis.
+- Nulla porttitor vulputate libero.
+  . Fusce euismod commodo velit.
+  . Vivamus fringilla mi eu lacus.
+
+|==================================</pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_combinations_of_em_align_em_em_frame_em_em_grid_em_em_valign_em_and_em_halign_em_attributes">Combinations of <em>align</em>, <em>frame</em>, <em>grid</em>, <em>valign</em> and <em>halign</em> attributes</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all"
+style="
+width:100%;
+">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ></th>
+<th class="tableblock halign-left valign-top" >frame </th>
+<th class="tableblock halign-left valign-top" > grid </th>
+<th class="tableblock halign-left valign-top" >valign </th>
+<th class="tableblock halign-left valign-top" >halign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div class="verse">&nbsp;
+&nbsp;
+&nbsp;</div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">all</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">all</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">top</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">left</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>:frame: all
+:grid: all
+:halign: left
+:valign: top
+
+[options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</pre>
+</div></div>
+<table class="tableblock frame-sides grid-rows"
+style="
+width:50%;
+">
+<caption class="title">Table 14. Table test</caption>
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<thead>
+<tr>
+<th class="tableblock halign-center valign-middle" ></th>
+<th class="tableblock halign-center valign-middle" >frame </th>
+<th class="tableblock halign-center valign-middle" > grid </th>
+<th class="tableblock halign-center valign-middle" >valign </th>
+<th class="tableblock halign-center valign-middle" >halign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-middle" ><div class="verse">&nbsp;
+&nbsp;
+&nbsp;</div></td>
+<td class="tableblock halign-center valign-middle" ><p class="tableblock">sides</p></td>
+<td class="tableblock halign-center valign-middle" ><p class="tableblock">rows</p></td>
+<td class="tableblock halign-center valign-middle" ><p class="tableblock">middle</p></td>
+<td class="tableblock halign-center valign-middle" ><p class="tableblock">center</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>:frame: sides
+:grid: rows
+:halign: center
+:valign: middle
+
+.Table test
+[width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</pre>
+</div></div>
+<table class="tableblock frame-topbot grid-cols"
+style="
+margin-left:auto; margin-right:0;
+width:50%;
+">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<thead>
+<tr>
+<th class="tableblock halign-right valign-bottom" ></th>
+<th class="tableblock halign-right valign-bottom" >frame </th>
+<th class="tableblock halign-right valign-bottom" > grid </th>
+<th class="tableblock halign-right valign-bottom" >valign </th>
+<th class="tableblock halign-right valign-bottom" >halign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-right valign-bottom" ><div class="verse">&nbsp;
+&nbsp;
+&nbsp;</div></td>
+<td class="tableblock halign-right valign-bottom" ><p class="tableblock">topbot</p></td>
+<td class="tableblock halign-right valign-bottom" ><p class="tableblock">cols</p></td>
+<td class="tableblock halign-right valign-bottom" ><p class="tableblock">bottom</p></td>
+<td class="tableblock halign-right valign-bottom" ><p class="tableblock">right</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>:frame: topbot
+:grid: cols
+:halign: right
+:valign: bottom
+
+[align="right",width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</pre>
+</div></div>
+<table class="tableblock frame-none grid-none"
+style="
+margin-left:auto; margin-right:auto;
+width:50%;
+">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<col style="width:20%;">
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top" ></th>
+<th class="tableblock halign-left valign-top" >frame </th>
+<th class="tableblock halign-left valign-top" > grid </th>
+<th class="tableblock halign-left valign-top" >valign </th>
+<th class="tableblock halign-left valign-top" >halign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" ><div class="verse">&nbsp;
+&nbsp;
+&nbsp;</div></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">top</p></td>
+<td class="tableblock halign-left valign-top" ><p class="tableblock">left</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">AsciiDoc source</div>
+<div class="content monospaced">
+<pre>:frame: none
+:grid: none
+:halign: left
+:valign: top
+
+[align="center",width="50%",options="header"]
+|====
+||frame | grid |valign |halign
+v|&amp;nbsp;
+&amp;nbsp;
+&amp;nbsp;
+|{frame} | {grid} |{valign} |{halign}
+|====</pre>
+</div></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2002-11-25 00:37:42 UTC
+</div>
+</div>
+</body>
+</html>

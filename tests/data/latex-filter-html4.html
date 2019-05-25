@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<title>LaTeX Filter</title>
+</head>
+<body>
+<h1>LaTeX Filter</h1>
+<p>
+</p>
+<a name="preamble"></a>
+<p>The AsciiDoc distribution includes a LaTeX filter that translates LaTeX source
+to an image which is automatically inserted into the AsciiDoc output document.
+Although it can accept any LaTeX source, the primary use is to render
+mathematical formulae (see the examples below).  The filter implements the
+<em>latex</em> Listing block and Paragraph styles.</p>
+<p>Two image formats are supported; PNG and SVG. PNG is the default since that
+was the first format that this filter supported. However, SVG is a better
+format since it&#8217;s scalable. Using SVG make formulas look good in both PDFs
+and on web pages. SVG will also scale well when zooming in on a web page for
+example. It is recommended to always use the SVG format. This can be done by
+setting the <em>imgfmt</em> parameter to <em>svg</em>, as is done below. An even better way
+is to set the global attribute <em>latex-imgfmt</em> to <em>svg</em>. Then SVG will be used
+for all formulas.</p>
+<p>This LaTeX paragraph:</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>["latex", imgfmt="svg"]
+---------------------------------------------------------------------
+\begin{equation*}
+y = \int_0^\infty \gamma^2 \cos(x) dx
+\end{equation*}
+---------------------------------------------------------------------</code></pre>
+</td></tr></table>
+<p>Renders:</p>
+<div>
+<img src="latex-filter__1.svg" style="border-width: 0;" alt="latex-filter__1.svg">
+</div>
+<p>Compare the formula above, which is rendered as an SVG image, to the formula
+below which has been rendered as a PNG image. The difference will be most
+notable if zooming in on a web page, printing the web page or when rendering
+the document as a PDF.</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>["latex", "latex2.png", 140, imgfmt="png"]
+---------------------------------------------------------------------
+\begin{equation*}
+y = \int_0^\infty \gamma^2 \cos(x) dx
+\end{equation*}
+---------------------------------------------------------------------</code></pre>
+</td></tr></table>
+<p>Renders:</p>
+<div>
+<img src="latex2.png" style="border-width: 0;" alt="latex2.png">
+</div>
+<p>This LaTeX block:</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>["latex","latex1.svg",imgfmt="svg",align="center"]
+---------------------------------------------------------------------
+\begin{equation*}
+\displaystyle{ V_i = C_0 - C_3
+\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }
+\end{equation*}
+---------------------------------------------------------------------</code></pre>
+</td></tr></table>
+<p>Renders:</p>
+<div align="center">
+<img src="latex1.svg" style="border-width: 0;" alt="latex1.svg">
+</div>
+<p>This LaTeX block:</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>.LaTeX filter example
+[latex]
+["latex","latex3.svg",imgfmt="svg"]
+---------------------------------------------------------------------
+\begin{equation}
+\Re{z} =\frac{n\pi \dfrac{\theta +\psi}{2}}{
+\left(\dfrac{\theta +\psi}{2}\right)^2 + \left( \dfrac{1}{2}
+\log \left\lvert\dfrac{B}{A}\right\rvert\right)^2}.
+\end{equation}
+
+\begin{equation}
+\boxed{\eta \leq C(\delta(\eta) +\Lambda_M(0,\delta))}
+\end{equation}
+
+\begin{equation}\label{first}
+a=b+c
+\end{equation}
+
+\begin{subequations}\label{grp}
+\begin{align}
+a&amp;=b+c\label{second}\\
+d&amp;=e+f+g\label{third}\\
+h&amp;=i+j\label{fourth}
+\end{align}
+\end{subequations}
+---------------------------------------------------------------------</code></pre>
+</td></tr></table>
+<p>Renders:</p>
+<div>
+<img src="latex3.svg" style="border-width: 0;" alt="latex3.svg">
+<p><b>Figure 1. </b>LaTeX filter example</p>
+</div>
+<p>This LaTeX paragraph:</p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>.A LaTeX table
+["latex",imgfmt="svg"]
+\begin{tabular}{c r @{.} l}
+Pi expression &amp;
+\multicolumn{2}{c}{Value} \\
+\hline
+$\pi$ &amp; 3&amp;1416 \\
+$\pi^{\pi}$ &amp; 36&amp;46 \\
+$(\pi^{\pi})^{\pi}$ &amp; 80662&amp;7 \\
+\end{tabular}</code></pre>
+</td></tr></table>
+<p>Renders:</p>
+<div>
+<img src="latex-filter__2.svg" style="border-width: 0;" alt="latex-filter__2.svg">
+<p><b>Figure 2. </b>A LaTeX table</p>
+</div>
+<hr>
+<h2><a name="_using_the_filter"></a>Using the Filter</h2>
+<ul>
+<li>
+<p>
+The LaTeX filter is invoked by setting the Listing block or
+  Paragraph style (the first positional block attribute) to <em>latex</em>.
+</p>
+</li>
+<li>
+<p>
+The second positional attribute (named <em>target</em> is optional, it sets
+  the name of the generated image file. If this is not supplied a
+  file name like <code>{docname}__{target-number}.{imgfmt}</code> is synthesised
+  (where <code>{docname}</code> is the document file name, <code>{target-number}</code>
+  is an integer number and <code>{imgfmt}</code> is the image format (png or svg).
+</p>
+</li>
+<li>
+<p>
+The third positional attribute, named <em>dpi</em>, is also optional; it is
+  an integer number that sets the output resolution in dots per inch
+  for a PNG image. It is ignored for an SVG image.
+</p>
+</li>
+<li>
+<p>
+The image format to use can be selected by setting the <em>imgfmt</em>
+  parameter or by globally setting the <em>latex-imgfmt</em> attribute.
+  Setting it to <em>svg</em> will render SVG images and setting it to <em>png</em>
+  will render PNG images. The default is <em>png</em>.
+</p>
+</li>
+</ul>
+<p>Because the LaTeX images are rendered using the image block templates
+you can also use the optional named image block attributes (see
+<a href="userguide.html#X55">Image macro attributes</a> in the AsciiDoc User
+Guide).</p>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Tip</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">
+<p>You can also change the image size using the following LaTeX commands:</p>
+<pre><code>\tiny
+\scriptsize
+\footnotesize
+\small
+\normalsize
+\large
+\Large
+\LARGE
+\huge</code></pre>
+<p>For example:</p>
+<pre><code>[latex]
+\Large $y = \int_0^\infty \gamma^2 \cos(x) dx$</code></pre>
+<p>The <code>\Large</code> command is outside the <code>$</code> math delimiters.</p>
+</td></tr></table>
+<p>The filter (<code>./filters/latex/latex2img.py</code>) can be used outside
+AsciiDoc to convert LaTeX source to images.</p>
+<p>Execute the following command to see how to use it:</p>
+<pre><code>$ ./filters/latex/latex2img.py --help</code></pre>
+<hr>
+<h2><a name="_limitations"></a>Limitations</h2>
+<ul>
+<li>
+<p>
+The <code>asciidoc(1)</code> input and output files cannot both be <code>-</code> (stdin
+  and stdout), either the input or output files (or both) must be a
+  named file.
+</p>
+</li>
+</ul>
+<hr>
+<h2><a name="_installation"></a>Installation</h2>
+<p>In addition to AsciiDoc you will need to have <code>latex(1)</code>,
+<code>dvipng(1)</code> (for PNG) and/or <code>dvisvgm(1)</code> (for SVG) installed.</p>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2002-11-25 00:37:42 UTC
+</small></p>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>Test <emphasis>Cases</emphasis></title>
+    <author>
+        <personname>
+            <firstname>Joe</firstname>
+            <surname>Bloggs</surname>
+        </personname>
+    </author>
+    <authorinitials>JB</authorinitials>
+</info>
+<section xml:id="_passthrough_attributes">
+<title>Passthrough attributes</title>
+<simpara><emphasis>*lorum ipsum*</emphasis></simpara>
+<simpara>&lt;emphasis&gt;*lorum ipsum*&lt;/emphasis&gt;</simpara>
+</section>
+<section xml:id="_author_attributes">
+<title>Author attributes</title>
+<simpara>{eval:expression}, {sys:command} and {sys2:command}, {counter:c1}</simpara>
+<simpara>Hello <emphasis role="strong">Joe Bloggs</emphasis> (Joe Bloggs, JB).</simpara>
+<simpara>first name or last name or surname.</simpara>
+<simpara></simpara>
+<simpara>first name and last name.</simpara>
+</section>
+<section xml:id="_system_attributes">
+<title>System attributes</title>
+<simpara>1 99 A</simpara>
+<simpara>1 = 1, 99 = 99, A = A</simpara>
+<simpara>2 100 B
+2 100 B</simpara>
+<simpara>2 = 2, 100 = 100, B = B</simpara>
+<simpara>y: Foobar</simpara>
+<simpara></simpara>
+<simpara></simpara>
+<simpara>3, 7</simpara>
+<simpara></simpara>
+<simpara>3, 3</simpara>
+</section>
+<section xml:id="_quoted_text_attributes">
+<title>Quoted text attributes</title>
+<simpara>A=<emphasis>X</emphasis>, (<emphasis>X</emphasis>), <emphasis>X</emphasis>, [<emphasis>X</emphasis>] <emphasis>X</emphasis></simpara>
+<simpara>A=<emphasis role="strong"><emphasis>X</emphasis></emphasis>, (<literal>_X_</literal>), <emphasis><literal>X</literal></emphasis>, [<emphasis role="strong"><emphasis>X</emphasis></emphasis>] <literal><emphasis>X</emphasis></literal> <emphasis>X</emphasis></simpara>
+<simpara>[<emphasis>*X*</emphasis>] <emphasis>+X+</emphasis></simpara>
+<simpara xml:id="_intro"><xref linkend="_intro"/> <link linkend="_intro">intro</link> <xref linkend="_intro"/> <emphasis>intro</emphasis></simpara>
+<simpara><phrase role="foo">fun with text</phrase>.
+<emphasis role="strong"><phrase role="foo bar">fun with text</phrase></emphasis>.
+<literal><phrase role="foo">fun with text</phrase></literal>.
+<emphasis><phrase role="foo">fun with text</phrase></emphasis>.
+<emphasis><phrase role="foo">fun with text</phrase></emphasis>.
+&#8220;<phrase role="foo">fun with text</phrase>&#8221;.
+&#8216;<phrase role="foo">fun with text</phrase>&#8217;.</simpara>
+<simpara><phrase role="foo">fun with text</phrase>.</simpara>
+<simpara><phrase role="foo">fun with text</phrase>.</simpara>
+<simpara><phrase role="red">Obvious</phrase> and <emphasis role="strong"><phrase role="big red yellow-background">very obvious</phrase></emphasis>.</simpara>
+<simpara><phrase role="underline">Underline text</phrase>, <phrase role="overline">overline text</phrase>
+and <phrase role="line-through">line-through text</phrase>.</simpara>
+<simpara><phrase role="firstletter">T</phrase>esting 123 &#8230;</simpara>
+<simpara>(&#8220;+1\n+&#8221;) if (usually &#8220;+-1\n+&#8221;)</simpara>
+<simpara>(&#8220;<literal>1\n</literal>&#8221;) if (usually &#8220;<literal>-1\n</literal>&#8221;)</simpara>
+<simpara>(&#8216;Joe Bloggs&#8217;) and &#8216;Joe Bloggs&#8217;</simpara>
+</section>
+<section xml:id="_configuration_attribute_entries">
+<title>Configuration attribute entries</title>
+<informaltable tabstyle="horizontal" frame="none" colsep="0" rowsep="0"><tgroup cols="2"><colspec colwidth="15*"/><colspec colwidth="85*"/><tbody valign="top">
+<row>
+<entry>
+<simpara>
+term
+</simpara>
+</entry>
+<entry>
+<simpara>
+definition
+</simpara>
+</entry>
+</row>
+</tbody></tgroup></informaltable>
+<variablelist>
+<varlistentry>
+<term>
+term
+</term>
+<listitem>
+<simpara>
+definition
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</section>
+<section xml:id="_role_attribute">
+<title>role attribute</title>
+<simpara role="test">Paragraph with a role attribute.</simpara>
+<itemizedlist role="test">
+<listitem>
+<simpara>
+first
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+second
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+third
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_break_list_nesting">
+<title>Break list nesting</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+List 1.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+List 1.
+</simpara>
+</listitem>
+</orderedlist>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>
+List 2.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+List 2.
+</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_listing_blocks">
+<title>Listing Blocks</title>
+<screen>$ ls <emphasis role="strong">-al</emphasis></screen>
+<screen>[subs="quotes"]
+------------------------------------------
+$ ls *-al*
+------------------------------------------</screen>
+<formalpara><title>Listing</title><para>
+<screen>$ ls -al</screen>
+</para></formalpara>
+<example>
+<title>Listing example</title>
+<screen>$ ls -al</screen>
+</example>
+<formalpara><title>Python paragraph</title><para>
+<programlisting language="python" linenumbering="unnumbered">if n &lt; 0: print 'Hello World!'</programlisting>
+</para></formalpara>
+<formalpara><title>Titled Python listing</title><para>
+<programlisting language="python" linenumbering="unnumbered">if n &lt; 0: print 'Hello World!'</programlisting>
+</para></formalpara>
+<example>
+<title>Python listing example</title>
+<programlisting language="python" linenumbering="unnumbered">if n &lt; 0: print 'Hello World!'</programlisting>
+</example>
+</section>
+<section xml:id="X1" xreflabel="anchor reftext">
+<title>Links</title>
+<simpara>An <anchor xml:id="X2" xreflabel="[X2]"/> inline anchor.
+An <anchor xml:id="X3" xreflabel="anchor reftext"/> inline anchor with reftext.</simpara>
+<simpara><xref linkend="X1"/>; captioned link to <link linkend="X1">this test case</link>.</simpara>
+<simpara><xref linkend="X2"/> link to inline anchor; captioned link to <link linkend="X2">inline anchor</link>.</simpara>
+<simpara>Link to <xref linkend="X3"/> anchor.</simpara>
+<simpara>An example link to a bibliography entry <xref linkend="Test::Unit"/>.</simpara>
+<informaltable tabstyle="horizontal" frame="none" colsep="0" rowsep="0"><tgroup cols="2"><colspec colwidth="15*"/><colspec colwidth="85*"/><tbody valign="top">
+<row>
+<entry>
+<simpara>
+<anchor xml:id="Test::Unit" xreflabel="[Test::Unit]"/>[Test::Unit]
+</simpara>
+</entry>
+<entry>
+<simpara>
+<link xlink:href="http://ruby-doc.org/stdlib/libdoc/test/unit/rdoc/classes/Test/Unit.html">http://ruby-doc.org/stdlib/libdoc/test/unit/rdoc/classes/Test/Unit.html</link>
+</simpara>
+</entry>
+</row>
+</tbody></tgroup></informaltable>
+</section>
+<section xml:id="_titles">
+<title>Titles</title>
+<bridgehead xml:id="_level_4" renderas="sect4">Level 4</bridgehead>
+<bridgehead xml:id="_level_3" renderas="sect3">Level 3</bridgehead>
+<bridgehead xml:id="_level_2" renderas="sect2">Level 2</bridgehead>
+<bridgehead xml:id="_level_1" renderas="sect1">Level 1</bridgehead>
+<bridgehead xml:id="_level_4_2" renderas="sect4">Level 4</bridgehead>
+<bridgehead xml:id="_level_3_2" renderas="sect3">Level 3</bridgehead>
+<bridgehead xml:id="_level_2_2" renderas="sect2">Level 2</bridgehead>
+<bridgehead xml:id="_level_1_2" renderas="sect1">Level 1</bridgehead>
+<formalpara><title>Block title</title><para>Lorum ipsum.</para></formalpara>
+</section>
+<section xml:id="_lists">
+<title>Lists</title>
+<simpara>Bulleted:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+item text
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+</listitem>
+</itemizedlist>
+<simpara>Numbered:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+arabic (decimal) numbering
+</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>
+loweralpha numbering
+</simpara>
+<orderedlist numeration="upperalpha">
+<listitem>
+<simpara>
+upperalpha numbering
+</simpara>
+<orderedlist numeration="lowerroman">
+<listitem>
+<simpara>
+lowerroman numbering
+</simpara>
+<orderedlist numeration="upperroman">
+<listitem>
+<simpara>
+upperroman numbering
+</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+arabic (decimal) numbering
+</simpara>
+<orderedlist numeration="loweralpha">
+<listitem>
+<simpara>
+loweralpha numbering
+</simpara>
+<orderedlist numeration="lowerroman">
+<listitem>
+<simpara>
+lowerroman numbering
+</simpara>
+<orderedlist numeration="upperalpha">
+<listitem>
+<simpara>
+upperalpha numbering
+</simpara>
+<orderedlist numeration="upperroman">
+<listitem>
+<simpara>
+upperroman numbering
+</simpara>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+<simpara>Labeled:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+label
+</term>
+<listitem>
+<simpara>
+item text
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+label
+</term>
+<listitem>
+<simpara>
+item text
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+label
+</term>
+<listitem>
+<simpara>
+item text
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+label
+</term>
+<listitem>
+<simpara>
+item text
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>With item anchor:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+one
+</term>
+<listitem>
+<simpara>
+Item one.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<anchor xml:id="item_two" xreflabel="[item_two]"/>two
+</term>
+<listitem>
+<simpara>
+Item two.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+three
+</term>
+<listitem>
+<simpara>
+Item three.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</section>
+<section xml:id="_inline_passthroughs">
+<title>Inline passthroughs</title>
+<itemizedlist>
+<listitem>
+<simpara>
+Test `ABC`.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Test <literal>ABC</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <literal>++i</literal> and <literal>++j</literal> auto-increments.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Paths <literal>~/.vim</literal> and <literal>~/docs</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <literal>__init__</literal> method.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <literal>{id}</literal> attribute.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>List start number test:</simpara>
+<orderedlist numeration="arabic"><?dbfo start="7"?><?dbhtml start="7"?>
+<listitem>
+<simpara>
+List item 7.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+List item 8.
+</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_images">
+<title>Images</title>
+<section xml:id="_block_images">
+<title>Block images</title>
+<figure xml:id="tiger_image"><title>Tyger tyger</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tyger tyger</phrase></textobject>
+</mediaobject>
+</figure>
+<figure><title>Tyger tyger two</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/tiger.png" contentwidth="350" contentdepth="250" align="center"/>
+  </imageobject>
+  <textobject><phrase>Tiger</phrase></textobject>
+</mediaobject>
+</figure>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../doc/music2.png"/>
+  </imageobject>
+  <textobject><phrase>music2.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<note><simpara>Lorum ipsum.</simpara></note>
+</section>
+<section xml:id="_inline_images">
+<title>Inline images</title>
+<simpara>Inline image <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>smallnew.png</phrase></textobject>
+</inlinemediaobject></simpara>
+<simpara>Inline image <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>NEW!</phrase></textobject>
+</inlinemediaobject></simpara>
+<simpara>Inline image <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>NEW!</phrase></textobject>
+</inlinemediaobject></simpara>
+</section>
+</section>
+<section xml:id="_admonishments">
+<title>Admonishments</title>
+<note><simpara>Lorum ipsum.</simpara></note>
+<tip><simpara>Lorum ipsum.</simpara></tip>
+<warning><simpara>Lorum ipsum.</simpara></warning>
+<caution><simpara>Lorum ipsum.</simpara></caution>
+<important><simpara>Lorum ipsum.</simpara></important>
+<note><simpara>Lorum ipsum.</simpara></note>
+<tip><simpara>Lorum ipsum.</simpara></tip>
+<warning><simpara>Lorum ipsum.</simpara></warning>
+<caution><simpara>Lorum ipsum.</simpara></caution>
+<important><simpara>Lorum ipsum.</simpara></important>
+</section>
+<section xml:id="_backslash_escapes">
+<title>Backslash escapes</title>
+<formalpara><title>Apostrophe</title><para>Don&#8217;t vs don't.</para></formalpara>
+<formalpara><title>Exceptions</title><para>There are a number of  exceptions to the usual single backslash rule&#8201;&#8212;&#8201;mostly relating to URL macros that  have two syntaxes or quoting
+ambiguity.  Here are some non-standard escape examples:</para></formalpara>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<?dbhtml table-width="40%"?>
+<?dbfo table-width="40%"?>
+<?dblatex table-width="40%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="85*"/>
+<colspec colname="col_2" colwidth="85*"/>
+<thead>
+<row>
+<entry align="left" valign="top">AsciiDoc </entry>
+<entry align="left" valign="top"> Renders</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><literallayout class="monospaced">\joe.bloggs@example.com
+&lt;\joe.bloggs@example.com&gt;
+\mailto:[\joe.bloggs@example.com]</literallayout></entry>
+<entry align="left" valign="top"><literallayout>joe.bloggs@example.com
+&lt;joe.bloggs@example.com&gt;
+mailto:[joe.bloggs@example.com]</literallayout></entry>
+</row>
+<row>
+<entry align="left" valign="top"><literallayout class="monospaced">\http://www.example.com
+\\http://www.example.com[]
+\\http://www.example.com[Foobar Limited]</literallayout></entry>
+<entry align="left" valign="top"><literallayout>http://www.example.com
+http://www.example.com[]
+http://www.example.com[Foobar Limited]</literallayout></entry>
+</row>
+<row>
+<entry align="left" valign="top"><literallayout class="monospaced">A C\++ Library for C++
+\\``double-quotes''
+\*\*F**ile Open\...</literallayout></entry>
+<entry align="left" valign="top"><literallayout>A C++ Library for C++
+``double-quotes''
+**F**ile Open...</literallayout></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_paragraphs">
+<title>Paragraphs</title>
+<formalpara><title>Normal paragraph</title><para>This is a <emphasis role="strong">bold</emphasis> a line
+This is a <emphasis>strong</emphasis> line
+This is another <emphasis>strong</emphasis> line</para></formalpara>
+<formalpara><title>Literal paragraph</title><para>
+<literallayout class="monospaced">This is a *bold* a line
+This is a 'strong' line
+This is another _strong_ line</literallayout>
+</para></formalpara>
+<blockquote>
+<title>Verse paragraph</title>
+<literallayout>This is a <emphasis role="strong">bold</emphasis> a line
+This is a <emphasis>strong</emphasis> line
+This is another <emphasis>strong</emphasis> line</literallayout>
+</blockquote>
+<formalpara><title>Indented (literal) paragraph</title><para>
+<literallayout class="monospaced">This is a *bold* a line
+This is a 'strong' line
+This is another _strong_ line</literallayout>
+</para></formalpara>
+<formalpara><title>Indented with quotes substitution</title><para>
+<literallayout class="monospaced">This is a <emphasis role="strong">bold</emphasis> a line
+This is a <emphasis>strong</emphasis> line
+This is another <emphasis>strong</emphasis> line</literallayout>
+</para></formalpara>
+<formalpara><title>Literal paragraph with quotes substitution</title><para>
+<literallayout class="monospaced">This is a <emphasis role="strong">bold</emphasis> a line
+This is a <emphasis>strong</emphasis> line
+This is another <emphasis>strong</emphasis> line</literallayout>
+</para></formalpara>
+<formalpara><title>Literal block with quotes substitution</title><para>
+<literallayout class="monospaced">This is a <emphasis role="strong">bold</emphasis> a line
+This is a <emphasis>strong</emphasis> line
+This is another <emphasis>strong</emphasis> line</literallayout>
+</para></formalpara>
+<blockquote>
+<attribution>
+William Blake
+<citetitle>from Auguries of Innocence</citetitle>
+</attribution>
+<literallayout>To see a world in a grain of sand,
+And a heaven in a wild flower,
+Hold infinity in the palm of your hand,
+And eternity in an hour.</literallayout>
+</blockquote>
+<blockquote>
+<attribution>
+Bertrand Russell
+<citetitle>The World of Mathematics (1956)</citetitle>
+</attribution>
+<simpara>A good notation has subtlety and suggestiveness which at times makes
+it almost seem like a live teacher.</simpara>
+</blockquote>
+</section>
+<section xml:id="_urls">
+<title>URLs</title>
+<section xml:id="_mail_addresses">
+<title>Mail Addresses</title>
+<simpara><link xlink:href="mailto:joe_bloggs@mail_server.com_">joe_bloggs@mail_server.com_</link></simpara>
+<simpara><link xlink:href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</link>.</simpara>
+<simpara><link xlink:href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</link>,<link xlink:href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</link>,</simpara>
+<simpara><link xlink:href="mailto:joe-bloggs@mail-server.com">Mail</link></simpara>
+<simpara><link xlink:href="mailto:joe_bloggs@mail_server.com">Mail</link></simpara>
+<simpara><link xlink:href="mailto:joe.bloggs@mail.server.com">Mail</link></simpara>
+<simpara><link xlink:href="mailto:joe.bloggs@mail.server.com">joe.bloggs@mail.server.com</link><?asciidoc-br?>
+lorum ipsum.</simpara>
+</section>
+</section>
+<section xml:id="_comments">
+<title>Comments</title>
+<simpara>Qui in magna commodo, est labitur dolorum an. Est ne magna primis.
+
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et.</simpara>
+<remark> This comment line will be displayed in the output.</remark>
+<simpara>Qui in magna commodo, est labitur dolorum an. Est ne magna primis.
+<remark> Visible inline comment line.</remark>
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et.</simpara>
+<formalpara xml:id="comment_macro"><title>Block title</title><para>Lorum ipsum.</para></formalpara>
+<formalpara xml:id="comment_block"><title>Block title</title><para>Lorum ipsum.</para></formalpara>
+</section>
+<glossary xml:id="_list_of_terms">
+<title>List of terms</title>
+<simpara>Using positional attribute to specify section template.</simpara>
+<glossentry>
+<glossterm>
+A glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+A second glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<glossary xml:id="_list_of_terms_2">
+<title>List of terms</title>
+<simpara>Using named <emphasis>template</emphasis> attribute to specify section template.</simpara>
+<glossentry>
+<glossterm>
+A glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+A second glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<section xml:id="_index_terms">
+<title>Index Terms</title>
+<simpara>Test 1 <indexterm><primary>test1</primary></indexterm>test1.</simpara>
+<simpara>Test 2 <indexterm>
+  <primary>test2</primary>
+</indexterm>.</simpara>
+<simpara>Test 3 <indexterm>
+  <primary>test3</primary><secondary>secondary</secondary>
+</indexterm>
+<indexterm>
+  <primary>secondary</primary>
+</indexterm>.</simpara>
+<simpara>Test 4 <indexterm>
+  <primary>test4</primary><secondary>secondary</secondary><tertiary>tertiary</tertiary>
+</indexterm>
+<indexterm>
+  <primary>secondary</primary><secondary>tertiary</secondary>
+</indexterm>
+<indexterm>
+  <primary>tertiary</primary>
+</indexterm>.</simpara>
+<simpara>Test 5 <indexterm><primary>test5</primary></indexterm>test5.</simpara>
+<simpara>Test 6 <indexterm>
+  <primary>test6</primary>
+</indexterm>.</simpara>
+<simpara>Test 7 <indexterm>
+  <primary>test7</primary><secondary>secondary</secondary>
+</indexterm>
+<indexterm>
+  <primary>secondary</primary>
+</indexterm>.</simpara>
+<simpara>Test 8 <indexterm>
+  <primary>test8</primary><secondary>secondary</secondary><tertiary>tertiary</tertiary>
+</indexterm>
+<indexterm>
+  <primary>secondary</primary><secondary>tertiary</secondary>
+</indexterm>
+<indexterm>
+  <primary>tertiary</primary>
+</indexterm>.</simpara>
+<simpara>Multi-passthough substitution (see
+<link xlink:href="http://groups.google.com/group/asciidoc/browse_frm/thread/1269dc2feb1a482c">http://groups.google.com/group/asciidoc/browse_frm/thread/1269dc2feb1a482c</link>)
+<indexterm><primary><literal>foo</literal></primary></indexterm><literal>foo</literal>
+<indexterm>
+  <primary>foo</primary><secondary><literal>bar</literal></secondary>
+</indexterm>
+<indexterm>
+  <primary><literal>bar</literal></primary>
+</indexterm>
+<indexterm>
+  <primary>foo</primary><secondary><literal>bar</literal></secondary><tertiary><literal>two</literal></tertiary>
+</indexterm>
+<indexterm>
+  <primary><literal>bar</literal></primary><secondary><literal>two</literal></secondary>
+</indexterm>
+<indexterm>
+  <primary><literal>two</literal></primary>
+</indexterm></simpara>
+</section>
+<section xml:id="_table_with_fractional_column_width_units">
+<title>Table with fractional column width units</title>
+<note><simpara><emphasis>pagewidth</emphasis> and <emphasis>pageunits</emphasis> only apply to DocBook outputs.</simpara></note>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Horizontal and vertical source data</title>
+<?dbhtml table-width="50%"?>
+<?dbfo table-width="50%"?>
+<?dblatex table-width="50%"?>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="1.54cm"/>
+<colspec colname="col_2" colwidth="1.03cm"/>
+<colspec colname="col_3" colwidth="1.03cm"/>
+<colspec colname="col_4" colwidth="5.15cm"/>
+<thead>
+<row>
+<entry align="left" valign="top">Date </entry>
+<entry align="center" valign="top">Duration </entry>
+<entry align="center" valign="top">Avg HR </entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>22-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>10:24</simpara></entry>
+<entry align="center" valign="top"><simpara>157</simpara></entry>
+<entry align="left" valign="top"><simpara>Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>22-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>23:03</simpara></entry>
+<entry align="center" valign="top"><simpara>152</simpara></entry>
+<entry align="left" valign="top"><simpara>Back-to-back with previous interval.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>24-Aug-08</simpara></entry>
+<entry align="center" valign="top"><simpara>40:00</simpara></entry>
+<entry align="center" valign="top"><simpara>145</simpara></entry>
+<entry align="left" valign="top"><simpara>Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+<section xml:id="_table_with_parent_configuration_file_and_header_attribute_entry">
+<title>Table with parent configuration file and header attribute entry</title>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="1">
+<colspec colname="col_1" colwidth="100*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><itemizedlist>
+<listitem>
+<simpara>
+Attribute entry from header: TEST_ATTRIBUTE
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Replacement from <literal>testcases.conf</literal> configuration file: TEST_REPLACEMENT
+</simpara>
+</listitem>
+</itemizedlist></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_table_column_specifiers_with_merged_cells">
+<title>Table column specifiers with merged cells</title>
+<simpara>See
+<link xlink:href="http://groups.google.com/group/asciidoc/browse_thread/thread/c9238380a1f2507a">http://groups.google.com/group/asciidoc/browse_thread/thread/c9238380a1f2507a</link></simpara>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="25*"/>
+<colspec colname="col_3" colwidth="25*"/>
+<colspec colname="col_4" colwidth="25*"/>
+<tbody>
+<row>
+<entry align="left" valign="top" morerows="1"><simpara><literal></literal></simpara></entry>
+<entry align="right" valign="top" morerows="1"><simpara>1- A</simpara></entry>
+<entry align="center" valign="top" namest="col_3" nameend="col_4"><simpara><emphasis role="strong">2- B</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara><emphasis role="strong">i- a</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>ii- b</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Values 1</literal></simpara></entry>
+<entry align="right" valign="top"><simpara>v1</simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis role="strong">v2</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>v3</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Values 2</literal></simpara></entry>
+<entry align="right" valign="top"><simpara>v4</simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis role="strong">v5</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis>v6</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_floating_tables_and_images">
+<title>Floating tables and images</title>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Simple table</title>
+<?dbhtml table-width="15%"?>
+<?dbfo table-width="15%"?>
+<?dblatex table-width="15%"?>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="0.87cm"/>
+<colspec colname="col_2" colwidth="0.87cm"/>
+<colspec colname="col_3" colwidth="0.87cm"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>1</simpara></entry>
+<entry align="left" valign="top"><simpara>2</simpara></entry>
+<entry align="left" valign="top"><simpara>A</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>3</simpara></entry>
+<entry align="left" valign="top"><simpara>4</simpara></entry>
+<entry align="left" valign="top"><simpara>B</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>6</simpara></entry>
+<entry align="left" valign="top"><simpara>C</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<figure><title>Tiger</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger image</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section xml:id="_section_level_offsets">
+<title>Section level offsets</title>
+<simpara>At level 1</simpara>
+<section xml:id="_section_title">
+<title>Section title</title>
+<simpara>At level 2</simpara>
+</section>
+<section xml:id="_section_title_2">
+<title>Section title</title>
+<simpara>At level 2</simpara>
+<section xml:id="_section_title_3">
+<title>Section title</title>
+<simpara>At level 3</simpara>
+</section>
+</section>
+</section>
+<section xml:id="_section_level_offsets_2">
+<title>Section level offsets</title>
+<simpara>At level 1</simpara>
+</section>
+<section xml:id="_single_quoted_attributes">
+<title>Single-quoted attributes</title>
+<blockquote>
+<attribution>
+<link xlink:href="http://en.wikipedia.org/wiki/Samuel_Johnson">Samuel Johnson</link>
+</attribution>
+<simpara>Sir, a woman&#8217;s preaching is like a dog&#8217;s walking on his hind legs. It
+is not done well; but you are surprised to find it done at all.</simpara>
+</blockquote>
+<blockquote>
+<attribution>
+<link xlink:href="http://en.wikipedia.org/wiki/Samuel_Johnson">Samuel Johnson</link>
+</attribution>
+<simpara>Sir, a woman&#8217;s preaching is like a dog&#8217;s walking on his hind legs. It
+is not done well; but you are surprised to find it done at all.</simpara>
+</blockquote>
+</section>
+<section xml:id="_footnotes">
+<title>Footnotes</title>
+<simpara>Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<footnote><simpara>footnote one.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.</simpara></footnote>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<footnote xml:id="F2"><simpara>footnote two. Qui in magna commodo, est labitur dolorum an. Est ne magna primis adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.</simpara></footnote>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
+<footnoteref linkend="F2" />.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<footnote><simpara><link xlink:href="http://asciidoc.org/">http://asciidoc.org/</link> Qui in magna commodo,
+est labitur dolorum an. Est ne magna primis adolescens. Sit munere
+ponderum dignissim et. Minim luptatum et vel
+<inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>images/smallnew.png</phrase></textobject>
+</inlinemediaobject></simpara></footnote>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<footnote><simpara><link xlink:href="http://asciidoc.org/">http://asciidoc.org/</link></simpara></footnote>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et
+vel <footnote><simpara><link xlink:href="http://asciidoc.org/">AsciiDoc website</link>.</simpara></footnote>.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et
+<footnote xml:id="F3"><simpara>A footnote&#44; &#34;with an image&#34; <inlinemediaobject>   <imageobject>   <imagedata fileref="../../images/images/smallnew.png"/>   </imageobject>   <textobject><phrase>images/smallnew.png</phrase></textobject> </inlinemediaobject></simpara></footnote>.
+<footnote><simpara>With [square brackets]</simpara></footnote> Qui in magna commodo, est labitur
+dolorum an. Est ne magna primis.</simpara>
+</section>
+<section xml:id="_rulers_and_page_breaks">
+<title>Rulers and page breaks</title>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara><?asciidoc-pagebreak?></simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</section>
+<section xml:id="_这是一个测试">
+<title>这是一个测试</title>
+<simpara>Double-with character titles.
+<link linkend="_这是一个测试">link to auto-generated section ID</link>.</simpara>
+</section>
+<section xml:id="_block_macros">
+<title>Block macros</title>
+<simpara>RS458 is 2.</simpara>
+</section>
+<simpara>Template line 1.
+Template line 2.</simpara>
+<section xml:id="_an_id_without_accents">
+<title>àn îd without accénts</title>
+<simpara>Lorum ipsum&#8230;</simpara>
+</section>
+<section xml:id="_àn_îd_with_accénts">
+<title>àn îd with accénts</title>
+<simpara>Lorum ipsum&#8230;</simpara>
+</section>
+<section xml:id="_inline_macros">
+<title>Inline macros</title>
+<simpara><link xlink:href="http://groups.google.com/group/asciidoc/">A URL with [square
+brackets]</link>.</simpara>
+</section>
+</article>

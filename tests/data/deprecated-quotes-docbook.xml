@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <date>2002-11-25</date>
+</articleinfo>
+<simpara><phrase role="foo">fun with text</phrase>.
+<phrase role="foo">fun with text</phrase>.
+fun with text.
+More <emphasis role="strong">fun with text</emphasis>.
+Yet more <emphasis role="strong">fun with text</emphasis>.
+Yet more <literal>fun with text</literal>.
+Yet more <emphasis>fun with text</emphasis>.</simpara>
+<simpara>Yet more <emphasis>fun with text</emphasis>.</simpara>
+<simpara>Yet more <emphasis>fun with text</emphasis>.</simpara>
+</article>

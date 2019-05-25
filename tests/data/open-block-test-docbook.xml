@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>Additional Open Block and Paragraph styles</title>
+</articleinfo>
+<informalexample>
+<simpara>Lorum ipsum&#8230;</simpara>
+</informalexample>
+<informalexample>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</informalexample>
+<sidebar>
+<simpara>Lorum ipsum&#8230;</simpara>
+</sidebar>
+<sidebar>
+<title>A title</title>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</sidebar>
+<note>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</note>
+<caution>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</caution>
+<important>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</important>
+<warning>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</warning>
+<tip>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</tip>
+<blockquote>
+<attribution>
+Sir Arthur Conan Doyle
+<citetitle>The Adventures of Sherlock Holmes</citetitle>
+</attribution>
+<simpara>As he spoke there was the sharp sound of horses' hoofs and
+grating wheels against the curb, followed by a sharp pull at the
+bell. Holmes whistled.</simpara>
+<simpara>"A pair, by the sound," said he. "Yes," he continued, glancing
+out of the window. "A nice little brougham and a pair of
+beauties. A hundred and fifty guineas apiece. There&#8217;s money in
+this case, Watson, if there is nothing else."</simpara>
+</blockquote>
+<blockquote>
+<attribution>
+William Blake
+<citetitle>from Auguries of Innocence</citetitle>
+</attribution>
+<literallayout>To see a world in a grain of sand,
+And a heaven in a wild flower,
+Hold infinity in the palm of your hand,
+And eternity in an hour.</literallayout>
+</blockquote>
+<programlisting language="python" linenumbering="unnumbered">y = 15
+
+if y == 24:
+    x = 42</programlisting>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="open-block-test__1.png"/>
+  </imageobject>
+  <textobject><phrase>open-block-test__1.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="open-block-test__2.png"/>
+  </imageobject>
+  <textobject><phrase>open-block-test__2.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="open-block-test__3.png"/>
+  </imageobject>
+  <textobject><phrase>open-block-test__3.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+</article>

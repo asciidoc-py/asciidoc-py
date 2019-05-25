@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>UTF-8 BOM Test</title>
+</articleinfo>
+<simpara>Include file with UTF-8 BOM:</simpara>
+<section id="_utf_8_bom_test">
+<title>UTF-8 BOM Test</title>
+<simpara>Include file with UTF-8 BOM:</simpara>
+<simpara>include::utf8-bom-test.txt[depth=1]</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</section>
+</article>

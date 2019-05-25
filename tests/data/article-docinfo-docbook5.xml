@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>The Article Title</title>
+    <date>2003-12</date>
+    <author>
+        <personname>
+            <firstname>Author's</firstname>
+            <surname>Name</surname>
+        </personname>
+        <email>authors@email.address</email>
+    </author>
+    <authorinitials>AN</authorinitials>
+    <revhistory><revision><revnumber>1.0</revnumber><date>2003-12</date><authorinitials>AN</authorinitials></revision></revhistory>
+<!--
+  article-docinfo.xml
+  Example DocBook document information file for article.txt.
+-->
+
+<authorgroup>
+  <author>
+    <honorific>Dr</honorific>
+    <firstname>Lois</firstname>
+    <surname>Common-Denominator</surname>
+    <affiliation>
+      <shortaffil>Director, M. Behn School of Coop. Eng.</shortaffil>
+      <jobtitle>Director of Cooperative Efforts</jobtitle>
+      <orgname>The Marguerite Behn International School of
+               Cooperative Engineering</orgname>
+    </affiliation>
+  </author>
+
+  <author>
+    <honorific>Mr</honorific>
+    <firstname>Steven</firstname>
+    <surname>Norman</surname>
+    <othername role='mi'>T</othername>
+    <affiliation>
+      <shortaffil>ATI</shortaffil>
+      <jobtitle>Senior Application Analyst</jobtitle>
+      <orgname>Foobar, Inc.</orgname>
+      <orgdiv>Application Development</orgdiv>
+    </affiliation>
+  </author>
+
+  <editor>
+    <firstname>Peter</firstname>
+    <surname>Pan</surname>
+    <lineage>Sr.</lineage>
+    <othername>Spiderman</othername>
+    <authorblurb>
+      <para>
+      Peter's a super hero in his spare time.
+      </para>
+    </authorblurb>
+  </editor>
+</authorgroup>
+
+<copyright>
+  <year>2009</year>
+  <holder>Behn International</holder>
+</copyright>
+
+<legalnotice>
+  <simpara>
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+  </simpara>
+  <simpara>
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+  </simpara>
+  <simpara>
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  </simpara>
+</legalnotice>
+
+<revhistory>
+  <revision>
+    <revnumber>1.1</revnumber>
+    <date>May 2009</date>
+    <authorinitials>PP</authorinitials>
+    <revremark>
+      Updates.
+    </revremark>
+  </revision>
+  <revision>
+    <revnumber>1.0</revnumber>
+    <date>October 2003</date>
+    <authorinitials>PP</authorinitials>
+    <revremark>
+      First release.
+    </revremark>
+  </revision>
+</revhistory>
+</info>
+<simpara>This is the optional preamble (an untitled section body). Useful for
+writing simple sectionless documents consisting only of a preamble.</simpara>
+<note><simpara>The abstract, preface, appendix, bibliography, glossary and
+index section titles are significant (<emphasis>specialsections</emphasis>).</simpara></note>
+<abstract xml:id="_example_abstract">
+<simpara>The optional abstract (one or more paragraphs) goes here.</simpara>
+<simpara>This document is an AsciiDoc article skeleton containing briefly
+annotated element placeholders plus a couple of example index entries
+and footnotes.</simpara>
+</abstract>
+<section xml:id="_the_first_section">
+<title>The First Section</title>
+<simpara>Article sections start at level 1 and can be nested up to four levels
+deep.
+<footnote><simpara>An example footnote.</simpara></footnote>
+<indexterm>
+  <primary>Example index entry</primary>
+</indexterm></simpara>
+<simpara>And now for something completely different: <indexterm><primary>monkeys</primary></indexterm>monkeys, lions and
+tigers (Bengal and Siberian) using the alternative syntax index
+entries.
+<indexterm>
+  <primary>Big cats</primary><secondary>Lions</secondary>
+</indexterm>
+<indexterm>
+  <primary>Lions</primary>
+</indexterm>
+<indexterm>
+  <primary>Big cats</primary><secondary>Tigers</secondary><tertiary>Bengal Tiger</tertiary>
+</indexterm>
+<indexterm>
+  <primary>Tigers</primary><secondary>Bengal Tiger</secondary>
+</indexterm>
+<indexterm>
+  <primary>Bengal Tiger</primary>
+</indexterm>
+<indexterm>
+  <primary>Big cats</primary><secondary>Tigers</secondary><tertiary>Siberian Tiger</tertiary>
+</indexterm>
+<indexterm>
+  <primary>Tigers</primary><secondary>Siberian Tiger</secondary>
+</indexterm>
+<indexterm>
+  <primary>Siberian Tiger</primary>
+</indexterm>
+Note that multi-entry terms generate separate index entries.</simpara>
+<simpara>Here are a couple of image examples: an <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>images/smallnew.png</phrase></textobject>
+</inlinemediaobject>
+example inline image followed by an example block image:</simpara>
+<figure><title>Tiger block image</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Followed by an example table:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>An example table</title>
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> Option          </entry>
+<entry align="left" valign="top"> Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>-a <emphasis>USER GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Add <emphasis>USER</emphasis> to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-R <emphasis>GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Disables access to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<example>
+<title>An example example</title>
+<simpara>Lorum ipum&#8230;</simpara>
+</example>
+<section xml:id="X1">
+<title>Sub-section with Anchor</title>
+<simpara>Sub-section at level 2.</simpara>
+<section xml:id="_a_nested_sub_section">
+<title>A Nested Sub-section</title>
+<simpara>Sub-section at level 3.</simpara>
+<section xml:id="_yet_another_nested_sub_section">
+<title>Yet another nested Sub-section</title>
+<simpara>Sub-section at level 4.</simpara>
+<simpara>This is the maximum sub-section depth supported by the distributed
+AsciiDoc configuration.
+<footnote><simpara>A second example footnote.</simpara></footnote></simpara>
+</section>
+</section>
+</section>
+</section>
+<section xml:id="_the_second_section">
+<title>The Second Section</title>
+<simpara>Article sections are at level 1 and can contain sub-sections nested up
+to four deep.</simpara>
+<simpara>An example link to anchor at start of the <link linkend="X1">first sub-section</link>.
+<indexterm>
+  <primary>Second example index entry</primary>
+</indexterm></simpara>
+<simpara>An example link to a bibliography entry <xref linkend="taoup"/>.</simpara>
+</section>
+<appendix xml:id="_example_appendix">
+<title>Example Appendix</title>
+<simpara>AsciiDoc article appendices are just just article sections with
+<emphasis>specialsection</emphasis> titles.</simpara>
+<section xml:id="_appendix_sub_section">
+<title>Appendix Sub-section</title>
+<simpara>Appendix sub-section at level 2.</simpara>
+</section>
+</appendix>
+<bibliography xml:id="_example_bibliography">
+<title>Example Bibliography</title>
+<simpara>The bibliography list is a style of AsciiDoc bulleted list.</simpara>
+<bibliodiv>
+<bibliomixed>
+<bibliomisc>
+<anchor xml:id="taoup" xreflabel="[taoup]"/>[taoup] Eric Steven Raymond. <emphasis>The Art of Unix
+  Programming</emphasis>. Addison-Wesley. ISBN 0-13-142901-9.
+</bibliomisc>
+</bibliomixed>
+<bibliomixed>
+<bibliomisc>
+<anchor xml:id="walsh-muellner" xreflabel="[walsh-muellner]"/>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <emphasis>DocBook - The Definitive Guide</emphasis>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+</bibliography>
+<glossary xml:id="_example_glossary">
+<title>Example Glossary</title>
+<simpara>Glossaries are optional. Glossaries entries are an example of a style
+of AsciiDoc labeled lists.</simpara>
+<glossentry>
+<glossterm>
+A glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+A second glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+</article>

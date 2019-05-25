@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>Languages Test</title>
+    <date>2003-12-21</date>
+    <revhistory><revision><revnumber>v1.0</revnumber><date>2003-12-21</date></revision></revhistory>
+</info>
+<abstract xml:id="_abstract">
+<simpara>Abstract special section.</simpara>
+</abstract>
+<section xml:id="_the_first_section">
+<title>The First Section</title>
+<section xml:id="_admonishments">
+<title>Admonishments</title>
+<simpara>Do not translate in the source file&#8201;&#8212;&#8201;they are translated to the
+output file</simpara>
+<note><simpara>Lorum ipsum.</simpara></note>
+<tip><simpara>Lorum ipsum.</simpara></tip>
+<warning><simpara>Lorum ipsum.</simpara></warning>
+<caution><simpara>Lorum ipsum.</simpara></caution>
+<important><simpara>Lorum ipsum.</simpara></important>
+<figure><title>Tiger</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Followed by an example table:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Table</title>
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> Option          </entry>
+<entry align="left" valign="top"> Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>-a <emphasis>USER GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Add <emphasis>USER</emphasis> to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-R <emphasis>GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Disables access to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>And now for something completely different: <indexterm><primary>monkeys</primary></indexterm>monkeys, lions and
+tigers.</simpara>
+</section>
+</section>
+<appendix xml:id="_example_appendix">
+<title>Example Appendix</title>
+<simpara>Appendix special section.</simpara>
+</appendix>
+<bibliography xml:id="_bibliography">
+<title>Bibliography</title>
+<simpara>Bibliography special section.</simpara>
+<bibliodiv>
+<bibliomixed>
+<bibliomisc>
+<anchor xml:id="taoup" xreflabel="[taoup]"/>[taoup] Eric Steven Raymond. <emphasis>The Art of Unix
+  Programming</emphasis>. Addison-Wesley. ISBN 0-13-142901-9.
+</bibliomisc>
+</bibliomixed>
+<bibliomixed>
+<bibliomisc>
+<anchor xml:id="walsh-muellner" xreflabel="[walsh-muellner]"/>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <emphasis>DocBook - The Definitive Guide</emphasis>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+</bibliography>
+<glossary xml:id="_glossary">
+<title>Glossary</title>
+<simpara>Glossary special section.</simpara>
+<glossentry>
+<glossterm>
+A glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+A second glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<index xml:id="_index">
+<title>Index</title>
+</index>
+</article>
