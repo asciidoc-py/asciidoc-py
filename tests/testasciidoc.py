@@ -416,7 +416,7 @@ if __name__ == '__main__':
     number = None
     backend = None
     if 'number' in args:
-        number = number
+        number = args.number
     if 'backend' in args:
         backend = args.backend
     if backend and backend not in BACKENDS:
