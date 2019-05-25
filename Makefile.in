@@ -22,6 +22,8 @@ srcdir = @srcdir@
 
 VPATH = @srcdir@
 
+ASCIIDOCVERSION = @PACKAGE_VERSION@
+ASCIIDOCDATE = @PACKAGE_DATE@
 ASCIIDOCCONF = $(sysconfdir)/asciidoc
 
 prog = asciidoc.py a2x.py
@@ -138,6 +140,19 @@ fixconfpath:
 	@for f in $(prog); do \
 		echo "Fixing CONF_DIR in $$f"; \
 		$(SED) "s#^CONF_DIR = '.*'#CONF_DIR = '$(ASCIIDOCCONF)'#" $$f > $$f.out; \
+		mv $$f.out $$f; \
+		chmod +x $$f; \
+	done
+
+.PHONY: version
+version:
+	@echo "Version $(ASCIIDOCVERSION) (released $(ASCIIDOCDATE))";
+
+.PHONY: vers_update
+vers_update:
+	@for f in $(prog); do \
+		echo "Setting VERSION in $$f to $(ASCIIDOCVERSION)"; \
+		$(SED) "s#^VERSION = '.*'#VERSION = '$(ASCIIDOCVERSION)'#" $$f > $$f.out; \
 		mv $$f.out $$f; \
 		chmod +x $$f; \
 	done

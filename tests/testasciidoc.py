@@ -1,22 +1,5 @@
 #!/usr/bin/env python3
 
-USAGE = '''Usage: testasciidoc.py [OPTIONS] COMMAND
-
-Run AsciiDoc conformance tests specified in configuration FILE.
-
-Commands:
-  list                          List tests
-  run [NUMBER] [BACKEND]        Execute tests
-  update [NUMBER] [BACKEND]     Regenerate and update test data
-
-Options:
-  -f, --conf-file=CONF_FILE
-        Use configuration file CONF_FILE (default configuration file is
-        testasciidoc.conf in testasciidoc.py directory)
-  --force
-        Update all test data overwriting existing data'''
-
-
 __version__ = '0.2.0'
 __copyright__ = 'Copyright (C) 2009 Stuart Rackham'
 
@@ -410,47 +393,54 @@ class Lines(list):
         return result
 
 
-def usage(msg=None):
-    if msg:
-        message(msg + '\n')
-    message(USAGE)
-
-
 if __name__ == '__main__':
     # Process command line options.
-    import getopt
-    try:
-        opts,args = getopt.getopt(sys.argv[1:], 'f:', ['force'])
-    except getopt.GetoptError:
-        usage('illegal command options')
-        sys.exit(1)
-    if len(args) == 0:
-        usage()
-        sys.exit(1)
+    from argparse import ArgumentParser
+    parser = ArgumentParser(description='Run AsciiDoc conformance tests specified in '
+                                        'configuration FILE.')
+    msg = 'Use configuration file CONF_FILE (default configuration file is testasciidoc.conf in' \
+          'testasciidoc.py directory)'
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s {}'.format(__version__))
+    parser.add_argument('-f', '--conf-file', help=msg)
+
+    subparsers = parser.add_subparsers(metavar='command', dest='command')
+    subparsers.required = True
+
+    subparsers.add_parser('list', help='List tests')
+
+    options = ArgumentParser(add_help=False)
+    options.add_argument('--number', type=int, help='Test number to run')
+    options.add_argument('--backend', type=str, help='Backend to run')
+
+    subparsers.add_parser('run', help='Execute tests', parents=[options])
+
+    subparser = subparsers.add_parser('update', help='Regenerate and update test data',
+                                      parents=[options])
+    subparser.add_argument('--force', action='store_true',
+                           help='Update all test data overwriting existing data')
+
+    args = parser.parse_args()
+
     conffile = os.path.join(os.path.dirname(sys.argv[0]), 'testasciidoc.conf')
-    force = False
-    for o,v in opts:
-        if o == '--force':
-            force = True
-        if o in ('-f','--conf-file'):
-            conffile = v
+    force = 'force' in args and args.force is True
+    if args.conf_file is not None:
+        conffile = args.conf_file
     if not os.path.isfile(conffile):
         message('missing CONF_FILE: %s' % conffile)
         sys.exit(1)
     tests = AsciiDocTests(conffile)
-    cmd = args[0]
+    cmd = args.command
     number = None
     backend = None
-    for arg in args[1:3]:
-        try:
-            number = int(arg)
-        except ValueError:
-            backend = arg
+    if 'number' in args:
+        number = number
+    if 'backend' in args:
+        backend = args.backend
     if backend and backend not in BACKENDS:
-        message('illegal BACKEND: %s' % backend)
+        message('illegal BACKEND: {:s}'.format(backend))
         sys.exit(1)
-    if number is not None and  number not in range(1, len(tests.tests)+1):
-        message('illegal test NUMBER: %d' % number)
+    if number is not None and (number < 1 or number > len(tests.tests)):
+        message('illegal test NUMBER: {:d}'.format(number))
         sys.exit(1)
     if cmd == 'run':
         tests.run(number, backend)
@@ -460,5 +450,3 @@ if __name__ == '__main__':
         tests.update(number, backend, force=force)
     elif cmd == 'list':
         tests.list()
-    else:
-        usage('illegal COMMAND: %s' % cmd)

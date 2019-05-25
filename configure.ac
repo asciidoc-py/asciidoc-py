@@ -1,5 +1,7 @@
 AC_INIT(asciidoc, 8.6.10)
 
+AC_SUBST([PACKAGE_DATE], ['22 September 2017'])
+
 AC_CONFIG_FILES(Makefile)
 
 AC_PROG_SED
