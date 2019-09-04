@@ -228,15 +228,10 @@ class AsciiDocAPI(object):
             # The import statement can only handle .py or .pyc files, have to
             # use importlib for scripts with other names.
             try:
-                # Remove use of imp when Python 3.4 support is dropped
-                if sys.version_info[1] < 5:
-                    import imp
-                    module = imp.load_source('asciidoc', self.cmd)
-                else:
-                    import importlib.util
-                    spec = importlib.util.spec_from_file_location('asciidoc', self.cmd)
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
+                import importlib.util
+                spec = importlib.util.spec_from_file_location('asciidoc', self.cmd)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
                 self.asciidoc = module
             except ImportError:
                 raise AsciiDocError('failed to import ' + self.cmd)
