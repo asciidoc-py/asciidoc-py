@@ -172,8 +172,14 @@ ${DOC_FILES}:
 ${WEBSITE_FILES}:
 	aspell check -p ./examples/website/asciidoc-website.dict $@
 
+.PHONY: spell_doc
+doc_spell: ${DOC_FILES}
+
+.PHONY: spell_website
+website_spell: ${WEBSITE_FILES}
+
 .PHONY: spell
-spell: ${DOC_FILES} ${WEBSITE_FILES} ; echo Spelling Checked
+spell: spell_doc spell_website
 
 build: fixconfpath $(manp)
 
