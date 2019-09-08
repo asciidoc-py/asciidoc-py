@@ -773,21 +773,21 @@ class A2X(AttrDict):
         shell_cd(build_dir)
         try:
             if not self.dry_run:
-                zip = zipfile.ZipFile(epub_file, 'w')
+                zip_archive = zipfile.ZipFile(epub_file, 'w')
                 try:
                     # Create and add uncompressed mimetype file.
                     verbose('archiving: mimetype')
                     write_file('mimetype', 'application/epub+zip')
-                    zip.write('mimetype', compress_type=zipfile.ZIP_STORED)
+                    zip_archive.write('mimetype', compress_type=zipfile.ZIP_STORED)
                     # Compress all remaining files.
                     for (p,dirs,files) in os.walk('.'):
                         for f in files:
                             f = os.path.normpath(os.path.join(p,f))
                             if f != 'mimetype':
                                 verbose('archiving: %s' % f)
-                                zip.write(f, compress_type=zipfile.ZIP_DEFLATED)
+                                zip_archive.write(f, compress_type=zipfile.ZIP_DEFLATED)
                 finally:
-                    zip.close()
+                    zip_archive.close()
             verbose('created archive: %s' % epub_file)
         finally:
             shell_cd(cwd)
