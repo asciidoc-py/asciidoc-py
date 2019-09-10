@@ -21,9 +21,10 @@ official Python website http://www.python.org.
 
 Obtaining AsciiDoc
 ------------------
-Documentation and installation instructions are on the AsciiDoc
-website http://asciidoc.org/
-
+AsciiDoc's Python 3 port is currently under development. To obtain AsciiDoc,
+download a copy of the repo from the GitHub project at
+https://github.com/asciidoc/asciidoc-py3 and follow the instructions in
+INSTALL.txt to build and install it.
 
 Tools
 -----
