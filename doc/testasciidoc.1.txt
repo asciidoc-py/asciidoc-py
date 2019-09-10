@@ -24,8 +24,8 @@ COMMANDS
 The testasciidoc toolset has three different commands:
 
   testasciidoc list
-  testasciidoc run [NUMBER] [BACKEND] [OPTIONS]
-  testasciidoc update [NUMBER] [BACKEND] [OPTIONS]
+  testasciidoc run [--number NUMBER] [--backend BACKEND] [OPTIONS]
+  testasciidoc update [--number NUMBER] [--backend BACKEND] [OPTIONS]
 
 The commands perform as follows:
 
@@ -71,11 +71,11 @@ EXAMPLES
 `testasciidoc run`::
   Runs all the testing actions available.
 
-`testasciidoc run 1 html5 --conf-file=/etc/asciidoc/testasciidoc.conf`::
+`testasciidoc run --number 1 --backend html5 --conf-file=/etc/asciidoc/testasciidoc.conf`::
   Run the test case 1 for the html5 asciidoc backend using the configuration file
   /etc/asciidoc/testasciidoc.conf.
 
-`testasciidoc update 1 html5`::
+`testasciidoc update --number 1 --backend html5`::
   Generate or update the reference files used for the tests cases 1st action of
   the html5 asciidoc backend.
 
@@ -111,4 +111,3 @@ Main web site: <http://asciidoc.org/>
 SEE ALSO
 --------
 asciidoc(1), a2x(1)
-
