@@ -30,7 +30,7 @@ from collections import OrderedDict
 # Used by asciidocapi.py #
 VERSION = '8.6.10'           # See CHANGELOG file for version history.
 
-MIN_PYTHON_VERSION = '3.4'  # Require this version of Python or better.
+MIN_PYTHON_VERSION = '3.5'  # Require this version of Python or better.
 
 # ---------------------------------------------------------------------------
 # Program constants.
