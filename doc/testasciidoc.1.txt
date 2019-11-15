@@ -24,8 +24,8 @@ COMMANDS
 The testasciidoc toolset has three different commands:
 
   testasciidoc list
-  testasciidoc run [--number NUMBER] [--backend BACKEND] [OPTIONS]
-  testasciidoc update [--number NUMBER] [--backend BACKEND] [OPTIONS]
+  testasciidoc run [-n, --number NUMBER] [-b, --backend BACKEND] [OPTIONS]
+  testasciidoc update [-n, --number NUMBER] [-b, --backend BACKEND] [OPTIONS]
 
 The commands perform as follows:
 

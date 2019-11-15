@@ -392,8 +392,8 @@ if __name__ == '__main__':
     subparsers.add_parser('list', help='List tests')
 
     options = ArgumentParser(add_help=False)
-    options.add_argument('--number', type=int, help='Test number to run')
-    options.add_argument('--backend', type=str, help='Backend to run')
+    options.add_argument('-n', '--number', type=int, help='Test number to run')
+    options.add_argument('-b', '--backend', type=str, help='Backend to run')
 
     subparsers.add_parser('run', help='Execute tests', parents=[options])
 
