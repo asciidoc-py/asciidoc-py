@@ -1,15 +1,25 @@
 language: python
+
 python:
   - 3.5
   - 3.6
   - 3.7
-      
-install:
-  - sudo apt-get update -yq2
-  - sudo apt-get install -yq2 --no-install-recommends dvipng graphviz imagemagick lilypond source-highlight texlive-latex-base
+
+service:
+  - docker
+
+before_script:
+  # Get the MAJOR.MINOR version of Python
+  - export PYTHON_VERSION=$(python -c "import sys; print('{}.{}'.format(*sys.version_info))")
+  - echo "Building Docker for Python Version - ${PYTHON_VERSION}"
+  - docker build --build-arg PYTHON_VERSION=${PYTHON_VERSION} -t asciidoc/asciidoc-py3:${PYTHON_VERSION} .
+  - docker run -it --rm -d -v $(pwd):/srv/asciidoc --name asciidoc asciidoc/asciidoc-py3:${PYTHON_VERSION} /bin/bash
+
 script:
-  - time python tests/testasciidoc.py update
-  - python asciidoc.py --doctest
-  - python asciidocapi.py
-  - time python tests/testasciidoc.py run
+  - docker exec -it asciidoc python --version
+  - docker exec -it asciidoc time python tests/testasciidoc.py update
+  - docker exec -it asciidoc python asciidoc.py --doctest
+  - docker exec -it asciidoc python asciidocapi.py
+  - docker exec -it asciidoc time python tests/testasciidoc.py run
+  - docker stop asciidoc
   - git clean -x -f doc tests/data
