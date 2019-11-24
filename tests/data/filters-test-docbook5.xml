@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>Filter Tests</title>
+</info>
+<section xml:id="_toy_filter_example_from_user_guide">
+<title>Toy filter example from User Guide</title>
+<screen><emphasis>''' A multi-line</emphasis>
+<emphasis>    comment.'''</emphasis>
+<emphasis role="strong">def</emphasis> sub_word(mo):
+<emphasis>    ''' Single line comment.'''</emphasis>
+    word = mo.group('word')   <emphasis># Inline comment</emphasis>
+    <emphasis role="strong">if</emphasis> word <emphasis role="strong">in</emphasis> keywords[language]:
+        <emphasis role="strong">return</emphasis> quote + word + quote
+    <emphasis role="strong">else</emphasis>:
+        <emphasis role="strong">return</emphasis> word</screen>
+</section>
+<section xml:id="_pychart_chart_generations_from_faq">
+<title>Pychart Chart generations from FAQ</title>
+<simpara>No barchart to avoid depending on Pychart for the tests.
+See also: <link xlink:href="http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</link></simpara>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="barchart.png"/>
+  </imageobject>
+  <textobject><phrase>barchart.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+</section>
+<section xml:id="_graphviz_graphs">
+<title>Graphviz Graphs</title>
+<figure><title>Simple graph</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="graphviz1.png"/>
+  </imageobject>
+  <textobject><phrase>Graphviz->AsciiDoc->HTML</phrase></textobject>
+</mediaobject>
+</figure>
+<figure><title>Not so simple graph</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="graphviz2.png"/>
+  </imageobject>
+  <textobject><phrase>graphviz2.png</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section xml:id="_music_filter">
+<title>Music filter</title>
+<figure><title>A tune generated from ABC notation</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="music1.png"/>
+  </imageobject>
+  <textobject><phrase>music1.png</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara><link linkend="X1">Link to following fragment</link>.</simpara>
+<figure xml:id="X1"><title>A fragment generated from LilyPond source</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="music2.png"/>
+  </imageobject>
+  <textobject><phrase>music2.png</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+</article>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>RCS $Id$ Marker Test</title>
+    <date>2009/05/17</date>
+    <author>
+        <firstname>jbloggs</firstname>
+    </author>
+    <authorinitials>J</authorinitials>
+<revhistory><revision><revnumber>1.5</revnumber><date>2009/05/17</date><authorinitials>J</authorinitials></revision></revhistory>
+</articleinfo>
+<simpara>Lorum ipsum&#8230;</simpara>
+</article>

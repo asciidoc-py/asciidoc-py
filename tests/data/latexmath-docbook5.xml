@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>Embedding LaTeX Math in AsciiDoc dblatex documents</title>
+</info>
+<simpara>You can include LaTeX math equations in AsciiDoc documents that are
+processed by <link xlink:href="http://dblatex.sourceforge.net/">dblatex</link>. The AsciiDoc
+<emphasis>latexmath</emphasis> macros and passthrough blocks generate DocBook
+<emphasis>inlineequation</emphasis>, <emphasis>informalequation</emphasis> and <emphasis>equation</emphasis> elements
+containing the LaTeX markup which is processed by <emphasis>dblatex</emphasis>.</simpara>
+<section xml:id="_inline_equations">
+<title>Inline equations</title>
+<simpara>This markup:</simpara>
+<screen>An inline equation latexmath:[$C = \alpha + \beta Y^{\gamma} + \epsilon$]
+using the 'latexmath' inline macro.</screen>
+<simpara>Renders:</simpara>
+<simpara>An inline equation <inlineequation>
+<alt><![CDATA[$C = \alpha + \beta Y^{\gamma} + \epsilon$]]></alt>
+<inlinemediaobject><textobject><phrase></phrase></textobject></inlinemediaobject>
+</inlineequation>
+using the <emphasis>latexmath</emphasis> inline macro.</simpara>
+</section>
+<section xml:id="_informal_equations">
+<title>Informal equations</title>
+<simpara>Informal (untitled) equations are generated with a <emphasis>latexmath</emphasis> style
+passthrough delimited block. This markup:</simpara>
+<screen>[latexmath]
+++++++++++++++++++++++++++++++++++++++++++++
+\[C = \alpha + \beta Y^{\gamma} + \epsilon\]
+++++++++++++++++++++++++++++++++++++++++++++</screen>
+<simpara>Renders:</simpara>
+<informalequation>
+<alt><![CDATA[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</informalequation>
+<simpara>Functionally identical block macro syntax:</simpara>
+<screen>latexmath::[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]</screen>
+<simpara>Renders:</simpara>
+<informalequation>
+<alt><![CDATA[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</informalequation>
+</section>
+<section xml:id="_formal_equations">
+<title>Formal equations</title>
+<simpara>Formal equations are titled and are generated with a <emphasis>latexmath</emphasis> style
+passthrough delimited block.</simpara>
+<simpara>This markup:</simpara>
+<screen>.First equation
+[latexmath]
+++++++++++++++++++++++++++++++++++++++++++++
+\[C = \alpha + \beta Y^{\gamma} + \epsilon\]
+++++++++++++++++++++++++++++++++++++++++++++</screen>
+<simpara>Renders:</simpara>
+<equation><title>First equation</title>
+<alt><![CDATA[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</equation>
+<simpara>This markup:</simpara>
+<screen>.Matrix
+[latexmath]
+++++++++++++++++++++++++++++++++++++++++++++
+\[ P^{e \rightarrow c}= \left[
+  \begin{array}{*{3}{r@{}l}}
+  &amp; \cos \theta &amp; &amp; \sin \theta \sin \varphi &amp; &amp; \sin \theta \cos \varphi\\
+
+  &amp; \sin \theta \sin \psi
+  &amp; &amp; \cos \varphi \cos \psi - \cos \theta \sin \varphi \sin \psi
+  &amp; - &amp; \sin \varphi \cos \psi - \cos \theta \cos \varphi \sin \psi\\
+
+  - &amp; \sin \theta \cos \psi
+  &amp; &amp; \cos \varphi \sin \psi + \cos \theta \sin \varphi \cos \psi
+  &amp; - &amp; \sin \varphi \sin \psi + \cos \theta \cos \varphi \cos \psi\\
+  \end{array}
+\right] \]
+++++++++++++++++++++++++++++++++++++++++++++</screen>
+<simpara>Renders:</simpara>
+<equation><title>Matrix</title>
+<alt><![CDATA[\[P^{e \rightarrow c}= \left[
+  \begin{array}{*{3}{r@{}l}}
+  & \cos \theta & & \sin \theta \sin \varphi & & \sin \theta \cos \varphi\\
+
+  & \sin \theta \sin \psi
+  & & \cos \varphi \cos \psi - \cos \theta \sin \varphi \sin \psi
+  & - & \sin \varphi \cos \psi - \cos \theta \cos \varphi \sin \psi\\
+
+  - & \sin \theta \cos \psi
+  & & \cos \varphi \sin \psi + \cos \theta \sin \varphi \cos \psi
+  & - & \sin \varphi \sin \psi + \cos \theta \cos \varphi \cos \psi\\
+  \end{array}
+\right]\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</equation>
+</section>
+</article>

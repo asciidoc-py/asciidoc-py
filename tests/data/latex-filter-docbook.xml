@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>LaTeX Filter</title>
+</articleinfo>
+<simpara>The AsciiDoc distribution includes a LaTeX filter that translates LaTeX source
+to an image which is automatically inserted into the AsciiDoc output document.
+Although it can accept any LaTeX source, the primary use is to render
+mathematical formulae (see the examples below).  The filter implements the
+<emphasis>latex</emphasis> Listing block and Paragraph styles.</simpara>
+<simpara>Two image formats are supported; PNG and SVG. PNG is the default since that
+was the first format that this filter supported. However, SVG is a better
+format since it&#8217;s scalable. Using SVG make formulas look good in both PDFs
+and on web pages. SVG will also scale well when zooming in on a web page for
+example. It is recommended to always use the SVG format. This can be done by
+setting the <emphasis>imgfmt</emphasis> parameter to <emphasis>svg</emphasis>, as is done below. An even better way
+is to set the global attribute <emphasis>latex-imgfmt</emphasis> to <emphasis>svg</emphasis>. Then SVG will be used
+for all formulas.</simpara>
+<simpara>This LaTeX paragraph:</simpara>
+<screen>["latex", imgfmt="svg"]
+---------------------------------------------------------------------
+\begin{equation*}
+y = \int_0^\infty \gamma^2 \cos(x) dx
+\end{equation*}
+---------------------------------------------------------------------</screen>
+<simpara>Renders:</simpara>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="latex-filter__1.svg"/>
+  </imageobject>
+  <textobject><phrase>latex-filter__1.svg</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>Compare the formula above, which is rendered as an SVG image, to the formula
+below which has been rendered as a PNG image. The difference will be most
+notable if zooming in on a web page, printing the web page or when rendering
+the document as a PDF.</simpara>
+<screen>["latex", "latex2.png", 140, imgfmt="png"]
+---------------------------------------------------------------------
+\begin{equation*}
+y = \int_0^\infty \gamma^2 \cos(x) dx
+\end{equation*}
+---------------------------------------------------------------------</screen>
+<simpara>Renders:</simpara>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="latex2.png"/>
+  </imageobject>
+  <textobject><phrase>latex2.png</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>This LaTeX block:</simpara>
+<screen>["latex","latex1.svg",imgfmt="svg",align="center"]
+---------------------------------------------------------------------
+\begin{equation*}
+\displaystyle{ V_i = C_0 - C_3
+\frac{C_1\cos(\theta_i+C_3)}{C_4+C_1\cos(\theta_i+C_2)} }
+\end{equation*}
+---------------------------------------------------------------------</screen>
+<simpara>Renders:</simpara>
+<informalfigure>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="latex1.svg" align="center"/>
+  </imageobject>
+  <textobject><phrase>latex1.svg</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>This LaTeX block:</simpara>
+<screen>.LaTeX filter example
+[latex]
+["latex","latex3.svg",imgfmt="svg"]
+---------------------------------------------------------------------
+\begin{equation}
+\Re{z} =\frac{n\pi \dfrac{\theta +\psi}{2}}{
+\left(\dfrac{\theta +\psi}{2}\right)^2 + \left( \dfrac{1}{2}
+\log \left\lvert\dfrac{B}{A}\right\rvert\right)^2}.
+\end{equation}
+
+\begin{equation}
+\boxed{\eta \leq C(\delta(\eta) +\Lambda_M(0,\delta))}
+\end{equation}
+
+\begin{equation}\label{first}
+a=b+c
+\end{equation}
+
+\begin{subequations}\label{grp}
+\begin{align}
+a&amp;=b+c\label{second}\\
+d&amp;=e+f+g\label{third}\\
+h&amp;=i+j\label{fourth}
+\end{align}
+\end{subequations}
+---------------------------------------------------------------------</screen>
+<simpara>Renders:</simpara>
+<figure><title>LaTeX filter example</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="latex3.svg"/>
+  </imageobject>
+  <textobject><phrase>latex3.svg</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>This LaTeX paragraph:</simpara>
+<screen>.A LaTeX table
+["latex",imgfmt="svg"]
+\begin{tabular}{c r @{.} l}
+Pi expression &amp;
+\multicolumn{2}{c}{Value} \\
+\hline
+$\pi$ &amp; 3&amp;1416 \\
+$\pi^{\pi}$ &amp; 36&amp;46 \\
+$(\pi^{\pi})^{\pi}$ &amp; 80662&amp;7 \\
+\end{tabular}</screen>
+<simpara>Renders:</simpara>
+<figure><title>A LaTeX table</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="latex-filter__2.svg"/>
+  </imageobject>
+  <textobject><phrase>latex-filter__2.svg</phrase></textobject>
+</mediaobject>
+</figure>
+<section id="_using_the_filter">
+<title>Using the Filter</title>
+<itemizedlist>
+<listitem>
+<simpara>
+The LaTeX filter is invoked by setting the Listing block or
+  Paragraph style (the first positional block attribute) to <emphasis>latex</emphasis>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The second positional attribute (named <emphasis>target</emphasis> is optional, it sets
+  the name of the generated image file. If this is not supplied a
+  file name like <literal>{docname}__{target-number}.{imgfmt}</literal> is synthesised
+  (where <literal>{docname}</literal> is the document file name, <literal>{target-number}</literal>
+  is an integer number and <literal>{imgfmt}</literal> is the image format (png or svg).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The third positional attribute, named <emphasis>dpi</emphasis>, is also optional; it is
+  an integer number that sets the output resolution in dots per inch
+  for a PNG image. It is ignored for an SVG image.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The image format to use can be selected by setting the <emphasis>imgfmt</emphasis>
+  parameter or by globally setting the <emphasis>latex-imgfmt</emphasis> attribute.
+  Setting it to <emphasis>svg</emphasis> will render SVG images and setting it to <emphasis>png</emphasis>
+  will render PNG images. The default is <emphasis>png</emphasis>.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Because the LaTeX images are rendered using the image block templates
+you can also use the optional named image block attributes (see
+<ulink url="userguide.html#X55">Image macro attributes</ulink> in the AsciiDoc User
+Guide).</simpara>
+<tip>
+<simpara>You can also change the image size using the following LaTeX commands:</simpara>
+<literallayout class="monospaced">\tiny
+\scriptsize
+\footnotesize
+\small
+\normalsize
+\large
+\Large
+\LARGE
+\huge</literallayout>
+<simpara>For example:</simpara>
+<literallayout class="monospaced">[latex]
+\Large $y = \int_0^\infty \gamma^2 \cos(x) dx$</literallayout>
+<simpara>The <literal>\Large</literal> command is outside the <literal>$</literal> math delimiters.</simpara>
+</tip>
+<simpara>The filter (<literal>./filters/latex/latex2img.py</literal>) can be used outside
+AsciiDoc to convert LaTeX source to images.</simpara>
+<simpara>Execute the following command to see how to use it:</simpara>
+<literallayout class="monospaced">$ ./filters/latex/latex2img.py --help</literallayout>
+</section>
+<section id="_limitations">
+<title>Limitations</title>
+<itemizedlist>
+<listitem>
+<simpara>
+The <literal>asciidoc(1)</literal> input and output files cannot both be <literal>-</literal> (stdin
+  and stdout), either the input or output files (or both) must be a
+  named file.
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section id="_installation">
+<title>Installation</title>
+<simpara>In addition to AsciiDoc you will need to have <literal>latex(1)</literal>,
+<literal>dvipng(1)</literal> (for PNG) and/or <literal>dvisvgm(1)</literal> (for SVG) installed.</simpara>
+</section>
+</article>

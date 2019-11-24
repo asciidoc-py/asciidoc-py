@@ -1,0 +1,890 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<meta name="description" content="AsciiDoc is a text document format for writing short documents, articles, books, slideshows and UNIX man pages.">
+<meta name="keywords" content="AsciiDoc, DocBook, EPUB, slideshow">
+<title>Test Cases</title>
+</head>
+<body>
+<h1>Test <em>Cases</em></h1>
+<p>
+<strong>Joe Bloggs</strong><br>
+</p>
+<hr>
+<h2><a name="_passthrough_attributes"></a>Passthrough attributes</h2>
+<p><b>*lorum ipsum*</b></p>
+<p>&lt;b&gt;*lorum ipsum*&lt;/b&gt;</p>
+<hr>
+<h2><a name="_author_attributes"></a>Author attributes</h2>
+<p>{eval:expression}, {sys:command} and {sys2:command}, {counter:c1}</p>
+<p>Hello <strong>Joe Bloggs</strong> (Joe Bloggs, JB).</p>
+<p>first name or last name or surname.</p>
+<p></p>
+<p>first name and last name.</p>
+<hr>
+<h2><a name="_system_attributes"></a>System attributes</h2>
+<p>1 99 A</p>
+<p>1 = 1, 99 = 99, A = A</p>
+<p>2 100 B
+2 100 B</p>
+<p>2 = 2, 100 = 100, B = B</p>
+<p>y: Foobar</p>
+<p></p>
+<p></p>
+<p>3, 7</p>
+<p></p>
+<p>3, 3</p>
+<hr>
+<h2><a name="_quoted_text_attributes"></a>Quoted text attributes</h2>
+<p>A=<em>X</em>, (<em>X</em>), <em>X</em>, [<em>X</em>] <em>X</em></p>
+<p>A=<strong><em>X</em></strong>, (<code>_X_</code>), <em><code>X</code></em>, [<strong><em>X</em></strong>] <code><em>X</em></code> <em>X</em></p>
+<p>[<em>*X*</em>] <em>+X+</em></p>
+<p><a name="_intro"></a><a href="#_intro">[_intro]</a> <a href="#_intro">intro</a> <a href="#_intro">[_intro]</a> <em>intro</em></p>
+<p><span class="foo">fun with text</span>.
+<strong><span class="foo bar">fun with text</span></strong>.
+<code><span class="foo">fun with text</span></code>.
+<em><span class="foo">fun with text</span></em>.
+<em><span class="foo">fun with text</span></em>.
+&#8220;<span class="foo">fun with text</span>&#8221;.
+&#8216;<span class="foo">fun with text</span>&#8217;.</p>
+<p><span class="foo">fun with text</span>.</p>
+<p><span class="foo">fun with text</span>.</p>
+<p><span class="red">Obvious</span> and <strong><span class="big red yellow-background">very obvious</span></strong>.</p>
+<p><span class="underline">Underline text</span>, <span class="overline">overline text</span>
+and <span class="line-through">line-through text</span>.</p>
+<p><span class="firstletter">T</span>esting 123 &#8230;</p>
+<p>(&#8220;+1\n+&#8221;) if (usually &#8220;+-1\n+&#8221;)</p>
+<p>(&#8220;<code>1\n</code>&#8221;) if (usually &#8220;<code>-1\n</code>&#8221;)</p>
+<p>(&#8216;Joe Bloggs&#8217;) and &#8216;Joe Bloggs&#8217;</p>
+<hr>
+<h2><a name="_configuration_attribute_entries"></a>Configuration attribute entries</h2>
+<table cellpadding="4">
+<tr valign="top">
+<td>
+term
+<br>
+</td>
+<td>
+<p>
+definition
+</p>
+</td>
+</tr>
+</table>
+<dl>
+<dt>
+term
+</dt>
+<dd>
+<p>
+definition
+</p>
+</dd>
+</dl>
+<hr>
+<h2><a name="_role_attribute"></a>role attribute</h2>
+<p class="test">Paragraph with a role attribute.</p>
+<ul class="test">
+<li>
+<p>
+first
+</p>
+</li>
+<li>
+<p>
+second
+</p>
+</li>
+<li>
+<p>
+third
+</p>
+</li>
+</ul>
+<hr>
+<h2><a name="_break_list_nesting"></a>Break list nesting</h2>
+<ol type="1">
+<li>
+<p>
+List 1.
+</p>
+</li>
+<li>
+<p>
+List 1.
+</p>
+</li>
+</ol>
+<ol type="a">
+<li>
+<p>
+List 2.
+</p>
+</li>
+<li>
+<p>
+List 2.
+</p>
+</li>
+</ol>
+<hr>
+<h2><a name="_listing_blocks"></a>Listing Blocks</h2>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>$ ls <strong>-al</strong></code></pre>
+</td></tr></table>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>[subs="quotes"]
+------------------------------------------
+$ ls *-al*
+------------------------------------------</code></pre>
+</td></tr></table>
+<p><b>Listing</b></p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>$ ls -al</code></pre>
+</td></tr></table>
+<table frame="void" width="100%" cellpadding="4">
+<tr><td style="border-left: 2px solid silver;">
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code>$ ls -al</code></pre>
+</td></tr></table>
+</td></tr></table>
+<p><b>Example 1. </b>Listing example</p>
+<p><b>Python paragraph</b></p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="10"><tr><td><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#0000FF">if</font></b> n <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">:</font> <b><font color="#0000FF">print</font></b> <font color="#FF0000">'Hello World!'</font></tt></pre></td></tr></table>
+<p><b>Titled Python listing</b></p>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="10"><tr><td><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#0000FF">if</font></b> n <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">:</font> <b><font color="#0000FF">print</font></b> <font color="#FF0000">'Hello World!'</font></tt></pre></td></tr></table>
+<table frame="void" width="100%" cellpadding="4">
+<tr><td style="border-left: 2px solid silver;">
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="10"><tr><td><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#0000FF">if</font></b> n <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">:</font> <b><font color="#0000FF">print</font></b> <font color="#FF0000">'Hello World!'</font></tt></pre></td></tr></table>
+</td></tr></table>
+<p><b>Example 2. </b>Python listing example</p>
+<hr>
+<h2><a name="X1"></a>Links</h2>
+<p>An <a name="X2"></a> inline anchor.
+An <a name="X3"></a> inline anchor with reftext.</p>
+<p><a href="#X1">[X1]</a>; captioned link to <a href="#X1">this test case</a>.</p>
+<p><a href="#X2">[X2]</a> link to inline anchor; captioned link to <a href="#X2">inline anchor</a>.</p>
+<p>Link to <a href="#X3">[X3]</a> anchor.</p>
+<p>An example link to a bibliography entry <a href="#Test::Unit">[Test::Unit]</a>.</p>
+<table cellpadding="4">
+<tr valign="top">
+<td>
+<a name="Test::Unit"></a>[Test::Unit]
+<br>
+</td>
+<td>
+<p>
+<a href="http://ruby-doc.org/stdlib/libdoc/test/unit/rdoc/classes/Test/Unit.html">http://ruby-doc.org/stdlib/libdoc/test/unit/rdoc/classes/Test/Unit.html</a>
+</p>
+</td>
+</tr>
+</table>
+<hr>
+<h2><a name="_titles"></a>Titles</h2>
+<h5><a name="_level_4"></a>Level 4</h5>
+<h4><a name="_level_3"></a>Level 3</h4>
+<h3><a name="_level_2"></a>Level 2</h3>
+<h2><a name="_level_1"></a>Level 1</h2>
+<h5><a name="_level_4_2"></a>Level 4</h5>
+<h4><a name="_level_3_2"></a>Level 3</h4>
+<h3><a name="_level_2_2"></a>Level 2</h3>
+<h2><a name="_level_1_2"></a>Level 1</h2>
+<p><b>Block title</b><br>Lorum ipsum.</p>
+<hr>
+<h2><a name="_lists"></a>Lists</h2>
+<p>Bulleted:</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+<ul>
+<li>
+<p>
+item text
+</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Numbered:</p>
+<ol type="1">
+<li>
+<p>
+arabic (decimal) numbering
+</p>
+<ol type="a">
+<li>
+<p>
+loweralpha numbering
+</p>
+<ol type="A">
+<li>
+<p>
+upperalpha numbering
+</p>
+<ol type="i">
+<li>
+<p>
+lowerroman numbering
+</p>
+<ol type="I">
+<li>
+<p>
+upperroman numbering
+</p>
+<ol type="1">
+<li>
+<p>
+arabic (decimal) numbering
+</p>
+<ol type="a">
+<li>
+<p>
+loweralpha numbering
+</p>
+<ol type="i">
+<li>
+<p>
+lowerroman numbering
+</p>
+<ol type="A">
+<li>
+<p>
+upperalpha numbering
+</p>
+<ol type="I">
+<li>
+<p>
+upperroman numbering
+</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>Labeled:</p>
+<dl>
+<dt>
+label
+</dt>
+<dd>
+<p>
+item text
+</p>
+<dl>
+<dt>
+label
+</dt>
+<dd>
+<p>
+item text
+</p>
+<dl>
+<dt>
+label
+</dt>
+<dd>
+<p>
+item text
+</p>
+<dl>
+<dt>
+label
+</dt>
+<dd>
+<p>
+item text
+</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>With item anchor:</p>
+<dl>
+<dt>
+one
+</dt>
+<dd>
+<p>
+Item one.
+</p>
+</dd>
+<dt>
+<a name="item_two"></a>two
+</dt>
+<dd>
+<p>
+Item two.
+</p>
+</dd>
+<dt>
+three
+</dt>
+<dd>
+<p>
+Item three.
+</p>
+</dd>
+</dl>
+<hr>
+<h2><a name="_inline_passthroughs"></a>Inline passthroughs</h2>
+<ul>
+<li>
+<p>
+Test `ABC`.
+</p>
+</li>
+<li>
+<p>
+Test <code>ABC</code>.
+</p>
+</li>
+<li>
+<p>
+The <code>++i</code> and <code>++j</code> auto-increments.
+</p>
+</li>
+<li>
+<p>
+Paths <code>~/.vim</code> and <code>~/docs</code>.
+</p>
+</li>
+<li>
+<p>
+The <code>__init__</code> method.
+</p>
+</li>
+<li>
+<p>
+The <code>{id}</code> attribute.
+</p>
+</li>
+</ul>
+<p>List start number test:</p>
+<ol type="1" start="7">
+<li>
+<p>
+List item 7.
+</p>
+</li>
+<li>
+<p>
+List item 8.
+</p>
+</li>
+</ol>
+<hr>
+<h2><a name="_images"></a>Images</h2>
+<h3><a name="_block_images"></a>Block images</h3>
+<div>
+<a name="tiger_image"></a>
+<img src="../../images/tiger.png" style="border-width: 0;" alt="Tyger tyger">
+<p><b>Figure 1. </b>Tyger tyger</p>
+</div>
+<div align="center">
+<img src="../../images/tiger.png" style="border-width: 0;" alt="Tiger" width="350" height="250">
+<p><b>Figure 2: </b>Tyger tyger two</p>
+</div>
+<div>
+<img src="../../doc/music2.png" style="border-width: 0;" alt="music2.png">
+</div>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/note.png" alt="Note">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<h3><a name="_inline_images"></a>Inline images</h3>
+<p>Inline image <img src="../../images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="smallnew.png"></p>
+<p>Inline image <img src="../../images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="NEW!"></p>
+<p>Inline image <img src="../../images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="NEW!" title="Small new"></p>
+<hr>
+<h2><a name="_admonishments"></a>Admonishments</h2>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Note</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Tip</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Warning</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Caution</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Important</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/note.png" alt="Note">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/tip.png" alt="Tip">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/warning.png" alt="Warning">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/caution.png" alt="Caution">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<img src="../../images/icons/important.png" alt="Important">
+</td>
+<td style="border-left: 1px solid silver;">Lorum ipsum.</td></tr></table>
+<hr>
+<h2><a name="_backslash_escapes"></a>Backslash escapes</h2>
+<p><b>Apostrophe</b><br>Don&#8217;t vs don't.</p>
+<p><b>Exceptions</b><br>There are a number of  exceptions to the usual single backslash rule&#8201;&#8212;&#8201;mostly relating to URL macros that  have two syntaxes or quoting
+ambiguity.  Here are some non-standard escape examples:</p>
+<div>
+<table rules="all"
+width="40%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<thead>
+<tr>
+<th align="left" width="50%" valign="top">AsciiDoc </th>
+<th align="left" width="50%" valign="top"> Renders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" width="50%" valign="top"><pre><code>\joe.bloggs@example.com
+&lt;\joe.bloggs@example.com&gt;
+\mailto:[\joe.bloggs@example.com]</code></pre></td>
+<td align="left" width="50%" valign="top"><pre style="font-family: inherit;">joe.bloggs@example.com
+&lt;joe.bloggs@example.com&gt;
+mailto:[joe.bloggs@example.com]</pre></td>
+</tr>
+<tr>
+<td align="left" width="50%" valign="top"><pre><code>\http://www.example.com
+\\http://www.example.com[]
+\\http://www.example.com[Foobar Limited]</code></pre></td>
+<td align="left" width="50%" valign="top"><pre style="font-family: inherit;">http://www.example.com
+http://www.example.com[]
+http://www.example.com[Foobar Limited]</pre></td>
+</tr>
+<tr>
+<td align="left" width="50%" valign="top"><pre><code>A C\++ Library for C++
+\\``double-quotes''
+\*\*F**ile Open\...</code></pre></td>
+<td align="left" width="50%" valign="top"><pre style="font-family: inherit;">A C++ Library for C++
+``double-quotes''
+**F**ile Open...</pre></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2><a name="_paragraphs"></a>Paragraphs</h2>
+<p><b>Normal paragraph</b><br>This is a <strong>bold</strong> a line
+This is a <em>strong</em> line
+This is another <em>strong</em> line</p>
+<p><b>Literal paragraph</b></p>
+<pre><code>This is a *bold* a line
+This is a 'strong' line
+This is another _strong_ line</code></pre>
+<blockquote>
+<p><b>Verse paragraph</b></p>
+<pre style="font-family: inherit;">This is a <strong>bold</strong> a line
+This is a <em>strong</em> line
+This is another <em>strong</em> line</pre>
+<p align="left">
+</p>
+</blockquote>
+<p><b>Indented (literal) paragraph</b></p>
+<pre><code>This is a *bold* a line
+This is a 'strong' line
+This is another _strong_ line</code></pre>
+<p><b>Indented with quotes substitution</b></p>
+<pre><code>This is a <strong>bold</strong> a line
+This is a <em>strong</em> line
+This is another <em>strong</em> line</code></pre>
+<p><b>Literal paragraph with quotes substitution</b></p>
+<pre><code>This is a <strong>bold</strong> a line
+This is a <em>strong</em> line
+This is another <em>strong</em> line</code></pre>
+<p><b>Monospaced paragraph with line breaks</b><br><code>This is a <strong>bold</strong> line</code><br>
+<code>This is a <em>strong</em> line</code><br>
+<code>This is another <em>strong</em> line</code></p>
+<p><b>Another monospaced paragraph with line breaks</b><br><code>This is a <strong>bold</strong> a line<br>
+This is a <em>strong</em> line<br>
+This is another <em>strong</em> line</code></p>
+<p><b>Literal block with quotes substitution</b></p>
+<pre><code>This is a <strong>bold</strong> a line
+This is a <em>strong</em> line
+This is another <em>strong</em> line</code></pre>
+<blockquote>
+<pre style="font-family: inherit;">To see a world in a grain of sand,
+And a heaven in a wild flower,
+Hold infinity in the palm of your hand,
+And eternity in an hour.</pre>
+<p align="left">
+<em>from Auguries of Innocence</em><br>
+&#8212; William Blake
+</p>
+</blockquote>
+<blockquote>A good notation has subtlety and suggestiveness which at times makes
+it almost seem like a live teacher.<p align="right">
+<em>The World of Mathematics (1956)</em><br>
+&#8212; Bertrand Russell
+</p>
+</blockquote>
+<hr>
+<h2><a name="_urls"></a>URLs</h2>
+<h3><a name="_mail_addresses"></a>Mail Addresses</h3>
+<p><a href="mailto:joe_bloggs@mail_server.com_">joe_bloggs@mail_server.com_</a></p>
+<p><a href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</a>.</p>
+<p><a href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</a>,<a href="mailto:joe-bloggs@mail-server.com">joe-bloggs@mail-server.com</a>,</p>
+<p><a href="mailto:joe-bloggs@mail-server.com">Mail</a></p>
+<p><a href="mailto:joe_bloggs@mail_server.com">Mail</a></p>
+<p><a href="mailto:joe.bloggs@mail.server.com">Mail</a></p>
+<p><a href="mailto:joe.bloggs@mail.server.com">joe.bloggs@mail.server.com</a><br>
+lorum ipsum.</p>
+<hr>
+<h2><a name="_comments"></a>Comments</h2>
+<p>Qui in magna commodo, est labitur dolorum an. Est ne magna primis.
+
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et.</p>
+<p><span style="background:yellow;"> This comment line will be displayed in the output.</span></p>
+<p>Qui in magna commodo, est labitur dolorum an. Est ne magna primis.
+<br><span style="background:yellow;"> Visible inline comment line.</span><br>
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et.</p>
+<p><a name="comment_macro"></a><b>Block title</b><br>Lorum ipsum.</p>
+<p><a name="comment_block"></a><b>Block title</b><br>Lorum ipsum.</p>
+<hr>
+<h2><a name="_index_terms"></a>Index Terms</h2>
+<p>Test 1 test1.</p>
+<p>Test 2 .</p>
+<p>Test 3 .</p>
+<p>Test 4 .</p>
+<p>Test 5 test5.</p>
+<p>Test 6 .</p>
+<p>Test 7 .</p>
+<p>Test 8 .</p>
+<p>Multi-passthough substitution (see
+<a href="http://groups.google.com/group/asciidoc/browse_frm/thread/1269dc2feb1a482c">http://groups.google.com/group/asciidoc/browse_frm/thread/1269dc2feb1a482c</a>)
+<code>foo</code></p>
+<hr>
+<h2><a name="_table_with_fractional_column_width_units"></a>Table with fractional column width units</h2>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Note</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;"><em>pagewidth</em> and <em>pageunits</em> only apply to DocBook outputs.</td></tr></table>
+<div>
+<table rules="all"
+width="50%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<thead>
+<tr>
+<th align="left" width="17%" valign="top">Date </th>
+<th align="center" width="11%" valign="top">Duration </th>
+<th align="center" width="11%" valign="top">Avg HR </th>
+<th align="left" width="58%" valign="top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" width="17%" valign="top"><p>22-Aug-08</p></td>
+<td align="center" width="11%" valign="top"><p>10:24</p></td>
+<td align="center" width="11%" valign="top"><p>157</p></td>
+<td align="left" width="58%" valign="top"><p>Worked out MSHR (max sustainable heart rate) by going hard
+for this interval.</p></td>
+</tr>
+<tr>
+<td align="left" width="17%" valign="top"><p>22-Aug-08</p></td>
+<td align="center" width="11%" valign="top"><p>23:03</p></td>
+<td align="center" width="11%" valign="top"><p>152</p></td>
+<td align="left" width="58%" valign="top"><p>Back-to-back with previous interval.</p></td>
+</tr>
+<tr>
+<td align="left" width="17%" valign="top"><p>24-Aug-08</p></td>
+<td align="center" width="11%" valign="top"><p>40:00</p></td>
+<td align="center" width="11%" valign="top"><p>145</p></td>
+<td align="left" width="58%" valign="top"><p>Moderately hard interspersed with 3x 3min intervals (2min
+hard + 1min really hard taking the HR up to 160).</p></td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 1. </b>Horizontal and vertical source data</p>
+</div>
+<hr>
+<h2><a name="_table_with_parent_configuration_file_and_header_attribute_entry"></a>Table with parent configuration file and header attribute entry</h2>
+<div>
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<tbody>
+<tr>
+<td align="left" width="100%" valign="top"><div><ul>
+<li>
+<p>
+Attribute entry from header: TEST_ATTRIBUTE
+</p>
+</li>
+<li>
+<p>
+Replacement from <code>testcases.conf</code> configuration file: TEST_REPLACEMENT
+</p>
+</li>
+</ul></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2><a name="_table_column_specifiers_with_merged_cells"></a>Table column specifiers with merged cells</h2>
+<p>See
+<a href="http://groups.google.com/group/asciidoc/browse_thread/thread/c9238380a1f2507a">http://groups.google.com/group/asciidoc/browse_thread/thread/c9238380a1f2507a</a></p>
+<div>
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<tbody>
+<tr>
+<td rowspan="2" align="left" width="25%" valign="top"><p><code></code></p></td>
+<td rowspan="2" align="right" width="25%" valign="top"><p>1- A</p></td>
+<td colspan="2" align="center" width="25%" valign="top"><p><strong>2- B</strong></p></td>
+</tr>
+<tr>
+<td align="center" width="25%" valign="top"><p><strong>i- a</strong></p></td>
+<td align="center" width="25%" valign="top"><p><em>ii- b</em></p></td>
+</tr>
+<tr>
+<td align="left" width="25%" valign="top"><p><code>Values 1</code></p></td>
+<td align="right" width="25%" valign="top"><p>v1</p></td>
+<td align="center" width="25%" valign="top"><p><strong>v2</strong></p></td>
+<td align="center" width="25%" valign="top"><p><em>v3</em></p></td>
+</tr>
+<tr>
+<td align="left" width="25%" valign="top"><p><code>Values 2</code></p></td>
+<td align="right" width="25%" valign="top"><p>v4</p></td>
+<td align="center" width="25%" valign="top"><p><strong>v5</strong></p></td>
+<td align="center" width="25%" valign="top"><p><em>v6</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2><a name="_floating_tables_and_images"></a>Floating tables and images</h2>
+<div>
+<table rules="all"
+style="float:left;"
+width="15%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<tbody>
+<tr>
+<td align="left" width="33%" valign="top"><p>1</p></td>
+<td align="left" width="33%" valign="top"><p>2</p></td>
+<td align="left" width="33%" valign="top"><p>A</p></td>
+</tr>
+<tr>
+<td align="left" width="33%" valign="top"><p>3</p></td>
+<td align="left" width="33%" valign="top"><p>4</p></td>
+<td align="left" width="33%" valign="top"><p>B</p></td>
+</tr>
+<tr>
+<td align="left" width="33%" valign="top"><p>5</p></td>
+<td align="left" width="33%" valign="top"><p>6</p></td>
+<td align="left" width="33%" valign="top"><p>C</p></td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 2. </b>Simple table</p>
+</div>
+<div style="float:right;">
+<img src="../../images/images/tiger.png" style="border-width: 0;" alt="Tiger image">
+<p><b>Figure 2. </b>Tiger</p>
+</div>
+<br clear="all">
+<hr>
+<h2><a name="_section_level_offsets"></a>Section level offsets</h2>
+<p>At level 1</p>
+<h3><a name="_section_title"></a>Section title</h3>
+<p>At level 2</p>
+<h3><a name="_section_title_2"></a>Section title</h3>
+<p>At level 2</p>
+<h4><a name="_section_title_3"></a>Section title</h4>
+<p>At level 3</p>
+<hr>
+<h2><a name="_section_level_offsets_2"></a>Section level offsets</h2>
+<p>At level 1</p>
+<hr>
+<h2><a name="_single_quoted_attributes"></a>Single-quoted attributes</h2>
+<blockquote>
+<p>Sir, a woman&#8217;s preaching is like a dog&#8217;s walking on his hind legs. It
+is not done well; but you are surprised to find it done at all.</p>
+<p align="right">
+&#8212; <a href="http://en.wikipedia.org/wiki/Samuel_Johnson">Samuel Johnson</a>
+</p>
+</blockquote>
+<blockquote>
+<p>Sir, a woman&#8217;s preaching is like a dog&#8217;s walking on his hind legs. It
+is not done well; but you are surprised to find it done at all.</p>
+<p align="right">
+&#8212; <a href="http://en.wikipedia.org/wiki/Samuel_Johnson">Samuel Johnson</a>
+</p>
+</blockquote>
+<hr>
+<h2><a name="_footnotes"></a>Footnotes</h2>
+<p>Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<br><i>[footnote one.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.]</i><br>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<br><i><a name="_footnote_F2">[footnote two. Qui in magna commodo, est labitur dolorum an. Est ne magna primis adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.]</a></i><br>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
+<br><i><a href="#_footnote_F2">[F2]</a></i><br>.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<br><i>[<a href="http://asciidoc.org/">http://asciidoc.org/</a> Qui in magna commodo,
+est labitur dolorum an. Est ne magna primis adolescens. Sit munere
+ponderum dignissim et. Minim luptatum et vel
+<img src="../../images/images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="images/smallnew.png">]</i><br>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
+<br><i>[<a href="http://asciidoc.org/">http://asciidoc.org/</a>]</i><br>
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et
+vel <br><i>[<a href="http://asciidoc.org/">AsciiDoc website</a>.]</i><br>.
+Qui in magna commodo, est labitur dolorum an. Est ne magna primis
+adolescens. Sit munere ponderum dignissim et. Minim luptatum et
+<br><i><a name="_footnote_F3">[A footnote&#44; &#34;with an image&#34; <img src="../../images/images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="images/smallnew.png">]</a></i><br>.
+<br><i>[With [square brackets]]</i><br> Qui in magna commodo, est labitur
+dolorum an. Est ne magna primis.</p>
+<hr>
+<h2><a name="_rulers_and_page_breaks"></a>Rulers and page breaks</h2>
+<p>Lorum ipsum&#8230;</p>
+<hr>
+<p>Lorum ipsum&#8230;</p>
+<div style="page-break-after:always"></div>
+<p>Lorum ipsum&#8230;</p>
+<hr>
+<h2><a name="_这是一个测试"></a>这是一个测试</h2>
+<p>Double-with character titles.
+<a href="#_这是一个测试">link to auto-generated section ID</a>.</p>
+<hr>
+<h2><a name="_block_macros"></a>Block macros</h2>
+<p>RS458 is 2.</p>
+<p>Template line 1.
+Template line 2.</p>
+<hr>
+<h2><a name="_an_id_without_accents"></a>àn îd without accénts</h2>
+<p>Lorum ipsum&#8230;</p>
+<hr>
+<h2><a name="_àn_îd_with_accénts"></a>àn îd with accénts</h2>
+<p>Lorum ipsum&#8230;</p>
+<hr>
+<h2><a name="_inline_macros"></a>Inline macros</h2>
+<p><a href="http://groups.google.com/group/asciidoc/">A URL with [square
+brackets]</a>.</p>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2002-11-25 00:37:42 UTC
+</small></p>
+</body>
+</html>

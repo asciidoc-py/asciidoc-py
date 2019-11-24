@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<book lang="en">
+<bookinfo>
+    <title>Book Title Goes Here</title>
+    <date>2003-12</date>
+    <author>
+        <firstname>Author's</firstname>
+        <surname>Name</surname>
+    </author>
+    <authorinitials>AN</authorinitials>
+<revhistory><revision><revnumber>1.0</revnumber><date>2003-12</date><authorinitials>AN</authorinitials></revision></revhistory>
+</bookinfo>
+<dedication id="_example_dedication">
+<title>Example Dedication</title>
+<simpara>Optional dedication.</simpara>
+<simpara>This document is an AsciiDoc book skeleton containing briefly
+annotated example elements plus a couple of example index entries and
+footnotes.</simpara>
+<simpara>Books are normally used to generate DocBook markup and the titles of
+the preface, appendix, bibliography, glossary and index sections are
+significant (<emphasis>specialsections</emphasis>).</simpara>
+</dedication>
+<preface id="_example_preface">
+<title>Example Preface</title>
+<simpara>Optional preface.</simpara>
+<section id="_preface_sub_section">
+<title>Preface Sub-section</title>
+<simpara>Preface sub-section body.</simpara>
+</section>
+</preface>
+<chapter id="_the_first_chapter">
+<title>The First Chapter</title>
+<simpara>Chapters can contain sub-sections nested up to three deep.
+<footnote><simpara>An example footnote.</simpara></footnote>
+<indexterm>
+  <primary>Example index entry</primary>
+</indexterm></simpara>
+<simpara>Chapters can have their own bibliography, glossary and index.</simpara>
+<simpara>And now for something completely different: <indexterm><primary>monkeys</primary></indexterm>monkeys, lions and
+tigers (Bengal and Siberian) using the alternative syntax index
+entries.
+<indexterm>
+  <primary>Big cats</primary><secondary>Lions</secondary>
+</indexterm>
+<indexterm>
+  <primary>Lions</primary>
+</indexterm>
+<indexterm>
+  <primary>Big cats</primary><secondary>Tigers</secondary><tertiary>Bengal Tiger</tertiary>
+</indexterm>
+<indexterm>
+  <primary>Tigers</primary><secondary>Bengal Tiger</secondary>
+</indexterm>
+<indexterm>
+  <primary>Bengal Tiger</primary>
+</indexterm>
+<indexterm>
+  <primary>Big cats</primary><secondary>Tigers</secondary><tertiary>Siberian Tiger</tertiary>
+</indexterm>
+<indexterm>
+  <primary>Tigers</primary><secondary>Siberian Tiger</secondary>
+</indexterm>
+<indexterm>
+  <primary>Siberian Tiger</primary>
+</indexterm>
+Note that multi-entry terms generate separate index entries.</simpara>
+<simpara>Here are a couple of image examples: an <inlinemediaobject>
+  <imageobject>
+  <imagedata fileref="images/smallnew.png"/>
+  </imageobject>
+  <textobject><phrase>images/smallnew.png</phrase></textobject>
+</inlinemediaobject>
+example inline image followed by an example block image:</simpara>
+<figure><title>Tiger block image</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Followed by an example table:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>An example table</title>
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> Option          </entry>
+<entry align="left" valign="top"> Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>-a <emphasis>USER GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Add <emphasis>USER</emphasis> to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-R <emphasis>GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Disables access to <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<example>
+<title>An example example</title>
+<simpara>Lorum ipum&#8230;</simpara>
+</example>
+<section id="X1">
+<title>Sub-section with Anchor</title>
+<simpara>Sub-section at level 2.</simpara>
+<section id="_chapter_sub_section">
+<title>Chapter Sub-section</title>
+<simpara>Sub-section at level 3.</simpara>
+<section id="_chapter_sub_section_2">
+<title>Chapter Sub-section</title>
+<simpara>Sub-section at level 4.</simpara>
+<simpara>This is the maximum sub-section depth supported by the distributed
+AsciiDoc configuration.
+<footnote><simpara>A second example footnote.</simpara></footnote></simpara>
+</section>
+</section>
+</section>
+</chapter>
+<chapter id="_the_second_chapter">
+<title>The Second Chapter</title>
+<simpara>An example link to anchor at start of the <link linkend="X1">first sub-section</link>.
+<indexterm>
+  <primary>Second example index entry</primary>
+</indexterm></simpara>
+<simpara>An example link to a bibliography entry <xref linkend="taoup"/>.</simpara>
+</chapter>
+<chapter id="_the_third_chapter">
+<title>The Third Chapter</title>
+<simpara>Book chapters are at level 1 and can contain sub-sections.</simpara>
+</chapter>
+<appendix id="_example_appendix">
+<title>Example Appendix</title>
+<simpara>One or more optional appendixes go here at section level 1.</simpara>
+<section id="_appendix_sub_section">
+<title>Appendix Sub-section</title>
+<simpara>Sub-section body.</simpara>
+</section>
+</appendix>
+<bibliography id="_example_bibliography">
+<title>Example Bibliography</title>
+<simpara>The bibliography list is a style of AsciiDoc bulleted list.</simpara>
+<bibliodiv><title>Books</title>
+<bibliomixed>
+<bibliomisc>
+<anchor id="taoup" xreflabel="[taoup]"/>[taoup] Eric Steven Raymond. <emphasis>The Art of Unix
+  Programming</emphasis>. Addison-Wesley. ISBN 0-13-142901-9.
+</bibliomisc>
+</bibliomixed>
+<bibliomixed>
+<bibliomisc>
+<anchor id="walsh-muellner" xreflabel="[walsh-muellner]"/>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <emphasis>DocBook - The Definitive Guide</emphasis>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+<bibliodiv><title>Articles</title>
+<bibliomixed>
+<bibliomisc>
+<anchor id="abc2003" xreflabel="[abc2003]"/>[abc2003] Gall Anonim. <emphasis>An article</emphasis>, Whatever. 2003.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+</bibliography>
+<glossary id="_example_glossary">
+<title>Example Glossary</title>
+<simpara>Glossaries are optional. Glossaries entries are an example of a style
+of AsciiDoc labeled lists.</simpara>
+<glossentry>
+<glossterm>
+A glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+A second glossary term
+</glossterm>
+<glossdef>
+<simpara>
+  The corresponding (indented) definition.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<colophon id="_example_colophon">
+<title>Example Colophon</title>
+<simpara>Text at the end of a book describing facts about its production.</simpara>
+</colophon>
+<index id="_example_index">
+<title>Example Index</title>
+</index>
+</book>

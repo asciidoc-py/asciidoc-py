@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<title>Filter Tests</title>
+</head>
+<body>
+<h1>Filter Tests</h1>
+<p>
+</p>
+<hr>
+<h2><a name="_toy_filter_example_from_user_guide"></a>Toy filter example from User Guide</h2>
+<table border="0" bgcolor="#e8e8e8" width="100%" cellpadding="4"><tr><td>
+<pre><code><i>''' A multi-line</i>
+<i>    comment.'''</i>
+<strong>def</strong> sub_word(mo):
+<i>    ''' Single line comment.'''</i>
+    word = mo.group('word')   <i># Inline comment</i>
+    <strong>if</strong> word <strong>in</strong> keywords[language]:
+        <strong>return</strong> quote + word + quote
+    <strong>else</strong>:
+        <strong>return</strong> word</code></pre>
+</td></tr></table>
+<hr>
+<h2><a name="_pychart_chart_generations_from_faq"></a>Pychart Chart generations from FAQ</h2>
+<p>No barchart to avoid depending on Pychart for the tests.
+See also: <a href="http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</a></p>
+<div>
+<img src="barchart.png" style="border-width: 0;" alt="barchart.png">
+</div>
+<hr>
+<h2><a name="_graphviz_graphs"></a>Graphviz Graphs</h2>
+<div>
+<img src="graphviz1.png" style="border-width: 0;" alt="Graphviz->AsciiDoc->HTML">
+<p><b>Figure 1. </b>Simple graph</p>
+</div>
+<div>
+<img src="graphviz2.png" style="border-width: 0;" alt="graphviz2.png">
+<p><b>Figure 2. </b>Not so simple graph</p>
+</div>
+<hr>
+<h2><a name="_music_filter"></a>Music filter</h2>
+<div>
+<img src="music1.png" style="border-width: 0;" alt="music1.png">
+<p><b>Figure 3. </b>A tune generated from ABC notation</p>
+</div>
+<p><a href="#X1">Link to following fragment</a>.</p>
+<div>
+<a name="X1"></a>
+<a href="music2.ly">
+<img src="music2.png" style="border-width: 0;" alt="music2.png">
+</a>
+<p><b>Figure 4. </b>A fragment generated from LilyPond source</p>
+</div>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2002-11-25 00:37:42 UTC
+</small></p>
+</body>
+</html>

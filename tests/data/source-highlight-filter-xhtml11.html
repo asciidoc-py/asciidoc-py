@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc test" />
+<title>Source Code Highlight Filter</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Source Code Highlight Filter</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>The AsciiDoc distribution includes a <em>source</em> filter for highlighting
+code syntax.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_docbook_outputs">DocBook Outputs</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>AsciiDoc encloses the source code in a DocBook <em>programlisting</em>
+element and leaves source code highlighting to the DocBook toolchain
+(dblatex has a particularly nice programlisting highlighter). The
+DocBook programlisting element is assigned two attributes:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+The <em>language</em> attribute is set to the AsciiDoc <em>language</em>
+  attribute.
+</p>
+</li>
+<li>
+<p>
+The <em>linenumbering</em> attribute is set to the AsciiDoc <em>src_numbered</em>
+  attribute (<em>numbered</em> or <em>unnumbered</em>).
+</p>
+</li>
+</ol></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_html_outputs">HTML Outputs</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You have the choice of three HTML source code highlighters, your
+selection is determined by the <em>source-highlighter</em> attribute (defaults
+to <em>source-highlight</em>):</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Set the <em>source-highlighter</em> attribute from the <code>asciidoc(1)</code>
+command-line or in the document header (not in the document body,
+because the configuration file conditional macros are processed at
+load time).</td>
+</tr></table>
+</div>
+<div class="sect2">
+<h3 id="_gnu_source_highlight">GNU Source Highlight</h3>
+<div class="paragraph"><p>The default highlighter is the
+<a href="http://www.gnu.org/software/src-highlite/">GNU source-highlight</a> which
+can highlight <em>html4</em>, <em>html5</em> and <em>xhtml11</em> outputs.  The GNU
+source-highlight must be installed and the <em>source-highlight</em> command
+must reside in the shell search <em>PATH</em>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_highlight">Highlight</h3>
+<div class="paragraph"><p>You can use
+<a href="http://www.andre-simon.de/doku/highlight/en/highlight.html">Highlight</a>
+syntax highlighter for <em>xhtml11</em>, <em>html5</em> and <em>html4</em> outputs (set the
+<em>source-highlighter</em> attribute to <em>highlighter</em>).</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The <em>highlight</em> command must reside in the shell search <em>PATH</em>.
+</p>
+</li>
+<li>
+<p>
+To make Highlighter your default highlighter put the following line
+  your <code>~/.asciidoc/asciidoc.conf</code> file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>source-highlighter=highlight</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+The AsciiDoc <em>encoding</em> attribute is passed to Highlighter using the
+  <code>--encoding</code> command-line option.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_pygments">Pygments</h3>
+<div class="paragraph"><p>The <a href="http://pygments.org/">Pygments</a> syntax highlighter can be used for
+<em>xhtml11</em> and <em>html5</em> outputs (set the <em>source-highlighter</em> attribute
+to <em>pygments</em>).</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The <em>pygmentize</em> command must reside in the shell search <em>PATH</em>.
+</p>
+</li>
+<li>
+<p>
+You can customize Pygments CSS styles by editing
+  <code>./stylesheets/pygments.css</code>. The <code>pygments.css</code> CSS file was
+  generated with:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>from pygments.formatters import HtmlFormatter
+print HtmlFormatter().get_style_defs('.highlight')</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+To make Pygments your default highlighter put the following line
+  your <code>~/.asciidoc/asciidoc.conf</code> file:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>source-highlighter=pygments</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+The AsciiDoc <em>encoding</em> attribute is passed to Pygments using the
+  <code>-O</code> command-line option.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_block_attributes">Block attributes</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following attributes can be included in source code block
+attribute lists.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>style</em> and <em>language</em> are mandatory.
+</p>
+</li>
+<li>
+<p>
+<em>style</em>, <em>language</em> and <em>src_numbered</em> are the first three
+  positional attributes in that order.
+</p>
+</li>
+<li>
+<p>
+The <em>args</em> attribute allows the inclusion of arbitrary (highlighter
+  dependent) command options.
+</p>
+</li>
+</ul></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+style
+</dt>
+<dd>
+<p>
+  Set to <em>source</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+language
+</dt>
+<dd>
+<p>
+  The source code language name.
+</p>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">The language names vary between highlighters&#8201;&#8212;&#8201;consult the
+selected highlighter manual.</td>
+</tr></table>
+</div>
+</dd>
+<dt class="hdlist1">
+src_numbered
+</dt>
+<dd>
+<p>
+  Set to <em>numbered</em> to include line numbers.
+</p>
+</dd>
+<dt class="hdlist1">
+src_tab
+</dt>
+<dd>
+<p>
+  Set tab size (GNU source-highlight only).
+</p>
+</dd>
+<dt class="hdlist1">
+args
+</dt>
+<dd>
+<p>
+  Include this attribute value in the highlighter command-line (HTML
+  outputs) or in the <code>programlisting</code> element (DocBook).
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing">Testing</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Test the filter by converting the test file to HTML with AsciiDoc:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>$ asciidoc -v ./filters/source/source-highlight-filter-test.txt
+$ firefox ./filters/source/source-highlight-filter-test.html &amp;</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_source_code_paragraphs">Source code paragraphs</h3>
+<div class="paragraph"><p>The <code>source</code> paragraph style will highlight a paragraph of source
+code. These three code paragraphs:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>[source,python]
+if n &lt; 0: print 'Hello World!'
+
+:language: python
+
+[source]
+if n &lt; 0: print 'Hello World!'
+
+[source,ruby,numbered]
+[true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+    puts "#{a.inspect} =&gt; #{b.inspect}"</code></pre>
+</div></div>
+<div class="paragraph"><p>Render this highlighted source code:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">if</span></span> n <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span><span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">print</span></span> <span style="color: #FF0000">'Hello World!'</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">if</span></span> n <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span><span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">print</span></span> <span style="color: #FF0000">'Hello World!'</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #000000">    1:</span> <span style="color: #990000">[</span><span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">].</span>cycle<span style="color: #990000">([</span><span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">])</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span> <span style="color: #990000">|</span>a<span style="color: #990000">,</span> b<span style="color: #990000">|</span>
+<span style="color: #000000">    2:</span>     puts <span style="color: #FF0000">"#{a.inspect} =&gt; #{b.inspect}"</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_unnumbered_source_code_listing">Unnumbered source code listing</h3>
+<div class="paragraph"><p>This source-highlight filtered block:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code> [source,python]
+ ---------------------------------------------------------------------
+ ''' A multi-line
+     comment.'''
+ def sub_word(mo):
+     ''' Single line comment.'''
+     word = mo.group('word')   # Inline comment
+     if word in keywords[language]:
+         return quote + word + quote
+     else:
+         return word
+ ---------------------------------------------------------------------</code></pre>
+</div></div>
+<div class="paragraph"><p>Renders this highlighted source code:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">''' A multi-line</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    comment.'''</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">def</span></span> <span style="font-weight: bold"><span style="color: #000000">sub_word</span></span><span style="color: #990000">(</span>mo<span style="color: #990000">):</span>
+<span style="font-style: italic"><span style="color: #9A1900">    ''' Single line comment.'''</span></span>
+    word <span style="color: #990000">=</span> mo<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">group</span></span><span style="color: #990000">(</span><span style="color: #FF0000">'word'</span><span style="color: #990000">)</span>     <span style="font-style: italic"><span style="color: #9A1900"># Inline comment</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> word <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> keywords<span style="color: #990000">[</span>language<span style="color: #990000">]:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> quote <span style="color: #990000">+</span> word <span style="color: #990000">+</span> quote
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span><span style="color: #990000">:</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> word</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_numbered_source_code_listing_with_callouts">Numbered source code listing with callouts</h3>
+<div class="paragraph"><p>This source-highlight filtered block:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code> [source,ruby,numbered]
+ ---------------------------------------------------------------------
+ #
+ # Useful Ruby base class extensions.
+ #
+
+ class Array
+
+   # Execute a block passing it corresponding items in
+   # +self+ and +other_array+.
+   # If self has less items than other_array it is repeated.
+
+   def cycle(other_array)  # :yields: item, other_item
+     other_array.each_with_index do |item, index|
+       yield(self[index % self.length], item)
+     end
+   end
+
+ end
+
+ if $0 == __FILE__                                 # &lt;1&gt;
+   # Array#cycle test
+   # true =&gt; 0
+   # false =&gt; 1
+   # true =&gt; 2
+   # false =&gt; 3
+   # true =&gt; 4
+   puts 'Array#cycle test'                         # &lt;2&gt;
+   [true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+     puts "#{a.inspect} =&gt; #{b.inspect}"
+   end
+ end
+ ---------------------------------------------------------------------
+
+ &lt;1&gt; First callout.
+ &lt;2&gt; Second callout.</code></pre>
+</div></div>
+<div class="paragraph"><p>Renders this highlighted source code:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #000000">    1:</span> <span style="font-style: italic"><span style="color: #9A1900">#</span></span>
+<span style="color: #000000">    2:</span> <span style="font-style: italic"><span style="color: #9A1900"># Useful Ruby base class extensions.</span></span>
+<span style="color: #000000">    3:</span> <span style="font-style: italic"><span style="color: #9A1900">#</span></span>
+<span style="color: #000000">    4:</span>
+<span style="color: #000000">    5:</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Array
+<span style="color: #000000">    6:</span>
+<span style="color: #000000">    7:</span>   <span style="font-style: italic"><span style="color: #9A1900"># Execute a block passing it corresponding items in</span></span>
+<span style="color: #000000">    8:</span>   <span style="font-style: italic"><span style="color: #9A1900"># +self+ and +other_array+.</span></span>
+<span style="color: #000000">    9:</span>   <span style="font-style: italic"><span style="color: #9A1900"># If self has less items than other_array it is repeated.</span></span>
+<span style="color: #000000">   10:</span>
+<span style="color: #000000">   11:</span>   <span style="font-weight: bold"><span style="color: #0000FF">def</span></span> cycle<span style="color: #990000">(</span>other_array<span style="color: #990000">)</span>  <span style="font-style: italic"><span style="color: #9A1900"># :yields: item, other_item</span></span>
+<span style="color: #000000">   12:</span>     other_array<span style="color: #990000">.</span>each_with_index <span style="font-weight: bold"><span style="color: #0000FF">do</span></span> <span style="color: #990000">|</span>item<span style="color: #990000">,</span> index<span style="color: #990000">|</span>
+<span style="color: #000000">   13:</span>       <span style="font-weight: bold"><span style="color: #0000FF">yield</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">self</span></span><span style="color: #990000">[</span>index <span style="color: #990000">%</span> <span style="font-weight: bold"><span style="color: #0000FF">self</span></span><span style="color: #990000">.</span>length<span style="color: #990000">],</span> item<span style="color: #990000">)</span>
+<span style="color: #000000">   14:</span>     <span style="font-weight: bold"><span style="color: #0000FF">end</span></span>
+<span style="color: #000000">   15:</span>   <span style="font-weight: bold"><span style="color: #0000FF">end</span></span>
+<span style="color: #000000">   16:</span>
+<span style="color: #000000">   17:</span> <span style="font-weight: bold"><span style="color: #0000FF">end</span></span>
+<span style="color: #000000">   18:</span>
+<span style="color: #000000">   19:</span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #009900">$0</span> <span style="color: #990000">==</span> <span style="font-weight: bold"><span style="color: #0000FF">__FILE__</span></span>                                 <span style="font-style: italic"><span style="color: #9A1900"># <b>&lt;1&gt;</b></span></span>
+<span style="color: #000000">   20:</span>   <span style="font-style: italic"><span style="color: #9A1900"># Array#cycle test</span></span>
+<span style="color: #000000">   21:</span>   <span style="font-style: italic"><span style="color: #9A1900"># true =&gt; 0</span></span>
+<span style="color: #000000">   22:</span>   <span style="font-style: italic"><span style="color: #9A1900"># false =&gt; 1</span></span>
+<span style="color: #000000">   23:</span>   <span style="font-style: italic"><span style="color: #9A1900"># true =&gt; 2</span></span>
+<span style="color: #000000">   24:</span>   <span style="font-style: italic"><span style="color: #9A1900"># false =&gt; 3</span></span>
+<span style="color: #000000">   25:</span>   <span style="font-style: italic"><span style="color: #9A1900"># true =&gt; 4</span></span>
+<span style="color: #000000">   26:</span>   puts <span style="color: #FF0000">'Array#cycle test'</span>                         <span style="font-style: italic"><span style="color: #9A1900"># <b>&lt;2&gt;</b></span></span>
+<span style="color: #000000">   27:</span>   <span style="color: #990000">[</span><span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">].</span>cycle<span style="color: #990000">([</span><span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">])</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span> <span style="color: #990000">|</span>a<span style="color: #990000">,</span> b<span style="color: #990000">|</span>
+<span style="color: #000000">   28:</span>     puts <span style="color: #FF0000">"#{a.inspect} =&gt; #{b.inspect}"</span>
+<span style="color: #000000">   29:</span>   <span style="font-weight: bold"><span style="color: #0000FF">end</span></span>
+<span style="color: #000000">   30:</span> <span style="font-weight: bold"><span style="color: #0000FF">end</span></span></tt></pre></div></div>
+<div class="colist arabic"><ol>
+<li>
+<p>
+First callout.
+</p>
+</li>
+<li>
+<p>
+Second callout.
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="ulist"><ul>
+<li>
+<p>
+If the source <em>language</em> attribute has been set (using an
+  <em>AttributeEntry</em> or from the command-line) you don&#8217;t have to specify
+  it in each source code block.
+</p>
+</li>
+<li>
+<p>
+You should place callout markers inside source code comments to
+  ensure they are not misinterpreted and mangled by the highlighter.
+</p>
+</li>
+</ul></div>
+</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2002-11-25 00:37:42 UTC
+</div>
+</div>
+</body>
+</html>

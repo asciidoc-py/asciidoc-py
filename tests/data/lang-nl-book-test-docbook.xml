@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<book lang="nl">
+<bookinfo>
+    <title>Languages Test</title>
+    <date>2003-12-21</date>
+<revhistory><revision><revnumber>v1.0</revnumber><date>2003-12-21</date></revision></revhistory>
+</bookinfo>
+<dedication id="_opdracht">
+<title>Opdracht</title>
+<simpara>Bijzonder <emphasis>dedication</emphasis> sectie.</simpara>
+</dedication>
+<preface id="_voorwoord">
+<title>Voorwoord</title>
+<simpara>Bijzonder <emphasis>preface</emphasis> sectie.</simpara>
+</preface>
+<colophon id="_colofon">
+<title>Colofon</title>
+<simpara>Bijzonder <emphasis>colophon</emphasis> sectie.</simpara>
+</colophon>
+<chapter id="_het_eerste_hoofdstuk">
+<title>Het Eerste Hoofdstuk</title>
+<section id="_vermaningen">
+<title>Vermaningen</title>
+<simpara>Vertaal ze niet in the broncode&#8201;&#8212;&#8201;ze worden vanzelf vertaald in het
+output bestand</simpara>
+<note><simpara>Lorum ipsum.</simpara></note>
+<tip><simpara>Lorum ipsum.</simpara></tip>
+<warning><simpara>Lorum ipsum.</simpara></warning>
+<caution><simpara>Lorum ipsum.</simpara></caution>
+<important><simpara>Lorum ipsum.</simpara></important>
+<figure><title>Tiger</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>Tiger image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Gevolgd door een voorbeeld tabel:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Table</title>
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> Optie           </entry>
+<entry align="left" valign="top"> Beschrijving</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>-a <emphasis>USER GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Voeg <emphasis>USER</emphasis> toe aan <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-R <emphasis>GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>Schakel toegang uit tot <emphasis>GROUP</emphasis>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>En nu iets totaal anders: <indexterm><primary>apen</primary></indexterm>apen, leeuwen en tijgers.</simpara>
+</section>
+</chapter>
+<appendix id="_voorbeeld_bijlage">
+<title>Voorbeeld Bijlage</title>
+<simpara>Bijzonder <emphasis>appendix</emphasis> sectie.</simpara>
+</appendix>
+<bibliography id="_literatuurlijst">
+<title>Literatuurlijst</title>
+<simpara>Bijzonder <emphasis>bibliography</emphasis> sectie.</simpara>
+<bibliodiv>
+<bibliomixed>
+<bibliomisc>
+<anchor id="taoup" xreflabel="[taoup]"/>[taoup] Eric Steven Raymond. <emphasis>The Art of Unix
+  Programming</emphasis>. Addison-Wesley. ISBN 0-13-142901-9.
+</bibliomisc>
+</bibliomixed>
+<bibliomixed>
+<bibliomisc>
+<anchor id="walsh-muellner" xreflabel="[walsh-muellner]"/>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <emphasis>DocBook - The Definitive Guide</emphasis>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+</bibliography>
+<glossary id="_woordenlijst">
+<title>Woordenlijst</title>
+<simpara>Bijzonder <emphasis>glossary</emphasis> sectie.</simpara>
+<glossentry>
+<glossterm>
+Een woordenlijst term
+</glossterm>
+<glossdef>
+<simpara>
+  De bijhorende (ingesprongen) definitie.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+Een tweede term
+</glossterm>
+<glossdef>
+<simpara>
+  De bijhorende (ingesprongen) definitie.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<index id="_register">
+<title>Register</title>
+</index>
+</book>

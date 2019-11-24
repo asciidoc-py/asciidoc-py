@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<title>AsciiDoc Old Tables</title>
+</head>
+<body>
+<h1>AsciiDoc Old Tables</h1>
+<p>
+</p>
+<a name="preamble"></a>
+<p>Examples of the AsciiDoc <em>old tables</em> syntax. This syntax was used in
+AsciiDoc versions up to 8.2.7 and has since been deprecated in favor
+of the <em>new tables</em> syntax.</p>
+<p>Simple table:</p>
+<table rules="none"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<tbody>
+  <tr>
+    <td align="left" width="45" valign="top">
+    1
+    </td>
+    <td align="left" width="45" valign="top">
+    2
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="45" valign="top">
+    3
+    </td>
+    <td align="left" width="45" valign="top">
+    4
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="45" valign="top">
+    5
+    </td>
+    <td align="left" width="45" valign="top">
+    6
+    </td>
+  </tr>
+</tbody>
+</table>
+<p>Table with title, header and footer:</p>
+<p><b>Table</b>An example table</p>
+<table rules="all"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<thead>
+  <tr>
+    <th align="left" width="137">
+    Column 1
+    </th>
+    <th align="center" width="171">
+    Column 2
+    </th>
+  </tr>
+</thead>
+<tfoot>
+  <tr>
+    <td align="left" width="137"><strong>
+    6
+    </strong></td>
+    <td align="center" width="171"><strong>
+    Three items
+    </strong></td>
+  </tr>
+</tfoot>
+<tbody>
+  <tr>
+    <td align="left" width="137" valign="top">
+    1
+    </td>
+    <td align="center" width="171" valign="top">
+    Item 1
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="137" valign="top">
+    2
+    </td>
+    <td align="center" width="171" valign="top">
+    Item 2
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="137" valign="top">
+    3
+    </td>
+    <td align="center" width="171" valign="top">
+    Item 3
+    </td>
+  </tr>
+</tbody>
+</table>
+<p>Four columns totaling 15% of the <em>pagewidth</em>, CSV data:</p>
+<table rules="none"
+frame="border"
+cellspacing="0" cellpadding="4">
+<tbody>
+  <tr>
+    <td align="left" width="30" valign="top">
+    1
+    </td>
+    <td align="left" width="30" valign="top">
+    2
+    </td>
+    <td align="left" width="30" valign="top">
+    3
+    </td>
+    <td align="left" width="30" valign="top">
+    4
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="30" valign="top">
+    a
+    </td>
+    <td align="left" width="30" valign="top">
+    b
+    </td>
+    <td align="left" width="30" valign="top">
+    c
+    </td>
+    <td align="left" width="30" valign="top">
+    d
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="30" valign="top">
+    A
+    </td>
+    <td align="left" width="30" valign="top">
+    B
+    </td>
+    <td align="left" width="30" valign="top">
+    C
+    </td>
+    <td align="left" width="30" valign="top">
+    D
+    </td>
+  </tr>
+</tbody>
+</table>
+<p>A table with a numeric ruler and externally sourced CSV data:</p>
+<table rules="all"
+frame="border"
+cellspacing="0" cellpadding="4">
+<thead>
+  <tr>
+    <th align="left" width="120">
+    ID
+    </th>
+    <th align="left" width="160">
+    Customer Name
+    </th>
+    <th align="left" width="200">
+    Contact Name
+    </th>
+    <th align="left" width="160">
+    Customer Address
+    </th>
+    <th align="left" width="160">
+    Phone
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td align="left" width="120" valign="top">
+    AROUT
+    </td>
+    <td align="left" width="160" valign="top">
+    Around the Horn
+    </td>
+    <td align="left" width="200" valign="top">
+    Thomas Hardy
+    </td>
+    <td align="left" width="160" valign="top">
+    120 Hanover Sq.
+    <br>
+    London
+    </td>
+    <td align="left" width="160" valign="top">
+    (171) 555-7788
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BERGS
+    </td>
+    <td align="left" width="160" valign="top">
+    Berglunds snabbkop
+    </td>
+    <td align="left" width="200" valign="top">
+    Christina Berglund
+    </td>
+    <td align="left" width="160" valign="top">
+    Berguvsvagen  8
+    <br>
+    Lulea
+    </td>
+    <td align="left" width="160" valign="top">
+    0921-12 34 65
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BLAUS
+    </td>
+    <td align="left" width="160" valign="top">
+    Blauer See Delikatessen
+    </td>
+    <td align="left" width="200" valign="top">
+    Hanna Moos
+    </td>
+    <td align="left" width="160" valign="top">
+    Forsterstr. 57
+    <br>
+    Mannheim
+    </td>
+    <td align="left" width="160" valign="top">
+    0621-08460
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BLONP
+    </td>
+    <td align="left" width="160" valign="top">
+    Blondel pere et fils
+    </td>
+    <td align="left" width="200" valign="top">
+    Frederique Citeaux
+    </td>
+    <td align="left" width="160" valign="top">
+    24, place Kleber
+    <br>
+    Strasbourg
+    </td>
+    <td align="left" width="160" valign="top">
+    88.60.15.31
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BOLID
+    </td>
+    <td align="left" width="160" valign="top">
+    Bolido Comidas preparadas
+    </td>
+    <td align="left" width="200" valign="top">
+    Martin Sommer
+    </td>
+    <td align="left" width="160" valign="top">
+    C/ Araquil, 67
+    <br>
+    Madrid
+    </td>
+    <td align="left" width="160" valign="top">
+    (91) 555 22 82
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BONAP
+    </td>
+    <td align="left" width="160" valign="top">
+    Bon app'
+    </td>
+    <td align="left" width="200" valign="top">
+    Laurence Lebihan
+    </td>
+    <td align="left" width="160" valign="top">
+    12, rue des Bouchers
+    <br>
+    Marseille
+    </td>
+    <td align="left" width="160" valign="top">
+    91.24.45.40
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BOTTM
+    </td>
+    <td align="left" width="160" valign="top">
+    Bottom-Dollar Markets
+    </td>
+    <td align="left" width="200" valign="top">
+    Elizabeth Lincoln
+    </td>
+    <td align="left" width="160" valign="top">
+    23 Tsawassen Blvd.
+    <br>
+    Tsawassen
+    </td>
+    <td align="left" width="160" valign="top">
+    (604) 555-4729
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    BSBEV
+    </td>
+    <td align="left" width="160" valign="top">
+    B&#8217;s Beverages
+    </td>
+    <td align="left" width="200" valign="top">
+    Victoria Ashworth
+    </td>
+    <td align="left" width="160" valign="top">
+    Fauntleroy Circus
+    <br>
+    London
+    </td>
+    <td align="left" width="160" valign="top">
+    (171) 555-1212
+    </td>
+  </tr>
+  <tr>
+    <td align="left" width="120" valign="top">
+    CACTU
+    </td>
+    <td align="left" width="160" valign="top">
+    Cactus Comidas para llevar
+    </td>
+    <td align="left" width="200" valign="top">
+    Patricio Simpson
+    </td>
+    <td align="left" width="160" valign="top">
+    Cerrito 333
+    <br>
+    Buenos Aires
+    </td>
+    <td align="left" width="160" valign="top">
+    (1) 135-5555
+    </td>
+  </tr>
+</tbody>
+</table>
+<p></p>
+<p></p>
+<hr><p><small>
+Last updated
+ 2002-11-25 00:37:42 UTC
+</small></p>
+</body>
+</html>

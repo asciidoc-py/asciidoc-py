@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>UTF-8 BOM Test</title>
+</info>
+<simpara>Include file with UTF-8 BOM:</simpara>
+<section xml:id="_utf_8_bom_test">
+<title>UTF-8 BOM Test</title>
+<simpara>Include file with UTF-8 BOM:</simpara>
+<simpara>include::utf8-bom-test.txt[depth=1]</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+<simpara>Lorum ipsum&#8230;</simpara>
+</section>
+</article>

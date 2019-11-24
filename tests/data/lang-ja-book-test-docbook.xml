@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<book lang="ja">
+<bookinfo>
+    <title>Languages Test</title>
+    <date>2003-12-21</date>
+<revhistory><revision><revnumber>v1.0</revnumber><date>2003-12-21</date></revision></revhistory>
+</bookinfo>
+<dedication id="_献辞">
+<title>献辞</title>
+<simpara>献辞セクション</simpara>
+</dedication>
+<preface id="_前書">
+<title>前書</title>
+<simpara>前書セクション</simpara>
+</preface>
+<colophon id="_奥付">
+<title>奥付</title>
+<simpara>奥付セクション</simpara>
+</colophon>
+<chapter id="_第一セクション">
+<title>第一セクション</title>
+<section id="_警告">
+<title>警告</title>
+<simpara>以下は処理系が翻訳するのでこのソースでは翻訳しない。</simpara>
+<note><simpara>Lorum ipsum.</simpara></note>
+<tip><simpara>Lorum ipsum.</simpara></tip>
+<warning><simpara>Lorum ipsum.</simpara></warning>
+<caution><simpara>Lorum ipsum.</simpara></caution>
+<important><simpara>Lorum ipsum.</simpara></important>
+<figure><title>Tiger</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../../images/tiger.png"/>
+  </imageobject>
+  <textobject><phrase>虎の絵</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>続いて表の例。</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Table</title>
+<?dbhtml table-width="60%"?>
+<?dbfo table-width="60%"?>
+<?dblatex table-width="60%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="128*"/>
+<colspec colname="col_2" colwidth="128*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> オプション      </entry>
+<entry align="left" valign="top"> 説明</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>-a <emphasis>USER GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis>USER</emphasis> を <emphasis>GROUP</emphasis> に追加する</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>-R <emphasis>GROUP</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis>GROUP</emphasis> へのアクセスを禁止する</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>そしてまったく異なるものの例: <indexterm><primary>猿</primary></indexterm>猿、ライオン、虎。</simpara>
+</section>
+</chapter>
+<appendix id="_付録の例">
+<title>付録の例</title>
+<simpara>付録セクション</simpara>
+</appendix>
+<bibliography id="_参考文献">
+<title>参考文献</title>
+<simpara>参考文献セクション</simpara>
+<bibliodiv>
+<bibliomixed>
+<bibliomisc>
+<anchor id="taoup" xreflabel="[taoup]"/>[taoup] Eric Steven Raymond. <emphasis>The Art of Unix
+  Programming</emphasis>. Addison-Wesley. ISBN 0-13-142901-9.
+</bibliomisc>
+</bibliomixed>
+<bibliomixed>
+<bibliomisc>
+<anchor id="walsh-muellner" xreflabel="[walsh-muellner]"/>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <emphasis>DocBook - The Definitive Guide</emphasis>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</bibliomisc>
+</bibliomixed>
+</bibliodiv>
+</bibliography>
+<glossary id="_用語集">
+<title>用語集</title>
+<simpara>用語集セクション</simpara>
+<glossentry>
+<glossterm>
+用語
+</glossterm>
+<glossdef>
+<simpara>
+  （インデントされた）用語の定義
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+別の用語
+</glossterm>
+<glossdef>
+<simpara>
+  （インデントされた）用語の定義
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<index id="_索引">
+<title>索引</title>
+</index>
+</book>

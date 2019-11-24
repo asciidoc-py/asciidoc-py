@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>AsciiDoc Old Tables</title>
+</articleinfo>
+<simpara>Examples of the AsciiDoc <emphasis>old tables</emphasis> syntax. This syntax was used in
+AsciiDoc versions up to 8.2.7 and has since been deprecated in favor
+of the <emphasis>new tables</emphasis> syntax.</simpara>
+<simpara>Simple table:</simpara>
+<informaltable pgwide="0"
+frame="topbot"
+rowsep="0" colsep="0"
+>
+<tgroup cols="2">
+<colspec colwidth="24*" align="left"/>
+<colspec colwidth="24*" align="left"/>
+<tbody>
+  <row>
+    <entry>
+    1
+    </entry>
+    <entry>
+    2
+    </entry>
+  </row>
+  <row>
+    <entry>
+    3
+    </entry>
+    <entry>
+    4
+    </entry>
+  </row>
+  <row>
+    <entry>
+    5
+    </entry>
+    <entry>
+    6
+    </entry>
+  </row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>Table with title, header and footer:</simpara>
+<table pgwide="0"
+frame="topbot"
+rowsep="1" colsep="1"
+>
+<title>An example table</title>
+<tgroup cols="2">
+<colspec colwidth="72*" align="left"/>
+<colspec colwidth="91*" align="center"/>
+<thead>
+  <row>
+    <entry>
+    Column 1
+    </entry>
+    <entry>
+    Column 2
+    </entry>
+  </row>
+</thead>
+<tfoot>
+  <row>
+    <entry>
+    6
+    </entry>
+    <entry>
+    Three items
+    </entry>
+  </row>
+</tfoot>
+<tbody>
+  <row>
+    <entry>
+    1
+    </entry>
+    <entry>
+    Item 1
+    </entry>
+  </row>
+  <row>
+    <entry>
+    2
+    </entry>
+    <entry>
+    Item 2
+    </entry>
+  </row>
+  <row>
+    <entry>
+    3
+    </entry>
+    <entry>
+    Item 3
+    </entry>
+  </row>
+</tbody>
+</tgroup>
+</table>
+<simpara>Four columns totaling 15% of the <emphasis>pagewidth</emphasis>, CSV data:</simpara>
+<informaltable pgwide="0"
+frame="all"
+rowsep="0" colsep="0"
+>
+<tgroup cols="4">
+<colspec colwidth="15*" align="left"/>
+<colspec colwidth="15*" align="left"/>
+<colspec colwidth="15*" align="left"/>
+<colspec colwidth="15*" align="left"/>
+<tbody>
+  <row>
+    <entry>
+    1
+    </entry>
+    <entry>
+    2
+    </entry>
+    <entry>
+    3
+    </entry>
+    <entry>
+    4
+    </entry>
+  </row>
+  <row>
+    <entry>
+    a
+    </entry>
+    <entry>
+    b
+    </entry>
+    <entry>
+    c
+    </entry>
+    <entry>
+    d
+    </entry>
+  </row>
+  <row>
+    <entry>
+    A
+    </entry>
+    <entry>
+    B
+    </entry>
+    <entry>
+    C
+    </entry>
+    <entry>
+    D
+    </entry>
+  </row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>A table with a numeric ruler and externally sourced CSV data:</simpara>
+<informaltable pgwide="0"
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="5">
+<colspec colwidth="63*" align="left"/>
+<colspec colwidth="85*" align="left"/>
+<colspec colwidth="106*" align="left"/>
+<colspec colwidth="85*" align="left"/>
+<colspec colwidth="85*" align="left"/>
+<thead>
+  <row>
+    <entry>
+    ID
+    </entry>
+    <entry>
+    Customer Name
+    </entry>
+    <entry>
+    Contact Name
+    </entry>
+    <entry>
+    Customer Address
+    </entry>
+    <entry>
+    Phone
+    </entry>
+  </row>
+</thead>
+<tbody>
+  <row>
+    <entry>
+    AROUT
+    </entry>
+    <entry>
+    Around the Horn
+    </entry>
+    <entry>
+    Thomas Hardy
+    </entry>
+    <entry>
+    120 Hanover Sq.
+    <?asciidoc-br?>
+    London
+    </entry>
+    <entry>
+    (171) 555-7788
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BERGS
+    </entry>
+    <entry>
+    Berglunds snabbkop
+    </entry>
+    <entry>
+    Christina Berglund
+    </entry>
+    <entry>
+    Berguvsvagen  8
+    <?asciidoc-br?>
+    Lulea
+    </entry>
+    <entry>
+    0921-12 34 65
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BLAUS
+    </entry>
+    <entry>
+    Blauer See Delikatessen
+    </entry>
+    <entry>
+    Hanna Moos
+    </entry>
+    <entry>
+    Forsterstr. 57
+    <?asciidoc-br?>
+    Mannheim
+    </entry>
+    <entry>
+    0621-08460
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BLONP
+    </entry>
+    <entry>
+    Blondel pere et fils
+    </entry>
+    <entry>
+    Frederique Citeaux
+    </entry>
+    <entry>
+    24, place Kleber
+    <?asciidoc-br?>
+    Strasbourg
+    </entry>
+    <entry>
+    88.60.15.31
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BOLID
+    </entry>
+    <entry>
+    Bolido Comidas preparadas
+    </entry>
+    <entry>
+    Martin Sommer
+    </entry>
+    <entry>
+    C/ Araquil, 67
+    <?asciidoc-br?>
+    Madrid
+    </entry>
+    <entry>
+    (91) 555 22 82
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BONAP
+    </entry>
+    <entry>
+    Bon app'
+    </entry>
+    <entry>
+    Laurence Lebihan
+    </entry>
+    <entry>
+    12, rue des Bouchers
+    <?asciidoc-br?>
+    Marseille
+    </entry>
+    <entry>
+    91.24.45.40
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BOTTM
+    </entry>
+    <entry>
+    Bottom-Dollar Markets
+    </entry>
+    <entry>
+    Elizabeth Lincoln
+    </entry>
+    <entry>
+    23 Tsawassen Blvd.
+    <?asciidoc-br?>
+    Tsawassen
+    </entry>
+    <entry>
+    (604) 555-4729
+    </entry>
+  </row>
+  <row>
+    <entry>
+    BSBEV
+    </entry>
+    <entry>
+    B&#8217;s Beverages
+    </entry>
+    <entry>
+    Victoria Ashworth
+    </entry>
+    <entry>
+    Fauntleroy Circus
+    <?asciidoc-br?>
+    London
+    </entry>
+    <entry>
+    (171) 555-1212
+    </entry>
+  </row>
+  <row>
+    <entry>
+    CACTU
+    </entry>
+    <entry>
+    Cactus Comidas para llevar
+    </entry>
+    <entry>
+    Patricio Simpson
+    </entry>
+    <entry>
+    Cerrito 333
+    <?asciidoc-br?>
+    Buenos Aires
+    </entry>
+    <entry>
+    (1) 135-5555
+    </entry>
+  </row>
+</tbody>
+</tgroup>
+</informaltable>
+</article>

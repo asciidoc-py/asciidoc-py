@@ -152,6 +152,11 @@ def sub_word(mo):
         return word
 ---------------------------------------------------------------------
 
+////
+The music generation block is ignored for testing as it generates a PNG
+that is unique to the combination of lilypond and libpng used, which is
+easily different from environment to environment
+
 [music]
 .Music
 ---------------------------------------------------------------------
@@ -165,3 +170,4 @@ def sub_word(mo):
   c2 e4 g2. f4 e d c2 r4
 }
 ---------------------------------------------------------------------
+////

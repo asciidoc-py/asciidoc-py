@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry xml:lang="ja">
+<info>
+    <title>ASCIIDOC(1)</title>
+</info>
+<refmeta>
+<refentrytitle>asciidoc</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">&#160;</refmiscinfo>
+<refmiscinfo class="manual">&#160;</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>asciidoc</refname>
+    <refpurpose>AsciiDoc テキストファイルを HTML や DocBook に変換する</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_書式">
+<simpara><emphasis role="strong">asciidoc</emphasis> [<emphasis>OPTIONS</emphasis>] <emphasis>FILE</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_説明">
+<title>説明</title>
+<simpara>asciidoc(1) コマンドは AsciiDoc テキストファイル <emphasis>FILE</emphasis> を DocBook
+や HTML に変換する。 <emphasis>FILE</emphasis> が <emphasis>-</emphasis> ならば標準入力を使用する。</simpara>
+<simpara>&#8230;</simpara>
+</refsect1>
+</refentry>

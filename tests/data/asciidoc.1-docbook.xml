@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>ASCIIDOC(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>asciidoc</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">&#160;</refmiscinfo>
+<refmiscinfo class="manual">&#160;</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>asciidoc</refname>
+    <refpurpose>converts an AsciiDoc text file to HTML or DocBook</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">asciidoc</emphasis> [<emphasis>OPTIONS</emphasis>] <emphasis>FILE</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>The asciidoc(1) command translates the AsciiDoc text file <emphasis>FILE</emphasis> to
+DocBook or HTML.  If <emphasis>FILE</emphasis> is <emphasis>-</emphasis> then the standard input is used.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-a, --attribute</emphasis>=<emphasis>ATTRIBUTE</emphasis>
+</term>
+<listitem>
+<simpara>
+    Define or delete document attribute. <emphasis>ATTRIBUTE</emphasis> is formatted like
+    <emphasis>NAME=VALUE</emphasis>. Command-line attributes take precedence over
+    document and configuration file attributes.  Alternate acceptable
+    forms are <emphasis>NAME</emphasis> (the <emphasis>VALUE</emphasis> defaults to an empty string);
+    <emphasis>NAME!</emphasis> (delete the <emphasis>NAME</emphasis> attribute); <emphasis>NAME=VALUE@</emphasis> (do not override
+    document or configuration file attributes).  Values containing
+    spaces should be enclosed in double-quote characters. This option
+    may be specified more than once.  A special attribute named
+    <emphasis>trace</emphasis> controls the output of diagnostic information.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-b, --backend</emphasis>=<emphasis>BACKEND</emphasis>
+</term>
+<listitem>
+<simpara>
+    Backend output file format: <emphasis>docbook45</emphasis>, <emphasis>docbook5</emphasis>, <emphasis>xhtml11</emphasis>, <emphasis>html4</emphasis>,
+    <emphasis>html5</emphasis>, <emphasis>slidy</emphasis>, <emphasis>wordpress</emphasis> or <emphasis>latex</emphasis> (the <emphasis>latex</emphasis> backend is
+    experimental).  You can also use the backend alias names <emphasis>html</emphasis>
+    (aliased to <emphasis>xhtml11</emphasis>) or <emphasis>docbook</emphasis> (aliased to <emphasis>docbook45</emphasis>).
+    Defaults to <emphasis>html</emphasis>.  The <emphasis role="strong">--backend</emphasis> option is also used to manage
+    backend plugins (see <link linkend="X1"><emphasis role="strong">PLUGIN COMMANDS</emphasis></link>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f, --conf-file</emphasis>=<emphasis>CONF_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+    Use configuration file <emphasis>CONF_FILE</emphasis>.Configuration files processed
+    in command-line order (after implicit configuration files).  This
+    option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--doctest</emphasis>
+</term>
+<listitem>
+<simpara>
+    Run Python doctests in <emphasis>asciidoc</emphasis> module.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-d, --doctype</emphasis>=<emphasis>DOCTYPE</emphasis>
+</term>
+<listitem>
+<simpara>
+    Document type: <emphasis>article</emphasis>, <emphasis>manpage</emphasis> or <emphasis>book</emphasis>. The <emphasis>book</emphasis> document
+    type is only supported by the <emphasis>docbook</emphasis> backends.  Default document
+    type is <emphasis>article</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c, --dump-conf</emphasis>
+</term>
+<listitem>
+<simpara>
+    Dump configuration to stdout.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--filter</emphasis>=<emphasis>FILTER</emphasis>
+</term>
+<listitem>
+<simpara>
+    Specify the name of a filter to be loaded (used to load filters
+    that are not auto-loaded).  This option may be specified more than
+    once. The <emphasis role="strong">--filter</emphasis> option is also used to manage filter plugins
+    (see <link linkend="X1"><emphasis role="strong">PLUGIN COMMANDS</emphasis></link>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-h, --help</emphasis> [<emphasis>TOPIC</emphasis>]
+</term>
+<listitem>
+<simpara>
+    Print help TOPIC. <emphasis role="strong">--help</emphasis> <emphasis>topics</emphasis> will print a list of help
+    topics, <emphasis role="strong">--help</emphasis> <emphasis>syntax</emphasis> summarizes AsciiDoc syntax,
+    <emphasis role="strong">--help</emphasis> <emphasis>manpage</emphasis> prints the AsciiDoc manpage.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-e, --no-conf</emphasis>
+</term>
+<listitem>
+<simpara>
+    Exclude implicitly loaded configuration files except for those
+    named like the input file (<emphasis>infile.conf</emphasis> and
+    <emphasis>infile-backend.conf</emphasis>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s, --no-header-footer</emphasis>
+</term>
+<listitem>
+<simpara>
+    Suppress document header and footer output.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o, --out-file</emphasis>=<emphasis>OUT_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+    Write output to file <emphasis>OUT_FILE</emphasis>. Defaults to the base name of
+    input file with <emphasis>backend</emphasis> extension. If the input is stdin then
+    the outfile defaults to stdout. If <emphasis>OUT_FILE</emphasis> is <emphasis>-</emphasis> then the
+    standard output is used.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-n, --section-numbers</emphasis>
+</term>
+<listitem>
+<simpara>
+    Auto-number HTML article section titles.  Synonym for
+    <emphasis role="strong">--attribute numbered</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--safe</emphasis>
+</term>
+<listitem>
+<simpara>
+    Enable safe mode. Safe mode is disabled by default.  AsciiDoc
+    <emphasis>safe mode</emphasis> skips potentially dangerous scripted sections in
+    AsciiDoc source files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--theme</emphasis>=<emphasis>THEME</emphasis>
+</term>
+<listitem>
+<simpara>
+    Specify a theme name.  Synonym for <emphasis role="strong">--attribute theme</emphasis>=<emphasis>THEME</emphasis>.
+    The <emphasis role="strong">--theme</emphasis> option is also used to manage theme plugins (see
+    <link linkend="X1"><emphasis role="strong">PLUGIN COMMANDS</emphasis></link>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-v, --verbose</emphasis>
+</term>
+<listitem>
+<simpara>
+    Verbosely print processing information and configuration file
+    checks to stderr.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--version</emphasis>
+</term>
+<listitem>
+<simpara>
+    Print program version number.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="X1">
+<title>PLUGIN COMMANDS</title>
+<simpara>The asciidoc(1) <emphasis role="strong">--filter</emphasis>, <emphasis role="strong">--backend</emphasis> and <emphasis role="strong">--theme</emphasis> options are used
+to install, remove and list AsciiDoc filter, backend and theme
+plugins. Syntax:</simpara>
+<literallayout class="monospaced">asciidoc OPTION install ZIP_FILE [PLUGINS_DIR]
+asciidoc OPTION remove PLUGIN_NAME [PLUGINS_DIR]
+asciidoc OPTION list
+asciidoc OPTION build ZIP_FILE PLUGIN_SOURCE</literallayout>
+<simpara>Where:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">OPTION</emphasis>
+</term>
+<listitem>
+<simpara>
+  asciidoc(1) <emphasis role="strong">--filter</emphasis>, <emphasis role="strong">--backend</emphasis> or <emphasis role="strong">--theme</emphasis> option specifying
+  the type of plugin.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">PLUGIN_NAME</emphasis>
+</term>
+<listitem>
+<simpara>
+  A unique plugin name containing only alphanumeric or underscore
+  characters.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ZIP_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+  A Zip file containing plugin resources, the name must start with the
+  plugin name e.g.  <literal>my_filter-1.0.zip</literal> packages filter <literal>my_filter</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">PLUGINS_DIR</emphasis>
+</term>
+<listitem>
+<simpara>
+  The directory containing installed plugins. Each plugin is contained
+  in its own separate subdirectory which has the same name as the
+  plugin.
+  <emphasis role="strong">PLUGINS_DIR</emphasis> defaults to the <literal>$HOME/.asciidoc/filters</literal> (for
+  filter plugins) or <literal>$HOME/.asciidoc/backends</literal> (for backend plugins) or
+  <literal>$HOME/.asciidoc/themes</literal> (for theme plugins).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">PLUGIN_SOURCE</emphasis>
+</term>
+<listitem>
+<simpara>
+  The name of a directory containing the plugin source files or the
+  name of a single source file.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>The plugin commands perform as follows:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">install</emphasis>
+</term>
+<listitem>
+<simpara>
+  Create a subdirectory in <emphasis role="strong">PLUGINS_DIR</emphasis> with the same name as the
+  plugin then extract the <emphasis role="strong">ZIP_FILE</emphasis> into it.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">remove</emphasis>
+</term>
+<listitem>
+<simpara>
+  Delete the <emphasis role="strong">PLUGIN_NAME</emphasis> plugin subdirectory and all its contents
+  from the <emphasis role="strong">PLUGINS_DIR</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">list</emphasis>
+</term>
+<listitem>
+<simpara>
+  List the names and locations of all installed filter or theme
+  plugins (including standard plugins installed in the global
+  configuration directory).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">build</emphasis>
+</term>
+<listitem>
+<simpara>
+  Create a plugin file named <emphasis role="strong">ZIP_FILE</emphasis> containing the files and
+  subdirectories specified by <emphasis role="strong">PLUGIN_SOURCE</emphasis>. File and directory
+  names starting with a period are skipped.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_environment_variables">
+<title>ENVIRONMENT VARIABLES</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong"><literal>SOURCE_DATE_EPOCH</literal></emphasis>
+</term>
+<listitem>
+<simpara>
+  If the <literal>SOURCE_DATE_EPOCH</literal> environment variable is set to a UNIX
+  timestamp, then the <literal>{docdate}</literal>, <literal>{doctime}</literal>, <literal>{localdate}</literal>, and
+  <literal>{localtime}</literal> attributes are computed in the UTC time zone, with any
+  timestamps newer than <literal>SOURCE_DATE_EPOCH</literal> replaced by
+  <literal>SOURCE_DATE_EPOCH</literal>. (This helps software using AsciiDoc to build
+  reproducibly.)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_examples">
+<title>EXAMPLES</title>
+<variablelist>
+<varlistentry>
+<term>
+<literal>asciidoc asciidoc_file_name.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Simply generate an html file from the asciidoc_file_name.txt that is in
+  current directory using asciidoc.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>asciidoc -b html5 asciidoc_file_name.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Use the <literal>-b</literal> switch to use one of the proposed backend or another one you
+  installed on your computer.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>asciidoc -a data-uri -a icons -a toc -a max-width=55em article.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Use the <literal>-a</literal> switch to set attributes from command-line. AsciiDoc generated
+  its stand-alone HTML user guide containing embedded CSS, JavaScript and
+  images from the AsciiDoc article template with this command.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>asciidoc -b html5 -d manpage asciidoc.1.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Generating the asciidoc manpage using the html5 backend.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">0</emphasis>
+</term>
+<listitem>
+<simpara>
+    Success
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">1</emphasis>
+</term>
+<listitem>
+<simpara>
+    Failure (syntax or usage error; configuration error; document
+    processing failure; unexpected error).
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_bugs">
+<title>BUGS</title>
+<simpara>See the AsciiDoc distribution BUGS file.</simpara>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>AsciiDoc was originally written by Stuart Rackham. Many people have
+contributed to it.</simpara>
+</refsect1>
+<refsect1 id="_resources">
+<title>RESOURCES</title>
+<simpara>SourceForge: <ulink url="http://sourceforge.net/projects/asciidoc/">http://sourceforge.net/projects/asciidoc/</ulink></simpara>
+<simpara>Main web site: <ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink></simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara>a2x(1)</simpara>
+</refsect1>
+<refsect1 id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2002-2011 Stuart Rackham. Free use of this software is
+granted under the terms of the GNU General Public License (GPL).</simpara>
+</refsect1>
+</refentry>

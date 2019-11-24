@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>ASCIIDOC(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>asciidoc</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">&#160;</refmiscinfo>
+<refmiscinfo class="manual">&#160;</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>asciidoc</refname>
+    <refpurpose>converts an AsciiDoc text file to HTML or DocBook</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">asciidoc</emphasis> [<emphasis>OPTIONS</emphasis>] <emphasis>FILE</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>The asciidoc(1) command translates the AsciiDoc text file <emphasis>FILE</emphasis> to
+DocBook or HTML.  If <emphasis>FILE</emphasis> is <emphasis>-</emphasis> then the standard input is used.</simpara>
+<simpara>&#8230;</simpara>
+</refsect1>
+</refentry>

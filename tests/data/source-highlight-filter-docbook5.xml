@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+    <title>Source Code Highlight Filter</title>
+</info>
+<simpara>The AsciiDoc distribution includes a <emphasis>source</emphasis> filter for highlighting
+code syntax.</simpara>
+<section xml:id="_docbook_outputs">
+<title>DocBook Outputs</title>
+<simpara>AsciiDoc encloses the source code in a DocBook <emphasis>programlisting</emphasis>
+element and leaves source code highlighting to the DocBook toolchain
+(dblatex has a particularly nice programlisting highlighter). The
+DocBook programlisting element is assigned two attributes:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+The <emphasis>language</emphasis> attribute is set to the AsciiDoc <emphasis>language</emphasis>
+  attribute.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <emphasis>linenumbering</emphasis> attribute is set to the AsciiDoc <emphasis>src_numbered</emphasis>
+  attribute (<emphasis>numbered</emphasis> or <emphasis>unnumbered</emphasis>).
+</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_html_outputs">
+<title>HTML Outputs</title>
+<simpara>You have the choice of three HTML source code highlighters, your
+selection is determined by the <emphasis>source-highlighter</emphasis> attribute (defaults
+to <emphasis>source-highlight</emphasis>):</simpara>
+<note><simpara>Set the <emphasis>source-highlighter</emphasis> attribute from the <literal>asciidoc(1)</literal>
+command-line or in the document header (not in the document body,
+because the configuration file conditional macros are processed at
+load time).</simpara></note>
+<section xml:id="_gnu_source_highlight">
+<title>GNU Source Highlight</title>
+<simpara>The default highlighter is the
+<link xlink:href="http://www.gnu.org/software/src-highlite/">GNU source-highlight</link> which
+can highlight <emphasis>html4</emphasis>, <emphasis>html5</emphasis> and <emphasis>xhtml11</emphasis> outputs.  The GNU
+source-highlight must be installed and the <emphasis>source-highlight</emphasis> command
+must reside in the shell search <emphasis>PATH</emphasis>.</simpara>
+</section>
+<section xml:id="_highlight">
+<title>Highlight</title>
+<simpara>You can use
+<link xlink:href="http://www.andre-simon.de/doku/highlight/en/highlight.html">Highlight</link>
+syntax highlighter for <emphasis>xhtml11</emphasis>, <emphasis>html5</emphasis> and <emphasis>html4</emphasis> outputs (set the
+<emphasis>source-highlighter</emphasis> attribute to <emphasis>highlighter</emphasis>).</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+The <emphasis>highlight</emphasis> command must reside in the shell search <emphasis>PATH</emphasis>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+To make Highlighter your default highlighter put the following line
+  your <literal>~/.asciidoc/asciidoc.conf</literal> file:
+</simpara>
+<literallayout class="monospaced">source-highlighter=highlight</literallayout>
+</listitem>
+<listitem>
+<simpara>
+The AsciiDoc <emphasis>encoding</emphasis> attribute is passed to Highlighter using the
+  <literal>--encoding</literal> command-line option.
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_pygments">
+<title>Pygments</title>
+<simpara>The <link xlink:href="http://pygments.org/">Pygments</link> syntax highlighter can be used for
+<emphasis>xhtml11</emphasis> and <emphasis>html5</emphasis> outputs (set the <emphasis>source-highlighter</emphasis> attribute
+to <emphasis>pygments</emphasis>).</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+The <emphasis>pygmentize</emphasis> command must reside in the shell search <emphasis>PATH</emphasis>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+You can customize Pygments CSS styles by editing
+  <literal>./stylesheets/pygments.css</literal>. The <literal>pygments.css</literal> CSS file was
+  generated with:
+</simpara>
+<literallayout class="monospaced">from pygments.formatters import HtmlFormatter
+print HtmlFormatter().get_style_defs('.highlight')</literallayout>
+</listitem>
+<listitem>
+<simpara>
+To make Pygments your default highlighter put the following line
+  your <literal>~/.asciidoc/asciidoc.conf</literal> file:
+</simpara>
+<literallayout class="monospaced">source-highlighter=pygments</literallayout>
+</listitem>
+<listitem>
+<simpara>
+The AsciiDoc <emphasis>encoding</emphasis> attribute is passed to Pygments using the
+  <literal>-O</literal> command-line option.
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+<section xml:id="_block_attributes">
+<title>Block attributes</title>
+<simpara>The following attributes can be included in source code block
+attribute lists.</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis>style</emphasis> and <emphasis>language</emphasis> are mandatory.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>style</emphasis>, <emphasis>language</emphasis> and <emphasis>src_numbered</emphasis> are the first three
+  positional attributes in that order.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <emphasis>args</emphasis> attribute allows the inclusion of arbitrary (highlighter
+  dependent) command options.
+</simpara>
+</listitem>
+</itemizedlist>
+<variablelist>
+<varlistentry>
+<term>
+style
+</term>
+<listitem>
+<simpara>
+  Set to <emphasis>source</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+language
+</term>
+<listitem>
+<simpara>
+  The source code language name.
+</simpara>
+<note><simpara>The language names vary between highlighters&#8201;&#8212;&#8201;consult the
+selected highlighter manual.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+src_numbered
+</term>
+<listitem>
+<simpara>
+  Set to <emphasis>numbered</emphasis> to include line numbers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+src_tab
+</term>
+<listitem>
+<simpara>
+  Set tab size (GNU source-highlight only).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+args
+</term>
+<listitem>
+<simpara>
+  Include this attribute value in the highlighter command-line (HTML
+  outputs) or in the <literal>programlisting</literal> element (DocBook).
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</section>
+<section xml:id="_testing">
+<title>Testing</title>
+<simpara>Test the filter by converting the test file to HTML with AsciiDoc:</simpara>
+<literallayout class="monospaced">$ asciidoc -v ./filters/source/source-highlight-filter-test.txt
+$ firefox ./filters/source/source-highlight-filter-test.html &amp;</literallayout>
+</section>
+<section xml:id="_examples">
+<title>Examples</title>
+<section xml:id="_source_code_paragraphs">
+<title>Source code paragraphs</title>
+<simpara>The <literal>source</literal> paragraph style will highlight a paragraph of source
+code. These three code paragraphs:</simpara>
+<screen>[source,python]
+if n &lt; 0: print 'Hello World!'
+
+:language: python
+
+[source]
+if n &lt; 0: print 'Hello World!'
+
+[source,ruby,numbered]
+[true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+    puts "#{a.inspect} =&gt; #{b.inspect}"</screen>
+<simpara>Render this highlighted source code:</simpara>
+<programlisting language="python" linenumbering="unnumbered">if n &lt; 0: print 'Hello World!'</programlisting>
+<programlisting language="python" linenumbering="unnumbered">if n &lt; 0: print 'Hello World!'</programlisting>
+<programlisting language="ruby" linenumbering="numbered">[true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+    puts "#{a.inspect} =&gt; #{b.inspect}"</programlisting>
+</section>
+<section xml:id="_unnumbered_source_code_listing">
+<title>Unnumbered source code listing</title>
+<simpara>This source-highlight filtered block:</simpara>
+<screen> [source,python]
+ ---------------------------------------------------------------------
+ ''' A multi-line
+     comment.'''
+ def sub_word(mo):
+     ''' Single line comment.'''
+     word = mo.group('word')   # Inline comment
+     if word in keywords[language]:
+         return quote + word + quote
+     else:
+         return word
+ ---------------------------------------------------------------------</screen>
+<simpara>Renders this highlighted source code:</simpara>
+<programlisting language="python" linenumbering="unnumbered">''' A multi-line
+    comment.'''
+def sub_word(mo):
+    ''' Single line comment.'''
+    word = mo.group('word')     # Inline comment
+    if word in keywords[language]:
+        return quote + word + quote
+    else:
+        return word</programlisting>
+</section>
+<section xml:id="_numbered_source_code_listing_with_callouts">
+<title>Numbered source code listing with callouts</title>
+<simpara>This source-highlight filtered block:</simpara>
+<screen> [source,ruby,numbered]
+ ---------------------------------------------------------------------
+ #
+ # Useful Ruby base class extensions.
+ #
+
+ class Array
+
+   # Execute a block passing it corresponding items in
+   # +self+ and +other_array+.
+   # If self has less items than other_array it is repeated.
+
+   def cycle(other_array)  # :yields: item, other_item
+     other_array.each_with_index do |item, index|
+       yield(self[index % self.length], item)
+     end
+   end
+
+ end
+
+ if $0 == __FILE__                                 # &lt;1&gt;
+   # Array#cycle test
+   # true =&gt; 0
+   # false =&gt; 1
+   # true =&gt; 2
+   # false =&gt; 3
+   # true =&gt; 4
+   puts 'Array#cycle test'                         # &lt;2&gt;
+   [true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+     puts "#{a.inspect} =&gt; #{b.inspect}"
+   end
+ end
+ ---------------------------------------------------------------------
+
+ &lt;1&gt; First callout.
+ &lt;2&gt; Second callout.</screen>
+<simpara>Renders this highlighted source code:</simpara>
+<programlisting language="ruby" linenumbering="numbered">#
+# Useful Ruby base class extensions.
+#
+
+class Array
+
+  # Execute a block passing it corresponding items in
+  # +self+ and +other_array+.
+  # If self has less items than other_array it is repeated.
+
+  def cycle(other_array)  # :yields: item, other_item
+    other_array.each_with_index do |item, index|
+      yield(self[index % self.length], item)
+    end
+  end
+
+end
+
+if $0 == __FILE__                                 # <co xml:id="CO1-1"/>
+  # Array#cycle test
+  # true =&gt; 0
+  # false =&gt; 1
+  # true =&gt; 2
+  # false =&gt; 3
+  # true =&gt; 4
+  puts 'Array#cycle test'                         # <co xml:id="CO1-2"/>
+  [true, false].cycle([0, 1, 2, 3, 4]) do |a, b|
+    puts "#{a.inspect} =&gt; #{b.inspect}"
+  end
+end</programlisting>
+<calloutlist>
+<callout arearefs="CO1-1">
+<para>
+First callout.
+</para>
+</callout>
+<callout arearefs="CO1-2">
+<para>
+Second callout.
+</para>
+</callout>
+</calloutlist>
+<tip>
+<itemizedlist>
+<listitem>
+<simpara>
+If the source <emphasis>language</emphasis> attribute has been set (using an
+  <emphasis>AttributeEntry</emphasis> or from the command-line) you don&#8217;t have to specify
+  it in each source code block.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+You should place callout markers inside source code comments to
+  ensure they are not misinterpreted and mangled by the highlighter.
+</simpara>
+</listitem>
+</itemizedlist>
+</tip>
+</section>
+</section>
+</article>

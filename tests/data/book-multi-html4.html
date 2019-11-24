@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc test">
+<title>Multi-Part Book Title Goes Here</title>
+</head>
+<body>
+<h1>Multi-Part Book Title Goes Here</h1>
+<p>
+<strong>Author's Name</strong><br>
+version 1.0,
+2003-12
+</p>
+<hr>
+<h2><a name="_example_dedication"></a> Example Dedication</h2>
+<p>The optional dedication goes here.</p>
+<p>This document is an AsciiDoc multi-part book skeleton containing
+briefly annotated element placeholders plus a couple of example index
+entries and footnotes. Books are normally used to generate DocBook
+markup and the preface, appendix, bibliography, glossary and index
+section titles are significant (<em>specialsections</em>).</p>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Note</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Multi-part books differ from all other AsciiDoc document formats
+in that top level sections (dedication, preface, book parts,
+appendices, bibliography, glossary, index) must be level zero headings
+(not level one).</td></tr></table>
+<hr>
+<h2><a name="_example_preface"></a> Example Preface</h2>
+<p>The optional book preface goes here at section level zero.</p>
+<h3><a name="_preface_sub_section"></a>0.1. Preface Sub-section</h3>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Note</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Preface and appendix subsections start out of sequence at level
+2 (level 1 is skipped). This only applies to multi-part book
+documents.</td></tr></table>
+<hr>
+<h1><a name="_the_first_part_of_the_book"></a>The First Part of the Book</h1>
+<div>
+<p><b>Optional part introduction title</b></p>
+<p>Optional part introduction goes here.</p>
+</div>
+<hr>
+<h2><a name="_the_first_chapter"></a>1. The First Chapter</h2>
+<p>Chapters can be grouped by preceding them with a level 0 Book Part
+title.</p>
+<p>Book chapters are at level 1 and can contain sub-sections nested up to
+three deep.
+<br><i>[An example footnote.]</i><br></p>
+<p>It&#8217;s also worth noting that a book part can have it&#8217;s own preface,
+bibliography, glossary and index. Chapters can have their own
+bibliography, glossary and index.</p>
+<p>And now for something completely different: monkeys, lions and
+tigers (Bengal and Siberian) using the alternative syntax index
+entries.
+
+
+
+Note that multi-entry terms generate separate index entries.</p>
+<p>Here are a couple of image examples: an <img src="images/smallnew.png" style="border-width: 0; vertical-align: text-bottom;" alt="images/smallnew.png">
+example inline image followed by an example block image:</p>
+<div>
+<img src="images/tiger.png" style="border-width: 0;" alt="Tiger image">
+<p><b>Figure 1. </b>Tiger block image</p>
+</div>
+<p>Followed by an example table:</p>
+<div>
+<table rules="all"
+width="60%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<thead>
+<tr>
+<th align="left" width="50%" valign="top"> Option          </th>
+<th align="left" width="50%" valign="top"> Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" width="50%" valign="top"><p>-a <em>USER GROUP</em></p></td>
+<td align="left" width="50%" valign="top"><p>Add <em>USER</em> to <em>GROUP</em>.</p></td>
+</tr>
+<tr>
+<td align="left" width="50%" valign="top"><p>-R <em>GROUP</em></p></td>
+<td align="left" width="50%" valign="top"><p>Disables access to <em>GROUP</em>.</p></td>
+</tr>
+</tbody>
+</table>
+<p><b>Table 1. </b>An example table</p>
+</div>
+<table frame="void" width="100%" cellpadding="4">
+<tr><td style="border-left: 2px solid silver;">
+<p>Lorum ipum&#8230;</p>
+</td></tr></table>
+<p><b>Example 1. </b>An example example</p>
+<h3><a name="X1"></a>1.1. Sub-section with Anchor</h3>
+<p>Sub-section at level 2.</p>
+<h4><a name="_chapter_sub_section"></a>1.1.1. Chapter Sub-section</h4>
+<p>Sub-section at level 3.</p>
+<h5><a name="_chapter_sub_section_2"></a>Chapter Sub-section</h5>
+<p>Sub-section at level 4.</p>
+<p>This is the maximum sub-section depth supported by the distributed
+AsciiDoc configuration.
+<br><i>[A second example footnote.]</i><br></p>
+<hr>
+<h2><a name="_the_second_chapter"></a>2. The Second Chapter</h2>
+<p>An example link to anchor at start of the <a href="#X1">first sub-section</a>.</p>
+<p>An example link to a bibliography entry <a href="#taoup">[taoup]</a>.</p>
+<hr>
+<h1><a name="_the_second_part_of_the_book"></a>The Second Part of the Book</h1>
+<hr>
+<h2><a name="_the_first_chapter_of_the_second_part"></a>1. The First Chapter of the Second Part</h2>
+<p>Chapters grouped into book parts are at level 1 and can contain
+sub-sections.</p>
+<hr>
+<h2><a name="_example_appendix"></a>Appendix A: Example Appendix</h2>
+<p>One or more optional appendixes go here at section level zero.</p>
+<h3><a name="_appendix_sub_section"></a>Appendix Sub-section</h3>
+<table frame="void" cellpadding="4">
+<tr valign="top">
+<td>
+<p><b><u>Note</u></b></p>
+</td>
+<td style="border-left: 1px solid silver;">Preface and appendix subsections start out of sequence at level
+2 (level 1 is skipped).  This only applies to multi-part book
+documents.</td></tr></table>
+<hr>
+<h2><a name="_example_bibliography"></a>Example Bibliography</h2>
+<p>The bibliography list is a style of AsciiDoc bulleted list.</p>
+<ul>
+<li>
+<p>
+<a name="taoup"></a>[taoup] Eric Steven Raymond. <em>The Art of Unix
+  Programming</em>. Addison-Wesley. ISBN 0-13-142901-9.
+</p>
+</li>
+<li>
+<p>
+<a name="walsh-muellner"></a>[walsh-muellner] Norman Walsh &amp; Leonard Muellner.
+  <em>DocBook - The Definitive Guide</em>. O&#8217;Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.
+</p>
+</li>
+</ul>
+<hr>
+<h2><a name="_example_glossary"></a>Example Glossary</h2>
+<p>Glossaries are optional. Glossaries entries are an example of a style
+of AsciiDoc labeled lists.</p>
+<dl>
+<dt>
+A glossary term
+</dt>
+<dd>
+<p>
+  The corresponding (indented) definition.
+</p>
+</dd>
+<dt>
+A second glossary term
+</dt>
+<dd>
+<p>
+  The corresponding (indented) definition.
+</p>
+</dd>
+</dl>
+<hr>
+<h2><a name="_example_colophon"></a>Example Colophon</h2>
+<p>Text at the end of a book describing facts about its production.</p>
+<hr>
+<h2><a name="_example_index"></a>Example Index</h2>
+<p></p>
+<p></p>
+<hr><p><small>
+Version 1.0<br>
+Last updated
+ 2002-11-25 00:37:42 UTC
+</small></p>
+</body>
+</html>
