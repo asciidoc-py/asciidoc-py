@@ -192,9 +192,8 @@ class AsciiDocAPI(object):
             if not os.path.isfile(cmd):
                 raise AsciiDocError('missing file: %s' % cmd)
         else:
-            # try to find sibling
+            # try to find sibling paths
             this_path = os.path.dirname(os.path.realpath(__file__))
-            # Try sibling paths.
             for fname in ['asciidoc.py','asciidoc.pyc','asciidoc']:
                 cmd = find_in_path(fname, path=this_path)
                 if cmd: break
