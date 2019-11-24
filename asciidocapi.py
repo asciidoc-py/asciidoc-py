@@ -228,9 +228,11 @@ class AsciiDocAPI(object):
             # The import statement can only handle .py or .pyc files, have to
             # use importlib for scripts with other names.
             try:
-                import importlib.util
-                spec = importlib.util.spec_from_file_location('asciidoc', self.cmd)
-                module = importlib.util.module_from_spec(spec)
+                from importlib.util import spec_from_loader, module_from_spec
+                from importlib.machinery import SourceFileLoader
+                loader = SourceFileLoader('asciidoc', self.cmd)
+                spec = spec_from_loader('asciidoc', loader)
+                module = module_from_spec(spec)
                 spec.loader.exec_module(module)
                 self.asciidoc = module
             except ImportError:
