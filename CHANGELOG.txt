@@ -21,7 +21,7 @@ Version 9.0.0 (Unreleased)
 
 .Bug fixes
 - Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
-- Properly capture and use colophon, dedication, and preface for docbooks in japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
+- Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
 
 .Testing
 - Commit generated test files to the repository for continuous integration
@@ -78,7 +78,7 @@ https://groups.google.com/group/asciidoc/browse_thread/thread/9877a316b7a47309).
   and
   https://groups.google.com/group/asciidoc/browse_thread/thread/cd07629fa7a53fb3
 - Dropped `vim/ftdetect/asciidoc_filetype.vim` from distribution, the
-  file detection  was broken and the default settings satisfied noone.
+  file detection  was broken and the default settings satisfied no one.
 - Vim syntax highlighter: increase sync backtracking to catch changes
   to large block elements.
 - Added Romanian language configuration file. Contributed by Vitalie
