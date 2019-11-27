@@ -30,4 +30,4 @@ script:
   - autoconf
   - ./configure
   - make
-  - make install
+  - sudo make install
