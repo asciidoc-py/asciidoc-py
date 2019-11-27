@@ -12,3 +12,6 @@ script:
   - python asciidocapi.py
   - time python tests/testasciidoc.py run
   - git clean -x -f doc tests/data
+  - autoconf
+  - ./configure
+  - make
