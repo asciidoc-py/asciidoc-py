@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-'''
+
+"""
 a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
       file formats)
 
 Copyright: Stuart Rackham (c) 2009
 License:   MIT
 Email:     srackham@gmail.com
-
-'''
+"""
 
 import os
 import fnmatch
@@ -68,18 +68,23 @@ XSLTPROC_OPTS = ''
 
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
+
 def errmsg(msg):
     print('%s: %s\n' % (PROG, msg), file=sys.stderr)
+
 
 def warning(msg):
     errmsg('WARNING: %s' % msg)
 
+
 def infomsg(msg):
     print('%s: %s' % (PROG, msg))
+
 
 def die(msg, exit_code=1):
     errmsg('ERROR: %s' % msg)
     sys.exit(exit_code)
+
 
 def trace():
     """Print traceback to stderr."""
@@ -87,9 +92,11 @@ def trace():
     traceback.print_exc(file=sys.stderr)
     errmsg('-'*60)
 
+
 def verbose(msg):
     if OPTIONS.verbose or OPTIONS.dry_run:
         infomsg(msg)
+
 
 class AttrDict(dict):
     """
@@ -106,22 +113,30 @@ class AttrDict(dict):
                 return self['_default']
             else:
                 raise AttributeError from k
+
     def __setattr__(self, key, value):
         self[key] = value
+
     def __delattr__(self, key):
         try:
             del self[key]
         except KeyError as k:
             raise AttributeError from k
+
     def __repr__(self):
         return '<AttrDict ' + dict.__repr__(self) + '>'
+
     def __getstate__(self):
         return dict(self)
-    def __setstate__(self,value):
-        for k,v in value.items(): self[k]=v
+
+    def __setstate__(self, value):
+        for k, v in value.items():
+            self[k] = v
+
 
 def isexecutable(file_name):
     return os.path.isfile(file_name) and os.access(file_name, os.X_OK)
+
 
 def find_executable(file_name):
     '''
@@ -141,25 +156,30 @@ def find_executable(file_name):
                 return os.path.realpath(f)
         return None
     if os.name == 'nt' and os.path.splitext(file_name)[1] == '':
-        for ext in ('.cmd','.bat','.exe'):
+        for ext in ('.cmd', '.bat', '.exe'):
             result = _find_executable(file_name + ext)
-            if result: break
+            if result:
+                break
     else:
         result = _find_executable(file_name)
     return result
+
 
 def write_file(filename, data, mode='w', encoding='utf-8'):
     with open(filename, mode=mode, encoding=encoding) as f:
         f.write(data)
 
+
 def read_file(filename, mode='r', encoding='utf-8'):
     with open(filename, mode=mode, encoding=encoding) as f:
         return f.read()
+
 
 def shell_cd(path):
     verbose('chdir %s' % path)
     if not OPTIONS.dry_run:
         os.chdir(path)
+
 
 def shell_makedirs(path):
     if os.path.isdir(path):
@@ -168,10 +188,12 @@ def shell_makedirs(path):
     if not OPTIONS.dry_run:
         os.makedirs(path)
 
+
 def shell_copy(src, dst):
-    verbose('copying "%s" to "%s"' % (src,dst))
+    verbose('copying "%s" to "%s"' % (src, dst))
     if not OPTIONS.dry_run:
         shutil.copy(src, dst)
+
 
 def shell_rm(path):
     if not os.path.exists(path):
@@ -180,12 +202,14 @@ def shell_rm(path):
     if not OPTIONS.dry_run:
         os.unlink(path)
 
+
 def shell_rmtree(path):
     if not os.path.isdir(path):
         return
     verbose('deleting %s' % path)
     if not OPTIONS.dry_run:
         shutil.rmtree(path)
+
 
 def shell(cmd, raise_error=True):
     '''
@@ -225,6 +249,7 @@ def shell(cmd, raise_error=True):
         die('%s returned non-zero exit status %d' % (cmd, popen.returncode))
     return (stdoutdata, stderrdata, popen.returncode)
 
+
 def find_resources(files, tagname, attrname, filter=None):
     '''
     Search all files and return a list of local URIs from attrname attribute
@@ -232,20 +257,22 @@ def find_resources(files, tagname, attrname, filter=None):
     Handles HTML open and XHTML closed tags.
     Non-local URIs are skipped.
     files can be a file name or a list of file names.
-    The filter function takes a dictionary of tag attributes and returns True if
-    the URI is to be included.
+    The filter function takes a dictionary of tag attributes and returns True
+    if the URI is to be included.
     '''
     class FindResources(HTMLParser):
         # Nested parser class shares locals with enclosing function.
         def handle_startendtag(self, tag, attrs):
             self.handle_starttag(tag, attrs)
+
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
             if tag == tagname and (filter is None or filter(attrs)):
                 # Accept only local URIs.
                 uri = urlparse(attrs[attrname])
-                if uri[0] in ('','file') and not uri[1] and uri[2]:
+                if uri[0] in ('', 'file') and not uri[1] and uri[2]:
                     result.append(uri[2])
+
     if isinstance(files, str):
         files = [files]
     result = []
@@ -263,6 +290,7 @@ def find_resources(files, tagname, attrname, filter=None):
     result = list(set(result))   # Drop duplicate values.
     result.sort()
     return result
+
 
 # NOT USED.
 def copy_files(files, src_dir, dst_dir):
@@ -283,24 +311,27 @@ def copy_files(files, src_dir, dst_dir):
             shell_makedirs(dstdir)
             shell_copy(src, dst)
 
+
 def find_files(path, pattern):
     '''
     Return list of file names matching pattern in directory path.
     '''
     result = []
-    for (p,dirs,files) in os.walk(path):
+    for (p, dirs, files) in os.walk(path):
         for f in files:
             if fnmatch.fnmatch(f, pattern):
-                result.append(os.path.normpath(os.path.join(p,f)))
+                result.append(os.path.normpath(os.path.join(p, f)))
     return result
 
-def exec_xsltproc(xsl_file, xml_file, dst_dir, opts = ''):
+
+def exec_xsltproc(xsl_file, xml_file, dst_dir, opts=''):
     cwd = os.getcwd()
     shell_cd(dst_dir)
     try:
         shell('"%s" %s "%s" "%s"' % (XSLTPROC, opts, xsl_file, xml_file))
     finally:
         shell_cd(cwd)
+
 
 def get_source_options(asciidoc_file):
     '''
@@ -358,10 +389,10 @@ class A2X(AttrDict):
         self.process_options()
         # Append configuration file options.
         self.asciidoc_opts += ' ' + ASCIIDOC_OPTS
-        self.dblatex_opts  += ' ' + DBLATEX_OPTS
-        self.fop_opts      += ' ' + FOP_OPTS
+        self.dblatex_opts += ' ' + DBLATEX_OPTS
+        self.fop_opts += ' ' + FOP_OPTS
         self.xsltproc_opts += ' ' + XSLTPROC_OPTS
-        self.backend_opts  += ' ' + BACKEND_OPTS
+        self.backend_opts += ' ' + BACKEND_OPTS
         # Execute to_* functions.
         if self.backend:
             self.to_backend()
@@ -445,7 +476,7 @@ class A2X(AttrDict):
             if not os.path.isdir(self.destination_dir):
                 die('missing --destination-dir: %s' % self.destination_dir)
             self.destination_dir = os.path.abspath(self.destination_dir)
-            if not self.format in ('chunked','epub','htmlhelp','xhtml','manpage'):
+            if self.format not in ('chunked', 'epub', 'htmlhelp', 'xhtml', 'manpage'):
                 warning('--destination-dir option is only applicable to HTML and manpage based outputs')
         self.resource_dirs = []
         self.resource_files = []
@@ -459,7 +490,7 @@ class A2X(AttrDict):
             r = os.path.expanduser(r)
             r = os.path.expandvars(r)
             if r.endswith('/') or r.endswith('\\'):
-                if  os.path.isdir(r):
+                if os.path.isdir(r):
                     self.resource_dirs.append(r)
                 else:
                     die('missing resource directory: %s' % r)
@@ -471,8 +502,8 @@ class A2X(AttrDict):
             else:
                 self.resource_files.append(r)
         for p in (os.path.dirname(self.asciidoc), CONF_DIR):
-            for d in ('images','stylesheets'):
-                d = os.path.join(p,d)
+            for d in ('images', 'stylesheets'):
+                d = os.path.join(p, d)
                 if os.path.isdir(d):
                     self.resource_dirs.append(d)
         verbose('resource files: %s' % self.resource_files)
@@ -566,16 +597,21 @@ class A2X(AttrDict):
 
     def copy_resources(self, html_files, src_dir, dst_dir, resources=[]):
         '''
-        Search html_files for images and CSS resource URIs (html_files can be a
-        list of file names or a single file name).
+        Search html_files for images and CSS resource URIs (html_files can
+        be a list of file names or a single file name).
         Copy them from the src_dir to the dst_dir.
         If not found in src_dir then recursively search all specified
         resource directories.
-        Optional additional resources files can be passed in the resources list.
+        Optional additional resources files can be passed in the resources
+        list.
         '''
         resources = resources[:]
-        resources += find_resources(html_files, 'link', 'href',
-                        lambda attrs: attrs.get('type') == 'text/css')
+        resources += find_resources(
+            html_files,
+            'link',
+            'href',
+            lambda attrs: attrs.get('type') == 'text/css'
+        )
         resources += find_resources(html_files, 'img', 'src')
         resources += self.resource_files
         resources = list(set(resources))    # Drop duplicates.
@@ -698,7 +734,7 @@ class A2X(AttrDict):
             dst_dir = self.dst_path('.chunked')
         elif self.format == 'htmlhelp':
             dst_dir = self.dst_path('.htmlhelp')
-        if not 'base.dir ' in opts:
+        if 'base.dir ' not in opts:
             opts += ' --stringparam base.dir "%s/"' % os.path.basename(dst_dir)
         # Create content.
         shell_rmtree(dst_dir)
@@ -715,9 +751,9 @@ class A2X(AttrDict):
         '''
         opf_dir = os.path.dirname(opf_file)
         resource_files = []
-        for (p,dirs,files) in os.walk(os.path.dirname(opf_file)):
+        for (p, dirs, files) in os.walk(os.path.dirname(opf_file)):
             for f in files:
-                f = os.path.join(p,f)
+                f = os.path.join(p, f)
                 if os.path.isfile(f):
                     assert f.startswith(opf_dir)
                     f = '.' + f[len(opf_dir):]
@@ -780,7 +816,7 @@ class A2X(AttrDict):
                     write_file('mimetype', 'application/epub+zip')
                     zip_archive.write('mimetype', compress_type=zipfile.ZIP_STORED)
                     # Compress all remaining files.
-                    for (p,dirs,files) in os.walk('.'):
+                    for (p, dirs, files) in os.walk('.'):
                         for f in files:
                             f = os.path.normpath(os.path.join(p,f))
                             if f != 'mimetype':

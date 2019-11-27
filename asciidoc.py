@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 asciidoc - converts an AsciiDoc text file to HTML or DocBook
 
@@ -55,6 +56,7 @@ OR, AND = ',', '+'              # Attribute list separators.
 # Utility functions and classes.
 # ---------------------------------------------------------------------------
 
+
 class EAsciiDoc(Exception):
     pass
 
@@ -103,7 +105,7 @@ class InsensitiveDict(dict):
         dict.__setitem__(self, key.lower(), value)
 
     def has_key(self, key):
-        return dict.has_key(self, key.lower())
+        return key.lower() in self
 
     def get(self, key, default=None):
         return dict.get(self, key.lower(), default)
