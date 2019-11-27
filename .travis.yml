@@ -1,12 +1,25 @@
 language: python
+
 python:
   - 3.5
   - 3.6
   - 3.7
   - 3.8
-install:
-  - sudo apt-get update -yq2
-  - sudo apt-get install -yq2 --no-install-recommends dvipng graphviz imagemagick lilypond source-highlight texlive-latex-base
+
+addons:
+  apt:
+    packages:
+      - docbook-xml
+      - docbook-xsl
+      - dvipng
+      - graphviz
+      - imagemagick
+      #- libxml2-utils
+      - lilypond
+      - source-highlight
+      - texlive-latex-base
+      - xsltproc
+
 script:
   - python asciidoc.py --doctest
   - python asciidocapi.py
