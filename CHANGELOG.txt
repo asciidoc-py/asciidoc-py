@@ -14,10 +14,18 @@ Version 9.0.0 (Unreleased)
 - Fix misspellings in various files and documents
 - Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
 - Use "with" context statement for opening and closing files instead of older try/finally pattern.
+- Search sibling paths before system wide paths in asciidocapi
+- Add manpage for testasciidoc.py
+- Use argparse instead of optparse for argument parsing
+- Migrate from A-A-P based build system to Make
 
 .Bug fixes
 - Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
 - Properly capture and use colophon, dedication, and preface for docbooks in japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
+
+.Testing
+- Commit generated test files to the repository for continuous integration
+- Test against Python 3.5+ on Travis-CI
 
 Version 8.6.10 (2017-09-22)
 ---------------------------
