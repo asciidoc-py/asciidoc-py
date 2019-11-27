@@ -29,5 +29,4 @@ script:
   - git clean -x -f doc tests/data
   - autoconf
   - ./configure
-  - xmllint --nonet --noout --valid /home/travis/build/asciidoc/asciidoc-py3/doc/asciidoc.1.xml
   - make
