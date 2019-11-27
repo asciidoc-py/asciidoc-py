@@ -8,7 +8,6 @@ install:
   - sudo apt-get update -yq2
   - sudo apt-get install -yq2 --no-install-recommends dvipng graphviz imagemagick lilypond source-highlight texlive-latex-base
 script:
-  - time python tests/testasciidoc.py update
   - python asciidoc.py --doctest
   - python asciidocapi.py
   - time python tests/testasciidoc.py run
