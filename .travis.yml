@@ -14,7 +14,7 @@ addons:
       - dvipng
       - graphviz
       - imagemagick
-      #- libxml2-utils
+      - libxml2-utils
       - lilypond
       - source-highlight
       - texlive-latex-base
