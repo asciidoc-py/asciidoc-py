@@ -1,6 +1,11 @@
 #
 # Make file to install/uninstall AsciiDoc
 #
+# Run `make help` to print out directions on running
+# this file. To add new messages to help, prepend
+# the line with ## and then one additional character,
+# e.g. `## help` to show "help" or `##   help` will show
+# "  help" or `##.` will show a blank line.
 
 .NOTPARALLEL:
 
@@ -96,7 +101,18 @@ INSTDIRS = $(TARGETS:%=%dir)
 
 .PHONY: $(TARGETS)
 
+# this needs to be above help so that it runs
+# by default
 all: build
+
+.PHONY : help
+help : Makefile
+	@sed -n 's/^##.//p' $<
+
+## Makefile for AsciiDoc @PACKAGE_VERSION@ (@PACKAGE_DATE@)
+## Usage: make [VARIABLE=value] ... [TARGET]
+##.
+##   all: runs the build target
 
 # create directories used during the install
 $(INSTDIRS):
@@ -144,10 +160,12 @@ fixconfpath:
 		chmod +x $$f; \
 	done
 
+##   version: print out the version to use for the other targets
 .PHONY: version
 version:
 	@echo "Version $(ASCIIDOCVERSION) (released $(ASCIIDOCDATE))";
 
+##   vers_update: updates teh version string in python files
 .PHONY: vers_update
 vers_update:
 	@for f in $(prog); do \
@@ -164,6 +182,7 @@ DOC_FILES = CHANGELOG.txt README.asciidoc BUGS.txt INSTALL.txt doc/a2x.1.txt \
 
 WEBSITE_FILES = examples/website/index.txt examples/website/README-website.txt examples/website/support.txt
 
+##   doc_spell: run aspell over all files under doc/
 .PHONY: doc_spell
 doc_spell:
 	@for f in $(DOC_FILES); do \
@@ -171,6 +190,7 @@ doc_spell:
 		aspell check -p ./doc/asciidoc.dict $$f; \
 	done
 
+##   website_spell: run aspell over all files under website/
 .PHONY: website_spell
 website_spell:
 	@for f in $(WEBSITE_FILES); do \
@@ -178,13 +198,16 @@ website_spell:
 		aspell check -p ./examples/website/asciidoc-website.dict $$f; \
 	done
 
+##   spell: run doc_spell and website_spell
 .PHONY: spell
 spell: doc_spell website_spell
 
 build: fixconfpath $(manp)
 
+##   install: install asciidoc to target directory
 install: all $(PROGTARGETS) $(DATATARGETS) progsymlink
 
+##   uninstall: uninstall asciidoc
 uninstall:
 	rm -f $(DESTDIR)/$(progdir)/asciidoc
 	rm -f $(DESTDIR)/$(progdir)/asciidoc.py
@@ -196,8 +219,10 @@ uninstall:
 	rm -rf $(DESTDIR)/$(confdir)
 	rm -rf $(DESTDIR)/$(docdir)
 
+##   clean: delete built asciidoc doc files
 clean:
 	rm -f $(manp)
 
+##   test: run the asciidoc test suite
 test:
-	@echo "Nothing to see here...Move along."
+	python3 tests/testasciidoc.py run
