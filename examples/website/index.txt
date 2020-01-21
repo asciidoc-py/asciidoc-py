@@ -460,6 +460,8 @@ discussion group thread] for details.
 
 - The http://cxxtest.com/[CxxTest] project (unit testing for C++
   language) has written its User Guide using AsciiDoc.
+- The https://docs.fedoraproject.org/[Fedora Docs]
+  website is generated using AsciiDoc.
 
 Please let me know if any of these links need updating.
 
