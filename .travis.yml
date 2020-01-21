@@ -20,7 +20,7 @@ addons:
       - texlive-latex-base
       - xsltproc
 
-install: false
+install: true
 
 script:
   - python asciidoc.py --doctest
