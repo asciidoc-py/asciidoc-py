@@ -205,12 +205,15 @@ website_spell:
 .PHONY: spell
 spell: doc_spell website_spell
 
+.PHONY: build
 build: fixconfpath $(manp)
 
 ##   install: install asciidoc to target directory
+.PHONY: install
 install: all $(PROGTARGETS) $(DATATARGETS) progsymlink
 
 ##   uninstall: uninstall asciidoc
+.PHONY: uninstall
 uninstall:
 	rm -f $(DESTDIR)/$(progdir)/asciidoc
 	rm -f $(DESTDIR)/$(progdir)/asciidoc.py
@@ -223,9 +226,11 @@ uninstall:
 	rm -rf $(DESTDIR)/$(docdir)
 
 ##   clean: delete built asciidoc doc files
+.PHONY: clean
 clean:
 	rm -f $(manp)
 
 ##   test: run the asciidoc test suite
+.PHONY: test
 test:
 	python3 tests/testasciidoc.py run
