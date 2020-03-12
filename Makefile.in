@@ -65,6 +65,9 @@ latexfilterdir = $(filtersdir)/latex
 latexfilterconf = filters/latex/latex-filter.conf
 latexfilterconfdir = $(filtersdir)/latex
 
+unwraplatexfilter = filters/unwraplatex.py
+unwraplatexfilterdir = $(filtersdir)
+
 themesdir = $(ASCIIDOCCONF)/themes
 
 flasktheme = themes/flask/flask.css
@@ -93,8 +96,8 @@ iconsdir = $(ASCIIDOCCONF)/images/icons
 
 doc = $(wildcard README*) $(wildcard BUGS*) $(wildcard INSTALL*) $(wildcard CHANGELOG*)
 
-DATATARGETS = manp conf docbook dblatex css js callouts icons codefilterconf musicfilterconf sourcefilterconf graphvizfilterconf latexfilterconf flasktheme volnitskytheme
-PROGTARGETS = prog codefilter musicfilter graphvizfilter latexfilter
+DATATARGETS = manp conf docbook dblatex css js callouts icons codefilterconf graphvizfilterconf latexfilterconf musicfilterconf sourcefilterconf flasktheme volnitskytheme
+PROGTARGETS = prog codefilter graphvizfilter latexfilter musicfilter unwraplatexfilter
 TARGETS = $(DATATARGETS) $(PROGTARGETS) doc
 
 INSTDIRS = $(TARGETS:%=%dir)

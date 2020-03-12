@@ -11,8 +11,14 @@ DESCRIPTION
     surrounding \[ and \] delimiters.
 '''
 
-import re, sys
+import re
+import sys
 
-sys.stdout.write(re.sub("(?s)\A(?:\\\\\[\s*)?(.*?)(?:\\\\\])?\Z", "\\1", sys.stdin.read().rstrip()))
+sys.stdout.write(
+    re.sub(
+        "(?s)\A(?:\\\\\[\s*)?(.*?)(?:\\\\\])?\Z", "\\1",
+        sys.stdin.read().rstrip()
+    )
+)
 # NOTE append endline in result to prevent 'no output from filter' warning
 sys.stdout.write("\n")
