@@ -24,3 +24,5 @@ doc/*.html
 /config.*
 /configure
 Makefile
+ 
+/tags

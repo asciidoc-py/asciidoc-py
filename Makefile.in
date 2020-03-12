@@ -212,6 +212,12 @@ build: fixconfpath $(manp)
 .PHONY: install
 install: all $(PROGTARGETS) $(DATATARGETS) progsymlink
 
+##   tags: generate tags index files for use with vim and other tags-capable editors
+.PHONY: tags
+tags:
+	rm -f tags
+	ctags asciidoc.py asciidocapi.py tests/testasciidoc.py
+
 ##   uninstall: uninstall asciidoc
 .PHONY: uninstall
 uninstall:
