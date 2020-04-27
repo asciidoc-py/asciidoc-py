@@ -30,6 +30,7 @@ Version 9.0.0 (Unreleased)
 .Testing
 - Commit generated test files to the repository for continuous integration
 - Test against Python 3.5+ on Travis-CI
+- Remove symlink tests/asciidocapi.py in favor of just appending to sys.path
 
 Version 8.6.10 (2017-09-22)
 ---------------------------

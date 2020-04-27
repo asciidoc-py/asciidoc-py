@@ -24,5 +24,7 @@ doc/*.html
 /config.*
 /configure
 Makefile
- 
+
 /tags
+
+/gh-pages/
