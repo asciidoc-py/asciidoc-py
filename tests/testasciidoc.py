@@ -12,6 +12,7 @@ import re
 import sys
 import time
 
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 import asciidocapi
 
 
