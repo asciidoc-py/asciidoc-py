@@ -364,11 +364,11 @@ def get_source_options(asciidoc_file):
     result = []
     if os.path.isfile(asciidoc_file):
         options = ''
-        with open(asciidoc_file) as f:
+        with open(asciidoc_file, 'rb') as f:
             for line in f:
-                mo = re.search(r'^//\s*a2x:', line)
+                mo = re.search(rb'^//\s*a2x:', line)
                 if mo:
-                    options += ' ' + line[mo.end():].strip()
+                    options += ' ' + line[mo.end():].decode('utf8').strip()
         parse_options()
     return result
 
