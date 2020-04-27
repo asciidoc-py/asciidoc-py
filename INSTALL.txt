@@ -100,9 +100,7 @@ To uninstall AsciiDoc:
   $ sudo make uninstall
 
 If Vim is installed on your system the AsciiDoc Vim syntax highlighter
-and filetype detection scripts will be installed in the global Vim
-configuration file directory (`asciidoc.vim` in the `syntax` directory
-and `asciidoc_filetype.vim` in the `ftdetect` directory).
+and filetype detection are already installed as built into the vim runtime.
 
 
 [[X3]]
