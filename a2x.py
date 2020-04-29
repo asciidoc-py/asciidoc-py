@@ -375,10 +375,10 @@ def get_source_options(asciidoc_file):
                     except UnicodeDecodeError as e:
                         #Encountered a problem decoding an option for a2x.
                         #Discard this option and continue on with a warning.
-                        warning("Options must be in %s " % e.encoding  +
-                                "encoding: File '%s' " % asciidoc_file +
-                                "line number '%s' " %line_number       +
-                                "error '%s'." % e.reason)
+                        warning(
+                            "Could not decode option to %s " % e.encoding +
+                            "on line %s in %s" % (line_number, asciidoc_file)
+                        )
         parse_options()
     return result
 
