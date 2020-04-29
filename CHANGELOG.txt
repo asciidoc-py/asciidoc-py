@@ -26,7 +26,7 @@ Version 9.0.0 (Unreleased)
 - Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
 - Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
 - make install did not include the unwraplatex.py filter
-- Fix a2x Option Collection From Input File With Non-ASCII Encoding
+- Fix a2x option collection from input file with non-ascii encoding
 
 .Testing
 - Commit generated test files to the repository for continuous integration
