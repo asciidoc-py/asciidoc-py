@@ -239,4 +239,6 @@ clean:
 ##   test: run the asciidoc test suite
 .PHONY: test
 test:
+	python3 ./asciidoc.py --doctest
+	python3 ./asciidocapi.py
 	python3 tests/testasciidoc.py run
