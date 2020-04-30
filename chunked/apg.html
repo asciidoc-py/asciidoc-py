@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix G. Diagnostics</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="apf.html" title="Appendix F. Attribute Options" /><link rel="next" href="aph.html" title="Appendix H. Backend Attributes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="apf.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="aph.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="appendix" title="Appendix G. Diagnostics"><div class="titlepage"><div><div><h2 class="title"><a id="X82"></a>Appendix G. Diagnostics</h2></div></div></div><p>The <code class="literal">asciidoc(1)</code> <code class="literal">--verbose</code> command-line option prints additional
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix G. Diagnostics</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="apf.html" title="Appendix F. Attribute Options" /><link rel="next" href="aph.html" title="Appendix H. Backend Attributes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="apf.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="aph.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="X82"></a>Appendix G. Diagnostics</h1></div></div></div><p>The <code class="literal">asciidoc(1)</code> <code class="literal">--verbose</code> command-line option prints additional
 information to stderr: files processed, filters processed, warnings,
 system attribute evaluation.</p><p>A special attribute named <span class="emphasis"><em>trace</em></span> enables the output of
 element-by-element diagnostic messages detailing output markup
 generation to stderr.  The <span class="emphasis"><em>trace</em></span> attribute can be set on the
 command-line or from within the document using <a class="link" href="ch28.html" title="Chapter 28. Attribute Entries">Attribute Entries</a> (the latter allows tracing to be confined to specific
-portions of the document).</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+portions of the document).</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Trace messages print the source file name and line number and the
   trace name followed by related markup.
 </li><li class="listitem">
@@ -20,13 +19,13 @@ The trace message is only printed if the <span class="emphasis"><em>trace</em></
   of output if applied to the whole document).
 </li><li class="listitem"><p class="simpara">
 In the case of inline substitutions:
-</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
 The text before and after the substitution is printed; the before
     text is preceded by a line containing <code class="literal">&lt;&lt;&lt;</code> and the after text by
     a line containing <code class="literal">&gt;&gt;&gt;</code>.
 </li><li class="listitem">
 The <span class="emphasis"><em>subs</em></span> trace value is an alias for all inline substitutions.
-</li></ul></div></li></ul></div><p title="Trace names"><strong>Trace names. </strong>
+</li></ul></div></li></ul></div><p><strong>Trace names. </strong>
 </p><pre class="literallayout">&lt;blockname&gt; block close
 &lt;blockname&gt; block open
 &lt;subs&gt;
@@ -52,8 +51,8 @@ pop blockname
 section close
 section open: level &lt;level&gt;
 subs (all inline substitutions)
-table</pre><p title="Trace names">
-</p><p>Where:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+table</pre><p>
+</p><p>Where:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">&lt;level&gt;</code> is section level number <span class="emphasis"><em>0…4</em></span>.
 </li><li class="listitem">
 <code class="literal">&lt;blockname&gt;</code> is a delimited block name: <span class="emphasis"><em>comment</em></span>, <span class="emphasis"><em>sidebar</em></span>,

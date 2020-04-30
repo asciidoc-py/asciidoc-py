@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 31. Intrinsic Attributes</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch30.html" title="Chapter 30. Attribute References" /><link rel="next" href="ch32.html" title="Chapter 32. Block Element Definitions" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch30.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch32.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter" title="Chapter 31. Intrinsic Attributes"><div class="titlepage"><div><div><h2 class="title"><a id="X60"></a>Chapter 31. Intrinsic Attributes</h2></div></div></div><p>Intrinsic attributes are simple attributes that are created
-automatically from: AsciiDoc document header parameters; <code class="literal">asciidoc(1)</code>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 31. Intrinsic Attributes</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch30.html" title="Chapter 30. Attribute References" /><link rel="next" href="ch32.html" title="Chapter 32. Block Element Definitions" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch30.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch32.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="X60"></a>Chapter 31. Intrinsic Attributes</h1></div></div></div><p>Intrinsic attributes are simple attributes that are created
+automatically from: AsciiDoc document header parameters; asciidoc(1)
 command-line arguments; attributes defined in the default
 configuration files; the execution context.  Here’s the list of
 predefined intrinsic attributes:</p><pre class="literallayout">{amp}                 ampersand (&amp;) character entity
@@ -22,11 +21,11 @@ predefined intrinsic attributes:</p><pre class="literallayout">{amp}            
 {basebackend}         html or docbook
 {blockname}           current block name (note 8).
 {brvbar}              broken vertical bar (|) character
-{docdate}             document last modified date
+{docdate}             document last modified date (note 9)
 {docdir}              document input directory name  (note 5)
 {docfile}             document file name  (note 5)
 {docname}             document file name without extension (note 6)
-{doctime}             document last modified time
+{doctime}             document last modified time (note 9)
 {doctitle}            document title (from document header)
 {doctype-&lt;doctype&gt;}   empty string ''
 {doctype}             document type specified by `-d` option
@@ -44,8 +43,8 @@ predefined intrinsic attributes:</p><pre class="literallayout">{amp}            
 {ldquo}               Left double quote character (note 7)
 {level}               title level 1..4 (in section titles)
 {listindex}           the list index (1..) of the most recent list item
-{localdate}           the current date
-{localtime}           the current time
+{localdate}           the current date (note 9)
+{localtime}           the current time (note 9)
 {lsquo}               Left single quote character (note 7)
 {lt}                  less than (&lt;) character entity
 {manname}             manpage name (defined in NAME section)
@@ -73,7 +72,7 @@ predefined intrinsic attributes:</p><pre class="literallayout">{amp}            
 {user-dir}            the ~/.asciidoc directory (if it exists)
 {verbose}             defined as '' if --verbose command option specified
 {wj}                  word-joiner
-{zwsp}                zero-width space character entity</pre><div class="note" title="Note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+{zwsp}                zero-width space character entity</pre><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
 Intrinsic attributes are global so avoid defining custom attributes
    with the same names.
 </li><li class="listitem">
@@ -87,10 +86,10 @@ See also the <a class="link" href="aph.html" title="Appendix H. Backend Attrib
 The entries that translate to blank strings are designed to be used
    for conditional text inclusion. You can also use the <code class="literal">ifdef</code>,
    <code class="literal">ifndef</code> and <code class="literal">endif</code> System macros for conditional inclusion.
-   <sup>[<a id="idp20209216" href="#ftn.idp20209216" class="footnote">4</a>]</sup>
+   <a href="#ftn.idm4418" class="footnote" id="idm4418"><sup class="footnote">[4]</sup></a>
 </li><li class="listitem">
 <code class="literal">{docfile}</code> and <code class="literal">{docdir}</code> refer to root document specified on the
-   <code class="literal">asciidoc(1)</code> command-line; <code class="literal">{infile}</code> and <code class="literal">{indir}</code> refer to the
+   asciidoc(1) command-line; <code class="literal">{infile}</code> and <code class="literal">{indir}</code> refer to the
    current input file which may be the root document or an included
    file. When the input is being read from the standard input
    (<code class="literal">stdin</code>) these attributes are undefined.
@@ -107,7 +106,7 @@ The <code class="literal">{blockname}</code> attribute identifies the style of t
    block. It applies to delimited blocks, lists and tables. Here is a
    list of <code class="literal">{blockname}</code> values (does not include filters or custom
    block and style names):
-</p><div class="variablelist"><dl><dt><span class="term">
+</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 delimited blocks
 </span></dt><dd>
 comment, sidebar, open, pass, literal, verse,
@@ -123,7 +122,14 @@ arabic, loweralpha, upperalpha, lowerroman, upperroman,
 tables
 </span></dt><dd>
 table
-</dd></dl></div></li></ol></div></td></tr></table></div><div class="footnotes"><br /><hr width="100" align="left" /><div class="footnote"><p><sup>[<a id="ftn.idp20209216" href="#idp20209216" class="simpara">4</a>] </sup>Conditional inclusion using <code class="literal">ifdef</code> and <code class="literal">ifndef</code> macros
+</dd></dl></div></li><li class="listitem">
+If the <code class="literal">SOURCE_DATE_EPOCH</code> environment variable is set to a UNIX
+   timestamp, then the <code class="literal">{docdate}</code>, <code class="literal">{doctime}</code>, <code class="literal">{localdate}</code>, and
+   <code class="literal">{localtime}</code> attributes are computed in the UTC time zone, with any
+   timestamps newer than <code class="literal">SOURCE_DATE_EPOCH</code> replaced by
+   <code class="literal">SOURCE_DATE_EPOCH</code>. (This helps software using AsciiDoc to build
+   reproducibly.)
+</li></ol></div></td></tr></table></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.idm4418" class="footnote"><p><a href="#idm4418" class="simpara"><sup class="simpara">[4] </sup></a>Conditional inclusion using <code class="literal">ifdef</code> and <code class="literal">ifndef</code> macros
    differs from attribute conditional inclusion in that the former
    occurs when the file is read while the latter occurs when the
    contents are written.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch30.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch32.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="images/icons/home.png" alt="Home" /></a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

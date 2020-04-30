@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 4. AsciiDoc Backends</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch03.html" title="Chapter 3. AsciiDoc Document Types" /><link rel="next" href="ch05.html" title="Chapter 5. DocBook" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch05.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter" title="Chapter 4. AsciiDoc Backends"><div class="titlepage"><div><div><h2 class="title"><a id="X5"></a>Chapter 4. AsciiDoc Backends</h2></div></div></div><p>The <code class="literal">asciidoc(1)</code> command translates an AsciiDoc formatted file to the
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 4. AsciiDoc Backends</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch03.html" title="Chapter 3. AsciiDoc Document Types" /><link rel="next" href="ch05.html" title="Chapter 5. DocBook" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch05.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="X5"></a>Chapter 4. AsciiDoc Backends</h1></div></div></div><p>The asciidoc(1) command translates an AsciiDoc formatted file to the
 backend format specified by the <code class="literal">-b</code> (<code class="literal">--backend</code>) command-line
-option. <code class="literal">asciidoc(1)</code> itself has little intrinsic knowledge of backend
+option. asciidoc(1) itself has little intrinsic knowledge of backend
 formats, all translation rules are contained in customizable cascading
 configuration files. Backend specific attributes are listed in the
-<a class="link" href="aph.html" title="Appendix H. Backend Attributes">Backend Attributes</a> section.</p><div class="variablelist"><dl><dt><span class="term">
+<a class="link" href="aph.html" title="Appendix H. Backend Attributes">Backend Attributes</a> section.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 docbook45
 </span></dt><dd>
   Outputs DocBook XML 4.5 markup.
+</dd><dt><span class="term">
+docbook5
+</span></dt><dd>
+  Outputs DocBook XML 5.0 markup.
 </dd><dt><span class="term">
 html4
 </span></dt><dd>
@@ -41,15 +44,15 @@ wordpress
 latex
 </span></dt><dd>
   Experimental LaTeX backend.
-</dd></dl></div><div class="section" title="4.1. Backend Aliases"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_backend_aliases"></a>4.1. Backend Aliases</h2></div></div></div><p>Backend aliases are alternative names for AsciiDoc backends.  AsciiDoc
+</dd></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_backend_aliases"></a>4.1. Backend Aliases</h2></div></div></div><p>Backend aliases are alternative names for AsciiDoc backends.  AsciiDoc
 comes with two backend aliases: <span class="emphasis"><em>html</em></span> (aliased to <span class="emphasis"><em>xhtml11</em></span>) and
 <span class="emphasis"><em>docbook</em></span> (aliased to <span class="emphasis"><em>docbook45</em></span>).</p><p>You can assign (or reassign) backend aliases by setting an AsciiDoc
 attribute named like <code class="literal">backend-alias-&lt;alias&gt;</code> to an AsciiDoc backend
 name. For example, the following backend alias attribute definitions
 appear in the <code class="literal">[attributes]</code> section of the global <code class="literal">asciidoc.conf</code>
 configuration file:</p><pre class="literallayout">backend-alias-html=xhtml11
-backend-alias-docbook=docbook45</pre></div><div class="section" title="4.2. Backend Plugins"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X100"></a>4.2. Backend Plugins</h2></div></div></div><p>The <code class="literal">asciidoc(1)</code> <code class="literal">--backend</code> option is also used to install and manage
-backend <a class="link" href="ch34.html" title="Chapter 34. Plugins">plugins</a>.</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+backend-alias-docbook=docbook45</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X100"></a>4.2. Backend Plugins</h2></div></div></div><p>The asciidoc(1) <code class="literal">--backend</code> option is also used to install and manage
+backend <a class="link" href="ch34.html" title="Chapter 34. Plugins">plugins</a>.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 A backend plugin is used just like the built-in backends.
 </li><li class="listitem">
 Backend plugins <a class="link" href="ch26.html#X27" title="26.11. Configuration file names, precedence and locations">take precedence</a> over built-in backends with

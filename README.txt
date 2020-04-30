@@ -1,6 +1,8 @@
 [float]
-AsciiDoc image:https://travis-ci.org/asciidoc/asciidoc.svg?branch=master[Build Status,link=https://travis-ci.org/asciidoc/asciidoc]
-===================================================================================================================================
+AsciiDoc
+========
+
+image:https://travis-ci.com/asciidoc/asciidoc-py3.svg?branch=master["Build Status", link="https://travis-ci.com/asciidoc/asciidoc-py3"]
 
 AsciiDoc is a text document format for writing notes, documentation,
 articles, books, ebooks, slideshows, web pages, man pages and blogs.
@@ -14,22 +16,23 @@ SGML/XML markup) can be customized and extended by the user.
 Prerequisites
 -------------
 AsciiDoc is written in Python so you need a Python interpreter
-(version 2.4 or later) to execute asciidoc(1). Python is installed by
+(version 3.5 or later) to execute asciidoc(1). Python is installed by
 default in most Linux distributions.  You can download Python from the
 official Python website http://www.python.org.
 
 
 Obtaining AsciiDoc
 ------------------
-Documentation and installation instructions are on the AsciiDoc
-website http://asciidoc.org/
-
+AsciiDoc's Python 3 port is currently under development. To obtain AsciiDoc,
+download a copy of the repo from the GitHub project at
+https://github.com/asciidoc/asciidoc-py3 and follow the instructions in
+INSTALL.txt to build and install it.
 
 Tools
 -----
-Current AsciiDoc version tested on Xubuntu Linux 10.04 with:
+Current AsciiDoc version tested on Ubuntu 18.04 with:
 
-- Python 2.6.5
+- Python 3.6.5
 - DocBook XSL Stylesheets 1.76.1
 - xsltproc (libxml 20706, libxslt 10126 and libexslt 815).
 - w3m 0.5.2

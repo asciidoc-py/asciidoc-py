@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>AsciiDoc User Guide</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -42,8 +42,8 @@ asciidoc.install(2);
 <h1>AsciiDoc User Guide</h1>
 <span id="author">Stuart Rackham</span><br />
 <span id="email"><code>&lt;<a href="mailto:srackham@gmail.com">srackham@gmail.com</a>&gt;</code></span><br />
-<span id="revision">version 8.6.9,</span>
-9 November 2013
+<span id="revision">version 9.0.0rc2,</span>
+11 March 2020
 <div id="toc">
   <div id="toctitle">Table of Contents</div>
   <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
@@ -225,6 +225,14 @@ docbook45
 <dd>
 <p>
   Outputs DocBook XML 4.5 markup.
+</p>
+</dd>
+<dt class="hdlist1">
+docbook5
+</dt>
+<dd>
+<p>
+  Outputs DocBook XML 5.0 markup.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -6754,7 +6762,7 @@ Attribute references contained in the entry <code>&lt;value&gt;</code> will be
 <p>
 By default AttributeEntry values are substituted for
   <code>specialcharacters</code> and <code>attributes</code> (see above), if you want to
-  change or disable AttributeEntry substitution use the <a href="#X77">   inline macro</a> syntax.
+  change or disable AttributeEntry substitution use the <a href="#X77">pass:[]   inline macro</a> syntax.
 </p>
 </li>
 <li>
@@ -7470,11 +7478,11 @@ predefined intrinsic attributes:</p></div>
 {basebackend}         html or docbook
 {blockname}           current block name (note 8).
 {brvbar}              broken vertical bar (|) character
-{docdate}             document last modified date
+{docdate}             document last modified date (note 9)
 {docdir}              document input directory name  (note 5)
 {docfile}             document file name  (note 5)
 {docname}             document file name without extension (note 6)
-{doctime}             document last modified time
+{doctime}             document last modified time (note 9)
 {doctitle}            document title (from document header)
 {doctype-&lt;doctype&gt;}   empty string ''
 {doctype}             document type specified by `-d` option
@@ -7492,8 +7500,8 @@ predefined intrinsic attributes:</p></div>
 {ldquo}               Left double quote character (note 7)
 {level}               title level 1..4 (in section titles)
 {listindex}           the list index (1..) of the most recent list item
-{localdate}           the current date
-{localtime}           the current time
+{localdate}           the current date (note 9)
+{localtime}           the current time (note 9)
 {lsquo}               Left single quote character (note 7)
 {lt}                  less than (&lt;) character entity
 {manname}             manpage name (defined in NAME section)
@@ -7620,6 +7628,16 @@ table
 </p>
 </dd>
 </dl></div>
+</li>
+<li>
+<p>
+If the <code>SOURCE_DATE_EPOCH</code> environment variable is set to a UNIX
+   timestamp, then the <code>{docdate}</code>, <code>{doctime}</code>, <code>{localdate}</code>, and
+   <code>{localtime}</code> attributes are computed in the UTC time zone, with any
+   timestamps newer than <code>SOURCE_DATE_EPOCH</code> replaced by
+   <code>SOURCE_DATE_EPOCH</code>. (This helps software using AsciiDoc to build
+   reproducibly.)
+</p>
 </li>
 </ol></div>
 </td>
@@ -9072,7 +9090,7 @@ version in the online
 repository</a>.</p></div>
 <div class="paragraph"><p>Install the highlighter by copying <code>asciidoc.vim</code> to your
 <code>$HOME/.vim/syntax</code> directory (create it if it doesn&#8217;t already exist).</p></div>
-<div class="paragraph"><p>To enable syntax highlighing:</p></div>
+<div class="paragraph"><p>To enable syntax highlighting:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -9571,6 +9589,36 @@ prior to the first document section. The document also needs to be
 dated to output this attribute.</p></div></div></td>
 </tr>
 <tr>
+<td align="left" valign="top"><p class="table"><em>footer-style</em></p></td>
+<td align="left" valign="top"><p class="table">html4, html5, xhtml11</p></td>
+<td align="left" valign="top"><div><div class="paragraph"><p>Changes the "Last updated" field in the footer of the document or removes this
+field and the revision number (in the footer only).<br />
+Can take 3 values:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+none : Don&#8217;t display the "Last updated" and "Revision number" fields in the
+  footer of the document
+</p>
+</li>
+<li>
+<p>
+revdate : The "Last updated" field&#8217;s date in the footer will be the revision
+  date specified in the document (<code>revdate</code> attribute)
+</p>
+</li>
+<li>
+<p>
+default (or any other value) : The "Last updated" field&#8217;s date in the footer
+  will be the date of the input file modification
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This attribute can be set, for example, using <code>:footer-style: revdate</code> in the
+header of the file or using the <code>--attribute footer-style=revdate</code> command-line
+option.</p></div></div></td>
+</tr>
+<tr>
 <td align="left" valign="top"><p class="table"><em>scriptsdir</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
 <td align="left" valign="top"><div><div class="paragraph"><p>The name of the directory containing linked JavaScripts.
@@ -9693,8 +9741,8 @@ General Public License version 2 for more details.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2015-02-26 06:50:57 CET
+Version 9.0.0rc2<br />
+Last updated 2020-04-30 13:12:51 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">

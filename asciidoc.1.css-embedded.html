@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>ASCIIDOC(1)</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -435,7 +436,7 @@ thead, p.table.header {
 p.table {
   margin-top: 0;
 }
-/* Because the table frame attribute is overriden by CSS in most browsers. */
+/* Because the table frame attribute is overridden by CSS in most browsers. */
 div.tableblock > table[frame="void"] {
   border-style: none;
 }
@@ -782,7 +783,7 @@ DocBook or HTML.  If <em>FILE</em> is <em>-</em> then the standard input is used
 </dt>
 <dd>
 <p>
-    Backend output file format: <em>docbook45</em>, <em>xhtml11</em>, <em>html4</em>,
+    Backend output file format: <em>docbook45</em>, <em>docbook5</em>, <em>xhtml11</em>, <em>html4</em>,
     <em>html5</em>, <em>slidy</em>, <em>wordpress</em> or <em>latex</em> (the <em>latex</em> backend is
     experimental).  You can also use the backend alias names <em>html</em>
     (aliased to <em>xhtml11</em>) or <em>docbook</em> (aliased to <em>docbook45</em>).
@@ -814,7 +815,7 @@ DocBook or HTML.  If <em>FILE</em> is <em>-</em> then the standard input is used
 <dd>
 <p>
     Document type: <em>article</em>, <em>manpage</em> or <em>book</em>. The <em>book</em> document
-    type is only supported by the <em>docbook</em> backend.  Default document
+    type is only supported by the <em>docbook</em> backends.  Default document
     type is <em>article</em>.
 </p>
 </dd>
@@ -1034,6 +1035,69 @@ asciidoc OPTION build ZIP_FILE PLUGIN_SOURCE</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_environment_variables">ENVIRONMENT VARIABLES</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong><code>SOURCE_DATE_EPOCH</code></strong>
+</dt>
+<dd>
+<p>
+  If the <code>SOURCE_DATE_EPOCH</code> environment variable is set to a UNIX
+  timestamp, then the <code>{docdate}</code>, <code>{doctime}</code>, <code>{localdate}</code>, and
+  <code>{localtime}</code> attributes are computed in the UTC time zone, with any
+  timestamps newer than <code>SOURCE_DATE_EPOCH</code> replaced by
+  <code>SOURCE_DATE_EPOCH</code>. (This helps software using AsciiDoc to build
+  reproducibly.)
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">EXAMPLES</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<code>asciidoc asciidoc_file_name.txt</code>
+</dt>
+<dd>
+<p>
+  Simply generate an html file from the asciidoc_file_name.txt that is in
+  current directory using asciidoc.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>asciidoc -b html5 asciidoc_file_name.txt</code>
+</dt>
+<dd>
+<p>
+  Use the <code>-b</code> switch to use one of the proposed backend or another one you
+  installed on your computer.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>asciidoc -a data-uri -a icons -a toc -a max-width=55em article.txt</code>
+</dt>
+<dd>
+<p>
+  Use the <code>-a</code> switch to set attributes from command-line. AsciiDoc generated
+  its stand-alone HTML user guide containing embedded CSS, JavaScript and
+  images from the AsciiDoc article template with this command.
+</p>
+</dd>
+<dt class="hdlist1">
+<code>asciidoc -b html5 -d manpage asciidoc.1.txt</code>
+</dt>
+<dd>
+<p>
+  Generating the asciidoc manpage using the html5 backend.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_exit_status">EXIT STATUS</h2>
 <div class="sectionbody">
 <div class="dlist"><dl>
@@ -1078,6 +1142,12 @@ contributed to it.</p></div>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>a2x(1)</p></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_copying">COPYING</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Copyright (C) 2002-2011 Stuart Rackham. Free use of this software is
@@ -1088,8 +1158,9 @@ granted under the terms of the GNU General Public License (GPL).</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2012-12-29 09:05:07 NZDT
+Version 9.0.0rc2<br />
+Last updated
+ 2020-04-30 13:11:22 UTC
 </div>
 </div>
 </body>

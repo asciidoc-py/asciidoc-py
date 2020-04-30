@@ -29,7 +29,7 @@ wait for the Debian `docbook-xsl` package:
   $ cd /usr/share/xml/docbook/stylesheet
   $ sudo tar -xzf /tmp/docbook-xsl-1.72.0.tar.gz
 
-- Edit `/etc/xml/docbook-xsl.xml` catalog and replace occurences of
+- Edit `/etc/xml/docbook-xsl.xml` catalog and replace occurrences of
   the current stylesheets directory with the new one (in our example
   it would be `/usr/share/xml/docbook/stylesheet/docbook-xsl-1.72.0`.
 

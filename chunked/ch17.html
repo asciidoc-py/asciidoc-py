@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 17. Lists</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch16.html" title="Chapter 16. Delimited Blocks" /><link rel="next" href="ch18.html" title="Chapter 18. Footnotes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch16.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch18.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter" title="Chapter 17. Lists"><div class="titlepage"><div><div><h2 class="title"><a id="X64"></a>Chapter 17. Lists</h2></div></div></div><div class="itemizedlist" title="List types"><p class="title"><strong>List types</strong></p><ul class="itemizedlist" type="disc"><li class="listitem">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 17. Lists</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch16.html" title="Chapter 16. Delimited Blocks" /><link rel="next" href="ch18.html" title="Chapter 18. Footnotes" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch16.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch18.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="X64"></a>Chapter 17. Lists</h1></div></div></div><div class="itemizedlist"><p class="title"><strong>List types</strong></p><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Bulleted lists. Also known as itemized or unordered lists.
 </li><li class="listitem">
 Numbered lists. Also called ordered lists.
@@ -8,7 +7,7 @@ Numbered lists. Also called ordered lists.
 Labeled lists. Sometimes called variable or definition lists.
 </li><li class="listitem">
 Callout lists (a list of callout annotations).
-</li></ul></div><div class="itemizedlist" title="List behavior"><p class="title"><strong>List behavior</strong></p><ul class="itemizedlist" type="disc"><li class="listitem">
+</li></ul></div><div class="itemizedlist"><p class="title"><strong>List behavior</strong></p><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 List item indentation is optional and does not determine nesting,
   indentation does however make the source more readable.
 </li><li class="listitem">
@@ -23,14 +22,14 @@ The <code class="literal">listindex</code> <a class="link" href="ch31.html" titl
   index (1..). If this attribute is used outside a list then it’s value
   is the number of items in the most recently closed list. Useful for
   displaying the number of items in a list.
-</li></ul></div><div class="section" title="17.1. Bulleted Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_bulleted_lists"></a>17.1. Bulleted Lists</h2></div></div></div><p>Bulleted list items start with a single dash or one to five asterisks
+</li></ul></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_bulleted_lists"></a>17.1. Bulleted Lists</h2></div></div></div><p>Bulleted list items start with a single dash or one to five asterisks
 followed by some white space then some text. Bulleted list syntaxes
 are:</p><pre class="literallayout">- List item.
 * List item.
 ** List item.
 *** List item.
 **** List item.
-***** List item.</pre></div><div class="section" title="17.2. Numbered Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_numbered_lists"></a>17.2. Numbered Lists</h2></div></div></div><p>List item numbers are explicit or implicit.</p><p title="Explicit numbering"><strong>Explicit numbering. </strong>List items begin with a number followed by some white space then the
+***** List item.</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_numbered_lists"></a>17.2. Numbered Lists</h2></div></div></div><p>List item numbers are explicit or implicit.</p><p><strong>Explicit numbering. </strong>List items begin with a number followed by some white space then the
 item text. The numbers can be decimal (arabic), roman (upper or lower
 case) or alpha (upper or lower case). Decimal and alpha numbers are
 terminated with a period, roman numbers are terminated with a closing
@@ -40,7 +39,7 @@ parenthesis. The different terminators are necessary to ensure <span class="emph
 a.   Lower case alpha (letter) numbered list item.
 F.   Upper case alpha (letter) numbered list item.
 iii) Lower case roman numbered list item.
-IX)  Upper case roman numbered list item.</pre><p title="Implicit numbering"><strong>Implicit numbering. </strong>List items begin one to five period characters, followed by some white
+IX)  Upper case roman numbered list item.</pre><p><strong>Implicit numbering. </strong>List items begin one to five period characters, followed by some white
 space then the item text. Examples:</p><pre class="literallayout">. Arabic (decimal) numbered list item.
 .. Lower case alpha (letter) numbered list item.
 ... Lower case roman numbered list item.
@@ -71,7 +70,7 @@ list style can be one of the following values: <span class="emphasis"><em>arabic
 [upperroman]
     .. Fusce euismod commodo velit.
     .. Vivamus fringilla mi eu lacus.
-  . Donec eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p class="simpara">
+  . Donec eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p class="simpara">
 Praesent eget purus quis magna eleifend eleifend.
 </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
 Fusce euismod commodo velit.
@@ -93,9 +92,9 @@ Donec eget arcu bibendum nunc consequat lobortis.
 Nam fermentum mattis ante.
 </li></ol></div></li><li class="listitem"><p class="simpara">
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-</p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p class="simpara">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p class="simpara">
 Fusce euismod commodo velit.
-</p><div class="itemizedlist"><ul class="itemizedlist" type="square"><li class="listitem">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem">
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
      adolescens. Sit munere ponderum dignissim et. Minim luptatum et
      vel.
@@ -120,13 +119,13 @@ lists — this translates to the DocBook <span class="emphasis"><em>spacing=
 attribute which may or may not be processed by the DocBook toolchain.
 Example:</p><pre class="literallayout">[options="compact"]
 - Compact list item.
-- Another compact list item.</pre><div class="tip" title="Tip" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="images/icons/tip.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To apply the <span class="emphasis"><em>compact</em></span> option globally define a document-wide
+- Another compact list item.</pre><div class="tip" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Tip"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="images/icons/tip.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To apply the <span class="emphasis"><em>compact</em></span> option globally define a document-wide
 <span class="emphasis"><em>compact-option</em></span> attribute, e.g. using the <code class="literal">-a compact-option</code>
 command-line option.</p></td></tr></table></div><p>You can set the list start number using the <span class="emphasis"><em>start</em></span> attribute (works
 for HTML outputs and DocBook outputs processed by DocBook XSL
 Stylesheets). Example:</p><pre class="literallayout">[start=7]
 . List item 7.
-. List item 8.</pre></div><div class="section" title="17.3. Labeled Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_labeled_lists"></a>17.3. Labeled Lists</h2></div></div></div><p>Labeled list items consist of one or more text labels followed by the
+. List item 8.</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_labeled_lists"></a>17.3. Labeled Lists</h2></div></div></div><p>Labeled list items consist of one or more text labels followed by the
 text of the list item.</p><p>An item label begins a line with an alphanumeric character hard
 against the left margin and ends with two, three or four colons or two
 semi-colons. A list item can have multiple labels, one per line.</p><p>The list item text consists of one or more lines of text starting
@@ -150,7 +149,7 @@ Dolor::
   In;;
     Dictum mauris in urna.
     Vivamus::: Fringilla mi eu lacus.
-    Donec:::   Eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="variablelist"><dl><dt><span class="term">
+    Donec:::   Eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 In
 , </span><span class="term">
 Lorem
@@ -160,7 +159,7 @@ Lorem
 Ipsum
 </span></dt><dd><p class="simpara">
 Vivamus fringilla mi eu lacus.
-</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Vivamus fringilla mi eu lacus.
 </li><li class="listitem">
 Donec eget arcu bibendum nunc consequat lobortis.
@@ -168,7 +167,7 @@ Donec eget arcu bibendum nunc consequat lobortis.
 Dolor
 </span></dt><dd><p class="simpara">
   Donec eget arcu bibendum nunc consequat lobortis.
-</p><div class="variablelist"><dl><dt><span class="term">
+</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 Suspendisse
 </span></dt><dd>
     A massa id sem aliquam auctor.
@@ -180,7 +179,7 @@ Morbi
 In
 </span></dt><dd><p class="simpara">
     Dictum mauris in urna.
-</p><div class="variablelist"><dl><dt><span class="term">
+</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 Vivamus
 </span></dt><dd>
 Fringilla mi eu lacus.
@@ -188,7 +187,7 @@ Fringilla mi eu lacus.
 Donec
 </span></dt><dd>
 Eget arcu bibendum nunc consequat lobortis.
-</dd></dl></div></dd></dl></div></dd></dl></div><div class="section" title="17.3.1. Horizontal labeled list style"><div class="titlepage"><div><div><h3 class="title"><a id="_horizontal_labeled_list_style"></a>17.3.1. Horizontal labeled list style</h3></div></div></div><p>The <span class="emphasis"><em>horizontal</em></span> labeled list style (also the first positional
+</dd></dl></div></dd></dl></div></dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_horizontal_labeled_list_style"></a>17.3.1. Horizontal labeled list style</h3></div></div></div><p>The <span class="emphasis"><em>horizontal</em></span> labeled list style (also the first positional
 attribute) places the list text side-by-side with the label instead of
 under the label. Here is an example:</p><pre class="screen">[horizontal]
 *Lorem*:: Fusce euismod commodo velit.  Qui in magna commodo, est
@@ -202,7 +201,7 @@ labitur dolorum an. Est ne magna primis adolescens.
 
 *Dolor*::
   - Vivamus fringilla mi eu lacus.
-  - Donec eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="horizontal"><table cellpadding="4px" style="border: none;"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td style="" valign="top">
+  - Donec eget arcu bibendum nunc consequat lobortis.</pre><p>Which render as:</p><div class="horizontal"><table class="horizontal" cellpadding="4px" style="border: none;"><colgroup><col /><col /></colgroup><tbody valign="top"><tr><td style="" valign="top">
 <p>
 <span class="strong"><strong>Lorem</strong></span>
 </p>
@@ -220,7 +219,7 @@ labitur dolorum an. Est ne magna primis adolescens.
 <p>
 Vivamus fringilla mi eu lacus.
 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Vivamus fringilla mi eu lacus.
 </li><li class="listitem">
 Donec eget arcu bibendum nunc consequat lobortis.
@@ -230,12 +229,12 @@ Donec eget arcu bibendum nunc consequat lobortis.
 <span class="strong"><strong>Dolor</strong></span>
 </p>
 </td><td style="" valign="top">
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Vivamus fringilla mi eu lacus.
 </li><li class="listitem">
 Donec eget arcu bibendum nunc consequat lobortis.
 </li></ul></div>
-</td></tr></tbody></table></div><div class="note" title="Note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+</td></tr></tbody></table></div><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Current PDF toolchains do not make a good job of determining
   the relative column widths for horizontal labeled lists.
 </li><li class="listitem">
@@ -246,42 +245,42 @@ Nested horizontal labeled lists will generate DocBook validation
 </li><li class="listitem">
 The label width can be set as a percentage of the total width by
   setting the <span class="emphasis"><em>width</em></span> attribute e.g. <code class="literal">width="10%"</code>
-</li></ul></div></td></tr></table></div></div></div><div class="section" title="17.4. Question and Answer Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_question_and_answer_lists"></a>17.4. Question and Answer Lists</h2></div></div></div><p>AsciiDoc comes pre-configured with a <span class="emphasis"><em>qanda</em></span> style labeled list for generating
+</li></ul></div></td></tr></table></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_question_and_answer_lists"></a>17.4. Question and Answer Lists</h2></div></div></div><p>AsciiDoc comes pre-configured with a <span class="emphasis"><em>qanda</em></span> style labeled list for generating
 DocBook question and answer (Q&amp;A) lists. Example:</p><pre class="screen">[qanda]
 Question one::
         Answer one.
 Question two::
-        Answer two.</pre><p>Renders:</p><div class="qandaset" title="Frequently Asked Questions"><a id="idp19474224"></a><table border="0" width="100%" summary="Q and A Set"><col align="left" width="1%" /><col /><tbody><tr class="question" title="17.4.1."><td align="left" valign="top"><a id="idp19474352"></a><a id="idp19474480"></a><p><strong>17.4.1.</strong></p></td><td align="left" valign="top"><p>
+        Answer two.</pre><p>Renders:</p><div class="qandaset"><a id="idm1863"></a><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idm1864"></a><a id="idm1865"></a><p><strong>17.4.1.</strong></p></td><td align="left" valign="top"><p>
 Question one
 </p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>
         Answer one.
-</p></td></tr><tr class="question" title="17.4.2."><td align="left" valign="top"><a id="idp19475400"></a><a id="idp19475528"></a><p><strong>17.4.2.</strong></p></td><td align="left" valign="top"><p>
+</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idm1869"></a><a id="idm1870"></a><p><strong>17.4.2.</strong></p></td><td align="left" valign="top"><p>
 Question two
 </p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>
         Answer two.
-</p></td></tr></tbody></table></div></div><div class="section" title="17.5. Glossary Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_glossary_lists"></a>17.5. Glossary Lists</h2></div></div></div><p>AsciiDoc comes pre-configured with a <span class="emphasis"><em>glossary</em></span> style labeled list for
+</p></td></tr></tbody></table></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_glossary_lists"></a>17.5. Glossary Lists</h2></div></div></div><p>AsciiDoc comes pre-configured with a <span class="emphasis"><em>glossary</em></span> style labeled list for
 generating DocBook glossary lists. Example:</p><pre class="screen">[glossary]
 A glossary term::
     The corresponding definition.
 A second glossary term::
     The corresponding definition.</pre><p>For working examples see the <code class="literal">article.txt</code> and <code class="literal">book.txt</code> documents in
-the AsciiDoc <code class="literal">./doc</code> distribution directory.</p><div class="note" title="Note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To generate valid DocBook output glossary lists must be located
-in a section that uses the <span class="emphasis"><em>glossary</em></span> <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">section markup template</a>.</p></td></tr></table></div></div><div class="section" title="17.6. Bibliography Lists"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_bibliography_lists"></a>17.6. Bibliography Lists</h2></div></div></div><p>AsciiDoc comes with a predefined <span class="emphasis"><em>bibliography</em></span> bulleted list style
+the AsciiDoc <code class="literal">./doc</code> distribution directory.</p><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To generate valid DocBook output glossary lists must be located
+in a section that uses the <span class="emphasis"><em>glossary</em></span> <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">section markup template</a>.</p></td></tr></table></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_bibliography_lists"></a>17.6. Bibliography Lists</h2></div></div></div><p>AsciiDoc comes with a predefined <span class="emphasis"><em>bibliography</em></span> bulleted list style
 generating DocBook bibliography entries. Example:</p><pre class="screen">[bibliography]
 .Optional list title
 - [[[taoup]]] Eric Steven Raymond. 'The Art of UNIX
   Programming'. Addison-Wesley. ISBN 0-13-142901-9.
 - [[[walsh-muellner]]] Norman Walsh &amp; Leonard Muellner.
-  'DocBook - The Definitive Guide'. O'Reilly &amp; Associates.
-  1999. ISBN 1-56592-580-7.</pre><p>The <code class="literal">[[[&lt;reference&gt;]]]</code> syntax is a bibliography entry anchor, it
+  'DocBook - The Definitive Guide'. O'Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.</pre><p>The <code class="literal">[[[&lt;reference&gt;]]]</code> syntax is a bibliography entry anchor, it
 generates an anchor named <code class="literal">&lt;reference&gt;</code> and additionally displays
 <code class="literal">[&lt;reference&gt;]</code> at the anchor position. For example <code class="literal">[[[taoup]]]</code>
 generates an anchor named <code class="literal">taoup</code> that displays <code class="literal">[taoup]</code> at the
 anchor position. Cite the reference from elsewhere your document using
 <code class="literal">&lt;&lt;taoup&gt;&gt;</code>, this displays a hyperlink (<code class="literal">[taoup]</code>) to the
 corresponding bibliography entry anchor.</p><p>For working examples see the <code class="literal">article.txt</code> and <code class="literal">book.txt</code> documents in
-the AsciiDoc <code class="literal">./doc</code> distribution directory.</p><div class="note" title="Note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To generate valid DocBook output bibliography lists must be
-located in a <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">bibliography section</a>.</p></td></tr></table></div></div><div class="section" title="17.7. List Item Continuation"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X15"></a>17.7. List Item Continuation</h2></div></div></div><p>Another list or a literal paragraph immediately following a list item
+the AsciiDoc <code class="literal">./doc</code> distribution directory.</p><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>To generate valid DocBook output bibliography lists must be
+located in a <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">bibliography section</a>.</p></td></tr></table></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X15"></a>17.7. List Item Continuation</h2></div></div></div><p>Another list or a literal paragraph immediately following a list item
 is implicitly appended to the list item; to append other block
 elements to a list item you need to explicitly join them to the list
 item with a <span class="emphasis"><em>list continuation</em></span> (a separator line containing a single

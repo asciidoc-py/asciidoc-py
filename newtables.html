@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>AsciiDoc New tables</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -627,7 +627,15 @@ homero verear ea mea, qui.</code></pre>
 <div class="listingblock">
 <div class="title">Code filter example</div>
 <div class="content">
-<pre><code></code></pre>
+<pre><code><span style="color:#bf0303">''' A multi-line</span>
+<span style="color:#bf0303">    comment.'''</span>
+<span style="color:#000000; font-weight:bold">def</span> <span style="color:#010181">sub_word</span><span style="color:#000000">(</span>mo<span style="color:#000000">):</span>
+    <span style="color:#bf0303">''' Single line comment.'''</span>
+    word <span style="color:#000000">=</span> mo<span style="color:#000000">.</span><span style="color:#010181">group</span><span style="color:#000000">(</span><span style="color:#bf0303">'word'</span><span style="color:#000000">)</span>
+    <span style="color:#000000; font-weight:bold">if</span> word <span style="color:#000000; font-weight:bold">in</span> keywords<span style="color:#000000">[</span>language<span style="color:#000000">]:</span>
+        <span style="color:#000000; font-weight:bold">return</span> quote <span style="color:#000000">+</span> word <span style="color:#000000">+</span> quote
+    <span style="color:#000000; font-weight:bold">else</span><span style="color:#000000">:</span>
+        <span style="color:#000000; font-weight:bold">return</span> word</code></pre>
 </div></div>
 <div class="ulist"><ul>
 <li>
@@ -937,7 +945,15 @@ homero verear ea mea, qui.</code></pre>
 <div class="listingblock">
 <div class="title">Code filter example</div>
 <div class="content">
-<pre><code></code></pre>
+<pre><code><span style="color:#bf0303">''' A multi-line</span>
+<span style="color:#bf0303">    comment.'''</span>
+<span style="color:#000000; font-weight:bold">def</span> <span style="color:#010181">sub_word</span><span style="color:#000000">(</span>mo<span style="color:#000000">):</span>
+    <span style="color:#bf0303">''' Single line comment.'''</span>
+    word <span style="color:#000000">=</span> mo<span style="color:#000000">.</span><span style="color:#010181">group</span><span style="color:#000000">(</span><span style="color:#bf0303">'word'</span><span style="color:#000000">)</span>
+    <span style="color:#000000; font-weight:bold">if</span> word <span style="color:#000000; font-weight:bold">in</span> keywords<span style="color:#000000">[</span>language<span style="color:#000000">]:</span>
+        <span style="color:#000000; font-weight:bold">return</span> quote <span style="color:#000000">+</span> word <span style="color:#000000">+</span> quote
+    <span style="color:#000000; font-weight:bold">else</span><span style="color:#000000">:</span>
+        <span style="color:#000000; font-weight:bold">return</span> word</code></pre>
 </div></div>
 <div class="ulist"><ul>
 <li>
@@ -1353,8 +1369,8 @@ v|&amp;nbsp;
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2015-02-26 06:51:15 CET
+Version 9.0.0rc2<br />
+Last updated 2020-04-30 13:12:37 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">

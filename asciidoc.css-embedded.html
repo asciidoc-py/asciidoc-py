@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>AsciiDoc User Guide</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -435,7 +436,7 @@ thead, p.table.header {
 p.table {
   margin-top: 0;
 }
-/* Because the table frame attribute is overriden by CSS in most browsers. */
+/* Because the table frame attribute is overridden by CSS in most browsers. */
 div.tableblock > table[frame="void"] {
   border-style: none;
 }
@@ -736,8 +737,8 @@ asciidoc.install(2);
 <h1>AsciiDoc User Guide</h1>
 <span id="author">Stuart Rackham</span><br />
 <span id="email"><code>&lt;<a href="mailto:srackham@gmail.com">srackham@gmail.com</a>&gt;</code></span><br />
-<span id="revnumber">version 8.6.9,</span>
-<span id="revdate">9 November 2013</span>
+<span id="revnumber">version 9.0.0rc2,</span>
+<span id="revdate">11 March 2020</span>
 <div id="toc">
   <div id="toctitle">Table of Contents</div>
   <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
@@ -767,25 +768,25 @@ source files in the distribution <code>doc</code> directory.</p></div>
 <h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>AsciiDoc is a plain text human readable/writable document format that
-can be translated to DocBook or HTML using the <code>asciidoc(1)</code> command.
-You can then either use <code>asciidoc(1)</code> generated HTML directly or run
-<code>asciidoc(1)</code> DocBook output through your favorite DocBook toolchain or
-use the AsciiDoc <code>a2x(1)</code> toolchain wrapper to produce PDF, EPUB, DVI,
+can be translated to DocBook or HTML using the asciidoc(1) command.
+You can then either use asciidoc(1) generated HTML directly or run
+asciidoc(1) DocBook output through your favorite DocBook toolchain or
+use the AsciiDoc a2x(1) toolchain wrapper to produce PDF, EPUB, DVI,
 LaTeX, PostScript, man page, HTML and text formats.</p></div>
 <div class="paragraph"><p>The AsciiDoc format is a useful presentation format in its own right:
 AsciiDoc markup is simple, intuitive and as such is easily proofed and
 edited.</p></div>
 <div class="paragraph"><p>AsciiDoc is light weight: it consists of a single Python script and a
-bunch of configuration files. Apart from <code>asciidoc(1)</code> and a Python
+bunch of configuration files. Apart from asciidoc(1) and a Python
 interpreter, no other programs are required to convert AsciiDoc text
 files to DocBook or HTML. See <a href="#X11">Example AsciiDoc Documents</a>
 below.</p></div>
 <div class="paragraph"><p>Text markup conventions tend to be a matter of (often strong) personal
 preference: if the default syntax is not to your liking you can define
-your own by editing the text based <code>asciidoc(1)</code> configuration files.
+your own by editing the text based asciidoc(1) configuration files.
 You can also create configuration files to translate AsciiDoc
 documents to almost any SGML/XML markup.</p></div>
-<div class="paragraph"><p><code>asciidoc(1)</code> comes with a set of configuration files to translate
+<div class="paragraph"><p>asciidoc(1) comes with a set of configuration files to translate
 AsciiDoc articles, books and man pages to HTML or DocBook backend
 formats.</p></div>
 <div class="sidebarblock">
@@ -837,7 +838,7 @@ manpage. All document types share the same AsciiDoc format with some
 minor variations. If you are familiar with DocBook you will have
 noticed that AsciiDoc document types correspond to the same-named
 DocBook document types.</p></div>
-<div class="paragraph"><p>Use the <code>asciidoc(1)</code> <code>-d</code> (<code>--doctype</code>) option to specify the AsciiDoc
+<div class="paragraph"><p>Use the asciidoc(1) <code>-d</code> (<code>--doctype</code>) option to specify the AsciiDoc
 document type&#8201;&#8212;&#8201;the default document type is <em>article</em>.</p></div>
 <div class="paragraph"><p>By convention the <code>.txt</code> file extension is used for AsciiDoc document
 source files.</p></div>
@@ -898,7 +899,7 @@ Multi-part book
 documents observe special header title and section naming conventions&#8201;&#8212;&#8201;see the <a href="#X1">Manpage Documents</a> section for details.</p></div>
 <div class="paragraph"><p>AsciiDoc defines the <em>synopsis</em> <a href="#X93">section markup template</a> to
 generate the DocBook <code>refsynopsisdiv</code> section.</p></div>
-<div class="paragraph"><p>See also the <code>asciidoc(1)</code> man page source (<code>./doc/asciidoc.1.txt</code>) from
+<div class="paragraph"><p>See also the asciidoc(1) man page source (<code>./doc/asciidoc.1.txt</code>) from
 the AsciiDoc distribution.</p></div>
 </div>
 </div>
@@ -906,9 +907,9 @@ the AsciiDoc distribution.</p></div>
 <div class="sect1">
 <h2 id="X5">4. AsciiDoc Backends</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The <code>asciidoc(1)</code> command translates an AsciiDoc formatted file to the
+<div class="paragraph"><p>The asciidoc(1) command translates an AsciiDoc formatted file to the
 backend format specified by the <code>-b</code> (<code>--backend</code>) command-line
-option. <code>asciidoc(1)</code> itself has little intrinsic knowledge of backend
+option. asciidoc(1) itself has little intrinsic knowledge of backend
 formats, all translation rules are contained in customizable cascading
 configuration files. Backend specific attributes are listed in the
 <a href="#X88">Backend Attributes</a> section.</p></div>
@@ -919,6 +920,14 @@ docbook45
 <dd>
 <p>
   Outputs DocBook XML 4.5 markup.
+</p>
+</dd>
+<dt class="hdlist1">
+docbook5
+</dt>
+<dd>
+<p>
+  Outputs DocBook XML 5.0 markup.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -996,7 +1005,7 @@ backend-alias-docbook=docbook45</code></pre>
 </div>
 <div class="sect2">
 <h3 id="X100">4.2. Backend Plugins</h3>
-<div class="paragraph"><p>The <code>asciidoc(1)</code> <code>--backend</code> option is also used to install and manage
+<div class="paragraph"><p>The asciidoc(1) <code>--backend</code> option is also used to install and manage
 backend <a href="#X101">plugins</a>.</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1220,7 +1229,7 @@ AsciiDoc
 </p>
 </dd>
 <dt class="hdlist1">
-<a id="X14"></a><a href="http://xml.apache.org/fop/">FOP</a>
+<a id="X14"></a><a href="http://xmlgraphics.apache.org/fop/">FOP</a>
 </dt>
 <dd>
 <p>
@@ -1249,7 +1258,7 @@ AsciiDoc
 <code>asciidoc-dblatex.xsl</code> (customized XSL parameter settings) and
 <code>asciidoc-dblatex.sty</code> (customized LaTeX settings). These are examples
 of optional <a href="#X31">dblatex</a> output customization and are used by
-<a href="#X43"><code>a2x(1)</code></a>.</p></div>
+<a href="#X43">a2x(1)</a>.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_asciidoc_docbook_xsl_stylesheets_drivers">5.8. AsciiDoc DocBook XSL Stylesheets drivers</h3>
@@ -1262,7 +1271,7 @@ outputs) the custom <code>./stylesheets/docbook-xsl.css</code> CSS stylesheet.</
 <div class="paragraph"><p>You&#8217;ll find the customized DocBook XSL drivers along with additional
 documentation in the distribution <code>./docbook-xsl</code> directory. The
 examples that follow are executed from the distribution documentation
-(<code>./doc</code>) directory. These drivers are also used by <a href="#X43"><code>a2x(1)</code></a>.</p></div>
+(<code>./doc</code>) directory. These drivers are also used by <a href="#X43">a2x(1)</a>.</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <code>common.xsl</code>
@@ -1292,7 +1301,7 @@ $ xsltproc --nonet ../docbook-xsl/chunked.xsl asciidoc.xml</code></pre>
 </dt>
 <dd>
 <p>
-    Used by <a href="#X43"><code>a2x(1)</code></a> to generate EPUB formatted documents.
+    Used by <a href="#X43">a2x(1)</a> to generate EPUB formatted documents.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1365,7 +1374,7 @@ take a look at the A-A-P script <code>./doc/main.aap</code>.</p></div>
 <div class="sectionbody">
 <div class="paragraph"><p>AsciiDoc does not have a text backend (for most purposes AsciiDoc
 source text is fine), however you can convert AsciiDoc text files to
-formatted text using the AsciiDoc <a href="#X43"><code>a2x(1)</code></a> toolchain wrapper
+formatted text using the AsciiDoc <a href="#X43">a2x(1)</a> toolchain wrapper
 utility.</p></div>
 </div>
 </div>
@@ -1394,7 +1403,7 @@ The default locations for CSS and JavaScript files can be changed by
 <p>
 The default locations for embedded and linked files differ and are
   calculated at different times&#8201;&#8212;&#8201;embedded files are loaded when
-  <code>asciidoc(1)</code> generates the output document, linked files are loaded
+  asciidoc(1) generates the output document, linked files are loaded
   by the browser when the user views the output document.
 </p>
 </li>
@@ -1480,13 +1489,13 @@ stylesheet and to optionally include additional JavaScript code.</p></div>
 <p>
 Theme files reside in an AsciiDoc <a href="#X27">configuration directory</a>
   named <code>themes/&lt;theme&gt;/</code> (where <code>&lt;theme&gt;</code> is the the theme name set
-  by the <em>theme</em> attribute). <code>asciidoc(1)</code> sets the <em>themedir</em> attribute
+  by the <em>theme</em> attribute). asciidoc(1) sets the <em>themedir</em> attribute
   to the theme directory path name.
 </p>
 </li>
 <li>
 <p>
-The <em>theme</em> attribute can also be set using the <code>asciidoc(1)</code>
+The <em>theme</em> attribute can also be set using the asciidoc(1)
   <code>--theme</code> option, the <code>--theme</code> option can also be used to manage
   theme <a href="#X101">plugins</a>.
 </p>
@@ -1529,7 +1538,7 @@ Linked CSS and JavaScript theme files are linked to the same linked
 </li>
 </ul></div>
 <div class="paragraph"><p>For example, the command-line option <code>--theme foo</code> (or <code>--attribute
-theme=foo</code>) will cause <code>asciidoc(1)</code> to search <a href="#X27">configuration file locations 1</a> for a sub-directory called <code>themes/foo</code>
+theme=foo</code>) will cause asciidoc(1) to search <a href="#X27">configuration file locations 1</a> for a sub-directory called <code>themes/foo</code>
 containing the stylesheet <code>foo.css</code> and optionally a JavaScript file
 name <code>foo.js</code>.</p></div>
 </div>
@@ -1778,7 +1787,7 @@ If an $Id$ revision marker is used the header author line can be
 </ol></div>
 <div class="paragraph"><p>You can override or set header parameters by passing <em>revnumber</em>,
 <em>revremark</em>, <em>revdate</em>, <em>email</em>, <em>author</em>, <em>authorinitials</em>,
-<em>firstname</em> and <em>lastname</em> attributes using the <code>asciidoc(1)</code> <code>-a</code>
+<em>firstname</em> and <em>lastname</em> attributes using the asciidoc(1) <code>-a</code>
 (<code>--attribute</code>) command-line option. For example:</p></div>
 <div class="literalblock">
 <div class="content">
@@ -2052,7 +2061,7 @@ backward compatibility.</p></div>
 <h3 id="_inline_elements">8.5. Inline Elements</h3>
 <div class="paragraph"><p><a href="#X34">Inline document elements</a> are used to format text and to
 perform various types of text substitution. Inline elements and inline
-element syntax is defined in the <code>asciidoc(1)</code> configuration files.</p></div>
+element syntax is defined in the asciidoc(1) configuration files.</p></div>
 <div class="paragraph"><p>Here is a list of AsciiDoc inline elements in the (default) order in
 which they are processed:</p></div>
 <div class="dlist"><dl>
@@ -2142,7 +2151,7 @@ The configuration file <code>[footer]</code> template section is substituted
 </p>
 </li>
 </ol></div>
-<div class="paragraph"><p>When a block element is encountered <code>asciidoc(1)</code> determines the type of
+<div class="paragraph"><p>When a block element is encountered asciidoc(1) determines the type of
 block by checking in the following order (first to last): (section)
 Titles, BlockMacros, Lists, DelimitedBlocks, Tables, AttributeEntrys,
 AttributeLists, BlockTitles, Paragraphs.</p></div>
@@ -2263,7 +2272,7 @@ Unquoted text
 </p>
 </dd>
 </dl></div>
-<div class="paragraph"><p>New quote types can be defined by editing <code>asciidoc(1)</code> configuration
+<div class="paragraph"><p>New quote types can be defined by editing asciidoc(1) configuration
 files. See the <a href="#X7">Configuration Files</a> section for details.</p></div>
 <div class="ulist"><div class="title">Quoted text behavior</div><ul>
 <li>
@@ -2409,7 +2418,7 @@ with with an attribute list.</p></div>
 of a non-blank line forces a line break. It generates a line break
 (<code>br</code>) tag for HTML outputs and a custom XML <code>asciidoc-br</code> processing
 instruction for DocBook outputs. The <code>asciidoc-br</code> processing
-instruction is handled by <a href="#X43"><code>a2x(1)</code></a>.</p></div>
+instruction is handled by <a href="#X43">a2x(1)</a>.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_page_breaks">10.4. Page Breaks</h3>
@@ -2418,7 +2427,7 @@ hard page break in DocBook and printed HTML outputs.  It uses the CSS
 <code>page-break-after</code> property for HTML outputs and a custom XML
 <code>asciidoc-pagebreak</code> processing instruction for DocBook outputs. The
 <code>asciidoc-pagebreak</code> processing instruction is handled by
-<a href="#X43"><code>a2x(1)</code></a>. Hard page breaks are sometimes handy but as a general
+<a href="#X43">a2x(1)</a>. Hard page breaks are sometimes handy but as a general
 rule you should let your page processor generate page breaks for you.</p></div>
 </div>
 <div class="sect2">
@@ -2426,7 +2435,7 @@ rule you should let your page processor generate page breaks for you.</p></div>
 <div class="paragraph"><p>A line of three or more apostrophe characters will generate a ruler
 line.  It generates a ruler (<code>hr</code>) tag for HTML outputs and a custom
 XML <code>asciidoc-hr</code> processing instruction for DocBook outputs. The
-<code>asciidoc-hr</code> processing instruction is handled by <a href="#X43"><code>a2x(1)</code></a>.</p></div>
+<code>asciidoc-hr</code> processing instruction is handled by <a href="#X43">a2x(1)</a>.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_tabs">10.6. Tabs</h3>
@@ -2868,12 +2877,12 @@ This is an example note.</code></pre>
 </td>
 <td class="content">Admonition customization with <code>icons</code>, <code>iconsdir</code>, <code>icon</code> and
 <code>caption</code> attributes does not apply when generating DocBook output. If
-you are going the DocBook route then the <a href="#X43"><code>a2x(1)</code></a> <code>--no-icons</code>
+you are going the DocBook route then the <a href="#X43">a2x(1)</a> <code>--no-icons</code>
 and <code>--icons-dir</code> options can be used to set the appropriate XSL
 Stylesheets parameters.</td>
 </tr></table>
 </div>
-<div class="paragraph"><p>By default the <code>asciidoc(1)</code> HTML backends generate text captions
+<div class="paragraph"><p>By default the asciidoc(1) HTML backends generate text captions
 instead of admonition icon image links. To generate links to icon
 images define the <a href="#X45"><code>icons</code></a> attribute, for example using the <code>-a
 icons</code> command-line option.</p></div>
@@ -2911,7 +2920,7 @@ in configuration file <code>[blockdef-*]</code> sections.</p></div>
 <div class="sect2">
 <h3 id="_predefined_delimited_blocks">16.1. Predefined Delimited Blocks</h3>
 <div class="paragraph"><p>AsciiDoc ships with a number of predefined DelimitedBlocks (see the
-<code>asciidoc.conf</code> configuration file in the <code>asciidoc(1)</code> program
+<code>asciidoc.conf</code> configuration file in the asciidoc(1) program
 directory):</p></div>
 <div class="paragraph"><p>Predefined delimited block underlines:</p></div>
 <div class="literalblock">
@@ -3978,8 +3987,8 @@ generating DocBook bibliography entries. Example:</p></div>
 - [[[taoup]]] Eric Steven Raymond. 'The Art of UNIX
   Programming'. Addison-Wesley. ISBN 0-13-142901-9.
 - [[[walsh-muellner]]] Norman Walsh &amp; Leonard Muellner.
-  'DocBook - The Definitive Guide'. O'Reilly &amp; Associates.
-  1999. ISBN 1-56592-580-7.</code></pre>
+  'DocBook - The Definitive Guide'. O'Reilly &amp; Associates. 1999.
+  ISBN 1-56592-580-7.</code></pre>
 </div></div>
 <div class="paragraph"><p>The <code>[[[&lt;reference&gt;]]]</code> syntax is a bibliography entry anchor, it
 generates an anchor named <code>&lt;reference&gt;</code> and additionally displays
@@ -4705,6 +4714,15 @@ The syntax is:</p></div>
 </div></div>
 <div class="paragraph"><p>The block <code>image</code> macro has the same <a href="#X55">macro attributes</a> as it&#8217;s
 <a href="#X9">inline image macro</a> counterpart.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">Unlike the inline <code>image</code> macro, the entire block <code>image</code> macro
+must be on a single line.</td>
+</tr></table>
+</div>
 <div class="paragraph"><p>Block images can be titled by preceding the <em>image</em> macro with a
 <em>BlockTitle</em>.  DocBook toolchains normally number titled block images
 and optionally list them in an automatically generated <em>List of
@@ -4718,8 +4736,7 @@ image::images/layout.png[J14P main circuit board]</code></pre>
 <div class="paragraph"><p>is equivalent to:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>image::images/layout.png["J14P main circuit board",
-                          title="Main circuit board"]</code></pre>
+<pre><code>image::images/layout.png["J14P main circuit board", title="Main circuit board"]</code></pre>
 </div></div>
 <div class="paragraph"><p>A title prefix that can be inserted with the <code>caption</code> attribute
 (HTML backends). For example:</p></div>
@@ -4799,7 +4816,7 @@ The <em>showcomments</em> attribute does not expose <a href="#X26">Comment Block
 <div class="sect2">
 <h3 id="_system_macros">21.3. System Macros</h3>
 <div class="paragraph"><p>System macros are block macros that perform a predefined task and are
-hardwired into the <code>asciidoc(1)</code> program.</p></div>
+hardwired into the asciidoc(1) program.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -4810,7 +4827,7 @@ You can escape system macros with a leading backslash character
 <li>
 <p>
 The syntax and tasks performed by system macros is built into
-  <code>asciidoc(1)</code> so they don&#8217;t appear in configuration files.  You can
+  asciidoc(1) so they don&#8217;t appear in configuration files.  You can
   however customize the syntax by adding entries to a configuration
   file <code>[macros]</code> section.
 </p>
@@ -6094,7 +6111,7 @@ asciidoc
 <dd>
 <p>
 With this style table cells can contain any of the AsciiDoc elements
-that are allowed inside document sections. This style runs <code>asciidoc(1)</code>
+that are allowed inside document sections. This style runs asciidoc(1)
 as a filter to process cell contents. See also <a href="#X83">Docbook table limitations</a>.
 </p>
 </dd>
@@ -6322,9 +6339,9 @@ to have to write a man page.</p></div>
 <div class="paragraph"><p>By observing a couple of additional conventions (detailed below) you
 can write AsciiDoc files that will generate HTML and PDF man pages
 plus the native manpage roff format.  The easiest way to generate roff
-manpages from AsciiDoc source is to use the <code>a2x(1)</code> command. The
+manpages from AsciiDoc source is to use the a2x(1) command. The
 following example generates a roff formatted manpage file called
-<code>asciidoc.1</code> (<code>a2x(1)</code> uses <code>asciidoc(1)</code> to convert <code>asciidoc.1.txt</code> to
+<code>asciidoc.1</code> (a2x(1) uses asciidoc(1) to convert <code>asciidoc.1.txt</code> to
 DocBook which it then converts to roff using DocBook XSL Stylesheets):</p></div>
 <div class="literalblock">
 <div class="content">
@@ -6397,23 +6414,10 @@ source file:</p></div>
 <div class="sect1">
 <h2 id="X78">25. Mathematical Formulas</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The <em>asciimath</em> and <em>latexmath</em> <a href="#X77">passthrough macros</a> along with
-<em>asciimath</em> and <em>latexmath</em>  <a href="#X76">passthrough blocks</a> provide a
+<div class="paragraph"><p>The <em>asciimath</em> and <em>latexmath</em> <a href="#X76">passthrough blocks</a> along with
+the <em>asciimath</em> and <em>latexmath</em> <a href="#X77">passthrough macros</a> provide a
 (backend dependent) mechanism for rendering mathematical formulas. You
 can use the following math markups:</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<img src="./images/icons/note.png" alt="Note" />
-</td>
-<td class="content">The <em>latexmath</em> macro used to include <em>LaTeX Math</em> in DocBook
-outputs is not the same as the <em>latexmath</em> macro used to include
-<em>LaTeX MathML</em> in XHTML outputs.  <em>LaTeX Math</em> applies to DocBook
-outputs that are processed by <a href="#X31">dblatex</a> and is normally used to
-generate PDF files.  <em>LaTeXMathML</em> is very much a subset of <em>LaTeX
-Math</em> and applies to XHTML documents.</td>
-</tr></table>
-</div>
 <div class="sect2">
 <h3 id="_latex_math">25.1. LaTeX Math</h3>
 <div class="paragraph"><p><a href="ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf">LaTeX
@@ -6427,18 +6431,16 @@ math</a> can be included in documents that are processed by
 distributed <code>doc/latexmath.txt</code> file.</p></div>
 </div>
 <div class="sect2">
-<h3 id="_asciimathml">25.2. ASCIIMathML</h3>
-<div class="paragraph"><p><a href="http://www1.chapman.edu/~jipsen/mathml/asciimath.html">ASCIIMathML</a>
-formulas can be included in XHTML documents generated using the
-<em>xhtml11</em> and <em>html5</em> backends. To enable ASCIIMathML support you must
-define the <em>asciimath</em> attribute, for example using the <code>-a asciimath</code>
-command-line option.  Example inline formula:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]</code></pre>
-</div></div>
-<div class="paragraph"><p>For more examples see the <a href="http://asciidoc.org/">AsciiDoc website</a> or the
-distributed <code>doc/asciimathml.txt</code> file.</p></div>
+<h3 id="_mathjax">25.2. MathJax</h3>
+<div class="paragraph"><p><a href="http://www.mathjax.org/">MathJax</a> allows LaTeX Math style formulas to be included
+in XHTML documents generated via the AsciiDoc <em>xhtml11</em> and <em>html5</em> backends.
+This route overcomes several restrictions of the MathML-based approaches,
+notably, restricted support of MathML by many mainstream browsers. To enable
+<em>MathJax</em> support you must define the <em>mathjax</em> attribute, for example using the
+<code>-a mathjax</code> command-line option. Equations are specified as explained above
+using the <em>latexmath</em> passthrough blocks. By default, rendering of equations
+with <em>MathJax</em> requires a working internet connection and will thus not work if
+you are offline (but it can be configured differently).</p></div>
 </div>
 <div class="sect2">
 <h3 id="_latexmathml">25.3. LaTeXMathML</h3>
@@ -6459,9 +6461,39 @@ formula:</p></div>
 </div></div>
 <div class="paragraph"><p>For more examples see the <a href="http://asciidoc.org/">AsciiDoc website</a> or the
 distributed <code>doc/latexmathml.txt</code> file.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">The <em>latexmath</em> macro used to include <em>LaTeX Math</em> in DocBook
+outputs is not the same as the <em>latexmath</em> macro used to include
+<em>LaTeX MathML</em> in XHTML outputs.  <em>LaTeX Math</em> applies to DocBook
+outputs that are processed by <a href="#X31">dblatex</a> and is normally used to
+generate PDF files.  <em>LaTeXMathML</em> is very much a subset of <em>LaTeX
+Math</em> and applies to XHTML documents. This remark does not
+apply to <em>MathJax</em> which does not use any of the <em>latexmath</em> macros
+(but only requires the <em>latexmath</em> passthrough blocks for identification
+of the equations).</td>
+</tr></table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_mathml">25.4. MathML</h3>
+<h3 id="_asciimathml">25.4. ASCIIMathML</h3>
+<div class="paragraph"><p><a href="http://www1.chapman.edu/~jipsen/mathml/asciimath.html">ASCIIMathML</a>
+formulas can be included in XHTML documents generated using the
+<em>xhtml11</em> and <em>html5</em> backends. To enable ASCIIMathML support you must
+define the <em>asciimath</em> attribute, for example using the <code>-a asciimath</code>
+command-line option.  Example inline formula:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]</code></pre>
+</div></div>
+<div class="paragraph"><p>For more examples see the <a href="http://asciidoc.org/">AsciiDoc website</a> or the
+distributed <code>doc/asciimathml.txt</code> file.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_mathml">25.5. MathML</h3>
 <div class="paragraph"><p><a href="http://www.w3.org/Math/">MathML</a> is a low level XML markup for
 mathematics. AsciiDoc has no macros for MathML but users familiar with
 this markup could use passthrough macros and passthrough blocks to
@@ -6527,8 +6559,8 @@ the sections and entries that differ from the default configuration.</td>
 </td>
 <td class="content">The best way to learn about configuration files is to read the
 default configuration files in the AsciiDoc distribution in
-conjunction with <code>asciidoc(1)</code> output files. You can view configuration
-file load sequence by turning on the <code>asciidoc(1)</code> <code>-v</code> (<code>--verbose</code>)
+conjunction with asciidoc(1) output files. You can view configuration
+file load sequence by turning on the asciidoc(1) <code>-v</code> (<code>--verbose</code>)
 command-line option.</td>
 </tr></table>
 </div>
@@ -6778,7 +6810,7 @@ pagewidth, pageunits
 <img src="./images/icons/note.png" alt="Note" />
 </td>
 <td class="content"><code>[miscellaneous]</code> configuration file entries can be set using
-the <code>asciidoc(1)</code> <code>-a</code> (<code>--attribute</code>) command-line option.</td>
+the asciidoc(1) <code>-a</code> (<code>--attribute</code>) command-line option.</td>
 </tr></table>
 </div>
 </div>
@@ -6849,7 +6881,7 @@ markup.</p></div>
 <div class="content">
 <pre><code>emphasis=&lt;em&gt;|&lt;/em&gt;</code></pre>
 </div></div>
-<div class="paragraph"><p>In this example <code>asciidoc(1)</code> replaces the | character with the
+<div class="paragraph"><p>In this example asciidoc(1) replaces the | character with the
 emphasized text from the AsciiDoc input file and writes the result to
 the output file.</p></div>
 <div class="paragraph"><p>Use the <code>{brvbar}</code> attribute reference if you need to include a | pipe
@@ -6861,7 +6893,7 @@ character inside tag text.</p></div>
 <div class="paragraph"><p>If the attribute value requires leading or trailing spaces then the
 text text should be enclosed in quotation mark (") characters.</p></div>
 <div class="paragraph"><p>To delete a attribute insert a <code>name!</code> entry in a downstream
-configuration file or use the <code>asciidoc(1)</code> <code>--attribute name!</code>
+configuration file or use the asciidoc(1) <code>--attribute name!</code>
 command-line option (an attribute name suffixed with a <code>!</code> character
 deletes the attribute)</p></div>
 </div>
@@ -7141,7 +7173,7 @@ The <code>conf-files</code> attribute (one or more file names separated by a
 </li>
 <li>
 <p>
-The <code>asciidoc(1)</code> <code>--conf-file</code>) command-line option.  The
+The asciidoc(1) <code>--conf-file</code>) command-line option.  The
      <code>--conf-file</code> option can be specified multiple times, in which
      case configuration files will be processed in the same order they
      appear on the command-line.
@@ -7250,7 +7282,7 @@ Configuration files from location 5.
 <div class="ulist"><ul>
 <li>
 <p>
-<code>&lt;backend&gt;</code> and <code>&lt;doctype&gt;</code> are values specified by the <code>asciidoc(1)</code>
+<code>&lt;backend&gt;</code> and <code>&lt;doctype&gt;</code> are values specified by the asciidoc(1)
   <code>-b</code> (<code>--backend</code>) and <code>-d</code> (<code>--doctype</code>) command-line options.
 </p>
 </li>
@@ -7298,7 +7330,7 @@ configuration file attributes.</p></div>
 <td class="icon">
 <img src="./images/icons/tip.png" alt="Tip" />
 </td>
-<td class="content">Use the <code>asciidoc(1)</code> <code>-v</code> (<code>--verbose</code>) command-line option to see
+<td class="content">Use the asciidoc(1) <code>-v</code> (<code>--verbose</code>) command-line option to see
 which configuration files are loaded and the order in which they are
 loaded.</td>
 </tr></table>
@@ -7425,7 +7457,7 @@ Attribute references contained in the entry <code>&lt;value&gt;</code> will be
 <p>
 By default AttributeEntry values are substituted for
   <code>specialcharacters</code> and <code>attributes</code> (see above), if you want to
-  change or disable AttributeEntry substitution use the <a href="#X77">   inline macro</a> syntax.
+  change or disable AttributeEntry substitution use the <a href="#X77">pass:[]   inline macro</a> syntax.
 </p>
 </li>
 <li>
@@ -7510,7 +7542,7 @@ No substitution is performed on configuration file attribute entries
 <li>
 <p>
 This feature can only be used in attribute entries&#8201;&#8212;&#8201;configuration
-  attributes cannot be set using the <code>asciidoc(1)</code> command <code>--attribute</code>
+  attributes cannot be set using the asciidoc(1) command <code>--attribute</code>
   option.
 </p>
 </li>
@@ -8117,7 +8149,7 @@ Closing brace characters inside system attribute arguments must be
 <h2 id="X60">31. Intrinsic Attributes</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Intrinsic attributes are simple attributes that are created
-automatically from: AsciiDoc document header parameters; <code>asciidoc(1)</code>
+automatically from: AsciiDoc document header parameters; asciidoc(1)
 command-line arguments; attributes defined in the default
 configuration files; the execution context.  Here&#8217;s the list of
 predefined intrinsic attributes:</p></div>
@@ -8141,11 +8173,11 @@ predefined intrinsic attributes:</p></div>
 {basebackend}         html or docbook
 {blockname}           current block name (note 8).
 {brvbar}              broken vertical bar (|) character
-{docdate}             document last modified date
+{docdate}             document last modified date (note 9)
 {docdir}              document input directory name  (note 5)
 {docfile}             document file name  (note 5)
 {docname}             document file name without extension (note 6)
-{doctime}             document last modified time
+{doctime}             document last modified time (note 9)
 {doctitle}            document title (from document header)
 {doctype-&lt;doctype&gt;}   empty string ''
 {doctype}             document type specified by `-d` option
@@ -8163,8 +8195,8 @@ predefined intrinsic attributes:</p></div>
 {ldquo}               Left double quote character (note 7)
 {level}               title level 1..4 (in section titles)
 {listindex}           the list index (1..) of the most recent list item
-{localdate}           the current date
-{localtime}           the current time
+{localdate}           the current date (note 9)
+{localtime}           the current time (note 9)
 {lsquo}               Left single quote character (note 7)
 {lt}                  less than (&lt;) character entity
 {manname}             manpage name (defined in NAME section)
@@ -8234,7 +8266,7 @@ The entries that translate to blank strings are designed to be used
 <li>
 <p>
 <code>{docfile}</code> and <code>{docdir}</code> refer to root document specified on the
-   <code>asciidoc(1)</code> command-line; <code>{infile}</code> and <code>{indir}</code> refer to the
+   asciidoc(1) command-line; <code>{infile}</code> and <code>{indir}</code> refer to the
    current input file which may be the root document or an included
    file. When the input is being read from the standard input
    (<code>stdin</code>) these attributes are undefined.
@@ -8291,6 +8323,16 @@ table
 </p>
 </dd>
 </dl></div>
+</li>
+<li>
+<p>
+If the <code>SOURCE_DATE_EPOCH</code> environment variable is set to a UNIX
+   timestamp, then the <code>{docdate}</code>, <code>{doctime}</code>, <code>{localdate}</code>, and
+   <code>{localtime}</code> attributes are computed in the UTC time zone, with any
+   timestamps newer than <code>SOURCE_DATE_EPOCH</code> replaced by
+   <code>SOURCE_DATE_EPOCH</code>. (This helps software using AsciiDoc to build
+   reproducibly.)
+</p>
 </li>
 </ol></div>
 </td>
@@ -8812,7 +8854,7 @@ configuration file definitions.</p></div>
 <div class="paragraph"><p>There&#8217;s nothing special about the filters, they&#8217;re just standard UNIX
 filters: they read text from the standard input, process it, and write
 to the standard output.</p></div>
-<div class="paragraph"><p>The <code>asciidoc(1)</code> command <code>--filter</code> option can be used to install and
+<div class="paragraph"><p>The asciidoc(1) command <code>--filter</code> option can be used to install and
 remove filters. The same option is used to unconditionally load a
 filter.</p></div>
 <div class="paragraph"><p>Attribute substitution is performed on the filter command prior to
@@ -8830,7 +8872,7 @@ a filter you should verify that it is from a trusted source.</td>
 <div class="sect2">
 <h3 id="_filter_search_paths">33.1. Filter Search Paths</h3>
 <div class="paragraph"><p>If the filter command does not specify a directory path then
-<code>asciidoc(1)</code> recursively searches for the executable filter command:</p></div>
+asciidoc(1) recursively searches for the executable filter command:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -8845,7 +8887,7 @@ Next the global filters directory (usually <code>/etc/asciidoc/filters</code>
 </li>
 <li>
 <p>
-Then it looks in the <code>asciidoc(1)</code> <code>./filters</code> directory.
+Then it looks in the asciidoc(1) <code>./filters</code> directory.
 </p>
 </li>
 <li>
@@ -8872,7 +8914,7 @@ definitions the preferred way to implement a filter is to add a
 applied to the paragraph or delimited block by preceding it with an
 attribute list: the first positional attribute is the style name,
 remaining attributes are normally filter specific parameters.</p></div>
-<div class="paragraph"><p><code>asciidoc(1)</code> auto-loads all <code>.conf</code> files found in the filter search
+<div class="paragraph"><p>asciidoc(1) auto-loads all <code>.conf</code> files found in the filter search
 paths unless the container directory also contains a file named
 <code>__noautoload__</code> (see previous section). The <code>__noautoload__</code> feature
 is used for filters that will be loaded manually using the <code>--filter</code>
@@ -8931,7 +8973,7 @@ is included in the distribution <code>./filters/</code> directory.</p></td>
 <tr>
 <td align="left" valign="top"><p class="table"><em>latex</em></p></td>
 <td align="left" valign="top"><p class="table">The <a href="http://asciidoc.org/latex-filter.html">AsciiDoc LaTeX filter</a> translates
-LaTeX source to a PNG image that is automatically inserted into the
+LaTeX source to an image that is automatically inserted into the
 AsciiDoc output documents.</p></td>
 </tr>
 <tr>
@@ -8950,7 +8992,7 @@ AsciiDoc distribution. Here are some
 <h3 id="X58">33.5. Filter plugins</h3>
 <div class="paragraph"><p>Filter <a href="#X101">plugins</a> are a mechanism for distributing AsciiDoc
 filters.  A filter plugin is a Zip file containing the files that
-constitute a filter.  The <code>asciidoc(1)</code> <code>--filter</code> option is used to
+constitute a filter.  The asciidoc(1) <code>--filter</code> option is used to
 load and manage filer <a href="#X101">plugins</a>.</p></div>
 <div class="ulist"><ul>
 <li>
@@ -8985,7 +9027,7 @@ A plugin is a Zip file containing an AsciiDoc backend, filter or
 </li>
 <li>
 <p>
-The <code>asciidoc(1)</code> <code>--backend</code>, <code>--filter</code> and <code>--theme</code> command-line
+The asciidoc(1) <code>--backend</code>, <code>--filter</code> and <code>--theme</code> command-line
   options are used to load and manage plugins. Each of these options
   responds to the plugin management <em>install</em>, <em>list</em>, <em>remove</em> and
   <em>build</em> commands.
@@ -9004,7 +9046,7 @@ The plugin Zip file name always begins with the backend, filter or
 </p>
 </li>
 </ul></div>
-<div class="paragraph"><p>Plugin commands and conventions are documented in the <code>asciidoc(1)</code> man
+<div class="paragraph"><p>Plugin commands and conventions are documented in the asciidoc(1) man
 page.  You can find lists of plugins on the
 <a href="http://asciidoc.org/plugins.html">AsciiDoc website</a>.</p></div>
 </div>
@@ -9012,8 +9054,8 @@ page.  You can find lists of plugins on the
 <div class="sect1">
 <h2 id="X36">35. Help Commands</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The <code>asciidoc(1)</code> command has a <code>--help</code> option which prints help topics
-to stdout. The default topic summarizes <code>asciidoc(1)</code> usage:</p></div>
+<div class="paragraph"><p>The asciidoc(1) command has a <code>--help</code> option which prints help topics
+to stdout. The default topic summarizes asciidoc(1) usage:</p></div>
 <div class="literalblock">
 <div class="content">
 <pre><code>$ asciidoc --help</code></pre>
@@ -9359,7 +9401,7 @@ include::section2.txt[]
 include::section3.txt[]</code></pre>
 </div></div>
 <div class="paragraph"><p>You also want to process the section files as separate documents.
-This is easy because <code>asciidoc(1)</code> will quite happily process
+This is easy because asciidoc(1) will quite happily process
 <code>section1.txt</code>, <code>section2.txt</code> and <code>section3.txt</code> separately&#8201;&#8212;&#8201;the
 resulting output documents contain the section but have no document
 title.</p></div>
@@ -9373,7 +9415,7 @@ be included in another file. For example:</p></div>
 <div class="content">
 <pre><code>$ asciidoc -sb docbook section1.txt</code></pre>
 </div></div>
-<div class="paragraph"><p><code>asciidoc(1)</code> can be used as a filter, so you can pipe chunks of text
+<div class="paragraph"><p>asciidoc(1) can be used as a filter, so you can pipe chunks of text
 through it. For example:</p></div>
 <div class="literalblock">
 <div class="content">
@@ -9388,7 +9430,7 @@ configuration file.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_pretty_printing_asciidoc_output">36.9. Pretty printing AsciiDoc output</h3>
-<div class="paragraph"><p>If the indentation and layout of the <code>asciidoc(1)</code> output is not to your
+<div class="paragraph"><p>If the indentation and layout of the asciidoc(1) output is not to your
 liking you can:</p></div>
 <div class="olist arabic"><ol class="arabic">
 <li>
@@ -9401,7 +9443,7 @@ Change the indentation and layout of configuration file markup
 <li>
 <p>
 Use Dave Raggett&#8217;s <a href="http://tidy.sourceforge.net/">HTML Tidy</a> program
-   to tidy <code>asciidoc(1)</code> output. Example:
+   to tidy asciidoc(1) output. Example:
 </p>
 <div class="literalblock">
 <div class="content">
@@ -9447,7 +9489,7 @@ containing <a href="#X66">embedded images</a>, CSS stylesheets, and JavaScript
 major problem: unless your configuration files are the same as the
 creator&#8217;s you won&#8217;t get the same output.</p></div>
 <div class="paragraph"><p>The solution is to create a single backend specific configuration file
-using the <code>asciidoc(1)</code> <code>-c</code> (<code>--dump-conf</code>) command-line option. You
+using the asciidoc(1) <code>-c</code> (<code>--dump-conf</code>) command-line option. You
 then ship this file along with the AsciiDoc source document plus the
 <code>asciidoc.py</code> script. The only end user requirement is that they have
 Python installed (and that they consider you a trusted source). This
@@ -9584,7 +9626,7 @@ The index entry inline macro syntax has changed&#8201;&#8212;&#8201;if your docu
 </li>
 <li>
 <p>
-Replaced <code>a2x(1)</code> <code>--no-icons</code> and <code>--no-copy</code> options with their
+Replaced a2x(1) <code>--no-icons</code> and <code>--no-copy</code> options with their
   negated equivalents: <code>--icons</code> and <code>--copy</code> respectively. The
   default behavior has also changed&#8201;&#8212;&#8201;the use of icons and copying of
   icon and CSS files must be specified explicitly with the <code>--icons</code>
@@ -9624,7 +9666,7 @@ canonical installation procedure.</p></div>
 AsciiDoc source files by inhibiting the execution of arbitrary code or
 the inclusion of arbitrary files.</p></div>
 <div class="paragraph"><p>The safe mode is disabled by default, it can be enabled with the
-<code>asciidoc(1)</code> <code>--safe</code> command-line option.</p></div>
+asciidoc(1) <code>--safe</code> command-line option.</p></div>
 <div class="ulist"><div class="title">Safe mode constraints</div><ul>
 <li>
 <p>
@@ -9701,7 +9743,7 @@ If you are generating output documents using a DocBook toolchain
 </li>
 <li>
 <p>
-If you are outputting HTML directly from <code>asciidoc(1)</code> you&#8217;ll
+If you are outputting HTML directly from asciidoc(1) you&#8217;ll
   need to set the various <code>*_caption</code> attributes to match your target
   language (see the list of captions and titles in the <code>[attributes]</code>
   section of the distribution <code>lang-*.conf</code> files). The easiest way is
@@ -9721,7 +9763,7 @@ the HTML output file.</td>
 </li>
 <li>
 <p>
-<code>asciidoc(1)</code> automatically loads configuration files named like
+asciidoc(1) automatically loads configuration files named like
   <code>lang-&lt;lang&gt;.conf</code> where <code>&lt;lang&gt;</code> is a two letter language code that
   matches the current AsciiDoc <code>lang</code> attribute. See also
   <a href="#X27">Configuration File Names and Locations</a>.
@@ -9743,7 +9785,7 @@ version in the online
 repository</a>.</p></div>
 <div class="paragraph"><p>Install the highlighter by copying <code>asciidoc.vim</code> to your
 <code>$HOME/.vim/syntax</code> directory (create it if it doesn&#8217;t already exist).</p></div>
-<div class="paragraph"><p>To enable syntax highlighing:</p></div>
+<div class="paragraph"><p>To enable syntax highlighting:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
@@ -10242,6 +10284,36 @@ prior to the first document section. The document also needs to be
 dated to output this attribute.</p></div></div></td>
 </tr>
 <tr>
+<td align="left" valign="top"><p class="table"><em>footer-style</em></p></td>
+<td align="left" valign="top"><p class="table">html4, html5, xhtml11</p></td>
+<td align="left" valign="top"><div><div class="paragraph"><p>Changes the "Last updated" field in the footer of the document or removes this
+field and the revision number (in the footer only).<br />
+Can take 3 values:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+none : Don&#8217;t display the "Last updated" and "Revision number" fields in the
+  footer of the document
+</p>
+</li>
+<li>
+<p>
+revdate : The "Last updated" field&#8217;s date in the footer will be the revision
+  date specified in the document (<code>revdate</code> attribute)
+</p>
+</li>
+<li>
+<p>
+default (or any other value) : The "Last updated" field&#8217;s date in the footer
+  will be the date of the input file modification
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This attribute can be set, for example, using <code>:footer-style: revdate</code> in the
+header of the file or using the <code>--attribute footer-style=revdate</code> command-line
+option.</p></div></div></td>
+</tr>
+<tr>
 <td align="left" valign="top"><p class="table"><em>scriptsdir</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
 <td align="left" valign="top"><div><div class="paragraph"><p>The name of the directory containing linked JavaScripts.
@@ -10311,7 +10383,7 @@ attribute.</p></div></div></td>
 <tr>
 <td align="left" valign="top"><p class="table"><em>toc-placement</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>When set to <em>auto</em> (the default value) <code>asciidoc(1)</code> will place the
+<td align="left" valign="top"><div><div class="paragraph"><p>When set to <em>auto</em> (the default value) asciidoc(1) will place the
 table of contents in the document header. When <em>toc-placement</em> is set
 to <em>manual</em> the TOC can be positioned anywhere in the document by
 placing the <code>toc::[]</code> block macro at the point you want the TOC to
@@ -10364,8 +10436,9 @@ General Public License version 2 for more details.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2012-12-31 17:42:06 NZDT
+Version 9.0.0rc2<br />
+Last updated
+ 2020-04-30 13:11:22 UTC
 </div>
 </div>
 </body>

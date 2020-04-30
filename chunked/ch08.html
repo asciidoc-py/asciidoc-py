@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 8. Document Structure</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch07.html" title="Chapter 7. HTML5 and XHTML 1.1" /><link rel="next" href="ch09.html" title="Chapter 9. Document Processing" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch07.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch09.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter" title="Chapter 8. Document Structure"><div class="titlepage"><div><div><h2 class="title"><a id="_document_structure"></a>Chapter 8. Document Structure</h2></div></div></div><p>An AsciiDoc document consists of a series of <a class="link" href="go01.html#X8">block elements</a>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 8. Document Structure</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch07.html" title="Chapter 7. HTML5 and XHTML 1.1" /><link rel="next" href="ch09.html" title="Chapter 9. Document Processing" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch07.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch09.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="_document_structure"></a>Chapter 8. Document Structure</h1></div></div></div><p>An AsciiDoc document consists of a series of <a class="link" href="go01.html#X8">block elements</a>
 starting with an optional document Header, followed by an optional
 Preamble, followed by zero or more document Sections.</p><p>Almost any combination of zero or more elements constitutes a valid
 AsciiDoc document: documents can range from a single sentence to a
-multi-part book.</p><div class="section" title="8.1. Block Elements"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_block_elements"></a>8.1. Block Elements</h2></div></div></div><p>Block elements consist of one or more lines of text and may contain
+multi-part book.</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_block_elements"></a>8.1. Block Elements</h2></div></div></div><p>Block elements consist of one or more lines of text and may contain
 other block elements.</p><p>The AsciiDoc block structure can be informally summarized as follows
-<sup>[<a id="idp19086336" href="#ftn.idp19086336" class="footnote">1</a>]</sup>:</p><pre class="literallayout">Document      ::= (Header?,Preamble?,Section*)
+<a href="#ftn.idm531" class="footnote" id="idm531"><sup class="footnote">[1]</sup></a>:</p><pre class="literallayout">Document      ::= (Header?,Preamble?,Section*)
 Header        ::= (Title,(AuthorInfo,RevisionInfo?)?)
 AuthorInfo    ::= (FirstName,(MiddleName?,LastName)?,EmailAddress?)
 RevisionInfo  ::= (RevisionNumber?,RevisionDate,RevisionRemark?)
@@ -21,7 +20,7 @@ CalloutList   ::= (ListItem)+
 LabeledList   ::= (ListEntry)+
 ListEntry     ::= (ListLabel,ListItem)
 ListLabel     ::= (ListTerm+)
-ListItem      ::= (ItemText,(List|ListParagraph|ListContinuation)*)</pre><p>Where:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+ListItem      ::= (ItemText,(List|ListParagraph|ListContinuation)*)</pre><p>Where:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <span class="emphasis"><em>?</em></span> implies zero or one occurrence, <span class="emphasis"><em>+</em></span> implies one or more
   occurrences, <span class="emphasis"><em>*</em></span> implies zero or more occurrences.
 </li><li class="listitem">
@@ -39,8 +38,8 @@ The following elements cannot contain blank lines: Header, Title,
 A ListParagraph is a Paragraph with its <span class="emphasis"><em>listelement</em></span> option set.
 </li><li class="listitem">
 A ListContinuation is a <a class="link" href="ch17.html#X15" title="17.7. List Item Continuation">list continuation element</a>.
-</li></ul></div></div><div class="section" title="8.2. Header"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X95"></a>8.2. Header</h2></div></div></div><p>The Header contains document meta-data, typically title plus optional
-authorship and revision information:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+</li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X95"></a>8.2. Header</h2></div></div></div><p>The Header contains document meta-data, typically title plus optional
+authorship and revision information:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 The Header is optional, but if it is used it must start with a
   document <a class="link" href="ch11.html" title="Chapter 11. Titles">title</a>.
 </li><li class="listitem">
@@ -77,7 +76,7 @@ entire author line is treated as the first name.</p><p>The optional revision inf
 line. The revision information can be one of two formats:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
 An optional document revision number followed by an optional
   revision date followed by an optional revision remark:
-</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 If the revision number is specified it must be followed by a
     comma.
 </li><li class="listitem">
@@ -103,7 +102,7 @@ v2.0,: Rewritten for version 2 release.
 :Rewritten for version 2 release.</pre></li><li class="listitem"><p class="simpara">
 The revision information line can also be an RCS/CVS/SVN $Id$
   marker:
-</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 AsciiDoc extracts the <span class="emphasis"><em>revnumber</em></span>, <span class="emphasis"><em>revdate</em></span>, and <span class="emphasis"><em>author</em></span>
     attributes from the $Id$ revision marker and displays them in the
     document header.
@@ -112,12 +111,12 @@ If an $Id$ revision marker is used the header author line can be
     omitted.
 </li></ul></div><p class="simpara">Example:</p><pre class="literallayout">$Id: mydoc.txt,v 1.5 2009/05/17 17:58:44 jbloggs Exp $</pre></li></ol></div><p>You can override or set header parameters by passing <span class="emphasis"><em>revnumber</em></span>,
 <span class="emphasis"><em>revremark</em></span>, <span class="emphasis"><em>revdate</em></span>, <span class="emphasis"><em>email</em></span>, <span class="emphasis"><em>author</em></span>, <span class="emphasis"><em>authorinitials</em></span>,
-<span class="emphasis"><em>firstname</em></span> and <span class="emphasis"><em>lastname</em></span> attributes using the <code class="literal">asciidoc(1)</code> <code class="literal">-a</code>
+<span class="emphasis"><em>firstname</em></span> and <span class="emphasis"><em>lastname</em></span> attributes using the asciidoc(1) <code class="literal">-a</code>
 (<code class="literal">--attribute</code>) command-line option. For example:</p><pre class="literallayout">$ asciidoc -a revdate=2004/07/27 article.txt</pre><p>Attribute entries can also be added to the header for substitution in
 the header template with <a class="link" href="ch28.html" title="Chapter 28. Attribute Entries">Attribute Entry</a> elements.</p><p>The <span class="emphasis"><em>title</em></span> element in HTML outputs is set to the AsciiDoc document
 title, you can set it to a different value by including a <span class="emphasis"><em>title</em></span>
-attribute entry in the document header.</p><div class="section" title="8.2.1. Additional document header information"><div class="titlepage"><div><div><h3 class="title"><a id="X87"></a>8.2.1. Additional document header information</h3></div></div></div><p>AsciiDoc has two mechanisms for optionally including additional
-meta-data in the header of the output document:</p><div class="variablelist"><dl><dt><span class="term">
+attribute entry in the document header.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="X87"></a>8.2.1. Additional document header information</h3></div></div></div><p>AsciiDoc has two mechanisms for optionally including additional
+meta-data in the header of the output document:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 <span class="emphasis"><em>docinfo</em></span> configuration file sections
 </span></dt><dd>
 If a <a class="link" href="ch26.html" title="Chapter 26. Configuration Files">configuration file</a> section named <span class="emphasis"><em>docinfo</em></span> has been loaded
@@ -135,7 +134,7 @@ document information files would be <code class="literal">docinfo.xml</code> and
 <code class="literal">mydoc-docinfo.html</code> (for HTML outputs).  The <a class="link" href="aph.html#X97">docinfo</a> attributes control which docinfo files are included in
 the output files.
 </dd></dl></div><p>The contents docinfo templates and files is dependent on the type of
-output:</p><div class="variablelist"><dl><dt><span class="term">
+output:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 HTML
 </span></dt><dd>
   Valid <span class="emphasis"><em>head</em></span> child elements. Typically <span class="emphasis"><em>style</em></span> and <span class="emphasis"><em>script</em></span> elements
@@ -149,13 +148,13 @@ DocBook
   <code class="literal">./doc/article-docinfo.xml</code> example that comes with the AsciiDoc
   distribution.  The rendering of meta-data elements (or not) is
   DocBook processor dependent.
-</dd></dl></div></div></div><div class="section" title="8.3. Preamble"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X86"></a>8.3. Preamble</h2></div></div></div><p>The Preamble is an optional untitled section body between the document
-Header and the first Section title.</p></div><div class="section" title="8.4. Sections"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_sections"></a>8.4. Sections</h2></div></div></div><p>In addition to the document title (level 0), AsciiDoc supports four
+</dd></dl></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X86"></a>8.3. Preamble</h2></div></div></div><p>The Preamble is an optional untitled section body between the document
+Header and the first Section title.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_sections"></a>8.4. Sections</h2></div></div></div><p>In addition to the document title (level 0), AsciiDoc supports four
 section levels: 1 (top) to 4 (bottom).  Section levels are delimited
 by section <a class="link" href="ch11.html" title="Chapter 11. Titles">titles</a>.  Sections are translated using
 configuration file <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">section markup templates</a>. AsciiDoc
 generates the following <a class="link" href="ch31.html" title="Chapter 31. Intrinsic Attributes">intrinsic attributes</a> specifically for
-use in section markup templates:</p><div class="variablelist"><dl><dt><span class="term">
+use in section markup templates:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 level
 </span></dt><dd>
 The <code class="literal">level</code> attribute is the section level number, it is normally just
@@ -169,7 +168,7 @@ The <code class="literal">-n</code> (<code class="literal">--section-numbers</co
 <code class="literal">sectnum</code> (section number) attribute.  The <code class="literal">sectnum</code> attribute is used
 for section numbers in HTML outputs (DocBook section numbering are
 handled automatically by the DocBook toolchain commands).
-</dd></dl></div><div class="section" title="8.4.1. Section markup templates"><div class="titlepage"><div><div><h3 class="title"><a id="X93"></a>8.4.1. Section markup templates</h3></div></div></div><p>Section markup templates specify output markup and are defined in
+</dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="X93"></a>8.4.1. Section markup templates</h3></div></div></div><p>Section markup templates specify output markup and are defined in
 AsciiDoc configuration files.  Section markup template names are
 derived as follows (in order of precedence):</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p class="simpara">
 From the title’s first positional attribute or <span class="emphasis"><em>template</em></span>
@@ -198,13 +197,13 @@ frontmatter, backmatter and other special sections: <span class="emphasis"><em>a
 <span class="emphasis"><em>preface</em></span>, <span class="emphasis"><em>colophon</em></span>, <span class="emphasis"><em>dedication</em></span>, <span class="emphasis"><em>glossary</em></span>, <span class="emphasis"><em>bibliography</em></span>,
 <span class="emphasis"><em>synopsis</em></span>, <span class="emphasis"><em>appendix</em></span>, <span class="emphasis"><em>index</em></span>.  These special section templates
 generate the corresponding Docbook elements; for HTML outputs they
-default to the <span class="emphasis"><em>sect1</em></span> section template.</p></div><div class="section" title="8.4.2. Section IDs"><div class="titlepage"><div><div><h3 class="title"><a id="_section_ids"></a>8.4.2. Section IDs</h3></div></div></div><p>If no explicit section ID is specified an ID will be synthesised from
+default to the <span class="emphasis"><em>sect1</em></span> section template.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_section_ids"></a>8.4.2. Section IDs</h3></div></div></div><p>If no explicit section ID is specified an ID will be synthesised from
 the section title.  The primary purpose of this feature is to ensure
 persistence of table of contents links (permalinks): the missing
 section IDs are generated dynamically by the JavaScript TOC generator
 <span class="strong"><strong>after</strong></span> the page is loaded. If you link to a dynamically generated TOC
 address the page will load but the browser will ignore the (as yet
-ungenerated) section ID.</p><p>The IDs are generated by the following algorithm:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+ungenerated) section ID.</p><p>The IDs are generated by the following algorithm:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 Replace all non-alphanumeric title characters with underscores.
 </li><li class="listitem">
 Strip leading or trailing underscores.
@@ -224,7 +223,7 @@ If the <code class="literal">ascii-ids</code> attribute is defined then non-ASCI
   purpose is to accommodate deficient downstream applications that
   cannot process non-ASCII ID attributes.
 </li></ul></div><p>Example: the title <span class="emphasis"><em>Jim’s House</em></span> would generate the ID <code class="literal">_jim_s_house</code>.</p><p>Section ID synthesis can be disabled by undefining the <code class="literal">sectids</code>
-attribute.</p></div><div class="section" title="8.4.3. Special Section Titles"><div class="titlepage"><div><div><h3 class="title"><a id="X16"></a>8.4.3. Special Section Titles</h3></div></div></div><p>AsciiDoc has a mechanism for mapping predefined section titles
+attribute.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="X16"></a>8.4.3. Special Section Titles</h3></div></div></div><p>AsciiDoc has a mechanism for mapping predefined section titles
 auto-magically to specific markup templates. For example a title
 <span class="emphasis"><em>Appendix A: Code Reference</em></span> will automatically use the <span class="emphasis"><em>appendix</em></span>
 <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">section markup template</a>. The mappings from title to template
@@ -238,12 +237,12 @@ default <code class="literal">sect&lt;level&gt;</code> section template). The <c
 is set to the value of the matched regular expression group named
 <span class="emphasis"><em>title</em></span>, if there is no <span class="emphasis"><em>title</em></span> group <code class="literal">{title}</code> defaults to the whole
 of the AsciiDoc section title. If <code class="literal">&lt;template&gt;</code> is blank then any
-existing entry with the same <code class="literal">&lt;title&gt;</code> will be deleted.</p><div class="sidebar" title="Special section titles vs. explicit template names"><div class="titlepage"><div><div><p class="title"><strong>Special section titles vs. explicit template names</strong></p></div></div></div><p>AsciiDoc has two mechanisms for specifying non-default section markup
+existing entry with the same <code class="literal">&lt;title&gt;</code> will be deleted.</p><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong>Special section titles vs. explicit template names</strong></p></div></div></div><p>AsciiDoc has two mechanisms for specifying non-default section markup
 templates: you can specify the template name explicitly (using the
 <span class="emphasis"><em>template</em></span> attribute) or indirectly (using <span class="emphasis"><em>special section titles</em></span>).
 Specifying a <a class="link" href="ch08.html#X93" title="8.4.1. Section markup templates">section template</a> attribute explicitly is
 preferred.  Auto-magical <span class="emphasis"><em>special section titles</em></span> have the following
-drawbacks:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+drawbacks:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 They are non-obvious, you have to know the exact matching
   title for each special section on a language by language basis.
 </li><li class="listitem">
@@ -257,10 +256,10 @@ The implementation is complicated by multiple languages: every
 noise to the source document (the <span class="emphasis"><em>template</em></span> attribute declaration),
 but the intention is obvious and the syntax is consistent with other
 AsciiDoc elements c.f.  bibliographic, Q&amp;A and glossary lists.</p><p>Special section titles have been deprecated but are retained for
-backward compatibility.</p></div></div></div><div class="section" title="8.5. Inline Elements"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_inline_elements"></a>8.5. Inline Elements</h2></div></div></div><p><a class="link" href="go01.html#X34">Inline document elements</a> are used to format text and to
+backward compatibility.</p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_inline_elements"></a>8.5. Inline Elements</h2></div></div></div><p><a class="link" href="go01.html#X34">Inline document elements</a> are used to format text and to
 perform various types of text substitution. Inline elements and inline
-element syntax is defined in the <code class="literal">asciidoc(1)</code> configuration files.</p><p>Here is a list of AsciiDoc inline elements in the (default) order in
-which they are processed:</p><div class="variablelist"><dl><dt><span class="term">
+element syntax is defined in the asciidoc(1) configuration files.</p><p>Here is a list of AsciiDoc inline elements in the (default) order in
+which they are processed:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
 Special characters
 </span></dt><dd>
         These character sequences escape special characters used by
@@ -293,5 +292,5 @@ Inline Macros
 </span></dt><dd>
         Inline macros are replaced by the contents of parametrized
         configuration file sections.
-</dd></dl></div></div><div class="footnotes"><br /><hr width="100" align="left" /><div class="footnote"><p><sup>[<a id="ftn.idp19086336" href="#idp19086336" class="simpara">1</a>] </sup>This is a rough structural guide, not a rigorous syntax
+</dd></dl></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.idm531" class="footnote"><p><a href="#idm531" class="simpara"><sup class="simpara">[1] </sup></a>This is a rough structural guide, not a rigorous syntax
 definition</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch09.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html"><img src="images/icons/home.png" alt="Home" /></a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>AsciiDoc API</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -102,7 +102,9 @@ the module doctests:</p></div>
 <div class="paragraph"><p>The following minimal example compiles <code>mydoc.txt</code> to <code>mydoc.html</code>:</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><code></code></pre>
+<pre><code><span style="color:#000000; font-weight:bold">from</span> asciidocapi <span style="color:#000000; font-weight:bold">import</span> AsciiDocAPI
+asciidoc <span style="color:#000000">=</span> <span style="color:#010181">AsciiDocAPI</span><span style="color:#000000">()</span>
+asciidoc<span style="color:#000000">.</span><span style="color:#010181">execute</span><span style="color:#000000">(</span><span style="color:#bf0303">'mydoc.txt'</span><span style="color:#000000">)</span></code></pre>
 </div></div>
 <div class="paragraph"><p>The next interactive example uses file-like objects for input and output:</p></div>
 <div class="listingblock">
@@ -340,8 +342,8 @@ error occurs.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2015-02-26 06:50:43 CET
+Version 9.0.0rc2<br />
+Last updated 2020-04-30 13:12:12 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">

@@ -33,7 +33,7 @@ OPTIONS
     'trace' controls the output of diagnostic information.
 
 *-b, --backend*='BACKEND'::
-    Backend output file format: 'docbook45', 'xhtml11', 'html4',
+    Backend output file format: 'docbook45', 'docbook5', 'xhtml11', 'html4',
     'html5', 'slidy', 'wordpress' or 'latex' (the 'latex' backend is
     experimental).  You can also use the backend alias names 'html'
     (aliased to 'xhtml11') or 'docbook' (aliased to 'docbook45').
@@ -50,7 +50,7 @@ OPTIONS
 
 *-d, --doctype*='DOCTYPE'::
     Document type: 'article', 'manpage' or 'book'. The 'book' document
-    type is only supported by the 'docbook' backend.  Default document
+    type is only supported by the 'docbook' backends.  Default document
     type is 'article'.
 
 *-c, --dump-conf*::
@@ -160,6 +160,18 @@ The plugin commands perform as follows:
   Create a plugin file named *ZIP_FILE* containing the files and
   subdirectories specified by *PLUGIN_SOURCE*. File and directory
   names starting with a period are skipped.
+
+
+ENVIRONMENT VARIABLES
+---------------------
+
+*`SOURCE_DATE_EPOCH`*::
+  If the `SOURCE_DATE_EPOCH` environment variable is set to a UNIX
+  timestamp, then the `{docdate}`, `{doctime}`, `{localdate}`, and
+  `{localtime}` attributes are computed in the UTC time zone, with any
+  timestamps newer than `SOURCE_DATE_EPOCH` replaced by
+  `SOURCE_DATE_EPOCH`. (This helps software using AsciiDoc to build
+  reproducibly.)
 
 
 EXAMPLES
