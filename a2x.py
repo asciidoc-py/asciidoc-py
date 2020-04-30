@@ -365,10 +365,18 @@ def get_source_options(asciidoc_file):
     if os.path.isfile(asciidoc_file):
         options = ''
         with open(asciidoc_file, 'rb') as f:
+            line_number = 0
             for line in f:
-                mo = re.search(rb'^//\s*a2x:', line)
+                line_number += 1
+                mo = re.search(b'^//\s*a2x:', line)
                 if mo:
-                    options += ' ' + line[mo.end():].decode('utf8').strip()
+                    try:
+                        options += ' ' + line[mo.end():].strip().decode('ascii')
+                    except UnicodeDecodeError as e:
+                        warning(
+                            "Could not decode option to %s " % e.encoding +
+                            "on line %s in %s" % (line_number, asciidoc_file)
+                        )
         parse_options()
     return result
 
