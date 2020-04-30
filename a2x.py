@@ -373,8 +373,6 @@ def get_source_options(asciidoc_file):
                     try:
                         options += ' ' + line[mo.end():].strip().decode('ascii')
                     except UnicodeDecodeError as e:
-                        #Encountered a problem decoding an option for a2x.
-                        #Discard this option and continue on with a warning.
                         warning(
                             "Could not decode option to %s " % e.encoding +
                             "on line %s in %s" % (line_number, asciidoc_file)
