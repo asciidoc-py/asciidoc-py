@@ -160,6 +160,9 @@ configuration files. Backend specific attributes are listed in the
 docbook45::
   Outputs DocBook XML 4.5 markup.
 
+docbook5::
+  Outputs DocBook XML 5.0 markup.
+
 html4::
   This backend generates plain HTML 4.01 Transitional markup.
 
@@ -4230,7 +4233,7 @@ To delete (undefine) an attribute use the following syntax:
   expanded.
 - By default AttributeEntry values are substituted for
   `specialcharacters` and `attributes` (see above), if you want to
-  change or disable AttributeEntry substitution use the <<X77,pass:[]
+  change or disable AttributeEntry substitution use the <<X77,\pass:[]
   inline macro>> syntax.
 - Attribute entries in the document Header are available for header
   markup template substitution.
@@ -4620,11 +4623,11 @@ predefined intrinsic attributes:
   {basebackend}         html or docbook
   {blockname}           current block name (note 8).
   {brvbar}              broken vertical bar (|) character
-  {docdate}             document last modified date
+  {docdate}             document last modified date (note 9)
   {docdir}              document input directory name  (note 5)
   {docfile}             document file name  (note 5)
   {docname}             document file name without extension (note 6)
-  {doctime}             document last modified time
+  {doctime}             document last modified time (note 9)
   {doctitle}            document title (from document header)
   {doctype-<doctype>}   empty string ''
   {doctype}             document type specified by `-d` option
@@ -4642,8 +4645,8 @@ predefined intrinsic attributes:
   {ldquo}               Left double quote character (note 7)
   {level}               title level 1..4 (in section titles)
   {listindex}           the list index (1..) of the most recent list item
-  {localdate}           the current date
-  {localtime}           the current time
+  {localdate}           the current date (note 9)
+  {localtime}           the current time (note 9)
   {lsquo}               Left single quote character (note 7)
   {lt}                  less than (<) character entity
   {manname}             manpage name (defined in NAME section)
@@ -4714,6 +4717,13 @@ predefined intrinsic attributes:
    glossary
 
    tables:: table
+9. If the `SOURCE_DATE_EPOCH` environment variable is set to a UNIX
+   timestamp, then the `{docdate}`, `{doctime}`, `{localdate}`, and
+   `{localtime}` attributes are computed in the UTC time zone, with any
+   timestamps newer than `SOURCE_DATE_EPOCH` replaced by
+   `SOURCE_DATE_EPOCH`. (This helps software using AsciiDoc to build
+   reproducibly.)
+
 
 ======
 
@@ -5677,7 +5687,7 @@ repository].
 Install the highlighter by copying `asciidoc.vim` to your
 `$HOME/.vim/syntax` directory (create it if it doesn't already exist).
 
-To enable syntax highlighing:
+To enable syntax highlighting:
 
 - Put a Vim 'autocmd' in your Vim configuration file (see the
   <<X61,example vimrc file>>).
@@ -5964,6 +5974,22 @@ discouraged -- documents are still viewable in IE6 without it.
 A short summary of changes in this document revision. Must be defined
 prior to the first document section. The document also needs to be
 dated to output this attribute.
+
+|footer-style |html4, html5, xhtml11 |
+Changes the "Last updated" field in the footer of the document or removes this
+field and the revision number (in the footer only). +
+Can take 3 values:
+
+- none : Don't display the "Last updated" and "Revision number" fields in the
+  footer of the document
+- revdate : The "Last updated" field's date in the footer will be the revision
+  date specified in the document (`revdate` attribute)
+- default (or any other value) : The "Last updated" field's date in the footer
+  will be the date of the input file modification
+
+This attribute can be set, for example, using `:footer-style: revdate` in the
+header of the file or using the `--attribute footer-style=revdate` command-line
+option.
 
 |scriptsdir |html5, xhtml11 |
 The name of the directory containing linked JavaScripts.

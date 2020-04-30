@@ -1,13 +1,13 @@
 '\" t
 .\"     Title: asciidoc
 .\"    Author: [see the "AUTHOR" section]
-.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
-.\"      Date: 9 November 2013
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 11 March 2020
 .\"    Manual: \ \&
-.\"    Source: \ \& 8.6.9
+.\"    Source: \ \& 9.0.0rc2
 .\"  Language: English
 .\"
-.TH "ASCIIDOC" "1" "9 November 2013" "\ \& 8\&.6\&.9" "\ \&"
+.TH "ASCIIDOC" "1" "11 March 2020" "\ \& 9\&.0\&.0rc2" "\ \&"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -61,6 +61,7 @@ controls the output of diagnostic information\&.
 .RS 4
 Backend output file format:
 \fIdocbook45\fR,
+\fIdocbook5\fR,
 \fIxhtml11\fR,
 \fIhtml4\fR,
 \fIhtml5\fR,
@@ -106,7 +107,7 @@ or
 \fIbook\fR
 document type is only supported by the
 \fIdocbook\fR
-backend\&. Default document type is
+backends\&. Default document type is
 \fIarticle\fR\&.
 .RE
 .PP
@@ -283,6 +284,47 @@ Create a plugin file named
 containing the files and subdirectories specified by
 \fBPLUGIN_SOURCE\fR\&. File and directory names starting with a period are skipped\&.
 .RE
+.SH "ENVIRONMENT VARIABLES"
+.PP
+\fBSOURCE_DATE_EPOCH\fR
+.RS 4
+If the
+SOURCE_DATE_EPOCH
+environment variable is set to a UNIX timestamp, then the
+{docdate},
+{doctime},
+{localdate}, and
+{localtime}
+attributes are computed in the UTC time zone, with any timestamps newer than
+SOURCE_DATE_EPOCH
+replaced by
+SOURCE_DATE_EPOCH\&. (This helps software using AsciiDoc to build reproducibly\&.)
+.RE
+.SH "EXAMPLES"
+.PP
+asciidoc asciidoc_file_name\&.txt
+.RS 4
+Simply generate an html file from the asciidoc_file_name\&.txt that is in current directory using asciidoc\&.
+.RE
+.PP
+asciidoc \-b html5 asciidoc_file_name\&.txt
+.RS 4
+Use the
+\-b
+switch to use one of the proposed backend or another one you installed on your computer\&.
+.RE
+.PP
+asciidoc \-a data\-uri \-a icons \-a toc \-a max\-width=55em article\&.txt
+.RS 4
+Use the
+\-a
+switch to set attributes from command\-line\&. AsciiDoc generated its stand\-alone HTML user guide containing embedded CSS, JavaScript and images from the AsciiDoc article template with this command\&.
+.RE
+.PP
+asciidoc \-b html5 \-d manpage asciidoc\&.1\&.txt
+.RS 4
+Generating the asciidoc manpage using the html5 backend\&.
+.RE
 .SH "EXIT STATUS"
 .PP
 \fB0\fR
@@ -305,6 +347,9 @@ AsciiDoc was originally written by Stuart Rackham\&. Many people have contribute
 SourceForge: http://sourceforge\&.net/projects/asciidoc/
 .sp
 Main web site: http://asciidoc\&.org/
+.SH "SEE ALSO"
+.sp
+a2x(1)
 .SH "COPYING"
 .sp
 Copyright (C) 2002\-2011 Stuart Rackham\&. Free use of this software is granted under the terms of the GNU General Public License (GPL)\&.

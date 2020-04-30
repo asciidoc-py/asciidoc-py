@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.9">
+<meta name="generator" content="AsciiDoc 9.0.0rc2">
 <title>ASCIIDOC(1)</title>
 </head>
 <body>
@@ -43,7 +43,7 @@ DocBook or HTML.  If <b>FILE</b> is <b>-</b> then the standard input is used.</p
 </dt>
 <dd>
 <p>
-    Backend output file format: <b>docbook45</b>, <b>xhtml11</b>, <b>html4</b>,
+    Backend output file format: <b>docbook45</b>, <b>docbook5</b>, <b>xhtml11</b>, <b>html4</b>,
     <b>html5</b>, <b>slidy</b>, <b>wordpress</b> or <b>latex</b> (the <b>latex</b> backend is
     experimental).  You can also use the backend alias names <b>html</b>
     (aliased to <b>xhtml11</b>) or <b>docbook</b> (aliased to <b>docbook45</b>).
@@ -75,7 +75,7 @@ DocBook or HTML.  If <b>FILE</b> is <b>-</b> then the standard input is used.</p
 <dd>
 <p>
     Document type: <b>article</b>, <b>manpage</b> or <b>book</b>. The <b>book</b> document
-    type is only supported by the <b>docbook</b> backend.  Default document
+    type is only supported by the <b>docbook</b> backends.  Default document
     type is <b>article</b>.
 </p>
 </dd>
@@ -285,6 +285,61 @@ asciidoc OPTION build ZIP_FILE PLUGIN_SOURCE</code></pre>
 </p>
 </dd>
 </dl>
+<h2><a name="_environment_variables"></a>ENVIRONMENT VARIABLES</h2>
+<dl>
+<dt>
+<strong><code>SOURCE_DATE_EPOCH</code></strong>
+</dt>
+<dd>
+<p>
+  If the <code>SOURCE_DATE_EPOCH</code> environment variable is set to a UNIX
+  timestamp, then the <code>{docdate}</code>, <code>{doctime}</code>, <code>{localdate}</code>, and
+  <code>{localtime}</code> attributes are computed in the UTC time zone, with any
+  timestamps newer than <code>SOURCE_DATE_EPOCH</code> replaced by
+  <code>SOURCE_DATE_EPOCH</code>. (This helps software using AsciiDoc to build
+  reproducibly.)
+</p>
+</dd>
+</dl>
+<h2><a name="_examples"></a>EXAMPLES</h2>
+<dl>
+<dt>
+<code>asciidoc asciidoc_file_name.txt</code>
+</dt>
+<dd>
+<p>
+  Simply generate an html file from the asciidoc_file_name.txt that is in
+  current directory using asciidoc.
+</p>
+</dd>
+<dt>
+<code>asciidoc -b html5 asciidoc_file_name.txt</code>
+</dt>
+<dd>
+<p>
+  Use the <code>-b</code> switch to use one of the proposed backend or another one you
+  installed on your computer.
+</p>
+</dd>
+<dt>
+<code>asciidoc -a data-uri -a icons -a toc -a max-width=55em article.txt</code>
+</dt>
+<dd>
+<p>
+  Use the <code>-a</code> switch to set attributes from command-line. AsciiDoc generated
+  its stand-alone HTML user guide containing embedded CSS, JavaScript and
+  images from the AsciiDoc article template with this command.
+</p>
+</dd>
+<dt>
+<code>asciidoc -b html5 -d manpage asciidoc.1.txt</code>
+</dt>
+<dd>
+<p>
+  Generating the asciidoc manpage using the html5 backend.
+</p>
+</dd>
+</dl>
 <h2><a name="_exit_status"></a>EXIT STATUS</h2>
 <dl>
 <dt>
@@ -313,14 +368,17 @@ contributed to it.</p>
 <h2><a name="_resources"></a>RESOURCES</h2>
 <p>SourceForge: <a href="http://sourceforge.net/projects/asciidoc/">http://sourceforge.net/projects/asciidoc/</a></p>
 <p>Main web site: <a href="http://asciidoc.org/">http://asciidoc.org/</a></p>
+<h2><a name="_see_also"></a>SEE ALSO</h2>
+<p>a2x(1)</p>
 <h2><a name="_copying"></a>COPYING</h2>
 <p>Copyright (C) 2002-2011 Stuart Rackham. Free use of this software is
 granted under the terms of the GNU General Public License (GPL).</p>
 <p></p>
 <p></p>
 <hr><p><small>
-Version 8.6.9<br>
-Last updated 2012-12-29 09:05:07 NZDT
+Version 9.0.0rc2<br>
+Last updated
+ 2020-04-30 13:11:22 UTC
 </small></p>
 </body>
 </html>

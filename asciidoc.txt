@@ -160,6 +160,9 @@ configuration files. Backend specific attributes are listed in the
 docbook45::
   Outputs DocBook XML 4.5 markup.
 
+docbook5::
+  Outputs DocBook XML 5.0 markup.
+
 html4::
   This backend generates plain HTML 4.01 Transitional markup.
 
@@ -341,7 +344,7 @@ AsciiDoc::
   uses <<X13,DocBook XSL Stylesheets>>, <<X40,xsltproc(1)>> and
   `latex(1)`.
 
-[[X14]]http://xml.apache.org/fop/[FOP]::
+[[X14]]http://xmlgraphics.apache.org/fop/[FOP]::
   The Apache Formatting Objects Processor converts XSL-FO (`.fo`)
   files to PDF files.  The XSL-FO files are generated from DocBook
   source files using <<X13,DocBook XSL Stylesheets>> and
@@ -2168,8 +2171,8 @@ generating DocBook bibliography entries. Example:
 - [[[taoup]]] Eric Steven Raymond. 'The Art of UNIX
   Programming'. Addison-Wesley. ISBN 0-13-142901-9.
 - [[[walsh-muellner]]] Norman Walsh & Leonard Muellner.
-  'DocBook - The Definitive Guide'. O'Reilly & Associates.
-  1999. ISBN 1-56592-580-7.
+  'DocBook - The Definitive Guide'. O'Reilly & Associates. 1999. 
+  ISBN 1-56592-580-7.
 ---------------------------------------------------------------------
 
 The `[[[<reference>]]]` syntax is a bibliography entry anchor, it
@@ -2693,6 +2696,9 @@ The syntax is:
 The block `image` macro has the same <<X55,macro attributes>> as it's
 <<X9,inline image macro>> counterpart.
 
+WARNING: Unlike the inline `image` macro, the entire block `image` macro
+must be on a single line.
+
 Block images can be titled by preceding the 'image' macro with a
 'BlockTitle'.  DocBook toolchains normally number titled block images
 and optionally list them in an automatically generated 'List of
@@ -2705,8 +2711,7 @@ This example:
 
 is equivalent to:
 
-  image::images/layout.png["J14P main circuit board",
-                            title="Main circuit board"]
+  image::images/layout.png["J14P main circuit board", title="Main circuit board"]
 
 A title prefix that can be inserted with the `caption` attribute
 (HTML backends). For example:
@@ -3640,17 +3645,10 @@ source file:
 [[X78]]
 Mathematical Formulas
 ---------------------
-The 'asciimath' and 'latexmath' <<X77,passthrough macros>> along with
-'asciimath' and 'latexmath'  <<X76,passthrough blocks>> provide a
+The 'asciimath' and 'latexmath' <<X76,passthrough blocks>> along with
+the 'asciimath' and 'latexmath' <<X77,passthrough macros>> provide a
 (backend dependent) mechanism for rendering mathematical formulas. You
 can use the following math markups:
-
-NOTE: The 'latexmath' macro used to include 'LaTeX Math' in DocBook
-outputs is not the same as the 'latexmath' macro used to include
-'LaTeX MathML' in XHTML outputs.  'LaTeX Math' applies to DocBook
-outputs that are processed by <<X31,dblatex>> and is normally used to
-generate PDF files.  'LaTeXMathML' is very much a subset of 'LaTeX
-Math' and applies to XHTML documents.
 
 LaTeX Math
 ~~~~~~~~~~
@@ -3663,26 +3661,17 @@ math] can be included in documents that are processed by
 For more examples see the {website}[AsciiDoc website] or the
 distributed `doc/latexmath.txt` file.
 
-ASCIIMathML
-~~~~~~~~~~~
-/////////////////////////////////////////////////////////////////////
-The older ASCIIMathML 1.47 version is used instead of version 2
-because:
-
-1. Version 2 doesn't work when embedded.
-2. Version 2 is much larger.
-/////////////////////////////////////////////////////////////////////
-
-http://www1.chapman.edu/~jipsen/mathml/asciimath.html[ASCIIMathML]
-formulas can be included in XHTML documents generated using the
-'xhtml11' and 'html5' backends. To enable ASCIIMathML support you must
-define the 'asciimath' attribute, for example using the `-a asciimath`
-command-line option.  Example inline formula:
-
-  asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]
-
-For more examples see the {website}[AsciiDoc website] or the
-distributed `doc/asciimathml.txt` file.
+MathJax
+~~~~~~~
+http://www.mathjax.org/[MathJax] allows LaTeX Math style formulas to be included
+in XHTML documents generated via the AsciiDoc 'xhtml11' and 'html5' backends.
+This route overcomes several restrictions of the MathML-based approaches,
+notably, restricted support of MathML by many mainstream browsers. To enable
+'MathJax' support you must define the 'mathjax' attribute, for example using the
+`-a mathjax` command-line option. Equations are specified as explained above
+using the 'latexmath' passthrough blocks. By default, rendering of equations
+with 'MathJax' requires a working internet connection and will thus not work if
+you are offline (but it can be configured differently).
 
 LaTeXMathML
 ~~~~~~~~~~~
@@ -3708,6 +3697,37 @@ formula:
 
 For more examples see the {website}[AsciiDoc website] or the
 distributed `doc/latexmathml.txt` file.
+
+NOTE: The 'latexmath' macro used to include 'LaTeX Math' in DocBook
+outputs is not the same as the 'latexmath' macro used to include
+'LaTeX MathML' in XHTML outputs.  'LaTeX Math' applies to DocBook
+outputs that are processed by <<X31,dblatex>> and is normally used to
+generate PDF files.  'LaTeXMathML' is very much a subset of 'LaTeX
+Math' and applies to XHTML documents. This remark does not
+apply to 'MathJax' which does not use any of the 'latexmath' macros
+(but only requires the 'latexmath' passthrough blocks for identification
+of the equations).
+
+ASCIIMathML
+~~~~~~~~~~~
+/////////////////////////////////////////////////////////////////////
+The older ASCIIMathML 1.47 version is used instead of version 2
+because:
+
+1. Version 2 doesn't work when embedded.
+2. Version 2 is much larger.
+/////////////////////////////////////////////////////////////////////
+
+http://www1.chapman.edu/~jipsen/mathml/asciimath.html[ASCIIMathML]
+formulas can be included in XHTML documents generated using the
+'xhtml11' and 'html5' backends. To enable ASCIIMathML support you must
+define the 'asciimath' attribute, for example using the `-a asciimath`
+command-line option.  Example inline formula:
+
+  asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]
+
+For more examples see the {website}[AsciiDoc website] or the
+distributed `doc/asciimathml.txt` file.
 
 MathML
 ~~~~~~
@@ -4213,7 +4233,7 @@ To delete (undefine) an attribute use the following syntax:
   expanded.
 - By default AttributeEntry values are substituted for
   `specialcharacters` and `attributes` (see above), if you want to
-  change or disable AttributeEntry substitution use the <<X77,pass:[]
+  change or disable AttributeEntry substitution use the <<X77,\pass:[]
   inline macro>> syntax.
 - Attribute entries in the document Header are available for header
   markup template substitution.
@@ -4603,11 +4623,11 @@ predefined intrinsic attributes:
   {basebackend}         html or docbook
   {blockname}           current block name (note 8).
   {brvbar}              broken vertical bar (|) character
-  {docdate}             document last modified date
+  {docdate}             document last modified date (note 9)
   {docdir}              document input directory name  (note 5)
   {docfile}             document file name  (note 5)
   {docname}             document file name without extension (note 6)
-  {doctime}             document last modified time
+  {doctime}             document last modified time (note 9)
   {doctitle}            document title (from document header)
   {doctype-<doctype>}   empty string ''
   {doctype}             document type specified by `-d` option
@@ -4625,8 +4645,8 @@ predefined intrinsic attributes:
   {ldquo}               Left double quote character (note 7)
   {level}               title level 1..4 (in section titles)
   {listindex}           the list index (1..) of the most recent list item
-  {localdate}           the current date
-  {localtime}           the current time
+  {localdate}           the current date (note 9)
+  {localtime}           the current time (note 9)
   {lsquo}               Left single quote character (note 7)
   {lt}                  less than (<) character entity
   {manname}             manpage name (defined in NAME section)
@@ -4697,6 +4717,13 @@ predefined intrinsic attributes:
    glossary
 
    tables:: table
+9. If the `SOURCE_DATE_EPOCH` environment variable is set to a UNIX
+   timestamp, then the `{docdate}`, `{doctime}`, `{localdate}`, and
+   `{localtime}` attributes are computed in the UTC time zone, with any
+   timestamps newer than `SOURCE_DATE_EPOCH` replaced by
+   `SOURCE_DATE_EPOCH`. (This helps software using AsciiDoc to build
+   reproducibly.)
+
 
 ======
 
@@ -5079,7 +5106,7 @@ is included in the distribution `./filters/` directory.
 
 |latex
 |The {website}latex-filter.html[AsciiDoc LaTeX filter] translates
-LaTeX source to a PNG image that is automatically inserted into the
+LaTeX source to an image that is automatically inserted into the
 AsciiDoc output documents.
 
 |graphviz
@@ -5660,7 +5687,7 @@ repository].
 Install the highlighter by copying `asciidoc.vim` to your
 `$HOME/.vim/syntax` directory (create it if it doesn't already exist).
 
-To enable syntax highlighing:
+To enable syntax highlighting:
 
 - Put a Vim 'autocmd' in your Vim configuration file (see the
   <<X61,example vimrc file>>).
@@ -5947,6 +5974,22 @@ discouraged -- documents are still viewable in IE6 without it.
 A short summary of changes in this document revision. Must be defined
 prior to the first document section. The document also needs to be
 dated to output this attribute.
+
+|footer-style |html4, html5, xhtml11 |
+Changes the "Last updated" field in the footer of the document or removes this
+field and the revision number (in the footer only). +
+Can take 3 values:
+
+- none : Don't display the "Last updated" and "Revision number" fields in the
+  footer of the document
+- revdate : The "Last updated" field's date in the footer will be the revision
+  date specified in the document (`revdate` attribute)
+- default (or any other value) : The "Last updated" field's date in the footer
+  will be the date of the input file modification
+
+This attribute can be set, for example, using `:footer-style: revdate` in the
+header of the file or using the `--attribute footer-style=revdate` command-line
+option.
 
 |scriptsdir |html5, xhtml11 |
 The name of the directory containing linked JavaScripts.

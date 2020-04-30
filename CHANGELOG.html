@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 8.6.9" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
 <title>AsciiDoc ChangeLog</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -42,6 +42,159 @@ asciidoc.install();
 <h1>AsciiDoc ChangeLog</h1>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_version_9_0_0_unreleased">Version 9.0.0 (Unreleased)</h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">Additions and changes</div><ul>
+<li>
+<p>
+Port asciidoc to run on Python 3.5+ (see <a href="https://github.com/asciidoc/asciidoc">https://github.com/asciidoc/asciidoc</a> for the EOL Python 2 implementation)
+</p>
+</li>
+<li>
+<p>
+Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead
+</p>
+</li>
+<li>
+<p>
+Implement Dockerfile for running asciidoc
+</p>
+</li>
+<li>
+<p>
+Add Catalan translation
+</p>
+</li>
+<li>
+<p>
+Add docbook5 backend
+</p>
+</li>
+<li>
+<p>
+Fix misspellings in various files and documents
+</p>
+</li>
+<li>
+<p>
+Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
+</p>
+</li>
+<li>
+<p>
+Use "with" context statement for opening and closing files instead of older try/finally pattern.
+</p>
+</li>
+<li>
+<p>
+Search sibling paths before system wide paths in asciidocapi
+</p>
+</li>
+<li>
+<p>
+Add manpage for testasciidoc.py
+</p>
+</li>
+<li>
+<p>
+Use argparse instead of optparse for argument parsing
+</p>
+</li>
+<li>
+<p>
+Migrate from A-A-P based build system to Make
+</p>
+</li>
+<li>
+<p>
+Running <code>make help</code> will now print out a helpful usage message
+</p>
+</li>
+<li>
+<p>
+Add simplified Chinese translation (thanks @muirmok)
+</p>
+</li>
+<li>
+<p>
+vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch)
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Bug fixes</div><ul>
+<li>
+<p>
+Fix index terms requiring two characters instead of just one (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876</a>)
+</p>
+</li>
+<li>
+<p>
+Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181</a>)
+</p>
+</li>
+<li>
+<p>
+make install did not include the unwraplatex.py filter
+</p>
+</li>
+<li>
+<p>
+Fix a2x option collection from input file with non-ascii encoding
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Testing</div><ul>
+<li>
+<p>
+Commit generated test files to the repository for continuous integration
+</p>
+</li>
+<li>
+<p>
+Test against Python 3.5+ on Travis-CI
+</p>
+</li>
+<li>
+<p>
+Remove symlink tests/asciidocapi.py in favor of just appending to sys.path
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_version_8_6_10_2017_09_22">Version 8.6.10 (2017-09-22)</h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">Additions and changes</div><ul>
+<li>
+<p>
+Improve reproducibility of builds (e.g. support SOURCE_DATE_EPOCH)
+</p>
+</li>
+<li>
+<p>
+Add SVG output support
+</p>
+</li>
+<li>
+<p>
+Improve documentation
+</p>
+</li>
+<li>
+<p>
+Update translations
+</p>
+</li>
+<li>
+<p>
+Full list of changes is at <a href="https://github.com/asciidoc/asciidoc/compare/asciidoc:8.6.9&#8230;asciidoc:8.6.10">https://github.com/asciidoc/asciidoc/compare/asciidoc:8.6.9&#8230;asciidoc:8.6.10</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_version_8_6_9_2013_11_09">Version 8.6.9 (2013-11-09)</h2>
 <div class="sectionbody">
@@ -159,7 +312,7 @@ Removed Vim related stuff from the installer makefile. See:
 <li>
 <p>
 Dropped <code>vim/ftdetect/asciidoc_filetype.vim</code> from distribution, the
-  file detection  was broken and the default settings satisfied noone.
+  file detection  was broken and the default settings satisfied no one.
 </p>
 </li>
 <li>
@@ -2010,7 +2163,7 @@ xhtml11 backend: Callouts and callout lists display callout icons
 <li>
 <p>
 Document attribute names are case insensitive everywhere, this makes using
-attribute entries more consistent e.g. previously :VERS: had to be refered to
+attribute entries more consistent e.g. previously :VERS: had to be referred to
 </p>
 </li>
 <li>
@@ -3224,7 +3377,8 @@ AsciiDoc now has a <a href="http://asciidoc.org/asciidocapi.html">Python API</a>
 </p>
 <div class="listingblock">
 <div class="content">
-<pre><code></code></pre>
+<pre><code><span style="color:#000000; font-weight:bold">from</span> asciidocapi <span style="color:#000000; font-weight:bold">import</span> AsciiDocAPI asciidoc <span style="color:#000000">=</span> <span style="color:#010181">AsciiDocAPI</span><span style="color:#000000">()</span>
+asciidoc<span style="color:#000000">.</span><span style="color:#010181">execute</span><span style="color:#000000">(</span><span style="color:#bf0303">'mydoc.txt'</span><span style="color:#000000">)</span></code></pre>
 </div></div>
 </li>
 <li>
@@ -4051,7 +4205,7 @@ Callouts now work in source highlighted listing generated by
 </li>
 <li>
 <p>
-Fixed exception that occured if undefined attribute was present in
+Fixed exception that occurred if undefined attribute was present in
   filter command.
 </p>
 </li>
@@ -8002,8 +8156,8 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 8.6.9<br />
-Last updated 2015-02-26 06:50:44 CET
+Version 9.0.0rc2<br />
+Last updated 2020-04-30 13:11:23 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">
