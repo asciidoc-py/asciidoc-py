@@ -2,6 +2,7 @@
 .DS_Store
 
 *.pyc
+__pycache__/
 
 # ignore test products
 #tests/data/*.html
@@ -26,3 +27,4 @@ doc/*.html
 Makefile
  
 /tags
+/gh-pages/
