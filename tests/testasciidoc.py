@@ -9,14 +9,15 @@ import io
 import os
 from pathlib import Path
 import re
+import shutil
 import sys
 import time
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-import asciidocapi
+import asciidocapi  # noqa: E402
 
-
-BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')    # Default backends.
+# Default backends.
+BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')
 BACKEND_EXT = {
     'html4': '.html',
     'xhtml11': '.html',
@@ -52,7 +53,7 @@ def strip_end(lines):
     """
     Strip blank strings from the end of list of strings.
     """
-    for i in range(len(lines)-1,-1,-1):
+    for i in range(len(lines) - 1, -1, -1):
         if not lines[i]:
             del lines[i]
         else:
@@ -63,7 +64,7 @@ def normalize_data(lines):
     """
     Strip comments and trailing blank strings from lines.
     """
-    result = [ s for s in lines if not s.startswith('#') ]
+    result = [s for s in lines if not s.startswith('#')]
     strip_end(result)
     return result
 
@@ -91,7 +92,6 @@ def mock_localtime(f, _localtime=time.localtime):
 
 
 class AsciiDocTest(object):
-
     def __init__(self):
         self.number = None      # Test number (1..).
         self.name = ''          # Optional test name.
@@ -101,6 +101,7 @@ class AsciiDocTest(object):
         self.options = []
         self.attributes = {'asciidoc-version': 'test'}
         self.backends = BACKENDS
+        self.requires = []      # list of dependencies to check for for the test
         self.confdir = None
         self.datadir = None     # Where output files are stored.
         self.disabled = False
@@ -125,21 +126,21 @@ class AsciiDocTest(object):
         self.datadir = datadir
         lines = Lines(lines)
         while not lines.eol():
-            l = lines.read_until(r'^%')
-            if l:
-                if not l[0].startswith('%'):
-                    if l[0][0] == '!':
+            text = lines.read_until(r'^%')
+            if text:
+                if not text[0].startswith('%'):
+                    if text[0][0] == '!':
                         self.disabled = True
-                        self.title = l[0][1:]
+                        self.title = text[0][1:]
                     else:
-                        self.title = l[0]
-                    self.description = l[1:]
+                        self.title = text[0]
+                    self.description = text[1:]
                     continue
-                reo = re.match(r'^%\s*(?P<directive>[\w_-]+)', l[0])
+                reo = re.match(r'^%\s*(?P<directive>[\w_-]+)', text[0])
                 if not reo:
                     raise ValueError
                 directive = reo.groupdict()['directive']
-                data = normalize_data(l[1:])
+                data = normalize_data(text[1:])
                 if directive == 'source':
                     if data:
                         self.source = os.path.normpath(os.path.join(
@@ -155,6 +156,8 @@ class AsciiDocTest(object):
                     self.backends = eval(' '.join(data))
                 elif directive == 'name':
                     self.name = data[0].strip()
+                elif directive == 'requires':
+                    self.requires = eval(' '.join(data))
                 else:
                     raise ValueError
         if not self.title:
@@ -239,7 +242,12 @@ class AsciiDocTest(object):
             print(('SOURCE: asciidoc: %s' % self.source))
             for backend in backends:
                 fromfile = self.backend_filename(backend)
-                if not self.is_missing(backend):
+                skip = False
+                for require in self.requires:
+                    if shutil.which(require) is None:
+                        skip = True
+                        break
+                if not skip and not self.is_missing(backend):
                     expected = self.get_expected(backend)
                     strip_end(expected)
                     got = self.generate_expected(backend)
@@ -249,7 +257,7 @@ class AsciiDocTest(object):
                         lines.append(line)
                     if lines:
                         result = False
-                        self.failed +=1
+                        self.failed += 1
                         lines = lines[3:]
                         print(('FAILED: %s: %s' % (backend, fromfile)))
                         message('+++ %s' % fromfile)
@@ -317,7 +325,8 @@ class AsciiDocTests(object):
         """
         self.passed = self.failed = self.skipped = 0
         for test in self.tests:
-            if (not test.disabled or number) and (not number or number == test.number) and (not backend or backend in test.backends):
+            if (not test.disabled or number) and (not number or number == test.number) \
+                    and (not backend or backend in test.backends):
                 test.run(backend)
                 self.passed += test.passed
                 self.failed += test.failed
@@ -342,7 +351,7 @@ class AsciiDocTests(object):
         Lists tests to stdout.
         """
         for test in self.tests:
-            print('%d: %s%s' % (test.number, iif(test.disabled,'!'), test.title))
+            print('%d: %s%s' % (test.number, iif(test.disabled, '!'), test.title))
 
 
 class Lines(list):
@@ -382,9 +391,14 @@ if __name__ == '__main__':
     from argparse import ArgumentParser
     parser = ArgumentParser(description='Run AsciiDoc conformance tests specified in '
                                         'configuration FILE.')
-    msg = 'Use configuration file CONF_FILE (default configuration file is testasciidoc.conf in' \
-          'testasciidoc.py directory)'
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s {}'.format(__version__))
+    msg = 'Use configuration file CONF_FILE (default configuration file is '\
+        'testasciidoc.conf in testasciidoc.py directory)'
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version='%(prog)s {}'.format(__version__)
+    )
     parser.add_argument('-f', '--conf-file', help=msg)
 
     subparsers = parser.add_subparsers(metavar='command', dest='command')
