@@ -2265,7 +2265,11 @@ class Section:
         base_id = re.sub(r'\W+', '_', title).strip('_').lower()
         if 'ascii-ids' in document.attributes:
             # Replace non-ASCII characters with ASCII equivalents.
-            base_id = unicodedata.normalize('NFKD', base_id).encode('ascii', 'ignore').decode('ascii')
+            try:
+                from trans import trans
+                base_id = trans(base_id)
+            except ImportError:
+                base_id = unicodedata.normalize('NFKD', base_id).encode('ascii', 'ignore').decode('ascii')
         # Prefix the ID name with idprefix attribute or underscore if not
         # defined. Prefix ensures the ID does not clash with existing IDs.
         idprefix = document.attributes.get('idprefix', '_')
