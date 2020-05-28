@@ -193,13 +193,14 @@ doc_spell:
 		aspell check -p ./doc/asciidoc.dict $$f; \
 	done
 
-##   website_spell: run aspell over all files under website/
+##   website_spell: run aspell over all files under website/  (DISABLED)
 .PHONY: website_spell
 website_spell:
-	@for f in $(WEBSITE_FILES); do \
-		echo "aspell check -p ./examples/website/asciidoc-website.dict $$f"; \
-		aspell check -p ./examples/website/asciidoc-website.dict $$f; \
-	done
+	@echo "Disabled for right now..."
+#	@for f in $(WEBSITE_FILES); do \
+#		echo "aspell check -p ./examples/website/asciidoc-website.dict $$f"; \
+#		aspell check -p ./examples/website/asciidoc-website.dict $$f; \
+#	done
 
 ##   spell: run doc_spell and website_spell
 .PHONY: spell

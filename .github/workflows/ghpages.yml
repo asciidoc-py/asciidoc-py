@@ -1,0 +1,30 @@
+name: Publish to gh-pages
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install -y autoconf dblatex docbook-xml docbook-xsl dvipng epubcheck fop graphviz highlight imagemagick libxml2-utils make source-highlight time texlive-latex-base unzip xsltproc lilypond
+
+    - name: Build Website
+      run: bash build_website.sh
+
+    - name: Commit files
+      run: |
+        cd gh-pages
+        git config --local user.email "matt.peveler@gmail.com"
+        git config --local user.name "MasterOdin"
+        git commit -s -m "deploy: ${{ env.GITHUB_SHA }}" -a || :
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
