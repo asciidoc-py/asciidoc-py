@@ -32,6 +32,7 @@ Version 9.0.0 (Unreleased)
 - Commit generated test files to the repository for continuous integration
 - Test against Python 3.5+ on Travis-CI
 - Remove symlink tests/asciidocapi.py in favor of just appending to sys.path
+- Add requires directive to testasciidoc.conf to indicate necessary external dependencies (e.g. source-highlight)
 
 Version 8.6.10 (2017-09-22)
 ---------------------------
