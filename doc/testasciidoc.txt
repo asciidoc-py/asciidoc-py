@@ -33,22 +33,24 @@ directory.
 To view the command usage run:
 
 ---------------------------------------------------------------------
-$ python tests/testasciidoc.py
-Usage: testasciidoc.py [OPTIONS] COMMAND
+$ python3 tests/testasciidoc.py
+usage: testasciidoc.py [-h] [-v] [-f CONF_FILE] command ...
 
 Run AsciiDoc conformance tests specified in configuration FILE.
 
-Commands:
-  list                          List tests
-  run [NUMBER] [BACKEND]        Execute tests
-  update [NUMBER] [BACKEND]     Regenerate and update test data
+positional arguments:
+  command
+    list                List tests
+    run                 Execute tests
+    update              Regenerate and update test data
 
-Options:
-  -f, --conf-file=CONF_FILE
-        Use configuration file CONF_FILE (default configuration file is
-        testasciidoc.conf in testasciidoc.py directory)
-  --force
-        Update all test data overwriting existing data
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -f CONF_FILE, --conf-file CONF_FILE
+                        Use configuration file CONF_FILE (default
+                        configuration file is testasciidoc.conf in
+                        testasciidoc.py directory)
 ---------------------------------------------------------------------
 
 To view the list of tests in the default `testasciidoc.conf`
@@ -106,6 +108,10 @@ TOTAL PASSED:  18
 - If you don't have GNU source-highlight installed you should disable
   the 'Tables' and 'Source highlighter' tests in the
   `tests/testasciidoc.conf` configuration file.
+- The `run` and `update` commands both take optional `--number` and
+  `--backend` options to specify a test case number and/or backend to
+  test against. Use `python3 tests/testasciidoc.py run --help` for more
+  information.
 =====================================================================
 
 
@@ -124,9 +130,9 @@ testasciidoc commands
   Examples:
 
   python tests/testasciidoc.py run
-  python tests/testasciidoc.py run 3
-  python tests/testasciidoc.py run html4
-  python tests/testasciidoc.py run 3 html4
+  python tests/testasciidoc.py run --number 3
+  python tests/testasciidoc.py run --backend html4
+  python tests/testasciidoc.py run --number 3 --backend html4
 
 'update'::
   Generates and updates missing and out of date test output data
@@ -135,7 +141,7 @@ testasciidoc commands
   Examples:
 
   python tests/testasciidoc.py update
-  python tests/testasciidoc.py --force update 4
+  python tests/testasciidoc.py update --number 4 --force
 
 NOTE: You can run or update disabled tests by explicitly specifying
 the test number.
@@ -160,6 +166,9 @@ Optional test description...
 % name
 Optional base output file name. Defaults to base source file name.
 
+% requires
+Optional external requirements necessary to run the test, e.g. dot.
+
 % source
 AsciiDoc source file name.
 
@@ -180,6 +189,9 @@ Example book
 
 % options
 ['--section-numbers',('--doctype','book')]
+
+% requires
+['source-highlight', 'dot']
 
 % attributes
 # Exclude date from document footer.
@@ -209,6 +221,9 @@ configuration file that comes with AsciiDoc.
   equivalent to a `(name,None)` tuple.
 - The 'attributes' directive data specifies a Python dictionary
   containing AsciiDoc attributes to be passed to AsciiDoc.
+- The `requires` directive data specifies a Python list of strings
+  which correspond to the command line program specified by filters
+  in that test.
 
 globals directive
 ~~~~~~~~~~~~~~~~~
