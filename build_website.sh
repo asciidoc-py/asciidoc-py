@@ -25,7 +25,7 @@ if [ ! -d gh-pages ]; then
     popd
 fi
 pushd gh-pages
-find . -maxdepth 1 -type f -not \( -name '*.md' -o -name '*.md5' -o -name '*.epub' \) -exec rm -rf {} \;
+find . -maxdepth 1 -type f -not \( -name '*.md' -o -name '*.md5' -o -name '*.epub' -o -name 'CNAME' -o -name '.nojekyll' \) -exec rm -rf {} \;
 rm -rf chunked
 rm -rf images
 popd
