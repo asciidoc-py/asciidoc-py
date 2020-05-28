@@ -11,20 +11,29 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: sudo apt-get install -y autoconf dblatex docbook-xml docbook-xsl dvipng epubcheck fop graphviz highlight imagemagick libxml2-utils make source-highlight time texlive-latex-base unzip xsltproc lilypond
+    - name: Create Docker image
+      run: docker build . -t asciidoc
 
-    - name: Build Website
-      run: bash build_website.sh
+    - name: Get short SHA
+      id: slug
+      run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+
+    - name: Build gh-pages
+      run: docker run --rm -v $(pwd):/srv/asciidoc asciidoc /bin/bash -c "cd /srv/asciidoc; bash build_website.sh"
+
+    - name: Fix permissions
+      run: sudo chown -R $(id -u):$(id -g) gh-pages
 
     - name: Commit files
       run: |
         cd gh-pages
         git config --local user.email "matt.peveler@gmail.com"
         git config --local user.name "MasterOdin"
-        git commit -s -m "deploy: ${{ env.GITHUB_SHA }}" -a || :
+        git commit -s -m "deploy: ${{ steps.slug.outputs.sha8 }}" -a || :
 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        directory: gh-pages
+        branch: gh-pages
