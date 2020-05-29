@@ -458,7 +458,9 @@ contributed to it.</simpara>
 </refsect1>
 <refsect1 id="_copying">
 <title>COPYING</title>
-<simpara>Copyright (C) 2002-2011 Stuart Rackham. Free use of this software is
-granted under the terms of the GNU General Public License (GPL).</simpara>
+<simpara>Copyright (C) 2002-2013 Stuart Rackham.
+Copyright (C) 2013-2020 AsciiDoc Contributors.</simpara>
+<simpara>Free use of this software is granted under the terms of the GNU General
+Public License version 2 (GPLv2).</simpara>
 </refsect1>
 </refentry>
