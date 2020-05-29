@@ -300,7 +300,7 @@ class AsciiDocTests(object):
             first = True
             while not lines.eol():
                 s = lines.read_until(r'^%+$')
-                s = [l for l in s if l]    # Drop blank lines.
+                s = [line for line in s if len(line) > 0]    # Drop blank lines.
                 # Must be at least one non-blank line in addition to delimiter.
                 if len(s) > 1:
                     # Optional globals precede all tests.
