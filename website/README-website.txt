@@ -2,10 +2,11 @@ AsciiDoc Website
 ================
 
 The AsciiDoc website source is included in the AsciiDoc distribution
-(in `./examples/website/`) as an example of using AsciiDoc to build a
-website.
+as an example of using AsciiDoc to build a website. The files are
+principally located under `/doc` and `/website`, with a handful of
+files pulled in from the root directory.
 
-A simple shell script (`./examples/website/build-website.sh`) will
+A simple shell script (`./build_website.sh`) will
 build the site's web pages -- just set the `LAYOUT` variable to the
 desired layout.
 

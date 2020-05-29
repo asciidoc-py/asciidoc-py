@@ -17,7 +17,7 @@ documented in the updated link:userguide.html[User Guide]. See the
 link:INSTALL.html[Installation page] for downloads and and
 installation instructions.
 
-'Stuart Rackham'
+'Matthew Peveler'
 ************************************************************************
 
 Introduction
@@ -28,7 +28,7 @@ AsciiDoc is highly configurable: both the AsciiDoc source file syntax
 and the backend output markups (which can be almost any type of
 SGML/XML markup) can be customized and extended by the user.
 
-AsciiDoc is free software and is licenced under the terms of the 'GNU
+AsciiDoc is free software and is licensed under the terms of the 'GNU
 General Public License version 2' (GPLv2).
 
 TIP: The pages you are reading were written using AsciiDoc, to view
@@ -125,8 +125,8 @@ embedded images.
 Example Web Site
 ~~~~~~~~~~~~~~~~
 The link:README-website.html[AsciiDoc website] is included in the
-AsciiDoc distribution (in `./examples/website/`) as an example website
-built using AsciiDoc.  See `./examples/website/README-website.txt`.
+AsciiDoc distribution (in `./website/` and `./docs/`) as an example website
+built using AsciiDoc.  See `./website/README-website.txt`.
 
 More examples
 ~~~~~~~~~~~~~
@@ -179,9 +179,7 @@ AsciiDoc documents processed by `dblatex(1)`.
 
 Editor Support
 --------------
-- An AsciiDoc syntax highlighter for the Vim text editor is included in the
-  AsciiDoc distribution (see the 'Vim Syntax Highlighter' appendix in
-  the 'AsciiDoc User Guide' for details).
+- An AsciiDoc syntax highlighter for the Vim text editor is included in Vim.
 +
 .Syntax highlighter screenshot
 image::images/highlighter.png[height=400,caption="",link="images/highlighter.png"]
@@ -466,14 +464,6 @@ discussion group thread] for details.
 Please let me know if any of these links need updating.
 
 
-DocBook 5.0 Backend
--------------------
-Shlomi Fish has begun work on a DocBook 5.0 `docbook50.conf` backend
-configuration file, you can find it
-http://bitbucket.org/shlomif/asciidoc[here]. See also:
-http://groups.google.com/group/asciidoc/browse_thread/thread/4386c7cc053d51a9
-
-
 [[X1]]
 LaTeX Backend
 -------------
@@ -500,13 +490,12 @@ Patches and bug reports
 Patches and bug reports are are encouraged, but please try to follow
 these guidelines:
 
-- Post bug reports and patches to the
+- Post bug reports and PRs to the
+  https://github.com/asciidoc/asciidoc-py3[asciidoc-py3] repository.
+- Post questions about using AsciiDoc or AsciiDoc  syntax to the
   http://groups.google.com/group/asciidoc[asciidoc discussion list],
   this keeps things transparent and gives everyone a chance to
   comment.
-- The email subject line should be a specific and concise topic
-  summary. Commonly accepted subject line prefixes such as '[ANN]',
-  '[PATCH]' and '[SOLVED]' are good.
 
 === Bug reports
 - When reporting problems please illustrate the problem with the
@@ -520,15 +509,12 @@ these guidelines:
 - If you can program please consider writing a patch to fix the
   problem.
 
-=== Patches
-- Keep patches small and atomic (one issue per patch) -- no patch
+=== Pull Requests
+- Keep pull requests small and atomic (one issue per PR) -- no patch
   bombs.
-- If possible test your patch against the current trunk.
-- If your patch adds or modifies functionality include a short example
+- If possible test your PR against the current master.
+- If your PR adds or modifies functionality include a short example
   that illustrates the changes.
-- Send patches in `diff -u` format, inline inside the mail message is
-  usually best; if it is a very long patch then send it as an
-  attachment.
 - Include documentation updates if you're up to it; otherwise insert
   'TODO' comments at relevant places in the documentation.
 

@@ -70,12 +70,8 @@ $ sudo make uninstall
 [[X1]]
 Distribution tarball installation
 ---------------------------------
-The distribution source tarballs can be downloaded from the
-SourceForge http://sourceforge.net/projects/asciidoc/.
-
-NOTE: Unless you are <<X3,installing on Microsoft Windows>> you should
-use the tarball and not the zip file to install the the distribution
-(the tarball contains symlinks).
+The distribution source tarballs can be downloaded from GitHub
+releases page https://github.com/asciidoc/asciidoc-py3/releases.
 
 If your flavor of UNIX or Linux does not have a packaged AsciiDoc
 distribution or if you prefer to install the latest AsciiDoc version
@@ -132,46 +128,23 @@ Test out asciidoc by changing to the AsciiDoc application directory
 and converting the User Guide document (`./doc/asciidoc.txt`) to XHTML
 (`./doc/asciidoc.html`):
 
-  $ python asciidoc.py doc/asciidoc.txt
+  $ python3 asciidoc.py doc/asciidoc.txt
 
 The link:testasciidoc.html[testasciidoc] tool offers a more extensive set of
-conformance tests, though you do need to create the test data before
-running the tests (this in itself is a good post-install test):
+conformance tests. You can run the tests by executing this command:
 
-  $ python ./tests/testasciidoc.py update
+  $ python3 ./tests/testasciidoc.py run
 
-Now you can run the tests by executing this command:
-
-  $ python ./tests/testasciidoc.py run
-
-A full battery of tests can be run from the `main.aap` script in the
+A full battery of tests can be run from the `Makefile` script in the
 distribution root directory:
 
-  $ aap test
-
-
-Building the distribution
--------------------------
-The AsciiDoc distribution is built using http://www.a-a-p.org/[A-A-P]
-(a software build system written by Bram Moolenaar). The AsciiDoc
-A-A-P scripts are:
-
-`./main.aap`:: Builds the distribution tarball and zip files,
-documentation and example website.
-`./doc/main.aap`:: Builds distribution documentation.
-`./examples/website/main.aap`:: Builds AsciiDoc website.
-`./common.aap`:: Included in all scripts.
-
-To build the distribution tarball and zip files, documentation and
-example website run A-A-P from the distribution root directory:
-
-  $ aap
+  $ make test
 
 
 [[X2]]
 Prepackaged AsciiDoc installation
 ---------------------------------
-The following platform-specific AsciiDoc-py3 packages are available:
+The following platform-specific AsciiDoc packages are available:
 
 *Fedora Linux*::
   AsciiDoc is included in Fedora Extras, which is available in
@@ -179,6 +152,18 @@ The following platform-specific AsciiDoc-py3 packages are available:
   following command:
 
   $ yum install asciidoc
+
+*Ubuntu / Debian*::
+  AsciiDoc is included in Ubuntu / Debian package manager. To install,
+  execute the following command:
+
+  $ apt install asciidoc
+
+*macOS Homebrew*::
+  AsciiDoc has been packaged in homebrew and is installable using the
+  following command:
+
+  $ brew install asciidoc
 
 See also link:userguide.html#X38[Packager Notes] in the 'AsciiDoc User
 Guide'.

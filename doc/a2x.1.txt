@@ -361,7 +361,7 @@ contributed to it.
 
 RESOURCES
 ---------
-SourceForge: http://sourceforge.net/projects/asciidoc/
+GitHub: https://github.com/asciidoc/asciidoc-py3/
 
 Main web site: http://asciidoc.org/
 
