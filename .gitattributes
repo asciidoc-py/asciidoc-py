@@ -1,2 +1,5 @@
 tests/data/*.html linguist-generated
 tests/data/*.xml linguist-generated
+javascripts/* linguist-vendored
+javascripts/asciidoc.js -linguist-vendored
+javascripts/toc.js -linguist-vendored
