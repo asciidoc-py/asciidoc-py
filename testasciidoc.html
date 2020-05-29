@@ -80,22 +80,24 @@ directory.</p></div>
 <div class="paragraph"><p>To view the command usage run:</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><code>$ python tests/testasciidoc.py
-Usage: testasciidoc.py [OPTIONS] COMMAND
+<pre><code>$ python3 tests/testasciidoc.py
+usage: testasciidoc.py [-h] [-v] [-f CONF_FILE] command ...
 
 Run AsciiDoc conformance tests specified in configuration FILE.
 
-Commands:
-  list                          List tests
-  run [NUMBER] [BACKEND]        Execute tests
-  update [NUMBER] [BACKEND]     Regenerate and update test data
+positional arguments:
+  command
+    list                List tests
+    run                 Execute tests
+    update              Regenerate and update test data
 
-Options:
-  -f, --conf-file=CONF_FILE
-        Use configuration file CONF_FILE (default configuration file is
-        testasciidoc.conf in testasciidoc.py directory)
-  --force
-        Update all test data overwriting existing data</code></pre>
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -f CONF_FILE, --conf-file CONF_FILE
+                        Use configuration file CONF_FILE (default
+                        configuration file is testasciidoc.conf in
+                        testasciidoc.py directory)</code></pre>
 </div></div>
 <div class="paragraph"><p>To view the list of tests in the default <code>testasciidoc.conf</code>
 configuration file run the <em>list</em> command:</p></div>
@@ -161,6 +163,14 @@ If you don&#8217;t have GNU source-highlight installed you should disable
   <code>tests/testasciidoc.conf</code> configuration file.
 </p>
 </li>
+<li>
+<p>
+The <code>run</code> and <code>update</code> commands both take optional <code>--number</code> and
+  <code>--backend</code> options to specify a test case number and/or backend to
+  test against. Use <code>python3 tests/testasciidoc.py run --help</code> for more
+  information.
+</p>
+</li>
 </ul></div>
 </td>
 </tr></table>
@@ -195,9 +205,9 @@ If you don&#8217;t have GNU source-highlight installed you should disable
 <div class="literalblock">
 <div class="content">
 <pre><code>python tests/testasciidoc.py run
-python tests/testasciidoc.py run 3
-python tests/testasciidoc.py run html4
-python tests/testasciidoc.py run 3 html4</code></pre>
+python tests/testasciidoc.py run --number 3
+python tests/testasciidoc.py run --backend html4
+python tests/testasciidoc.py run --number 3 --backend html4</code></pre>
 </div></div>
 </dd>
 <dt class="hdlist1">
@@ -213,7 +223,7 @@ python tests/testasciidoc.py run 3 html4</code></pre>
 <div class="literalblock">
 <div class="content">
 <pre><code>python tests/testasciidoc.py update
-python tests/testasciidoc.py --force update 4</code></pre>
+python tests/testasciidoc.py update --number 4 --force</code></pre>
 </div></div>
 </dd>
 </dl></div>
@@ -248,6 +258,9 @@ Optional test description...
 % name
 Optional base output file name. Defaults to base source file name.
 
+% requires
+Optional external requirements necessary to run the test, e.g. dot.
+
 % source
 AsciiDoc source file name.
 
@@ -266,6 +279,9 @@ Optional dictionary of attribute values.</code></pre>
 
 % options
 ['--section-numbers',('--doctype','book')]
+
+% requires
+['source-highlight', 'dot']
 
 % attributes
 # Exclude date from document footer.
@@ -337,6 +353,13 @@ The <em>attributes</em> directive data specifies a Python dictionary
   containing AsciiDoc attributes to be passed to AsciiDoc.
 </p>
 </li>
+<li>
+<p>
+The <code>requires</code> directive data specifies a Python list of strings
+  which correspond to the command line program specified by filters
+  in that test.
+</p>
+</li>
 </ul></div>
 </div>
 <div class="sect2">
@@ -365,7 +388,7 @@ directory).</p></div>
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-05-28 08:23:57 UTC
+Last updated 2020-05-29 01:08:59 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">

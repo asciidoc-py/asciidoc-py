@@ -58,7 +58,7 @@ full list of all additions, changes and bug fixes. Changes are
 documented in the updated <a href="userguide.html">User Guide</a>. See the
 <a href="INSTALL.html">Installation page</a> for downloads and and
 installation instructions.</p></div>
-<div class="paragraph"><p><em>Stuart Rackham</em></p></div>
+<div class="paragraph"><p><em>Matthew Peveler</em></p></div>
 </div></div>
 </div>
 </div>
@@ -69,7 +69,7 @@ installation instructions.</p></div>
 <div class="paragraph"><p>AsciiDoc is highly configurable: both the AsciiDoc source file syntax
 and the backend output markups (which can be almost any type of
 SGML/XML markup) can be customized and extended by the user.</p></div>
-<div class="paragraph"><p>AsciiDoc is free software and is licenced under the terms of the <em>GNU
+<div class="paragraph"><p>AsciiDoc is free software and is licensed under the terms of the <em>GNU
 General Public License version 2</em> (GPLv2).</p></div>
 <div class="admonitionblock">
 <table><tr>
@@ -223,8 +223,8 @@ An <a href="slidy-example.html">example slidy slideshow</a> and the
 <div class="sect2">
 <h3 id="_example_web_site">Example Web Site</h3>
 <div class="paragraph"><p>The <a href="README-website.html">AsciiDoc website</a> is included in the
-AsciiDoc distribution (in <code>./examples/website/</code>) as an example website
-built using AsciiDoc.  See <code>./examples/website/README-website.txt</code>.</p></div>
+AsciiDoc distribution (in <code>./website/</code> and <code>./docs/</code>) as an example website
+built using AsciiDoc.  See <code>./website/README-website.txt</code>.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_more_examples">More examples</h3>
@@ -293,9 +293,7 @@ AsciiDoc documents processed by <code>dblatex(1)</code>.</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-An AsciiDoc syntax highlighter for the Vim text editor is included in the
-  AsciiDoc distribution (see the <em>Vim Syntax Highlighter</em> appendix in
-  the <em>AsciiDoc User Guide</em> for details).
+An AsciiDoc syntax highlighter for the Vim text editor is included in Vim.
 </p>
 <div class="imageblock">
 <div class="content">
@@ -880,15 +878,6 @@ The <a href="https://docs.fedoraproject.org/">Fedora Docs</a>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_docbook_5_0_backend">DocBook 5.0 Backend</h2>
-<div class="sectionbody">
-<div class="paragraph"><p>Shlomi Fish has begun work on a DocBook 5.0 <code>docbook50.conf</code> backend
-configuration file, you can find it
-<a href="http://bitbucket.org/shlomif/asciidoc">here</a>. See also:
-<a href="http://groups.google.com/group/asciidoc/browse_thread/thread/4386c7cc053d51a9">http://groups.google.com/group/asciidoc/browse_thread/thread/4386c7cc053d51a9</a></p></div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="X1">LaTeX Backend</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>An experimental LaTeX backend was written for AsciiDoc in 2006 by
@@ -915,17 +904,16 @@ these guidelines:</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-Post bug reports and patches to the
-  <a href="http://groups.google.com/group/asciidoc">asciidoc discussion list</a>,
-  this keeps things transparent and gives everyone a chance to
-  comment.
+Post bug reports and PRs to the
+  <a href="https://github.com/asciidoc/asciidoc-py3">asciidoc-py3</a> repository.
 </p>
 </li>
 <li>
 <p>
-The email subject line should be a specific and concise topic
-  summary. Commonly accepted subject line prefixes such as <em>[ANN]</em>,
-  <em>[PATCH]</em> and <em>[SOLVED]</em> are good.
+Post questions about using AsciiDoc or AsciiDoc  syntax to the
+  <a href="http://groups.google.com/group/asciidoc">asciidoc discussion list</a>,
+  this keeps things transparent and gives everyone a chance to
+  comment.
 </p>
 </li>
 </ul></div>
@@ -961,30 +949,23 @@ If you can program please consider writing a patch to fix the
 </ul></div>
 </div>
 <div class="sect2">
-<h3 id="_patches">Patches</h3>
+<h3 id="_pull_requests">Pull Requests</h3>
 <div class="ulist"><ul>
 <li>
 <p>
-Keep patches small and atomic (one issue per patch)&#8201;&#8212;&#8201;no patch
+Keep pull requests small and atomic (one issue per PR)&#8201;&#8212;&#8201;no patch
   bombs.
 </p>
 </li>
 <li>
 <p>
-If possible test your patch against the current trunk.
+If possible test your PR against the current master.
 </p>
 </li>
 <li>
 <p>
-If your patch adds or modifies functionality include a short example
+If your PR adds or modifies functionality include a short example
   that illustrates the changes.
-</p>
-</li>
-<li>
-<p>
-Send patches in <code>diff -u</code> format, inline inside the mail message is
-  usually best; if it is a very long patch then send it as an
-  attachment.
 </p>
 </li>
 <li>
@@ -1002,7 +983,7 @@ Include documentation updates if you&#8217;re up to it; otherwise insert
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-05-28 08:23:45 UTC
+Last updated 2020-05-29 01:08:49 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">

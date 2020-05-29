@@ -135,18 +135,8 @@ $ sudo make install</code></pre>
 <div class="sect1">
 <h2 id="X1">Distribution tarball installation</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The distribution source tarballs can be downloaded from the
-SourceForge <a href="http://sourceforge.net/projects/asciidoc/">http://sourceforge.net/projects/asciidoc/</a>.</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<img src="./images/icons/note.png" alt="Note" />
-</td>
-<td class="content">Unless you are <a href="#X3">installing on Microsoft Windows</a> you should
-use the tarball and not the zip file to install the the distribution
-(the tarball contains symlinks).</td>
-</tr></table>
-</div>
+<div class="paragraph"><p>The distribution source tarballs can be downloaded from GitHub
+releases page <a href="https://github.com/asciidoc/asciidoc-py3/releases">https://github.com/asciidoc/asciidoc-py3/releases</a>.</p></div>
 <div class="paragraph"><p>If your flavor of UNIX or Linux does not have a packaged AsciiDoc
 distribution or if you prefer to install the latest AsciiDoc version
 from source, use the <code>configure</code> shell script in the tarball root
@@ -204,81 +194,26 @@ and converting the User Guide document (<code>./doc/asciidoc.txt</code>) to XHTM
 (<code>./doc/asciidoc.html</code>):</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>$ python asciidoc.py doc/asciidoc.txt</code></pre>
+<pre><code>$ python3 asciidoc.py doc/asciidoc.txt</code></pre>
 </div></div>
 <div class="paragraph"><p>The <a href="testasciidoc.html">testasciidoc</a> tool offers a more extensive set of
-conformance tests, though you do need to create the test data before
-running the tests (this in itself is a good post-install test):</p></div>
+conformance tests. You can run the tests by executing this command:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>$ python ./tests/testasciidoc.py update</code></pre>
+<pre><code>$ python3 ./tests/testasciidoc.py run</code></pre>
 </div></div>
-<div class="paragraph"><p>Now you can run the tests by executing this command:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ python ./tests/testasciidoc.py run</code></pre>
-</div></div>
-<div class="paragraph"><p>A full battery of tests can be run from the <code>main.aap</code> script in the
+<div class="paragraph"><p>A full battery of tests can be run from the <code>Makefile</code> script in the
 distribution root directory:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>$ aap test</code></pre>
-</div></div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_building_the_distribution">Building the distribution</h2>
-<div class="sectionbody">
-<div class="paragraph"><p>The AsciiDoc distribution is built using <a href="http://www.a-a-p.org/">A-A-P</a>
-(a software build system written by Bram Moolenaar). The AsciiDoc
-A-A-P scripts are:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-<code>./main.aap</code>
-</dt>
-<dd>
-<p>
-Builds the distribution tarball and zip files,
-documentation and example website.
-</p>
-</dd>
-<dt class="hdlist1">
-<code>./doc/main.aap</code>
-</dt>
-<dd>
-<p>
-Builds distribution documentation.
-</p>
-</dd>
-<dt class="hdlist1">
-<code>./examples/website/main.aap</code>
-</dt>
-<dd>
-<p>
-Builds AsciiDoc website.
-</p>
-</dd>
-<dt class="hdlist1">
-<code>./common.aap</code>
-</dt>
-<dd>
-<p>
-Included in all scripts.
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p>To build the distribution tarball and zip files, documentation and
-example website run A-A-P from the distribution root directory:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ aap</code></pre>
+<pre><code>$ make test</code></pre>
 </div></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="X2">Prepackaged AsciiDoc installation</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The following platform-specific AsciiDoc-py3 packages are available:</p></div>
+<div class="paragraph"><p>The following platform-specific AsciiDoc packages are available:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <strong>Fedora Linux</strong>
@@ -294,6 +229,32 @@ example website run A-A-P from the distribution root directory:</p></div>
 <pre><code>$ yum install asciidoc</code></pre>
 </div></div>
 </dd>
+<dt class="hdlist1">
+<strong>Ubuntu / Debian</strong>
+</dt>
+<dd>
+<p>
+  AsciiDoc is included in Ubuntu / Debian package manager. To install,
+  execute the following command:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>$ apt install asciidoc</code></pre>
+</div></div>
+</dd>
+<dt class="hdlist1">
+<strong>macOS Homebrew</strong>
+</dt>
+<dd>
+<p>
+  AsciiDoc has been packaged in homebrew and is installable using the
+  following command:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>$ brew install asciidoc</code></pre>
+</div></div>
+</dd>
 </dl></div>
 <div class="paragraph"><p>See also <a href="userguide.html#X38">Packager Notes</a> in the <em>AsciiDoc User
 Guide</em>.</p></div>
@@ -304,7 +265,7 @@ Guide</em>.</p></div>
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-05-28 08:23:24 UTC
+Last updated 2020-05-29 01:08:31 UTC
 </div>
 <div id="footer-badges">
 <a href="http://validator.w3.org/check?uri=referer">
