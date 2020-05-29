@@ -1,9 +1,0 @@
-#
-# Executed by all main.aap's before anything else.
-#
-
-_parent.VERS = 9.0.0rc1
-_parent.DATE = 27 November 2019
-
-all:
-    :pass
