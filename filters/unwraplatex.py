@@ -16,7 +16,7 @@ import sys
 
 sys.stdout.write(
     re.sub(
-        r"(?s)\A(?:\\\\\[\s*)?(.*?)(?:\\\\\])?\Z", "\\1",
+        r"(?s)\A(?:\\\[\s*)?(.*?)(?:\\\])?\Z", "\\1",
         sys.stdin.read().rstrip()
     )
 )
