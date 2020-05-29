@@ -4,9 +4,11 @@
 a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
       file formats)
 
-Copyright: Stuart Rackham (c) 2009
-License:   MIT
-Email:     srackham@gmail.com
+Copyright (C) 2002-2013 Stuart Rackham.
+Copyright (C) 2013-2020 AsciiDoc Contributors.
+
+Free use of this software is granted under the terms of the GNU General
+Public License version 2 (GPLv2).
 """
 
 import os

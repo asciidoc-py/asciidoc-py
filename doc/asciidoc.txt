@@ -2171,7 +2171,7 @@ generating DocBook bibliography entries. Example:
 - [[[taoup]]] Eric Steven Raymond. 'The Art of UNIX
   Programming'. Addison-Wesley. ISBN 0-13-142901-9.
 - [[[walsh-muellner]]] Norman Walsh & Leonard Muellner.
-  'DocBook - The Definitive Guide'. O'Reilly & Associates. 1999. 
+  'DocBook - The Definitive Guide'. O'Reilly & Associates. 1999.
   ISBN 1-56592-580-7.
 ---------------------------------------------------------------------
 
@@ -6069,4 +6069,5 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 General Public License version 2 for more details.
 
-Copyright (C) 2002-2011 Stuart Rackham.
+Copyright (C) 2002-2013 Stuart Rackham.
+Copyright (C) 2013-2020 AsciiDoc Contributors.
