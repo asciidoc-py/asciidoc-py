@@ -42,8 +42,8 @@ AUTHOR
     Written by Stuart Rackham, <srackham@gmail.com>
 
 URLS
-    http://sourceforge.net/projects/asciidoc/
-    http://asciidoc.org/
+    https://github.com/asciidoc/asciidoc-py3
+    https://asciidoc.org/
 
 COPYING
     Copyright (C) 2002-2006 Stuart Rackham. Free use of this software is

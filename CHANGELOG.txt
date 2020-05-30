@@ -1,7 +1,7 @@
 AsciiDoc ChangeLog
 ==================
 
-:website: http://asciidoc.org/
+:website: https://asciidoc.org/
 
 Version 9.0.0 (Unreleased)
 --------------------------

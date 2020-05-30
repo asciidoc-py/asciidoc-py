@@ -105,7 +105,7 @@ RESOURCES
 ---------
 GitHub: <https://github.com/asciidoc/asciidoc-py3>
 
-Main web site: <http://asciidoc.org/>
+Main web site: <https://asciidoc.org/>
 
 
 SEE ALSO

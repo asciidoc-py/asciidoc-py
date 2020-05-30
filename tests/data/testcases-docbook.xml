@@ -960,7 +960,7 @@ adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
 <footnoteref linkend="F2" />.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink> Qui in magna commodo,
+<footnote><simpara><ulink url="https://asciidoc.org/">https://asciidoc.org/</ulink> Qui in magna commodo,
 est labitur dolorum an. Est ne magna primis adolescens. Sit munere
 ponderum dignissim et. Minim luptatum et vel
 <inlinemediaobject>
@@ -971,10 +971,10 @@ ponderum dignissim et. Minim luptatum et vel
 </inlinemediaobject></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink></simpara></footnote>
+<footnote><simpara><ulink url="https://asciidoc.org/">https://asciidoc.org/</ulink></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
-vel <footnote><simpara><ulink url="http://asciidoc.org/">AsciiDoc website</ulink>.</simpara></footnote>.
+vel <footnote><simpara><ulink url="https://asciidoc.org/">AsciiDoc website</ulink>.</simpara></footnote>.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
 <footnote id="F3"><simpara>A footnote&#44; &#34;with an image&#34; <inlinemediaobject>   <imageobject>   <imagedata fileref="../../images/images/smallnew.png"/>   </imageobject>   <textobject><phrase>images/smallnew.png</phrase></textobject> </inlinemediaobject></simpara></footnote>.

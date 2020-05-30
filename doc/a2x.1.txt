@@ -278,7 +278,7 @@ REQUISITES
 'a2x' uses the following programs:
 
 - *Asciidoc*:
-  http://asciidoc.org/
+  https://asciidoc.org/
 - *xsltproc*: (all formats except text):
   http://xmlsoft.org/XSLT/
 - *DocBook XSL Stylesheets* (all formats except text):
@@ -363,7 +363,7 @@ RESOURCES
 ---------
 GitHub: https://github.com/asciidoc/asciidoc-py3/
 
-Main web site: http://asciidoc.org/
+Main web site: https://asciidoc.org/
 
 
 SEE ALSO
