@@ -4,7 +4,7 @@ the <span class="emphasis"><em>asciimath</em></span> and <span class="emphasis">
 (backend dependent) mechanism for rendering mathematical formulas. You
 can use the following math markups:</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_latex_math"></a>25.1. LaTeX Math</h2></div></div></div><p><a class="ulink" href="ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf" target="_top">LaTeX
 math</a> can be included in documents that are processed by
-<a class="link" href="ch05.html#X31">dblatex(1)</a>.  Example inline formula:</p><pre class="literallayout">latexmath:[$C = \alpha + \beta Y^{\gamma} + \epsilon$]</pre><p>For more examples see the <a class="ulink" href="http://asciidoc.org/" target="_top">AsciiDoc website</a> or the
+<a class="link" href="ch05.html#X31">dblatex(1)</a>.  Example inline formula:</p><pre class="literallayout">latexmath:[$C = \alpha + \beta Y^{\gamma} + \epsilon$]</pre><p>For more examples see the <a class="ulink" href="https://asciidoc.org/" target="_top">AsciiDoc website</a> or the
 distributed <code class="literal">doc/latexmath.txt</code> file.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_mathjax"></a>25.2. MathJax</h2></div></div></div><p><a class="ulink" href="http://www.mathjax.org/" target="_top">MathJax</a> allows LaTeX Math style formulas to be included
 in XHTML documents generated via the AsciiDoc <span class="emphasis"><em>xhtml11</em></span> and <span class="emphasis"><em>html5</em></span> backends.
 This route overcomes several restrictions of the MathML-based approaches,
@@ -23,7 +23,7 @@ using LaTeX math formulas (it recognizes a subset of LaTeX Math, the
 differences are documented on the <span class="emphasis"><em>LaTeXMathML</em></span> web page).  To enable
 LaTeXMathML support you must define the <span class="emphasis"><em>latexmath</em></span> attribute, for
 example using the <code class="literal">-a latexmath</code> command-line option.  Example inline
-formula:</p><pre class="literallayout">latexmath:[$\sum_{n=1}^\infty \frac{1}{2^n}$]</pre><p>For more examples see the <a class="ulink" href="http://asciidoc.org/" target="_top">AsciiDoc website</a> or the
+formula:</p><pre class="literallayout">latexmath:[$\sum_{n=1}^\infty \frac{1}{2^n}$]</pre><p>For more examples see the <a class="ulink" href="https://asciidoc.org/" target="_top">AsciiDoc website</a> or the
 distributed <code class="literal">doc/latexmathml.txt</code> file.</p><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><p>The <span class="emphasis"><em>latexmath</em></span> macro used to include <span class="emphasis"><em>LaTeX Math</em></span> in DocBook
 outputs is not the same as the <span class="emphasis"><em>latexmath</em></span> macro used to include
 <span class="emphasis"><em>LaTeX MathML</em></span> in XHTML outputs.  <span class="emphasis"><em>LaTeX Math</em></span> applies to DocBook
@@ -36,7 +36,7 @@ of the equations).</p></td></tr></table></div></div><div class="section"><div cl
 formulas can be included in XHTML documents generated using the
 <span class="emphasis"><em>xhtml11</em></span> and <span class="emphasis"><em>html5</em></span> backends. To enable ASCIIMathML support you must
 define the <span class="emphasis"><em>asciimath</em></span> attribute, for example using the <code class="literal">-a asciimath</code>
-command-line option.  Example inline formula:</p><pre class="literallayout">asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]</pre><p>For more examples see the <a class="ulink" href="http://asciidoc.org/" target="_top">AsciiDoc website</a> or the
+command-line option.  Example inline formula:</p><pre class="literallayout">asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]</pre><p>For more examples see the <a class="ulink" href="https://asciidoc.org/" target="_top">AsciiDoc website</a> or the
 distributed <code class="literal">doc/asciimathml.txt</code> file.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_mathml"></a>25.5. MathML</h2></div></div></div><p><a class="ulink" href="http://www.w3.org/Math/" target="_top">MathML</a> is a low level XML markup for
 mathematics. AsciiDoc has no macros for MathML but users familiar with
 this markup could use passthrough macros and passthrough blocks to

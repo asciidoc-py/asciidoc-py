@@ -335,8 +335,8 @@ def sub_word(mo):
 .Cell containing lots of example markup elements
 |====================================================================
 |'URLs':
-http://asciidoc.org/[The AsciiDoc home page],
-http://asciidoc.org/,
+https://asciidoc.org/[The AsciiDoc home page],
+https://asciidoc.org/,
 mailto:joe.bloggs@example.com[email Joe Bloggs],
 joe.bloggs@example.com,
 callto:joe.bloggs[].
@@ -358,8 +358,8 @@ double arrow, <= left double arrow.
 ---------------------------------------------------------------------
 |====================================================================
 |'URLs':
-http://asciidoc.org/[The AsciiDoc home page],
-http://asciidoc.org/,
+https://asciidoc.org/[The AsciiDoc home page],
+https://asciidoc.org/,
 mailto:joe.bloggs@example.com[email Joe Bloggs],
 joe.bloggs@example.com,
 callto:joe.bloggs[].
