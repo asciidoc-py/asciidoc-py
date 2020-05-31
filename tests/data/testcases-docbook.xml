@@ -897,7 +897,7 @@ rowsep="1" colsep="1"
 </tbody>
 </tgroup>
 </table>
-<figure><title>Tiger</title>
+<figure floatstyle="[htbp]"><title>Tiger</title>
 <mediaobject>
   <imageobject>
   <imagedata fileref="../../images/images/tiger.png"/>
@@ -1012,5 +1012,16 @@ Template line 2.</simpara>
 <title>Inline macros</title>
 <simpara><ulink url="http://groups.google.com/group/asciidoc/">A URL with [square
 brackets]</ulink>.</simpara>
+</section>
+<section id="_equation">
+<title>Equation</title>
+<equation floatstyle="[htbp]"><title>Equation</title>
+<alt><![CDATA[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</equation>
+</section>
+<section id="_example">
+<title>Example</title>
+Formal figures, tables, equations and examples can float in docbook backend
 </section>
 </article>
