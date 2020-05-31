@@ -699,16 +699,16 @@ adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
 footnoteref:[F2].
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-footnote:[http://asciidoc.org/ Qui in magna commodo,
+footnote:[https://asciidoc.org/ Qui in magna commodo,
 est labitur dolorum an. Est ne magna primis adolescens. Sit munere
 ponderum dignissim et. Minim luptatum et vel
 image:images/smallnew.png[]]
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-footnote:[http://asciidoc.org/]
+footnote:[https://asciidoc.org/]
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
-vel footnote:[http://asciidoc.org/[AsciiDoc website].].
+vel footnote:[https://asciidoc.org/[AsciiDoc website].].
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
 footnoteref:[F3,A footnote&#44; &#34;with an image&#34;

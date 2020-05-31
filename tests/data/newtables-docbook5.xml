@@ -2,7 +2,7 @@
 <?asciidoc-toc?>
 <?asciidoc-numbered?>
 
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
     <title>AsciiDoc New tables</title>
 </info>
@@ -742,8 +742,8 @@ rowsep="1" colsep="1"
 <tbody>
 <row>
 <entry align="left" valign="top"><simpara><emphasis>URLs</emphasis>:
-<link xlink:href="http://asciidoc.org/">The AsciiDoc home page</link>,
-<link xlink:href="http://asciidoc.org/">http://asciidoc.org/</link>,
+<link xlink:href="https://asciidoc.org/">The AsciiDoc home page</link>,
+<link xlink:href="https://asciidoc.org/">https://asciidoc.org/</link>,
 <link xlink:href="mailto:joe.bloggs@example.com">email Joe Bloggs</link>,
 <link xlink:href="mailto:joe.bloggs@example.com">joe.bloggs@example.com</link>,
 <link xlink:href="callto:joe.bloggs">joe.bloggs</link>.</simpara>
@@ -760,8 +760,8 @@ double arrow, &#8656; left double arrow.</simpara></entry>
 <formalpara xml:id="X1"><title>AsciiDoc source</title><para>
 <screen>|====================================================================
 |'URLs':
-http://asciidoc.org/[The AsciiDoc home page],
-http://asciidoc.org/,
+https://asciidoc.org/[The AsciiDoc home page],
+https://asciidoc.org/,
 mailto:joe.bloggs@example.com[email Joe Bloggs],
 joe.bloggs@example.com,
 callto:joe.bloggs[].

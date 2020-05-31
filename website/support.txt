@@ -1,0 +1,9 @@
+AsciiDoc Support
+================
+
+- Bugs should be posted to our
+  https://github.com/asciidoc/asciidoc-py3[GitHub repository].
+
+- Questions about general syntax or usage should be posted to the
+  http://groups.google.com/group/asciidoc[AsciiDoc discussion list]
+  (thanks Terrence Brannon for setting it up).

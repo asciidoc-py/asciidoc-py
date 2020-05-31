@@ -52,7 +52,9 @@ under the terms of the GNU General Public License (GPL).
 
 """
 
-import sys,os,re
+import sys
+import os
+import re
 
 API_VERSION = '0.1.2'
 MIN_ASCIIDOC_VERSION = '8.4.1'  # Minimum acceptable AsciiDoc version.
@@ -82,13 +84,15 @@ class Options(object):
     """
     def __init__(self, values=[]):
         self.values = values[:]
+
     def __call__(self, name, value=None):
         """Shortcut for append method."""
         self.append(name, value)
+
     def append(self, name, value=None):
-        if type(value) in (int,float):
+        if type(value) in (int, float):
             value = str(value)
-        self.values.append((name,value))
+        self.values.append((name, value))
 
 
 class Version(object):
@@ -159,7 +163,9 @@ class Version(object):
         return True
 
     def __eq__(self, other):
-        if self.major == other.major and self.minor == other.minor and self.micro == other.micro:
+        if self.major == other.major \
+                and self.minor == other.minor \
+                and self.micro == other.micro:
             return True
 
         return False
@@ -194,18 +200,21 @@ class AsciiDocAPI(object):
         else:
             # try to find sibling paths
             this_path = os.path.dirname(os.path.realpath(__file__))
-            for fname in ['asciidoc.py','asciidoc.pyc','asciidoc']:
+            for fname in ['asciidoc.py', 'asciidoc.pyc', 'asciidoc']:
                 cmd = find_in_path(fname, path=this_path)
-                if cmd: break
+                if cmd:
+                    break
             else:
                 # Try shell search paths.
-                for fname in ['asciidoc.py','asciidoc.pyc','asciidoc']:
+                for fname in ['asciidoc.py', 'asciidoc.pyc', 'asciidoc']:
                     cmd = find_in_path(fname)
-                    if cmd: break
+                    if cmd:
+                        break
                 else:
                     # Finally try current working directory.
-                    for cmd in ['asciidoc.py','asciidoc.pyc','asciidoc']:
-                        if os.path.isfile(cmd): break
+                    for cmd in ['asciidoc.py', 'asciidoc.pyc', 'asciidoc']:
+                        if os.path.isfile(cmd):
+                            break
                     else:
                         raise AsciiDocError('failed to locate asciidoc')
         self.cmd = os.path.realpath(cmd)
@@ -219,7 +228,7 @@ class AsciiDocAPI(object):
         for an explanation of why a seemingly straight-forward job turned out
         quite complicated.
         '''
-        if os.path.splitext(self.cmd)[1] in ['.py','.pyc']:
+        if os.path.splitext(self.cmd)[1] in ['.py', '.pyc']:
             sys.path.insert(0, os.path.dirname(self.cmd))
             try:
                 try:

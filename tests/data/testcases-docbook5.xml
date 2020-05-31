@@ -2,7 +2,7 @@
 <?asciidoc-toc?>
 <?asciidoc-numbered?>
 
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
     <title>Test <emphasis>Cases</emphasis></title>
     <author>
@@ -961,7 +961,7 @@ adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
 <footnoteref linkend="F2" />.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><link xlink:href="http://asciidoc.org/">http://asciidoc.org/</link> Qui in magna commodo,
+<footnote><simpara><link xlink:href="https://asciidoc.org/">https://asciidoc.org/</link> Qui in magna commodo,
 est labitur dolorum an. Est ne magna primis adolescens. Sit munere
 ponderum dignissim et. Minim luptatum et vel
 <inlinemediaobject>
@@ -972,10 +972,10 @@ ponderum dignissim et. Minim luptatum et vel
 </inlinemediaobject></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><link xlink:href="http://asciidoc.org/">http://asciidoc.org/</link></simpara></footnote>
+<footnote><simpara><link xlink:href="https://asciidoc.org/">https://asciidoc.org/</link></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
-vel <footnote><simpara><link xlink:href="http://asciidoc.org/">AsciiDoc website</link>.</simpara></footnote>.
+vel <footnote><simpara><link xlink:href="https://asciidoc.org/">AsciiDoc website</link>.</simpara></footnote>.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
 <footnote xml:id="F3"><simpara>A footnote&#44; &#34;with an image&#34; <inlinemediaobject>   <imageobject>   <imagedata fileref="../../images/images/smallnew.png"/>   </imageobject>   <textobject><phrase>images/smallnew.png</phrase></textobject> </inlinemediaobject></simpara></footnote>.

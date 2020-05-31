@@ -11,11 +11,15 @@ FROM python:${PYTHON_VERSION}-stretch
 RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list && apt-get update && \
     apt-get install -y --no-install-recommends \
         autoconf \
+        dblatex \
         docbook-xml \
         docbook-xsl \
         dvipng \
+        epubcheck \
+        fop \
         git \
         graphviz \
+        highlight \
         imagemagick \
         libxml2-utils \
         make \

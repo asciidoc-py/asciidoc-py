@@ -743,8 +743,8 @@ rowsep="1" colsep="1"
 <tbody>
 <row>
 <entry align="left" valign="top"><simpara><emphasis>URLs</emphasis>:
-<ulink url="http://asciidoc.org/">The AsciiDoc home page</ulink>,
-<ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink>,
+<ulink url="https://asciidoc.org/">The AsciiDoc home page</ulink>,
+<ulink url="https://asciidoc.org/">https://asciidoc.org/</ulink>,
 <ulink url="mailto:joe.bloggs@example.com">email Joe Bloggs</ulink>,
 <ulink url="mailto:joe.bloggs@example.com">joe.bloggs@example.com</ulink>,
 <ulink url="callto:joe.bloggs">joe.bloggs</ulink>.</simpara>
@@ -761,8 +761,8 @@ double arrow, &#8656; left double arrow.</simpara></entry>
 <formalpara id="X1"><title>AsciiDoc source</title><para>
 <screen>|====================================================================
 |'URLs':
-http://asciidoc.org/[The AsciiDoc home page],
-http://asciidoc.org/,
+https://asciidoc.org/[The AsciiDoc home page],
+https://asciidoc.org/,
 mailto:joe.bloggs@example.com[email Joe Bloggs],
 joe.bloggs@example.com,
 callto:joe.bloggs[].

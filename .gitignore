@@ -1,3 +1,4 @@
+.vscode/
 .idea/
 .DS_Store
 
@@ -25,6 +26,6 @@ doc/*.html
 /config.*
 /configure
 Makefile
- 
+
 /tags
 /gh-pages/
