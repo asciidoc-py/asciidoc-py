@@ -1985,10 +1985,15 @@ A numbered suffix (<code>_2</code>, <code>_3</code> &#8230;) is added if a same 
 <li>
 <p>
 If the <code>ascii-ids</code> attribute is defined then non-ASCII characters
-  are replaced with ASCII equivalents. This attribute may be
-  deprecated in future releases and <strong>should be avoided</strong>, it&#8217;s sole
-  purpose is to accommodate deficient downstream applications that
-  cannot process non-ASCII ID attributes.
+  are replaced with ASCII equivalents. This attribute should be
+  <strong>should be avoided</strong> if possible as its sole purpose is to accommodate
+  deficient downstream applications that cannot process non-ASCII ID
+  attributes. If available, it will use the
+  <a href="https://pypi.org/project/trans/">trans python module</a>, otherwise it
+  will fallback to using NFKD algorithm, which cannot handle all
+  unicode characters. For example, <em>Wstęp żółtej łąki</em> will be
+  translated to <em>Wstep zoltej laki</em> under trans and <em>Wstep zotej aki</em>
+  under NFKD.
 </p>
 </li>
 </ul></div>
@@ -10446,7 +10451,7 @@ General Public License version 2 for more details.</p></div>
 <div id="footer-text">
 Version 9.0.0rc2<br />
 Last updated
- 2020-05-31 22:31:47 UTC
+ 2020-05-31 22:49:32 UTC
 </div>
 </div>
 </body>

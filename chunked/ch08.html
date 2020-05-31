@@ -218,10 +218,15 @@ A numbered suffix (<code class="literal">_2</code>, <code class="literal">_3</co
   auto-generated section ID exists.
 </li><li class="listitem">
 If the <code class="literal">ascii-ids</code> attribute is defined then non-ASCII characters
-  are replaced with ASCII equivalents. This attribute may be
-  deprecated in future releases and <span class="strong"><strong>should be avoided</strong></span>, it’s sole
-  purpose is to accommodate deficient downstream applications that
-  cannot process non-ASCII ID attributes.
+  are replaced with ASCII equivalents. This attribute should be
+  <span class="strong"><strong>should be avoided</strong></span> if possible as its sole purpose is to accommodate
+  deficient downstream applications that cannot process non-ASCII ID
+  attributes. If available, it will use the
+  <a class="ulink" href="https://pypi.org/project/trans/" target="_top">trans python module</a>, otherwise it
+  will fallback to using NFKD algorithm, which cannot handle all
+  unicode characters. For example, <span class="emphasis"><em>Wstęp żółtej łąki</em></span> will be
+  translated to <span class="emphasis"><em>Wstep zoltej laki</em></span> under trans and <span class="emphasis"><em>Wstep zotej aki</em></span>
+  under NFKD.
 </li></ul></div><p>Example: the title <span class="emphasis"><em>Jim’s House</em></span> would generate the ID <code class="literal">_jim_s_house</code>.</p><p>Section ID synthesis can be disabled by undefining the <code class="literal">sectids</code>
 attribute.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="X16"></a>8.4.3. Special Section Titles</h3></div></div></div><p>AsciiDoc has a mechanism for mapping predefined section titles
 auto-magically to specific markup templates. For example a title
