@@ -627,7 +627,7 @@ http://groups.google.com/group/asciidoc/browse_thread/thread/c9238380a1f2507a
 Floating tables and images
 --------------------------
 .Simple table
-[float="left",width="15%"]
+[float="left",width="15%",floatstyle="[htbp]"]
 |=======
 |1 |2 |A
 |3 |4 |B
@@ -635,7 +635,7 @@ Floating tables and images
 |=======
 
 .Tiger
-[float="right"]
+[float="right",floatstyle="[htbp]"]
 image::images/tiger.png["Tiger image"]
 
 unfloat::[]
@@ -800,3 +800,18 @@ Lorum ipsum...
 == Inline macros
 http://groups.google.com/group/asciidoc/[A URL with [square
 brackets\]].
+
+== Equation
+.Equation
+[latexmath]
+[floatstyle="[htbp]"]
+++++++++++++++++++++++++++++++++++++++++++++
+\[C = \alpha + \beta Y^{\gamma} + \epsilon\]
+++++++++++++++++++++++++++++++++++++++++++++
+
+== Example
+.Example
+[floatstyle="[htbp]"]
+++++++++++++++++++++++++++++++++++++++++++++
+Formal figures, tables, equations and examples can float in docbook backend
+++++++++++++++++++++++++++++++++++++++++++++
