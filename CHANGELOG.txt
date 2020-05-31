@@ -29,6 +29,7 @@ Version 9.0.0 (Unreleased)
 - Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
 - make install did not include the unwraplatex.py filter
 - Fix a2x option collection from input file with non-ascii encoding
+- Fix options attribute not being properly parsed in Delimited Blocks attribute list
 
 .Testing
 - Commit generated test files to the repository for continuous integration
