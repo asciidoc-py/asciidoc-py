@@ -282,7 +282,7 @@ REQUISITES
 - *xsltproc*: (all formats except text):
   http://xmlsoft.org/XSLT/
 - *DocBook XSL Stylesheets* (all formats except text):
-  http://docbook.sourceforge.net/projects/xsl/
+  https://github.com/docbook/xslt10-stylesheets
 - *dblatex* (pdf, dvi, ps, tex formats):
   http://dblatex.sourceforge.net/
 - *FOP* (pdf format -- alternative PDF file generator):

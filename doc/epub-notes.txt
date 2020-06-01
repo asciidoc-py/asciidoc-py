@@ -23,7 +23,7 @@ https://sourceforge.net/tracker/?func=detail&aid=3043393&group_id=21935&atid=373
 
 epub outputs include every section in the table of contents regardless of the
 toc.section.depth XSL Stylesheets parameter
-(http://docbook.sourceforge.net/release/xsl/current/doc/html/toc.section.depth.html).
+(https://cdn.docbook.org/release/xsl/snapshot/doc/fo/toc.section.depth.html).
 This behavior is specific to epub (xhtml and fo outputs honor
 toc.section.depth).
 

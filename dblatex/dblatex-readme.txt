@@ -24,7 +24,7 @@ Observed in dblatex 0.2.8.
   correctly: it is rendered in a monospaced font and no inline
   elements are processed. By default the normal font should be used
   and almost all DocBook inline elements should be processed
-  (http://www.docbook.org/tdg/en/html/literallayout.html).  I almost
+  (https://tdg.docbook.org/tdg/4.5/literallayout.html).  I almost
   fixed this by overriding the default dblatex literallayout template
   (in `./dblatex/asciidoc-dblatex.xsl`) and using the LaTeX 'alltt'
   package, but there are remaining problems:
