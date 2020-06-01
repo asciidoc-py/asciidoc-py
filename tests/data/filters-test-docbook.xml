@@ -22,7 +22,7 @@
 <section id="_pychart_chart_generations_from_faq">
 <title>Pychart Chart generations from FAQ</title>
 <simpara>No barchart to avoid depending on Pychart for the tests.
-See also: <ulink url="http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</ulink></simpara>
+See also: <ulink url="https://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">https://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</ulink></simpara>
 <informalfigure>
 <mediaobject>
   <imageobject>

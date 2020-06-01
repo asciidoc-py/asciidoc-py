@@ -897,7 +897,7 @@ rowsep="1" colsep="1"
 </tbody>
 </tgroup>
 </table>
-<figure><title>Tiger</title>
+<figure floatstyle="[htbp]"><title>Tiger</title>
 <mediaobject>
   <imageobject>
   <imagedata fileref="../../images/images/tiger.png"/>
@@ -960,7 +960,7 @@ adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel
 <footnoteref linkend="F2" />.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink> Qui in magna commodo,
+<footnote><simpara><ulink url="https://asciidoc.org/">https://asciidoc.org/</ulink> Qui in magna commodo,
 est labitur dolorum an. Est ne magna primis adolescens. Sit munere
 ponderum dignissim et. Minim luptatum et vel
 <inlinemediaobject>
@@ -971,10 +971,10 @@ ponderum dignissim et. Minim luptatum et vel
 </inlinemediaobject></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et vel.
-<footnote><simpara><ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink></simpara></footnote>
+<footnote><simpara><ulink url="https://asciidoc.org/">https://asciidoc.org/</ulink></simpara></footnote>
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
-vel <footnote><simpara><ulink url="http://asciidoc.org/">AsciiDoc website</ulink>.</simpara></footnote>.
+vel <footnote><simpara><ulink url="https://asciidoc.org/">AsciiDoc website</ulink>.</simpara></footnote>.
 Qui in magna commodo, est labitur dolorum an. Est ne magna primis
 adolescens. Sit munere ponderum dignissim et. Minim luptatum et
 <footnote id="F3"><simpara>A footnote&#44; &#34;with an image&#34; <inlinemediaobject>   <imageobject>   <imagedata fileref="../../images/images/smallnew.png"/>   </imageobject>   <textobject><phrase>images/smallnew.png</phrase></textobject> </inlinemediaobject></simpara></footnote>.
@@ -1012,5 +1012,16 @@ Template line 2.</simpara>
 <title>Inline macros</title>
 <simpara><ulink url="http://groups.google.com/group/asciidoc/">A URL with [square
 brackets]</ulink>.</simpara>
+</section>
+<section id="_equation">
+<title>Equation</title>
+<equation floatstyle="[htbp]"><title>Equation</title>
+<alt><![CDATA[\[C = \alpha + \beta Y^{\gamma} + \epsilon\]]]></alt>
+<mediaobject><textobject><phrase></phrase></textobject></mediaobject>
+</equation>
+</section>
+<section id="_example">
+<title>Example</title>
+Formal figures, tables, equations and examples can float in docbook backend
 </section>
 </article>

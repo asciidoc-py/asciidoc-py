@@ -21,7 +21,7 @@
 <section xml:id="_pychart_chart_generations_from_faq">
 <title>Pychart Chart generations from FAQ</title>
 <simpara>No barchart to avoid depending on Pychart for the tests.
-See also: <link xlink:href="http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">http://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</link></simpara>
+See also: <link xlink:href="https://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents">https://asciidoc.org/faq.html#_is_it_possible_to_include_charts_in_asciidoc_documents</link></simpara>
 <informalfigure>
 <mediaobject>
   <imageobject>

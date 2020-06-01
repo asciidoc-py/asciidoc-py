@@ -1,0 +1,9 @@
+// Test of generated chapter ID normalized to ASCII
+:ascii-ids: 1
+
+== Wstęp żółtej łąki
+
+== schön Grüßen
+
+== Белые Мотыль
+

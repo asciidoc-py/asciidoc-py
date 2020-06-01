@@ -27,7 +27,7 @@ able to reference these numbers.
 
 This can be achieved by using the DocBook toolchain but numbering the
 paragraphs with AsciiDoc using a custom config file containing the
-following (see http://asciidoc.org/userguide.html#X27
+following (see https://asciidoc.org/userguide.html#X27
 for ways to include such a file):
 
 ---------------------------------------------------------------------
@@ -485,7 +485,7 @@ icons and the CSS stylesheet:
 AsciiDoc has a built-in trace mechanism which is controlled by the
 'trace' attribute; there is also the `--verbose` command-line option.
 These features are detailed in
-http://asciidoc.org/userguide.html#X82[Appendix G of the
+https://asciidoc.org/userguide.html#X82[Appendix G of the
 User Guide].
 
 
@@ -1375,9 +1375,9 @@ processing instruction] which will inlcude a file containing raw HTML
 into the generated HTML output. For example:
 
 ---------------------------------------------------------------
-++++ 
-<?dbhtml-include href="snippet.html"?> 
-++++ 
+++++
+<?dbhtml-include href="snippet.html"?>
+++++
 ---------------------------------------------------------------
 
 
