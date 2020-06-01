@@ -290,7 +290,7 @@ REQUISITES
 - *w3m* (text format):
   http://w3m.sourceforge.net/index.en.html
 - *Lynx* (text format -- alternative text file generator):
-  http://lynx.isc.org/
+  https://invisible-island.net/lynx/
 - *epubcheck* (epub format -- EPUB file validator):
   https://github.com/w3c/epubcheck
 
