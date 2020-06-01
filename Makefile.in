@@ -119,20 +119,20 @@ help : Makefile
 
 # create directories used during the install
 $(INSTDIRS):
-	$(INSTALL) -d $(DESTDIR)/$($@)
+	$(INSTALL) -d $(DESTDIR)$($@)
 
 $(PROGTARGETS): % : %dir
-	$(INSTALL_PROG) $($@) $(DESTDIR)/$($<)/
+	$(INSTALL_PROG) $($@) $(DESTDIR)$($<)/
 
 $(DATATARGETS): % : %dir
-	$(INSTALL_DATA) $($@) $(DESTDIR)/$($<)/
+	$(INSTALL_DATA) $($@) $(DESTDIR)$($<)/
 
 $(manp): %.1 : %.1.txt
 	python3 a2x.py -f manpage $<
 
 progsymlink:
-	(cd $(DESTDIR)/$(progdir); ln -sf asciidoc.py asciidoc)
-	(cd $(DESTDIR)/$(progdir); ln -sf a2x.py a2x)
+	(cd $(DESTDIR)$(progdir); ln -sf asciidoc.py asciidoc)
+	(cd $(DESTDIR)$(progdir); ln -sf a2x.py a2x)
 
 ##.
 
@@ -206,25 +206,25 @@ manpages: doc/asciidoc.1 doc/a2x.1 doc/testasciidoc.1
 
 ##   docs: install documentation files to filesystem (e.g. /usr/local/share/doc/asciidoc)
 docs:
-	$(INSTALL) -d $(DESTDIR)/$(docdir)
-	$(INSTALL_DATA) $(doc) $(DESTDIR)/$(docdir)
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/docbook-xsl
-	$(INSTALL_DATA) docbook-xsl/asciidoc-docbook-xsl.txt $(DESTDIR)/$(docdir)/docbook-xsl
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/dblatex
-	$(INSTALL_DATA) dblatex/dblatex-readme.txt $(DESTDIR)/$(docdir)/dblatex
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/stylesheets
-	$(INSTALL_DATA) $(css) $(DESTDIR)/$(docdir)/stylesheets
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/javascripts
-	$(INSTALL_DATA) $(js) $(DESTDIR)/$(docdir)/javascripts
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/images
+	$(INSTALL) -d $(DESTDIR)$(docdir)
+	$(INSTALL_DATA) $(doc) $(DESTDIR)$(docdir)
+	$(INSTALL) -d $(DESTDIR)$(docdir)/docbook-xsl
+	$(INSTALL_DATA) docbook-xsl/asciidoc-docbook-xsl.txt $(DESTDIR)$(docdir)/docbook-xsl
+	$(INSTALL) -d $(DESTDIR)$(docdir)/dblatex
+	$(INSTALL_DATA) dblatex/dblatex-readme.txt $(DESTDIR)$(docdir)/dblatex
+	$(INSTALL) -d $(DESTDIR)$(docdir)/stylesheets
+	$(INSTALL_DATA) $(css) $(DESTDIR)$(docdir)/stylesheets
+	$(INSTALL) -d $(DESTDIR)$(docdir)/javascripts
+	$(INSTALL_DATA) $(js) $(DESTDIR)$(docdir)/javascripts
+	$(INSTALL) -d $(DESTDIR)$(docdir)/images
 	( cd images && \
-		cp -R * $(DESTDIR)/$(docdir)/images )
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/doc
+		cp -R * $(DESTDIR)$(docdir)/images )
+	$(INSTALL) -d $(DESTDIR)$(docdir)/doc
 	( cd doc && \
-		cp -R * $(DESTDIR)/$(docdir)/doc )
-	$(INSTALL) -d $(DESTDIR)/$(docdir)/examples/website
-	( cd examples/website && \
-		cp -R * $(DESTDIR)/$(docdir)/examples/website )
+		cp -R * $(DESTDIR)$(docdir)/doc )
+	$(INSTALL) -d $(DESTDIR)$(docdir)/website
+	( cd website && \
+		cp -R * $(DESTDIR)$(docdir)/website )
 
 ##   website: generates the website into ./gh-pages directory (which will point at gh-pages branch)
 .PHONY: website
@@ -240,15 +240,15 @@ tags:
 ##   uninstall: uninstall asciidoc
 .PHONY: uninstall
 uninstall:
-	rm -f $(DESTDIR)/$(progdir)/asciidoc
-	rm -f $(DESTDIR)/$(progdir)/asciidoc.py
-	rm -f $(DESTDIR)/$(progdir)/a2x
-	rm -f $(DESTDIR)/$(progdir)/a2x.py
-	rm -f $(DESTDIR)/$(manpdir)/asciidoc.1
-	rm -f $(DESTDIR)/$(manpdir)/testasciidoc.1
-	rm -f $(DESTDIR)/$(manpdir)/a2x.1
-	rm -rf $(DESTDIR)/$(confdir)
-	rm -rf $(DESTDIR)/$(docdir)
+	rm -f $(DESTDIR)$(progdir)/asciidoc
+	rm -f $(DESTDIR)$(progdir)/asciidoc.py
+	rm -f $(DESTDIR)$(progdir)/a2x
+	rm -f $(DESTDIR)$(progdir)/a2x.py
+	rm -f $(DESTDIR)$(manpdir)/asciidoc.1
+	rm -f $(DESTDIR)$(manpdir)/testasciidoc.1
+	rm -f $(DESTDIR)$(manpdir)/a2x.1
+	rm -rf $(DESTDIR)$(confdir)
+	rm -rf $(DESTDIR)$(docdir)
 
 ##   clean: delete built asciidoc doc files
 .PHONY: clean
