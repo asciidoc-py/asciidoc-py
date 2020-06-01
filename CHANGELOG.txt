@@ -12,13 +12,11 @@ Version 9.0.0 (Unreleased)
 - Add Catalan translation
 - Add docbook5 backend
 - Fix misspellings in various files and documents
-- Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
-- Use "with" context statement for opening and closing files instead of older try/finally pattern.
+- Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time)
+- Use "with" context statement for opening and closing files instead of older try/finally pattern
 - Search sibling paths before system wide paths in asciidocapi
 - Add manpage for testasciidoc.py
 - Use argparse instead of optparse for argument parsing
-- Migrate from A-A-P based build system to Make
-- Running `make help` will now print out a helpful usage message
 - Add simplified Chinese translation (thanks @muirmok)
 - vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch)
 - Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris)
@@ -29,6 +27,11 @@ Version 9.0.0 (Unreleased)
 - Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
 - make install did not include the unwraplatex.py filter
 - Fix a2x option collection from input file with non-ascii encoding
+
+.Building
+- Migrate from hierarchical A-A-P build system to top-level Makefile
+- Add `make help` target that prints out usage message for make
+- Fix double slash issue in Makefile when installing asciidoc or its docs
 
 .Testing
 - Commit generated test files to the repository for continuous integration
