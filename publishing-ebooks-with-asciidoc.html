@@ -217,9 +217,9 @@ cellspacing="0" cellpadding="4">
 </thead>
 <tbody>
 <tr>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/brothers-karamazov.epub">brothers-karamazov.epub</a></p></td>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/brothers-karamazov.pdf">brothers-karamazov.pdf</a></p></td>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/brothers-karamazov.zip">brothers-karamazov.zip</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/brothers-karamazov.epub">brothers-karamazov.epub</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/brothers-karamazov.pdf">brothers-karamazov.pdf</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/brothers-karamazov.zip">brothers-karamazov.zip</a></p></td>
 <td align="left" valign="top"><p class="table"><a href="http://www.gutenberg.org/etext/28054">http://www.gutenberg.org/etext/28054</a></p></td>
 </tr>
 </tbody>
@@ -382,9 +382,9 @@ cellspacing="0" cellpadding="4">
 </thead>
 <tbody>
 <tr>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/adventures-of-sherlock-holmes.epub">adventures-of-sherlock-holmes.epub</a></p></td>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/adventures-of-sherlock-holmes.pdf">adventures-of-sherlock-holmes.pdf</a></p></td>
-<td align="left" valign="top"><p class="table"><a href="https://asciidoc.org/examples/books/adventures-of-sherlock-holmes.zip">adventures-of-sherlock-holmes.zip</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/adventures-of-sherlock-holmes.epub">adventures-of-sherlock-holmes.epub</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/adventures-of-sherlock-holmes.pdf">adventures-of-sherlock-holmes.pdf</a></p></td>
+<td align="left" valign="top"><p class="table"><a href="examples/books/adventures-of-sherlock-holmes.zip">adventures-of-sherlock-holmes.zip</a></p></td>
 <td align="left" valign="top"><p class="table"><a href="http://www.gutenberg.org/etext/1661">http://www.gutenberg.org/etext/1661</a></p></td>
 </tr>
 </tbody>
@@ -394,10 +394,10 @@ cellspacing="0" cellpadding="4">
 by the <a href="http://www.epubread.com/en/">Firefox EPUBReader addon</a>):</p></div>
 <div class="imageblock">
 <div class="content">
-<img src="images/epub.png" alt="images/epub.png" />
+<img src="examples/books/sherlock-epub.png" alt="examples/books/sherlock-epub.png" />
 </div>
 </div>
-<div class="paragraph"><p>The <a href="https://asciidoc.org/examples/books/adventures-of-sherlock-holmes.zip">AsciiDoc source
+<div class="paragraph"><p>The <a href="examples/books/adventures-of-sherlock-holmes.zip">AsciiDoc source
 Zip file</a> contains the following files:</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
@@ -436,9 +436,11 @@ Zip file</a> contains the following files:</p></div>
 <dd>
 <p>
   CSS rules for styling the page layout. The design is based on the
-  <a href="http://epubzengarden.com">ePub Zen Garden</a> <em>Gbs</em> style. Because this
-  file is not named <code>docbook-xsl.css</code> the name must be specified
-  explicitly using the <em>a2x</em> <code>--stylesheet</code> option.
+  <em>Gbs</em> style from the defunct ePub Zen Garden (please let us know
+  if you are the author or know the author so we can give better
+  attribution). Because this file is not named <code>docbook-xsl.css</code>
+  the name must be specified explicitly using the <em>a2x</em> <code>--stylesheet</code>
+  option.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -519,8 +521,6 @@ configuration directory) then place it in the same directory as your
 AsciiDoc source file. Use the <em>a2x</em> <code>--stylesheet</code> option if you want
 to use a different stylesheet file.  Take a look at the
 <code>adventures-of-sherlock-holmes.css</code> CSS file.</p></div>
-<div class="paragraph"><p>There are some great examples of EPUB book styles at
-<a href="http://epubzengarden.com/">ePub Zen Garden</a>.</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -532,13 +532,11 @@ to use a different stylesheet file.  Take a look at the
 <div class="sect1">
 <h2 id="_reading_epub_documents">Reading EPUB documents</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>My current favorite software epub reader is the
-<a href="http://www.epubread.com/en/">Firefox EPUBReader addon</a>. EPUBReader
-honors the book&#8217;s CSS styling rules and renders the page as the author
-intended (many EPUB readers only process a sub-set of CSS styling
-rules).</p></div>
-<div class="paragraph"><p>Browsers are a natural fit for EPUB (EPUB is just a bunch of zipped
-XHTML files)&#8201;&#8212;&#8201;I&#8217;d love to see browsers support EPUB natively.</p></div>
+<div class="paragraph"><p>To view and read epub files, you can use
+<a href="http://www.epubread.com/en/">EPUBReader addon</a>, which is available for
+Firefox, Chrome / Chromium, and Opera. EPUBReader honors the book&#8217;s
+CSS styling rules and renders the page as the author intended (many
+EPUB readers only process a sub-set of CSS styling rules).</p></div>
 <div class="paragraph"><p>As of writing this article most eBook readers (with the notable
 exception of Amazon&#8217;s Kindle) support the EPUB format.</p></div>
 </div>
@@ -558,7 +556,7 @@ can be formatted as EPUB eBooks.</p></div>
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-06-01 02:11:47 UTC
+Last updated 2020-06-01 04:23:00 UTC
 </div>
 <div id="footer-badges">
 <a href="https://validator.w3.org/check?uri=referer">

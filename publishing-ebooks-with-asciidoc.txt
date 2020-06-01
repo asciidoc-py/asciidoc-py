@@ -134,17 +134,16 @@ edited it manually (this took around 15 minutes). To generate the
 
   a2x brothers-karamazov.txt
 
-:examples-url: https://asciidoc.org/examples/books/
 
 [frame="topbot",options="header",caption=""]
 .Brothers Karamazov source files and eBooks
 |====================================================================
 |EPUB |PDF |AsciiDoc source |Project Gutenburg text
-|{examples-url}brothers-karamazov.epub[brothers-karamazov.epub]
+|link:examples/books/brothers-karamazov.epub[brothers-karamazov.epub]
 
-|{examples-url}brothers-karamazov.pdf[brothers-karamazov.pdf]
+|link:examples/books/brothers-karamazov.pdf[brothers-karamazov.pdf]
 
-|{examples-url}brothers-karamazov.zip[brothers-karamazov.zip]
+|link:examples/books/brothers-karamazov.zip[brothers-karamazov.zip]
 
 |http://www.gutenberg.org/etext/28054
 
@@ -252,11 +251,11 @@ this command:
 .Sherlock Holmes source files and eBooks
 |====================================================================
 |EPUB |PDF |AsciiDoc source |Project Gutenburg text
-|{examples-url}adventures-of-sherlock-holmes.epub[adventures-of-sherlock-holmes.epub]
+|link:examples/books/adventures-of-sherlock-holmes.epub[adventures-of-sherlock-holmes.epub]
 
-|{examples-url}adventures-of-sherlock-holmes.pdf[adventures-of-sherlock-holmes.pdf]
+|link:examples/books/adventures-of-sherlock-holmes.pdf[adventures-of-sherlock-holmes.pdf]
 
-|{examples-url}adventures-of-sherlock-holmes.zip[adventures-of-sherlock-holmes.zip]
+|link:examples/books/adventures-of-sherlock-holmes.zip[adventures-of-sherlock-holmes.zip]
 
 |http://www.gutenberg.org/etext/1661
 
@@ -265,9 +264,9 @@ this command:
 Here's a screenshot of the first page of the first chapter (rendered
 by the http://www.epubread.com/en/[Firefox EPUBReader addon]):
 
-image::images/epub.png[]
+image::examples/books/sherlock-epub.png[]
 
-The {examples-url}adventures-of-sherlock-holmes.zip[AsciiDoc source
+The link:examples/books/adventures-of-sherlock-holmes.zip[AsciiDoc source
 Zip file] contains the following files:
 
 `adventures-of-sherlock-holmes.txt`::
@@ -287,9 +286,11 @@ Zip file] contains the following files:
 
 `adventures-of-sherlock-holmes.css`::
   CSS rules for styling the page layout. The design is based on the
-  http://epubzengarden.com[ePub Zen Garden] 'Gbs' style. Because this
-  file is not named `docbook-xsl.css` the name must be specified
-  explicitly using the 'a2x' `--stylesheet` option.
+  'Gbs' style from the defunct ePub Zen Garden (please let us know
+  if you are the author or know the author so we can give better
+  attribution). Because this file is not named `docbook-xsl.css`
+  the name must be specified explicitly using the 'a2x' `--stylesheet`
+  option.
 
 `underline.png`::
   A title underline image that is used by the CSS stylesheet. This
@@ -364,9 +365,6 @@ AsciiDoc source file. Use the 'a2x' `--stylesheet` option if you want
 to use a different stylesheet file.  Take a look at the
 `adventures-of-sherlock-holmes.css` CSS file.
 
-There are some great examples of EPUB book styles at
-http://epubzengarden.com/[ePub Zen Garden].
-
 
 Including embedded fonts
 ------------------------
@@ -375,14 +373,11 @@ See https://asciidoc.org/faq.html#X5[this FAQ].
 
 Reading EPUB documents
 ----------------------
-My current favorite software epub reader is the
-http://www.epubread.com/en/[Firefox EPUBReader addon]. EPUBReader
-honors the book's CSS styling rules and renders the page as the author
-intended (many EPUB readers only process a sub-set of CSS styling
-rules).
-
-Browsers are a natural fit for EPUB (EPUB is just a bunch of zipped
-XHTML files) -- I'd love to see browsers support EPUB natively.
+To view and read epub files, you can use
+http://www.epubread.com/en/[EPUBReader addon], which is available for
+Firefox, Chrome / Chromium, and Opera. EPUBReader honors the book's
+CSS styling rules and renders the page as the author intended (many
+EPUB readers only process a sub-set of CSS styling rules).
 
 As of writing this article most eBook readers (with the notable
 exception of Amazon's Kindle) support the EPUB format.
