@@ -292,7 +292,7 @@ REQUISITES
 - *Lynx* (text format -- alternative text file generator):
   http://lynx.isc.org/
 - *epubcheck* (epub format -- EPUB file validator):
-  http://code.google.com/p/epubcheck/
+  https://github.com/w3c/epubcheck
 
 See also the latest README file.
 
