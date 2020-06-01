@@ -78,12 +78,12 @@ Fix misspellings in various files and documents
 </li>
 <li>
 <p>
-Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
+Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time)
 </p>
 </li>
 <li>
 <p>
-Use "with" context statement for opening and closing files instead of older try/finally pattern.
+Use "with" context statement for opening and closing files instead of older try/finally pattern
 </p>
 </li>
 <li>
@@ -99,16 +99,6 @@ Add manpage for testasciidoc.py
 <li>
 <p>
 Use argparse instead of optparse for argument parsing
-</p>
-</li>
-<li>
-<p>
-Migrate from A-A-P based build system to Make
-</p>
-</li>
-<li>
-<p>
-Running <code>make help</code> will now print out a helpful usage message
 </p>
 </li>
 <li>
@@ -151,6 +141,23 @@ make install did not include the unwraplatex.py filter
 <li>
 <p>
 Fix a2x option collection from input file with non-ascii encoding
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Building</div><ul>
+<li>
+<p>
+Migrate from hierarchical A-A-P build system to top-level Makefile
+</p>
+</li>
+<li>
+<p>
+Add <code>make help</code> target that prints out usage message for make
+</p>
+</li>
+<li>
+<p>
+Fix double slash issue in Makefile when installing asciidoc or its docs
 </p>
 </li>
 </ul></div>
@@ -8172,7 +8179,7 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-06-01 05:27:30 UTC
+Last updated 2020-06-01 15:26:30 UTC
 </div>
 <div id="footer-badges">
 <a href="https://validator.w3.org/check?uri=referer">
