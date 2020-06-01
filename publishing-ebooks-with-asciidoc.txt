@@ -86,7 +86,7 @@ AsciiDoc's 'a2x' toolchain wrapper command from the command-line:
 The `-f` option specifies the output format, the `-d` option specifies
 the document type (book, article or manpage).  The optional
 `--epubcheck` option tells 'a2x' to validate the EPUB file using
-http://code.google.com/p/epubcheck/[epubcheck]. To generate a PDF
+https://github.com/w3c/epubcheck[epubcheck]. To generate a PDF
 version (`minimal-book.pdf`) with 'dblatex' run:
 
   a2x -fpdf -dbook minimal-book.txt
@@ -118,7 +118,7 @@ prepackaged for your Linux distribution):
 - http://dblatex.sourceforge.net/[dblatex] (PDF file generator)
 - http://xmlgraphics.apache.org/fop/[FOP] (alternative PDF file
   generator)
-- http://code.google.com/p/epubcheck/[epubcheck] (optional EPUB file
+- https://github.com/w3c/epubcheck[epubcheck] (optional EPUB file
   validator)
 ======
 
