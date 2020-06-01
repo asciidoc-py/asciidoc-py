@@ -26,6 +26,9 @@ doc/*.html
 /config.*
 /configure
 Makefile
+MANIFEST
 
 /tags
 /gh-pages/
+/*.zip
+/*.tar.gz

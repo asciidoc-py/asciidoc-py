@@ -226,6 +226,11 @@ docs:
 	( cd examples/website && \
 		cp -R * $(DESTDIR)/$(docdir)/examples/website )
 
+##   website: generates the website into ./gh-pages directory (which will point at gh-pages branch)
+.PHONY: website
+website:
+	bash build_website.sh
+
 ##   tags: generate tags index files for use with vim and other tags-capable editors
 .PHONY: tags
 tags:
@@ -249,6 +254,16 @@ uninstall:
 .PHONY: clean
 clean:
 	rm -f $(manp)
+
+MANIFEST: MANIFEST.in
+	bash build_dist.sh
+
+##.
+##   dist: creates the zip and tarball for release
+.PHONY: dist
+dist: vers_update manpages MANIFEST
+	tar -czf asciidoc-$(ASCIIDOCVERSION).tar.gz -T MANIFEST
+	zip asciidoc-$(ASCIIDOCVERSION).zip -@ < MANIFEST
 
 ##.
 ##   test: run the asciidoc test suite
