@@ -3,7 +3,7 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
-Version 9.0.0 (Unreleased)
+Version 9.0.0 (2020-06-02)
 --------------------------
 .Additions and changes
 - Port asciidoc to run on Python 3.5+ (see https://github.com/asciidoc/asciidoc for the EOL Python 2 implementation)
