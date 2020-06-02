@@ -32,5 +32,4 @@ MANIFEST
 
 /tags
 /gh-pages/
-/*.zip
-/*.tar.gz
+build/

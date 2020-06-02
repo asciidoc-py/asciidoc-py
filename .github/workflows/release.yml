@@ -13,7 +13,7 @@ jobs:
         run: docker build . -t asciidoc
 
       - name: Build distributions
-        run: docker run --rm -v $(pwd):/srv/asciidoc asciidoc /bin/bash -c "make dist"
+        run: docker run --rm -v $(pwd)/build:/srv/asciidoc/build asciidoc /bin/bash -c "make dist"
 
       - name: Upload asciidoc-${{ github.event.release.tag_name }}.zip
         id: upload-release-asset-zip
@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./asciidoc-${{ github.event.release.tag_name }}.zip
+          asset_path: ./build/asciidoc-${{ github.event.release.tag_name }}.zip
           asset_name: asciidoc-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
 
@@ -33,6 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./asciidoc-${{ github.event.release.tag_name }}.tar.gz
+          asset_path: ./build/asciidoc-${{ github.event.release.tag_name }}.tar.gz
           asset_name: asciidoc-${{ github.event.release.tag_name }}.tar.gz
           asset_content_type: application/gzip

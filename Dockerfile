@@ -33,7 +33,8 @@ RUN mkdir /usr/share/man/man1/ \
         time \
         texlive-latex-base \
         unzip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+        zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && autoconf \
     && ./configure
 
