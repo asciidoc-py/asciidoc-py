@@ -10,6 +10,7 @@ under the terms of the GNU General Public License (GPL).
 import ast
 import copy
 import csv
+from functools import lru_cache
 import getopt
 import io
 import locale
@@ -3937,6 +3938,7 @@ class Macros:
                         return m
         return False
 
+    @lru_cache(maxsize=2048)
     def match(self, prefix, name, text):
         """Return re match object matching 'text' with macro type 'prefix',
         macro name 'name'."""
