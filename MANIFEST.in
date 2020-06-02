@@ -21,11 +21,9 @@ tests/testasciidoc.conf
 themes/**/*
 website/*
 *.conf
-a2x.py
-asciidoc.py
-asciidocapi.py
+*.sh
+*.py
 BUGS.txt
-build_website.sh
 CHANGELOG.txt
 configure
 configure.ac
