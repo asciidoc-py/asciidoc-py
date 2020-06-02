@@ -54,8 +54,11 @@ AUTHOR
     http://code.google.com/p/latexmath2png/
 
 COPYING
-    Copyright (C) 2010 Stuart Rackham. Free use of this software is
-    granted under the terms of the MIT License.
+    Copyright (C) 2002-2013 Stuart Rackham.
+    Copyright (C) 2013-2020 AsciiDoc Contributors.
+
+    Free use of this software is granted under the terms of the GNU General
+    Public License version 2 (GPLv2).
 '''
 
 import os

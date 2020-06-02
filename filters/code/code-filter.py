@@ -46,8 +46,11 @@ URLS
     https://asciidoc.org/
 
 COPYING
-    Copyright (C) 2002-2006 Stuart Rackham. Free use of this software is
-    granted under the terms of the GNU General Public License (GPL).
+    Copyright (C) 2002-2013 Stuart Rackham.
+    Copyright (C) 2013-2020 AsciiDoc Contributors.
+
+    Free use of this software is granted under the terms of the GNU General
+    Public License version 2 (GPLv2).
 '''
 
 import os
