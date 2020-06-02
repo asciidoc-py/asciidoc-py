@@ -175,7 +175,7 @@ checks using 'xmllint'.
 DocBook has no provision for specifying table of contents levels but
 you can set the TOC level further down the toolchain by passing the
 DocBook XSL Stylesheets
-http://docbook.sourceforge.net/release/xsl/current/doc/html/toc.section.depth.html[toc.section.depth]
+https://cdn.docbook.org/release/xsl/snapshot/doc/html/toc.section.depth.html[toc.section.depth]
 parameter to 'dblatex' (using the `--param` option) or 'xsltproc'
 (using the `--stringparam` option).  For example to show only chapter
 titles in the TOC of a 'book' document set 'toc.section.depth' to '0'.
@@ -1392,7 +1392,7 @@ templates when the DocBook XML is converted to FO XML.
 
 The DocBook XSL attribute that controls what character is added after
 a block title is
-http://docbook.sourceforge.net/release/xsl/1.78.1/doc/html/runinhead.default.title.end.punct.html[
+https://cdn.docbook.org/release/xsl/snapshot/doc/html/runinhead.default.title.end.punct.html[
 runinhead.default.title.end.punct].  You can override it and eliminate
 the default period value by adding the following line to the
 `./docbook-xsl/common.xsl` file that ships with AsciiDoc:

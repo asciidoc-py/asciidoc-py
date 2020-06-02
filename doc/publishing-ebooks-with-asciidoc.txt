@@ -113,7 +113,7 @@ wrapper] uses the following programs (most will be available
 prepackaged for your Linux distribution):
 
 - http://xmlsoft.org/XSLT/[xsltproc]
-- http://docbook.sourceforge.net/projects/xsl/[DocBook XSL
+- https://github.com/docbook/xslt10-stylesheets[DocBook XSL
   Stylesheets]
 - http://dblatex.sourceforge.net/[dblatex] (PDF file generator)
 - http://xmlgraphics.apache.org/fop/[FOP] (alternative PDF file

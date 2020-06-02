@@ -20,6 +20,8 @@ doc/*.svg
 doc/*.png
 doc/*.1
 doc/*.html
+doc/*.xml
+!doc/article-docinfo.xml
 
 # ignore the configure/make products
 /autom4te.cache/

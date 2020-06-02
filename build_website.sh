@@ -101,11 +101,11 @@ xsltproc --nonet ../docbook-xsl/manpage.xsl asciidoc.1.xml
 rm asciidoc.1.xml
 
 ${ASCIIDOC} -b xhtml11 -n -a toc -a toclevels=2 -o asciidoc.css-embedded.html asciidoc.txt
-#${A2X} -f epub -d book --epubcheck --icons asciidoc.txt
-${A2X} -fchunked -dbook --icons -D ./ asciidoc.txt
+# ${A2X} -f epub -d book --epubcheck --icons asciidoc.txt
+${A2X} -f chunked -dbook --icons -D ./ asciidoc.txt
 mv asciidoc.chunked chunked
 
-#${A2X} -f epub -d book --epubcheck --icons book.txt
+# ${A2X} -f epub -d book --epubcheck --icons book.txt
 
 ${ASCIIDOC} -n -b docbook article.txt
 xsltproc --nonet --stringparam admon.textlabel 0 ../docbook-xsl/fo.xsl article.xml > article.fo
