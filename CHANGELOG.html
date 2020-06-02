@@ -121,6 +121,11 @@ Allow specifying floatstyle attribute for figures, tables, equations, examples i
 Use <a href="https://pypi.org/project/trans/">trans python module</a> (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel)
 </p>
 </li>
+<li>
+<p>
+Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing
+</p>
+</li>
 </ul></div>
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
@@ -8184,7 +8189,7 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footer">
 <div id="footer-text">
 Version 9.0.0rc2<br />
-Last updated 2020-06-02 03:04:55 UTC
+Last updated 2020-06-02 04:02:53 UTC
 </div>
 <div id="footer-badges">
 <a href="https://validator.w3.org/check?uri=referer">
