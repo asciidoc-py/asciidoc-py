@@ -3137,6 +3137,10 @@ class DelimitedBlock(AbstractBlock):
         if 'skip' not in self.parameters.options:
             BlockTitle.consume(self.attributes)
             AttributeList.consume()
+        if 'options' in self.attributes:
+            options = parse_options(self.attributes['options'], (), 'illegal option name')
+            for option in options:
+                self.attributes[option + '-option'] = ''
         self.push_blockname()
         options = self.parameters.options
         if 'skip' in options:
