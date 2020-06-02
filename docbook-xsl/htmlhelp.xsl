@@ -10,7 +10,7 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:import href="https://cdn.docbook.org/release/xsl/current/htmlhelp/htmlhelp.xsl"/>
+<xsl:import href="http://docbook.sourceforge.net/release/xsl/current/htmlhelp/htmlhelp.xsl"/>
 <xsl:import href="common.xsl"/>
 <xsl:param name="htmlhelp.hhp" select="'asciidoc.hhp'"/>
 <xsl:param name="suppress.navigation" select="1"/>

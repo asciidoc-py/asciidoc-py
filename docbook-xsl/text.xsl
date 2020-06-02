@@ -11,7 +11,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
   <xsl:import
-    href="https://cdn.docbook.org/release/xsl/current/xhtml/docbook.xsl"/>
+    href="http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl"/>
 
   <!-- parameters for optimal text output -->
   <xsl:param name="callout.graphics" select="0"/>
