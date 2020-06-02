@@ -43,6 +43,8 @@ Current AsciiDoc version tested on Ubuntu 18.04 with:
 
 Copying
 -------
-Copyright (C) 2002-2013 Stuart Rackham. Free use of this software is
-granted under the terms of the GNU General Public License version 2
-(GPLv2).
+Copyright (C) 2002-2013 Stuart Rackham.
+Copyright (C) 2013-2020 AsciiDoc Contributors.
+
+Free use of this software is granted under the terms of the GNU General
+Public License version 2 (GPLv2).
