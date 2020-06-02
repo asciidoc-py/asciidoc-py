@@ -21,6 +21,7 @@ Version 9.0.0 (Unreleased)
 - vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch)
 - Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris)
 - Use https://pypi.org/project/trans/[trans python module] (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel)
+- Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing
 
 .Bug fixes
 - Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
