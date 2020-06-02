@@ -6,6 +6,9 @@ ARG PYTHON_VERSION=3.6
 # These images are based off Debian Buster (slim) using https://hub.docker.com/_/python/ as the "base"
 FROM python:${PYTHON_VERSION}-slim-buster
 
+WORKDIR "/srv/asciidoc"
+COPY . "/srv/asciidoc"
+
 # Install the dependencies that asciidoc needs. The mkdir line is needed as something pulls in java jdk and it
 # will fail if that folder does not already exist because...java.
 RUN mkdir /usr/share/man/man1/ \
@@ -31,8 +34,7 @@ RUN mkdir /usr/share/man/man1/ \
         texlive-latex-base \
         unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-COPY . "/srv/asciidoc"
-WORKDIR "/srv/asciidoc"
+    && autoconf \
+    && ./configure
 
 CMD "/bin/bash"
