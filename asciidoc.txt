@@ -328,7 +328,7 @@ Toolchain components summary
 AsciiDoc::
     Converts AsciiDoc (`.txt`) files to DocBook XML (`.xml`) files.
 
-[[X13]]http://docbook.sourceforge.net/projects/xsl/[DocBook XSL Stylesheets]::
+[[X13]]https://github.com/docbook/xslt10-stylesheets[DocBook XSLT Stylesheets]::
   These are a set of XSL stylesheets containing rules for converting
   DocBook XML documents to HTML, XSL-FO, manpage and HTML Help files.
   The stylesheets are used in conjunction with an XML parser such as
