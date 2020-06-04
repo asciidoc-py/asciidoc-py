@@ -256,15 +256,20 @@ clean:
 	rm -f $(manp)
 
 MANIFEST: MANIFEST.in
-	bash build_dist.sh
+	bash build_manifest.sh
 
 ##.
 ##   dist: creates the zip and tarball for release
 .PHONY: dist
 dist: vers_update manpages MANIFEST
-	@mkdir -p build
-	tar -czf build/asciidoc-$(ASCIIDOCVERSION).tar.gz -T MANIFEST
-	zip build/asciidoc-$(ASCIIDOCVERSION).zip -@ < MANIFEST
+	rm -rf build
+	mkdir -p build
+	tar -czf build/asciidoc-tmp.tar.gz -T MANIFEST
+	mkdir -p build/asciidoc-$(ASCIIDOCVERSION)
+	tar -xf build/asciidoc-tmp.tar.gz -C build/asciidoc-$(ASCIIDOCVERSION)
+	cd build && tar -czf asciidoc-$(ASCIIDOCVERSION).tar.gz asciidoc-$(ASCIIDOCVERSION) && zip -r asciidoc-$(ASCIIDOCVERSION).zip asciidoc-$(ASCIIDOCVERSION)
+	rm -rf build/asciidoc-tmp.tar.gz
+	rm -rf build/asciidoc-$(ASCIIDOCVERSION)
 
 ##.
 ##   test: run the asciidoc test suite
