@@ -73,7 +73,9 @@ jobs:
           autoconf
           ./configure
           make
-          sudo make install
+          pip3 install .
+          asciidoc --version
+          a2x --version
 
       - run: asciidoc --version
       - run: asciidoc --filter list
