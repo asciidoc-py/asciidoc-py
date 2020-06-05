@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 
 import difflib
@@ -12,7 +12,7 @@ import shutil
 import sys
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-import asciidocapi  # noqa: E402
+from asciidoc import asciidoc  # noqa: E402
 
 # Default backends.
 BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')
@@ -182,12 +182,20 @@ class AsciiDocTest(object):
         """
         Generate and return test data output for backend.
         """
-        asciidoc = asciidocapi.AsciiDocAPI()
-        asciidoc.options.values = self.options
-        asciidoc.attributes = self.attributes
-        infile = self.source
+        asciidoc.reset_asciidoc()
         outfile = io.StringIO()
-        asciidoc.execute(infile, outfile, backend)
+        options = self.options[:]
+        options.append(('--out-file', outfile))
+        options.append(('--backend', backend))
+        for k, v in self.attributes.items():
+            if v == '' or k[-1] in '!@':
+                s = str(k)
+            elif v is None:
+                s = k + '!'
+            else:
+                s = '%s=%s' % (k, v)
+            options.append(('--attribute', s))
+        asciidoc.execute('asciidoc', options, [self.source])
         return outfile.getvalue().splitlines(keepends=True)
 
     def update_expected(self, backend):
