@@ -52,7 +52,6 @@ for file in ${files[@]}; do
 done
 
 set -x
-cp README.asciidoc gh-pages/README.txt
 cp website/* gh-pages
 cp doc/*.txt gh-pages
 cp -R images gh-pages
