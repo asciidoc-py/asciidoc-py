@@ -65,7 +65,6 @@ jobs:
             xsltproc
 
       - run: python asciidoc.py --doctest
-      - run: python asciidocapi.py
       - run: time python tests/testasciidoc.py run
       - run: git clean -x -f doc tests/data
 
