@@ -1,4 +1,4 @@
-AC_INIT(asciidoc, 9.0.0)
+AC_INIT(asciidoc, 9.0.1-SNAPSHOT)
 
 AC_SUBST([PACKAGE_DATE], ['02 June 2020'])
 
