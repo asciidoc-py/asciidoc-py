@@ -33,19 +33,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9-dev]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
+        if: "!endsWith(matrix.python-version, '-dev')"
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: deadsnakes/action@v1.0.0
+        if: endsWith(matrix.python-version, '-dev')
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install apt dependencies
         run: |
-          sudo apt-get install -y –-no-install-recommends \
+          sudo apt-get –-no-install-recommends install -y \
             docbook-xml \
             docbook-xsl \
             dvipng \
