@@ -262,8 +262,8 @@ MANIFEST: MANIFEST.in
 ##   dist: creates the zip and tarball for release
 .PHONY: dist
 dist: vers_update manpages MANIFEST
-	rm -rf build
 	mkdir -p build
+	rm -rf build/*
 	tar -czf build/asciidoc-tmp.tar.gz -T MANIFEST
 	mkdir -p build/asciidoc-$(ASCIIDOCVERSION)
 	tar -xf build/asciidoc-tmp.tar.gz -C build/asciidoc-$(ASCIIDOCVERSION)
