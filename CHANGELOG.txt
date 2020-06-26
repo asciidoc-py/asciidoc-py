@@ -3,6 +3,17 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.0.1 (2020-06-26)
+--------------------------
+.Bug fixes
+- Fix a2x crashing on decoding generated HTML pages
+
+.Building
+- Fix generated tar.gz not having files under top-level asciidoc folder
+
+.Testing
+- Test against Python 3.9
+
 Version 9.0.0 (2020-06-02)
 --------------------------
 .Additions and changes
