@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 9.0.0" />
+<meta name="generator" content="AsciiDoc 9.0.1" />
 <title>AsciiDoc ChangeLog</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -42,6 +42,32 @@ asciidoc.install();
 <h1>AsciiDoc ChangeLog</h1>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_version_9_0_1_2020_06_26">Version 9.0.1 (2020-06-26)</h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">Bug fixes</div><ul>
+<li>
+<p>
+Fix a2x crashing on decoding generated HTML pages
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Building</div><ul>
+<li>
+<p>
+Fix generated tar.gz not having files under top-level asciidoc folder
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Testing</div><ul>
+<li>
+<p>
+Test against Python 3.9
+</p>
+</li>
+</ul></div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_version_9_0_0_2020_06_02">Version 9.0.0 (2020-06-02)</h2>
 <div class="sectionbody">
@@ -8189,7 +8215,7 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footer">
 <div id="footer-text">
 Version 9.0.1<br />
-Last updated 2020-06-26 17:09:10 UTC
+Last updated 2020-06-26 19:02:50 UTC
 </div>
 <div id="footer-badges">
 <a href="https://validator.w3.org/check?uri=referer">
