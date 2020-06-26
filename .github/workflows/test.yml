@@ -51,7 +51,7 @@ jobs:
 
       - name: Install apt dependencies
         run: |
-          sudo apt-get –-no-install-recommends install -y \
+          sudo apt-get install -y --no-install-recommends \
             docbook-xml \
             docbook-xsl \
             dvipng \
