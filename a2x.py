@@ -303,6 +303,8 @@ def find_resources(files, tagname, attrname, filter=None):
         with open(filename, 'rb') as open_file:
             contents = open_file.read()
         mo = re.search(b'\A<\?xml.* encoding="(.*?)"', contents)
+        if mo is None:
+            mo = re.search(br'<meta http\-equiv="Content\-Type" content="text\/html; charset=(.*?)">', contents)
         contents = contents.decode(mo.group(1).decode('utf-8') if mo else 'utf-8')
         parser.feed(contents)
         parser.close()
