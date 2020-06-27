@@ -36,3 +36,11 @@ jobs:
           asset_path: ./build/asciidoc-${{ github.event.release.tag_name }}.tar.gz
           asset_name: asciidoc-${{ github.event.release.tag_name }}.tar.gz
           asset_content_type: application/gzip
+
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{secrets.BREW_TOKEN}}
+          formula: asciidoc
+          tag: ${{github.ref}}
+          revision: ${{github.sha}}
