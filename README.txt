@@ -2,7 +2,7 @@
 AsciiDoc
 ========
 
-image:https://travis-ci.com/asciidoc/asciidoc-py3.svg?branch=master["Build Status", link="https://travis-ci.com/asciidoc/asciidoc-py3"]
+image:https://github.com/asciidoc/asciidoc-py3/workflows/Test/badge.svg?branch=master["Build Status", link="https://github.com/asciidoc/asciidoc-py3/actions?query=workflow%3ATest+branch%3Amaster"]
 
 AsciiDoc is a text document format for writing notes, documentation,
 articles, books, ebooks, slideshows, web pages, man pages and blogs.
