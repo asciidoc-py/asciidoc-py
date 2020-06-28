@@ -74,3 +74,5 @@ jobs:
           ./configure
           make
           sudo make install
+
+      - run: asciidoc --version
