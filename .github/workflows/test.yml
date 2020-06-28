@@ -13,16 +13,66 @@ jobs:
       python-version: 3.6
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ env.python-version }}
 
-    - name: Install Dependencies
-      run: |
-        python3 -m pip install -U pip
-        python3 -m pip install -U pytest pytest-runner flake8
-    - name: Lint codebase
-      run: python3 -m flake8
+      - name: Install Dependencies
+        run: |
+          python3 -m pip install -U pip
+          python3 -m pip install -U pytest pytest-runner flake8
+
+      - name: Lint codebase
+        run: python3 -m flake8
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8, 3.9-dev]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        if: "!endsWith(matrix.python-version, '-dev')"
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: deadsnakes/action@v1.0.0
+        if: endsWith(matrix.python-version, '-dev')
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            docbook-xml \
+            docbook-xsl \
+            dvipng \
+            graphviz \
+            imagemagick \
+            libxml2-utils \
+            lilypond \
+            source-highlight \
+            texlive-latex-base \
+            xsltproc
+
+      - run: python asciidoc.py --doctest
+      - run: python asciidocapi.py
+      - run: time python tests/testasciidoc.py run
+      - run: git clean -x -f doc tests/data
+
+      - name: Test make install
+        run: |
+          autoconf
+          ./configure
+          make
+          sudo make install
+
+      - run: asciidoc --version
