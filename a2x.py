@@ -493,7 +493,7 @@ class A2X(AttrDict):
         Validate and command options and set defaults.
         '''
         if not os.path.isfile(self.asciidoc_file):
-            die('missing SOURCE_FILE: %s' % self.asciidoc_file)
+            die('missing ASCIIDOC_FILE: %s' % self.asciidoc_file)
         self.asciidoc_file = os.path.abspath(self.asciidoc_file)
         if os.path.splitext(self.asciidoc_file)[1].lower() == '.xml':
             self.skip_asciidoc = True
