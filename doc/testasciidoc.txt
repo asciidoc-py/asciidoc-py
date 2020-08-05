@@ -229,6 +229,11 @@ configuration file that comes with AsciiDoc.
 - The `requires` directive data specifies a Python list of strings
   which correspond to the command line program specified by filters
   in that test.
+- The `artifacts` directive data specifies a Python list of strings
+  which corresponds to the list of files (usually image or other such
+  files) that get generated when asciidoc is run over the input file.
+  The files are deleted after the test is for a given source file is
+  run for all backends.
 
 globals directive
 ~~~~~~~~~~~~~~~~~
