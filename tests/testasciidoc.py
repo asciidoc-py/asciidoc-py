@@ -10,7 +10,6 @@ from pathlib import Path
 import re
 import shutil
 import sys
-import time
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import asciidocapi  # noqa: E402
@@ -66,28 +65,6 @@ def normalize_data(lines):
     result = [s for s in lines if not s.startswith('#')]
     strip_end(result)
     return result
-
-
-def mock_localtime(f, _localtime=time.localtime):
-    """Mock time module to generate stable output."""
-    _frozentime = 0X3DE170D6
-    _frozentz = 'UTC+00'
-
-    def _frozen_localtime(t=_frozentime + 1):
-        assert t > _frozentime, 'File created before first public release'
-        return _localtime(_frozentime)
-
-    def generate_expected(self, backend):
-        time.localtime = _frozen_localtime
-        os.environ['TZ'] = _frozentz
-        time.tzset()
-        try:
-            return f(self, backend)
-        finally:
-            time.localtime = _localtime
-            del os.environ['TZ']
-            time.tzset()
-    return generate_expected
 
 
 class AsciiDocTest(object):
@@ -188,7 +165,6 @@ class AsciiDocTest(object):
             result = [s.rstrip() for s in result]
         return result
 
-    @mock_localtime
     def generate_expected(self, backend):
         """
         Generate and return test data output for backend.
@@ -386,6 +362,8 @@ class Lines(list):
 
 
 if __name__ == '__main__':
+    # guarantee a stable timestamp matching the test fixtures
+    os.environ['SOURCE_DATE_EPOCH'] = '1038184662'
     # Process command line options.
     from argparse import ArgumentParser
     parser = ArgumentParser(description='Run AsciiDoc conformance tests specified in '
