@@ -77,6 +77,7 @@ class AsciiDocTest(object):
         self.options = []
         self.attributes = {'asciidoc-version': 'test'}
         self.backends = BACKENDS
+        self.artifacts = []     # list of generated artifacts to delete
         self.requires = []      # list of dependencies to check for for the test
         self.confdir = None
         self.datadir = None     # Where output files are stored.
@@ -134,6 +135,8 @@ class AsciiDocTest(object):
                     self.name = data[0].strip()
                 elif directive == 'requires':
                     self.requires = eval(' '.join(data))
+                elif directive == 'artifacts':
+                    self.artifacts = eval(' '.join(data))
                 else:
                     raise ValueError
         if not self.title:
@@ -154,6 +157,12 @@ class AsciiDocTest(object):
         return self.is_missing(backend) or (
                os.path.getmtime(self.source)
                > os.path.getmtime(self.backend_filename(backend)))
+
+    def clean_artifacts(self):
+        for artifact in self.artifacts:
+            loc = os.path.join(self.confdir, artifact)
+            if os.path.exists(loc):
+                os.unlink(loc)
 
     def get_expected(self, backend):
         """
@@ -200,6 +209,7 @@ class AsciiDocTest(object):
         for backend in backends:
             if force or self.is_missing_or_outdated(backend):
                 self.update_expected(backend)
+        self.clean_artifacts()
 
     def run(self, backend=None):
         """
@@ -246,6 +256,7 @@ class AsciiDocTest(object):
                 else:
                     self.skipped += 1
                     print(('SKIPPED: %s: %s' % (backend, fromfile)))
+            self.clean_artifacts()
         else:
             self.skipped += len(backends)
             if self.source:
