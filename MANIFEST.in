@@ -1,10 +1,9 @@
 dblatex/*
-doc/a2x.1
-doc/asciidoc.1
 doc/asciidoc.conf
 doc/article-docinfo.xml
 doc/customers.csv
 doc/*.txt
+doc/*.1
 doc/asciidoc.dict
 docbook-xsl/*
 filters/**/*
