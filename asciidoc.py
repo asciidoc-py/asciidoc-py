@@ -4594,7 +4594,7 @@ class Writer:
         if fname == '<stdout>':
             self.f = sys.stdout
         else:
-            self.f = open(fname, 'w+', encoding='utf-8')
+            self.f = open(fname, 'w+', encoding='utf-8', newline="")
         message.verbose('writing: ' + writer.fname, False)
         if bom:
             self.f.write(bom)
