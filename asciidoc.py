@@ -54,7 +54,7 @@ SUBS_VERBATIM = ('specialcharacters', 'callouts')
 
 NAME_RE = r'[^\W\d][-\w]*'  # Valid section or attribute name.
 OR, AND = ',', '+'              # Attribute list separators.
-
+DEFAULT_NEWLINE = '\r\n'
 
 # ---------------------------------------------------------------------------
 # Utility functions and classes.
@@ -3634,7 +3634,7 @@ class Table(AbstractBlock):
         is a list of Cells.
         """
         rows = []
-        rdr = csv.reader(io.StringIO('\r\n'.join(text)),
+        rdr = csv.reader(io.StringIO(DEFAULT_NEWLINE.join(text)),
                          delimiter=self.parameters.separator, skipinitialspace=True)
         try:
             for row in rdr:
@@ -4579,7 +4579,7 @@ class Reader(Reader1):
 class Writer:
     """Writes lines to output file."""
     def __init__(self):
-        self.newline = '\r\n'            # End of line terminator.
+        self.newline = DEFAULT_NEWLINE   # End of line terminator.
         self.f = None                    # Output file object.
         self.fname = None                # Output file name.
         self.lines_out = 0               # Number of lines written.
@@ -4690,7 +4690,7 @@ class Config:
         # [miscellaneous] section.
         self.tabsize = 8
         self.textwidth = 70             # DEPRECATED: Old tables only.
-        self.newline = '\r\n'
+        self.newline = DEFAULT_NEWLINE
         self.pagewidth = None
         self.pageunits = None
         self.outfilesuffix = ''
@@ -5653,7 +5653,7 @@ class Table_OLD(AbstractBlock):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         result = []
-        rdr = csv.reader(io.StringIO('\r\n'.join(rows)), skipinitialspace=True)
+        rdr = csv.reader(io.StringIO(DEFAULT_NEWLINE.join(rows)), skipinitialspace=True)
         try:
             for row in rdr:
                 result.append(row)
