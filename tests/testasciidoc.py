@@ -192,10 +192,10 @@ class AsciiDocTest(object):
         """
         lines = self.generate_expected(backend)
         if not os.path.isdir(self.datadir):
-            print(('CREATING: %s' % self.datadir))
+            print('CREATING: %s' % self.datadir)
             os.mkdir(self.datadir)
         with open(self.backend_filename(backend), 'w+', encoding='utf-8') as open_file:
-            print(('WRITING: %s' % open_file.name))
+            print('WRITING: %s' % open_file.name)
             open_file.writelines([s + os.linesep for s in lines])
 
     def update(self, backend=None, force=False):
@@ -222,9 +222,9 @@ class AsciiDocTest(object):
             backends = [backend]
         result = True   # Assume success.
         self.passed = self.failed = self.skipped = 0
-        print(('%d: %s' % (self.number, self.title)))
+        print('%d: %s' % (self.number, self.title))
         if self.source and os.path.isfile(self.source):
-            print(('SOURCE: asciidoc: %s' % self.source))
+            print('SOURCE: asciidoc: %s' % self.source)
             for backend in backends:
                 fromfile = self.backend_filename(backend)
                 skip = False
@@ -244,7 +244,7 @@ class AsciiDocTest(object):
                         result = False
                         self.failed += 1
                         lines = lines[3:]
-                        print(('FAILED: %s: %s' % (backend, fromfile)))
+                        print('FAILED: %s: %s' % (backend, fromfile))
                         message('+++ %s' % fromfile)
                         message('--- got')
                         for line in lines:
@@ -252,10 +252,10 @@ class AsciiDocTest(object):
                         message()
                     else:
                         self.passed += 1
-                        print(('PASSED: %s: %s' % (backend, fromfile)))
+                        print('PASSED: %s: %s' % (backend, fromfile))
                 else:
                     self.skipped += 1
-                    print(('SKIPPED: %s: %s' % (backend, fromfile)))
+                    print('SKIPPED: %s: %s' % (backend, fromfile))
             self.clean_artifacts()
         else:
             self.skipped += len(backends)
@@ -318,11 +318,11 @@ class AsciiDocTests(object):
                 self.failed += test.failed
                 self.skipped += test.skipped
         if self.passed > 0:
-            print(('TOTAL PASSED:  %s' % self.passed))
+            print('TOTAL PASSED:  %s' % self.passed)
         if self.failed > 0:
-            print(('TOTAL FAILED:  %s' % self.failed))
+            print('TOTAL FAILED:  %s' % self.failed)
         if self.skipped > 0:
-            print(('TOTAL SKIPPED: %s' % self.skipped))
+            print('TOTAL SKIPPED: %s' % self.skipped)
 
     def update(self, number=None, backend=None, force=False):
         """
