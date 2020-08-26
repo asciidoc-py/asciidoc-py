@@ -76,3 +76,21 @@ jobs:
           sudo make install
 
       - run: asciidoc --version
+
+  test-windows:
+    needs: lint
+    runs-on: windows-latest
+    env:
+      python-version: 3.6
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ env.python-version }}
+
+      - run: python asciidoc.py --doctest
+      - run: python asciidocapi.py
+      - run: python tests/testasciidoc.py run --number 6
