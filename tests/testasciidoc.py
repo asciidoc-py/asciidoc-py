@@ -93,7 +93,8 @@ class AsciiDocTest(object):
         return '%s-%s%s' % (
                 os.path.normpath(os.path.join(self.datadir, self.name)),
                 backend,
-                BACKEND_EXT[backend])
+                BACKEND_EXT[backend]
+        )
 
     def parse(self, lines, confdir, datadir):
         """
@@ -207,9 +208,13 @@ class AsciiDocTest(object):
             backends = self.backends
         else:
             backends = [backend]
+
+        print('SOURCE: asciidoc: %s' % self.source)
         for backend in backends:
             if force or self.is_missing_or_outdated(backend):
                 self.update_expected(backend)
+        print()
+
         self.clean_artifacts()
 
     def run(self, backend=None):
