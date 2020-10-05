@@ -13,7 +13,6 @@ import sys
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import asciidocapi  # noqa: E402
-from asciidoc import DEFAULT_NEWLINE  # noqa: E402
 
 # Default backends.
 BACKENDS = ('html4', 'xhtml11', 'docbook', 'docbook5', 'html5')
@@ -170,11 +169,12 @@ class AsciiDocTest(object):
         """
         Return expected test data output for backend.
         """
-        with open(self.backend_filename(backend), encoding='utf-8') as open_file:
-            result = open_file.readlines()
-            # Strip line terminators.
-            result = [s.rstrip() for s in result]
-        return result
+        with open(
+            self.backend_filename(backend),
+            encoding='utf-8',
+            newline=''
+        ) as open_file:
+            return open_file.readlines()
 
     def generate_expected(self, backend):
         """
@@ -186,7 +186,7 @@ class AsciiDocTest(object):
         infile = self.source
         outfile = io.StringIO()
         asciidoc.execute(infile, outfile, backend)
-        return outfile.getvalue().splitlines()
+        return outfile.getvalue().splitlines(keepends=True)
 
     def update_expected(self, backend):
         """
@@ -196,9 +196,14 @@ class AsciiDocTest(object):
         if not os.path.isdir(self.datadir):
             print('CREATING: %s' % self.datadir)
             os.mkdir(self.datadir)
-        with open(self.backend_filename(backend), 'w+', encoding='utf-8') as open_file:
+        with open(
+            self.backend_filename(backend),
+            'w+',
+            encoding='utf-8',
+            newline=''
+        ) as open_file:
             print('WRITING: %s' % open_file.name)
-            open_file.writelines([s + DEFAULT_NEWLINE for s in lines])
+            open_file.writelines(lines)
 
     def update(self, backend=None, force=False):
         """
