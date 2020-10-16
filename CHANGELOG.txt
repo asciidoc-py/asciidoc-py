@@ -3,6 +3,14 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.0.3 (2020-10-05)
+--------------------------
+.Bug fixes
+- Fix extra newline characters inserted into generated source (thanks @hoadlck)
+
+.Testing
+- Validate line endings as part of test suite
+
 Version 9.0.2 (2020-07-21)
 --------------------------
 .Bug fixes
