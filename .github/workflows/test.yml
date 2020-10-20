@@ -76,6 +76,7 @@ jobs:
           sudo make install
 
       - run: asciidoc --version
+      - run: asciidoc --filter list
 
   test-windows:
     needs: lint
