@@ -3,6 +3,15 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.0.4 (2020-10-20)
+--------------------------
+.Bug fixes
+- Fix listing out installed plugins (e.g. --filter list)
+
+.Testing
+- Update to deadsnakes/python@v2.0.0 for testing dev python versions
+- Move from testing against 3.9-dev to stable 3.9
+
 Version 9.0.3 (2020-10-05)
 --------------------------
 .Bug fixes
