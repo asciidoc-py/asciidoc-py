@@ -12,6 +12,7 @@ Version 9.0.4 (2020-10-20)
 .Testing
 - Update to deadsnakes/python@v2.0.0 for testing dev python versions
 - Move from testing against 3.9-dev to stable 3.9
+- Add 3.10-dev test target
 
 Version 9.0.3 (2020-10-05)
 --------------------------
