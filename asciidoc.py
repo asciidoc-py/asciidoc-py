@@ -35,7 +35,7 @@ from collections import OrderedDict
 # Used by asciidocapi.py #
 VERSION = '9.0.3'           # See CHANGELOG file for version history.
 
-MIN_PYTHON_VERSION = '3.5'  # Require this version of Python or better.
+MIN_PYTHON_VERSION = (3, 5)  # Require this version of Python or better.
 
 # ---------------------------------------------------------------------------
 # Program constants.
@@ -4719,8 +4719,8 @@ class Config:
         directory.
         cmd is the asciidoc command or asciidoc.py path.
         """
-        if float(sys.version[:3]) < float(MIN_PYTHON_VERSION):
-            message.stderr('FAILED: Python %s or better required' % MIN_PYTHON_VERSION)
+        if sys.version_info[:2] < MIN_PYTHON_VERSION:
+            message.stderr('FAILED: Python %d.%d or better required' % MIN_PYTHON_VERSION)
             sys.exit(1)
         if not os.path.exists(cmd):
             message.stderr('FAILED: Missing asciidoc command: %s' % cmd)
