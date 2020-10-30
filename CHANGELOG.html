@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="generator" content="AsciiDoc 9.0.3" />
+<meta name="generator" content="AsciiDoc 9.0.4" />
 <title>AsciiDoc ChangeLog</title>
 <link rel="stylesheet" href="./asciidoc.css" type="text/css" />
 <link rel="stylesheet" href="./layout2.css" type="text/css" />
@@ -42,6 +42,40 @@ asciidoc.install();
 <h1>AsciiDoc ChangeLog</h1>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_version_9_0_4_2020_10_20">Version 9.0.4 (2020-10-20)</h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">Bug fixes</div><ul>
+<li>
+<p>
+Fix listing out installed plugins (e.g. --filter list)
+</p>
+</li>
+<li>
+<p>
+Fix python version check failing on 3.10 (thanks @hoadlck)
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">Testing</div><ul>
+<li>
+<p>
+Update to deadsnakes/python@v2.0.0 for testing dev python versions
+</p>
+</li>
+<li>
+<p>
+Move from testing against 3.9-dev to stable 3.9
+</p>
+</li>
+<li>
+<p>
+Add 3.10-dev test target
+</p>
+</li>
+</ul></div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_version_9_0_3_2020_10_05">Version 9.0.3 (2020-10-05)</h2>
 <div class="sectionbody">
@@ -8245,8 +8279,8 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 9.0.3<br />
-Last updated 2020-10-30 14:29:26 UTC<br />
+Version 9.0.4<br />
+Last updated 2020-10-30 14:48:56 UTC<br />
 AsciiDoc is a trademark of the Eclipse Foundation, Inc.
 </div>
 <div id="footer-badges">
