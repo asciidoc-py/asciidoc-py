@@ -7,7 +7,7 @@ Version 9.0.4 (2020-10-20)
 --------------------------
 .Bug fixes
 - Fix listing out installed plugins (e.g. --filter list)
-- Fix python version check failing on 3.10 (thanks @hoadlck)
+- Fix python version check failing on 3.10 (thanks @hroncok)
 
 .Testing
 - Update to deadsnakes/python@v2.0.0 for testing dev python versions
