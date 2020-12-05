@@ -969,7 +969,7 @@ def system(name, args, is_macro=False, attrs=None):
                 line = subs_attrs(line)
                 if line is not None:
                     result.append(line)
-            result = DEFAULT_NEWLINE.join(result)
+            result = config.newline.join(result)
     else:
         assert False
     if result and name in ('eval3', 'sys3'):
