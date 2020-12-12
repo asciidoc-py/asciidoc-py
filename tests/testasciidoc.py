@@ -90,9 +90,9 @@ class AsciiDocTest(object):
         the test name and output file type.
         """
         return '%s-%s%s' % (
-                os.path.normpath(os.path.join(self.datadir, self.name)),
-                backend,
-                BACKEND_EXT[backend]
+            os.path.normpath(os.path.join(self.datadir, self.name)),
+            backend,
+            BACKEND_EXT[backend]
         )
 
     def parse(self, lines, confdir, datadir):
@@ -122,7 +122,8 @@ class AsciiDocTest(object):
                 if directive == 'source':
                     if data:
                         self.source = os.path.normpath(os.path.join(
-                                self.confdir, os.path.normpath(data[0])))
+                            self.confdir, os.path.normpath(data[0])
+                        ))
                 elif directive == 'options':
                     self.options = eval(' '.join(data))
                     for i, v in enumerate(self.options):
@@ -156,8 +157,9 @@ class AsciiDocTest(object):
         Returns True if the output test data file is missing or out of date.
         """
         return self.is_missing(backend) or (
-               os.path.getmtime(self.source)
-               > os.path.getmtime(self.backend_filename(backend)))
+            os.path.getmtime(self.source)
+            > os.path.getmtime(self.backend_filename(backend))
+        )
 
     def clean_artifacts(self):
         for artifact in self.artifacts:
@@ -297,7 +299,7 @@ class AsciiDocTests(object):
             first = True
             while not lines.eol():
                 s = lines.read_until(r'^%+$')
-                s = [line for line in s if len(line) > 0]    # Drop blank lines.
+                s = [line for line in s if len(line) > 0]  # Drop blank lines.
                 # Must be at least one non-blank line in addition to delimiter.
                 if len(s) > 1:
                     # Optional globals precede all tests.
@@ -322,8 +324,11 @@ class AsciiDocTests(object):
         """
         self.passed = self.failed = self.skipped = 0
         for test in self.tests:
-            if (not test.disabled or number) and (not number or number == test.number) \
-                    and (not backend or backend in test.backends):
+            if (
+                (not test.disabled or number)
+                and (not number or number == test.number)
+                and (not backend or backend in test.backends)
+            ):
                 test.run(backend)
                 self.passed += test.passed
                 self.failed += test.failed
@@ -388,8 +393,10 @@ if __name__ == '__main__':
     os.environ['SOURCE_DATE_EPOCH'] = '1038184662'
     # Process command line options.
     from argparse import ArgumentParser
-    parser = ArgumentParser(description='Run AsciiDoc conformance tests specified in '
-                                        'configuration FILE.')
+    parser = ArgumentParser(
+        description='Run AsciiDoc conformance tests specified in configuration'
+        'FILE.'
+    )
     msg = 'Use configuration file CONF_FILE (default configuration file is '\
         'testasciidoc.conf in testasciidoc.py directory)'
     parser.add_argument(
@@ -411,10 +418,16 @@ if __name__ == '__main__':
 
     subparsers.add_parser('run', help='Execute tests', parents=[options])
 
-    subparser = subparsers.add_parser('update', help='Regenerate and update test data',
-                                      parents=[options])
-    subparser.add_argument('--force', action='store_true',
-                           help='Update all test data overwriting existing data')
+    subparser = subparsers.add_parser(
+        'update',
+        help='Regenerate and update test data',
+        parents=[options]
+    )
+    subparser.add_argument(
+        '--force',
+        action='store_true',
+        help='Update all test data overwriting existing data'
+    )
 
     args = parser.parse_args()
 
