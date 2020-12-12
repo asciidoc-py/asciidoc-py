@@ -1,0 +1,17 @@
+= Newline Tests
+
+These are tests about newlines.
+See https://en.wikipedia.org/wiki/Newline[details] on the history.
+
+NOTE:  Each section in the source file has the newline style from the
+       description.
+
+== UNIX Newlines
+
+Uses \n.
+
+== DOS Newlines
+
+Uses \r\n.
+
+== MAC NewlinesUses \r.Only used prior to Mac OS X.
