@@ -395,8 +395,8 @@ discussion group thread] for details.
   http://www-cs-students.stanford.edu/~blynn/gitmagic/ +
   http://github.com/blynn/gitmagic/tree/1e5780f658962f8f9b01638059b27275cfda095c
 - 'CouchDB: The Definitive Guide' +
-  http://books.couchdb.org/relax/ +
-  http://groups.google.com/group/asciidoc/browse_thread/thread/a60f67cbbaf862aa/d214bf7fa2d538c4?lnk=gst&q=book#d214bf7fa2d538c4
+  https://docs.couchdb.org/en/stable/ +
+  https://groups.google.com/g/asciidoc/c/pg9ny7r4Yqo
 - 'Ramaze Manual' +
   http://book.ramaze.net/ +
   http://github.com/manveru/ramaze-book/tree/master
