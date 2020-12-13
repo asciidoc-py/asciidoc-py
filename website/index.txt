@@ -419,10 +419,9 @@ discussion group thread] for details.
   http://www.weechat.org/doc[project documentation].
 - https://github.com/Clansuite/Clansuite[Clansuite] uses AsciiDoc for
   project documentation.
-- The http://fc-solve.berlios.de/[Freecell Solver program] uses
+- The https://github.com/shlomif/fc-solve[Freecell Solver program] uses
   AsciiDoc for its
-  http://fc-solve.berlios.de/docs/#distributed-docs[distributed
-  documentation].
+  https://fc-solve.shlomifish.org/[distributed documentation].
 - Eric Raymond's http://gpsd.berlios.de/AIVDM.html[AIVDM/AIVDO
   protocol decoding] documentation is written using AsciiDoc.
 - Dwight Schauer has written an http://lxc.teegra.net/[LXC HOWTO] in
