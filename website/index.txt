@@ -231,7 +231,7 @@ and I'll add them to the list.
   http://liksom.info/blog/?q=node/114[AsciiDoc Cheatsheet] in Open
   Document and PDF formats.
 - The http://www.wikimatrix.org/[WikiMatrix] website has an excellent
-  http://www.wikimatrix.org/syntax.php[web page] that compares the
+  https://www.wikimatrix.org/compare/[web page] that compares the
   various Wiki markup syntaxes. An interesting attempt at Wiki markup
   standardization is http://www.wikicreole.org/[CREOLE].
 - Franck Pommereau has written
