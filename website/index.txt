@@ -417,8 +417,8 @@ discussion group thread] for details.
   AsciiDoc and includes Leonid's matplotlib filter.
 - http://www.weechat.org/[WeeChat] uses AsciiDoc for
   http://www.weechat.org/doc[project documentation].
-- http://www.clansuite.com/[Clansuite] uses AsciiDoc for
-  http://www.clansuite.com/documentation/[project documentation].
+- https://github.com/Clansuite/Clansuite[Clansuite] uses AsciiDoc for
+  project documentation.
 - The http://fc-solve.berlios.de/[Freecell Solver program] uses
   AsciiDoc for its
   http://fc-solve.berlios.de/docs/#distributed-docs[distributed
