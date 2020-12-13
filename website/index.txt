@@ -227,17 +227,10 @@ and I'll add them to the list.
   The Asciidoctor project also provides a comprehensive
   http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc
   syntax quick reference].
-- Thomas Berker has written an
-  http://liksom.info/blog/?q=node/114[AsciiDoc Cheatsheet] in Open
-  Document and PDF formats.
 - The http://www.wikimatrix.org/[WikiMatrix] website has an excellent
   https://www.wikimatrix.org/compare/[web page] that compares the
   various Wiki markup syntaxes. An interesting attempt at Wiki markup
   standardization is http://www.wikicreole.org/[CREOLE].
-- Franck Pommereau has written
-  http://www.univ-paris12.fr/lacl/pommereau/soft/asciidoctest.html[Asciidoctest],
-  a program that doctests snippets of Python code within your Asciidoc
-  documents.
 - The http://remips.sourceforge.net/[ReMIPS] project website has been
   built using AsciiDoc.
 - Here are some link:asciidoc-docbook-xsl.html[DocBook XSL Stylesheets
@@ -250,9 +243,7 @@ and I'll add them to the list.
   http://ikiwiki.info/users/KarlMW/discussion/[here].
 - Glenn Eychaner has
   http://groups.google.com/group/asciidoc/browse_thread/thread/bf04b55628efe214[reworked
-  the Asciidoc plugin for ikiwiki] that was created by Karl Mowson,
-  the source can be downloaded from
-  http://dl.dropbox.com/u/11256359/asciidoc.pm
+  the Asciidoc plugin for ikiwiki] that was created by Karl Mowson.
 - David Hajage has written an AsciiDoc package for the
   http://www.r-project.org/[R Project] (R is a free software
   environment for statistical computing).  'ascii' is available on
@@ -269,12 +260,6 @@ and I'll add them to the list.
   program that automates the building of of a website written in
   AsciiDoc. All you need to write is the AsciiDoc source plus a few
   simple configuration files.
-- Brad Adkins has written
-  http://dbixjcl.org/jcl/asciidocgen/asciidocgen.html[AsciiDocGen], a
-  web site generation and deployment tool that allows you write your
-  web site content in AsciiDoc. The
-  http://dbixjcl.org/jcl/asciidocgen/asciidocgen.html[AsciiDocGen web
-  site] is managed using 'AsciiDocGen'.
 - Filippo Negroni has developed a set of tools to facilitate 'literate
   programming' using AsciiDoc.  The set of tools is called
   http://eweb.sourceforge.net/[eWEB].
@@ -297,16 +282,8 @@ and I'll add them to the list.
   https://sourceforge.net/projects/codeextactor.berlios/[Code Extractor],
   it extracts code snippets from source code files and
   inserts them into AsciiDoc documents.
-- The http://csrp.iut-blagnac.fr/jmiwebsite/home/[JMI website] hosts
-  a number of extras for AsciiDoc and Slidy written by Jean-Michel
-  Inglebert.
 - Ryan Tomayko has written an number of
   https://github.com/rtomayko/adoc-themes[themes for AsciiDoc].
-- Ilya Portnov has written a
-  https://gitorious.org/doc-building-system[document building system
-  for AsciiDoc], here is
-  http://iportnov.blogspot.com/2011/03/asciidoc-beamer.html[short
-  article in Russian] describing it.
 - Lex Trotman has written
   https://github.com/elextr/codiicsa[codiicsa], a program that
   converts DocBook to AsciiDoc.
@@ -363,11 +340,6 @@ and I'll add them to the list.
   http://groups.google.com/group/asciidoc/browse_frm/thread/449f1199343f0e27[written
   using Asciidoc].
 
-- The http://www.ncfaculty.net/dogle/fishR/index.html[fishR] website
-  has a number of
-  http://www.ncfaculty.net/dogle/fishR/bookex/AIFFD/AIFFD.html[book
-  examples] written using AsciiDoc.
-
 - The Neo4j graph database project uses Asciidoc, and the output is
   published here: http://docs.neo4j.org/. The build process includes
   live tested source code snippets and is described
@@ -400,8 +372,6 @@ discussion group thread] for details.
 - 'Ramaze Manual' +
   http://book.ramaze.net/ +
   http://github.com/manveru/ramaze-book/tree/master
-- Some documentation about git by Nico Schottelius (in German)
-  http://nico.schotteli.us/papers/linux/git-firmen/.
 - The https://github.com/manveru/KirbyBase[KirbyBase for Ruby]
   database management system manual.
 - The http://xpt.sourceforge.net/[*Nix Power Tools project] uses
@@ -413,8 +383,6 @@ discussion group thread] for details.
   http://tpl.sourceforge.net/[tpl] and
   http://uthash.sourceforge.net/[uthash] projects (the HTML versions
   have a customised contents sidebar).
-- http://volnitsky.com/[Leonid Volnitsky's site] is generated using
-  AsciiDoc and includes Leonid's matplotlib filter.
 - http://www.weechat.org/[WeeChat] uses AsciiDoc for
   http://www.weechat.org/doc[project documentation].
 - https://github.com/Clansuite/Clansuite[Clansuite] uses AsciiDoc for
@@ -424,8 +392,6 @@ discussion group thread] for details.
   https://fc-solve.shlomifish.org/[distributed documentation].
 - Eric Raymond's http://gpsd.berlios.de/AIVDM.html[AIVDM/AIVDO
   protocol decoding] documentation is written using AsciiDoc.
-- Dwight Schauer has written an http://lxc.teegra.net/[LXC HOWTO] in
-  AsciiDoc.
 - The http://www.rowetel.com/ucasterisk/[Free Telephony Project]
   website is generated using AsciiDoc.
 - Warren Block has http://www.wonkity.com/~wblock/docs/[posted a
