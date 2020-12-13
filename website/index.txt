@@ -402,7 +402,7 @@ discussion group thread] for details.
   http://github.com/manveru/ramaze-book/tree/master
 - Some documentation about git by Nico Schottelius (in German)
   http://nico.schotteli.us/papers/linux/git-firmen/.
-- The http://www.netpromi.com/kirbybase_ruby.html[KirbyBase for Ruby]
+- The https://github.com/manveru/KirbyBase[KirbyBase for Ruby]
   database management system manual.
 - The http://xpt.sourceforge.net/[*Nix Power Tools project] uses
   AsciiDoc for documentation.
