@@ -301,10 +301,7 @@ and I'll add them to the list.
   a number of extras for AsciiDoc and Slidy written by Jean-Michel
   Inglebert.
 - Ryan Tomayko has written an number of
-  http://tomayko.com/src/adoc-themes/[themes for AsciiDoc] along with
-  a http://tomayko.com/src/adoc-themes/hacking.html[script for
-  combining the CSS files] into single CSS theme files for AsciiDoc
-  embedded CSS documents.
+  https://github.com/rtomayko/adoc-themes[themes for AsciiDoc].
 - Ilya Portnov has written a
   https://gitorious.org/doc-building-system[document building system
   for AsciiDoc], here is
