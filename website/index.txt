@@ -293,8 +293,9 @@ and I'll add them to the list.
 - Dag Wieers has written
   http://dag.wieers.com/home-made/unoconv/[UNOCONV]. 'UNOCONV' can
   export AsciiDoc outputs to OpenOffice export formats.
-- Ed Keith has written http://codeextactor.berlios.de/[Code
-  Extractor], it extracts code snippets from source code files and
+- Ed Keith has written
+  https://sourceforge.net/projects/codeextactor.berlios/[Code Extractor],
+  it extracts code snippets from source code files and
   inserts them into AsciiDoc documents.
 - The http://csrp.iut-blagnac.fr/jmiwebsite/home/[JMI website] hosts
   a number of extras for AsciiDoc and Slidy written by Jean-Michel
