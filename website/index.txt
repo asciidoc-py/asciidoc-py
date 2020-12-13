@@ -264,8 +264,8 @@ and I'll add them to the list.
   website generation. You can find it at
   http://www.rapazp.ch/opensource/tools/asciidoc.html.
 - Jared Henley has written
-  http://jared.henley.id.au/software/awb/documentation.html[AsciiDoc
-  Website Builder]. 'AsciiDoc Website Builder' (awb) is a python
+  https://jared.henley.id.au/software/awb/[AsciiDoc
+  Website Builder]. 'AsciiDoc Website Builder' (awb) is a Python
   program that automates the building of of a website written in
   AsciiDoc. All you need to write is the AsciiDoc source plus a few
   simple configuration files.
