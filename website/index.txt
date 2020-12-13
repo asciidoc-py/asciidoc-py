@@ -430,10 +430,8 @@ discussion group thread] for details.
   website is generated using AsciiDoc.
 - Warren Block has http://www.wonkity.com/~wblock/docs/[posted a
   number of articles written using AsciiDoc].
-- The http://code.google.com/p/waf/[Waf project's] 'Waf Book' is
-  written using AsciiDoc, there is an
-  http://waf.googlecode.com/svn/docs/wafbook/single.html[HTML] and a
-  http://waf.googlecode.com/svn/docs/wafbook/waf.pdf[PDF] version.
+- The https://gitlab.com/ita1024/waf/[Waf project's] 
+  https://waf.io/book/['Waf Book'] is written using AsciiDoc.
 - The http://www.diffkit.org/[DiffKit] project's documentation and
   website have been written using Asciidoc.
 - The http://www.networkupstools.org[Network UPS Tools] project
