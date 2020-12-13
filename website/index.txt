@@ -278,10 +278,9 @@ and I'll add them to the list.
 - Filippo Negroni has developed a set of tools to facilitate 'literate
   programming' using AsciiDoc.  The set of tools is called
   http://eweb.sourceforge.net/[eWEB].
-- http://vanderwijk.info/2009/4/23/full-text-based-document-generation-using-asciidoc-and-ditaa[Ivo's
-  blog] describes a http://ditaa.sourceforge.net/[ditaa] filter for
-  AsciiDoc which converts http://en.wikipedia.org/wiki/ASCII_art[ASCII
-  art] into graphics.
+- https://vanderwijk.info/[Ivo's blog] describes a 
+  https://ditaa.sourceforge.net/[ditaa] filter for AsciiDoc which converts 
+  https://en.wikipedia.org/wiki/ASCII_art[ASCII art] into graphics.
 - http://github.com/github/gollum[Gollum] is a git-powered wiki, it
   supports various formats, including AsciiDoc.
 - Gregory Romé has written an
