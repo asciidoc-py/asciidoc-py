@@ -184,7 +184,7 @@ image::images/highlighter.png[height=400,caption="",link="images/highlighter.png
 
 - Dag Wieers has implemented an alternative Vim syntax file for
   AsciiDoc which can be found here
-  http://svn.rpmforge.net/svn/trunk/tools/asciidoc-vim/.
+  https://github.com/dagwieers/asciidoc-vim.
 - David Avsajanishvili has written a source highlighter for AsciiDoc
   files for http://projects.gnome.org/gtksourceview/[GtkSourceView]
   (used by http://projects.gnome.org/gedit/[gedit] and a number of
