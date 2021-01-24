@@ -3,7 +3,7 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
-Version 9.0.5 (2020-12-12)
+Version 9.0.5 (2021-01-24)
 --------------------------
 .Bug fixes
 - Use config newline setting in system attribute evaulation (thanks @hoadlck)
