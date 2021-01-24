@@ -3,6 +3,14 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.0.5 (2020-12-12)
+--------------------------
+.Bug fixes
+- Use config newline setting in system attribute evaulation (thanks @hoadlck)
+
+.Testing
+- Update to deadsnakes/python@v2.0.2
+
 Version 9.0.4 (2020-10-20)
 --------------------------
 .Bug fixes
