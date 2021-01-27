@@ -427,7 +427,7 @@ LaTeX Backend
 -------------
 An experimental LaTeX backend was written for AsciiDoc in 2006 by
 Benjamin Klum.  Benjamin did a superhuman job (I admit it, I didn't
-think this was doable due to AsciiDoc's SGML/XML bias).  Owning to to
+think this was doable due to AsciiDoc's SGML/XML bias).  Due to
 other commitments, Benjamin was unable to maintain this backend.
 Here's link:latex-backend.html[Benjamin's original documentation].
 Incompatibilities introduced after AsciiDoc 8.2.7 broke the LaTeX
