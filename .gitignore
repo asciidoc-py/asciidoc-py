@@ -25,3 +25,5 @@ MANIFEST
 /tags
 /gh-pages/
 build/
+dist/
+*.egg-info/
