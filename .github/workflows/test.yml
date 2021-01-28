@@ -64,7 +64,7 @@ jobs:
             texlive-latex-base \
             xsltproc
 
-      - run: python asciidoc.py --doctest
+      - run: python asciidoc/asciidoc.py --doctest
       - run: time python tests/testasciidoc.py run
       - run: git clean -x -f doc tests/data
 
@@ -94,6 +94,5 @@ jobs:
         with:
           python-version: ${{ env.python-version }}
 
-      - run: python asciidoc.py --doctest
-      - run: python asciidocapi.py
+      - run: python asciidoc/asciidoc.py --doctest
       - run: python tests/testasciidoc.py run --number 6
