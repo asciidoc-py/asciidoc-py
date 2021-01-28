@@ -6,7 +6,7 @@ AsciiDoc ChangeLog
 Version 9.0.5 (2021-01-24)
 --------------------------
 .Bug fixes
-- Use config newline setting in system attribute evaulation (thanks @hoadlck)
+- Use config newline setting in system attribute evaluation (thanks @hoadlck)
 
 .Testing
 - Update to deadsnakes/python@v2.0.2
