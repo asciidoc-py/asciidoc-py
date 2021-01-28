@@ -128,7 +128,7 @@ $(DATATARGETS): % : %dir
 	$(INSTALL_DATA) $($@) $(DESTDIR)$($<)/
 
 $(manp): %.1 : %.1.txt
-	python3 a2x.py -f manpage $<
+	python3 -m asciidoc.a2x -f manpage $<
 
 progsymlink:
 	(cd $(DESTDIR)$(progdir); ln -sf asciidoc.py asciidoc)
