@@ -187,19 +187,9 @@ website_spell:
 .PHONY: install
 install: all $(PROGTARGETS) $(DATATARGETS) progsymlink
 
-##   build: runs fconfpath and manpages
+##   build: runs manpages
 .PHONY: build
-build: fixconfpath manpages
-
-##   fixconfpath: update the CONF_PATH global variable to target install directory
-.PHONY: fixconfpath
-fixconfpath:
-	@for f in $(prog); do \
-		echo "Fixing CONF_DIR in $$f"; \
-		$(SED) "s#^CONF_DIR = '.*'#CONF_DIR = '$(ASCIIDOCCONF)'#" $$f > $$f.out; \
-		mv $$f.out $$f; \
-		chmod +x $$f; \
-	done
+build: manpages
 
 ##   manpages: generate manpages for asciidoc, a2x, and testasciidoc
 manpages: doc/asciidoc.1 doc/a2x.1 doc/testasciidoc.1
@@ -275,6 +265,5 @@ dist: vers_update manpages MANIFEST
 ##   test: run the asciidoc test suite
 .PHONY: test
 test:
-	python3 ./asciidoc.py --doctest
-	python3 ./asciidocapi.py
+	python3 ./asciidoc/asciidoc.py --doctest
 	python3 tests/testasciidoc.py run
