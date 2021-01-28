@@ -41,7 +41,11 @@ from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
 import mimetypes
-from . import asciidoc
+
+try:
+    from . import asciidoc
+except ImportError:
+    import asciidoc
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}

@@ -12,10 +12,10 @@ ASCIIDOCDATE=$(sed -n '3p' configure.ac | grep -o -e "[0-9]* [A-Z][a-z]* [0-9]*"
 # execute this as a function so that we do not run afoul of bash's string interpolation / splitting
 # when trying to execute commands from variables
 asciidoc() {
-    python3 ../asciidoc.py -a revnumber="${ASCIIDOCVERSION}" -a revdate="${ASCIIDOCDATE}" "$@"
+    python3 ../asciidoc -a revnumber="${ASCIIDOCVERSION}" -a revdate="${ASCIIDOCDATE}" "$@"
 }
 
-A2X="python3 ../a2x.py"
+A2X="python3 ../asciidoc/a2x.py"
 
 # Step 0: Initialize the gh-pages folder
 if [ ! -d gh-pages ]; then
@@ -33,15 +33,15 @@ popd
 
 # Step 1: Conslidate all files into the gh-pages directory
 files=(
-    docbook-xsl/asciidoc-docbook-xsl.txt
-    filters/graphviz/asciidoc-graphviz-sample.txt
-    stylesheets/asciidoc.css
-    javascripts/asciidoc.js
-    javascripts/ASCIIMathML.js
+    asciidoc/resources/docbook-xsl/asciidoc-docbook-xsl.txt
+    asciidoc/resources/filters/graphviz/asciidoc-graphviz-sample.txt
+    asciidoc/resources/stylesheets/asciidoc.css
+    asciidoc/resources/javascripts/asciidoc.js
+    asciidoc/resources/javascripts/ASCIIMathML.js
     CHANGELOG.txt
     INSTALL.txt
-    javascripts/LaTeXMathML.js
-    stylesheets/xhtml11-quirks.css
+    asciidoc/resources/javascripts/LaTeXMathML.js
+    asciidoc/resources/stylesheets/xhtml11-quirks.css
 )
 
 for file in ${files[@]}; do
@@ -55,6 +55,7 @@ set -x
 cp website/* gh-pages
 cp doc/*.txt gh-pages
 cp -R images gh-pages
+cp -R asciidoc/resources/icons gh-pages/images
 
 cp doc/asciidoc.1.txt gh-pages/manpage.txt
 cp doc/asciidoc.txt gh-pages/userguide.txt
@@ -96,7 +97,7 @@ ${ASCIIDOC} -b html5 -a icons -a toc2 -a theme=flask -o article-html5-toc2.html 
 ${ASCIIDOC} -d manpage -b html4 asciidoc.1.txt
 ${ASCIIDOC} -b xhtml11 -d manpage -o asciidoc.1.css-embedded.html asciidoc.1.txt
 ${ASCIIDOC} -d manpage -b docbook asciidoc.1.txt
-xsltproc --nonet ../docbook-xsl/manpage.xsl asciidoc.1.xml
+xsltproc --nonet ../asciidoc/resources/docbook-xsl/manpage.xsl asciidoc.1.xml
 rm asciidoc.1.xml
 
 ${ASCIIDOC} -b xhtml11 -n -a toc -a toclevels=2 -o asciidoc.css-embedded.html asciidoc.txt
@@ -107,7 +108,7 @@ mv asciidoc.chunked chunked
 # ${A2X} -f epub -d book --epubcheck --icons book.txt
 
 ${ASCIIDOC} -n -b docbook article.txt
-xsltproc --nonet --stringparam admon.textlabel 0 ../docbook-xsl/fo.xsl article.xml > article.fo
+xsltproc --nonet --stringparam admon.textlabel 0 ../asciidoc/resources/docbook-xsl/fo.xsl article.xml > article.fo
 fop article.fo article.pdf
 set +x
 rm article.xml
@@ -115,7 +116,7 @@ rm article.fo
 
 set -x
 ${ASCIIDOC} -b docbook asciidoc.txt
-dblatex -p ../dblatex/asciidoc-dblatex.xsl -s ../dblatex/asciidoc-dblatex.sty -o asciidoc.pdf asciidoc.xml
+dblatex -p ../asciidoc/resources/dblatex/asciidoc-dblatex.xsl -s ../asciidoc/resources/dblatex/asciidoc-dblatex.sty -o asciidoc.pdf asciidoc.xml
 set +x
 rm asciidoc.xml
 
