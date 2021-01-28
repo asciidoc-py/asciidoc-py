@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import io
 import os
 import fnmatch
 from html.parser import HTMLParser
@@ -40,6 +41,7 @@ from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
 import mimetypes
+from . import asciidoc
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -69,7 +71,7 @@ LYNX = 'lynx'               # alternate text file generator.
 XMLLINT = 'xmllint'         # Set to '' to disable.
 EPUBCHECK = 'epubcheck'     # Set to '' to disable.
 # External executable default options.
-ASCIIDOC_OPTS = ''
+ASCIIDOC_OPTS = []
 BACKEND_OPTS = ''
 DBLATEX_OPTS = ''
 FOP_OPTS = ''
@@ -418,7 +420,7 @@ class A2X(AttrDict):
         '''
         self.process_options()
         # Append configuration file options.
-        self.asciidoc_opts += ' ' + ASCIIDOC_OPTS
+        self.asciidoc_opts += ASCIIDOC_OPTS
         self.dblatex_opts += ' ' + DBLATEX_OPTS
         self.fop_opts += ' ' + FOP_OPTS
         self.xsltproc_opts += ' ' + XSLTPROC_OPTS
@@ -444,27 +446,22 @@ class A2X(AttrDict):
         conf_files.append(os.path.join(a2xdir, CONF_FILE))
         # If the asciidoc executable and conf files are in the a2x directory
         # then use the local copy of asciidoc and skip the global a2x conf.
-        asciidoc = os.path.join(a2xdir, 'asciidoc.py')
         asciidoc_conf = os.path.join(a2xdir, 'asciidoc.conf')
-        if os.path.isfile(asciidoc) and os.path.isfile(asciidoc_conf):
-            self.asciidoc = asciidoc
-        else:
-            self.asciidoc = None
-            # From global conf directory.
-            conf_files.append(os.path.join(CONF_DIR, CONF_FILE))
+
+        # TODO: CONF_DIR work
+        # From global conf directory.
+        # conf_files.append(os.path.join(CONF_DIR, CONF_FILE))
+
         # From $HOME directory.
         home_dir = os.environ.get('HOME')
         if home_dir is not None:
             conf_files.append(os.path.join(home_dir, '.asciidoc', CONF_FILE))
-        # If asciidoc is not local to a2x then search the PATH.
-        if not self.asciidoc:
-            self.asciidoc = find_executable(ASCIIDOC)
-            if not self.asciidoc:
-                die('unable to find asciidoc: %s' % ASCIIDOC)
+
         # From backend plugin directory.
         if self.backend is not None:
-            stdout = shell(self.asciidoc + ' --backend list')[0]
-            backends = [(i, os.path.split(i)[1]) for i in stdout.splitlines()]
+            outfile = io.StringIO()
+            asciidoc.execute('asciidoc', [('--backend', 'list'), ('--out-file', outfile)], [])
+            backends = [(i, os.path.split(i)[1]) for i in outfile.getvalue().splitlines()]
             backend_dir = [i[0] for i in backends if i[1] == self.backend]
             if len(backend_dir) == 0:
                 die('missing %s backend' % self.backend)
@@ -531,22 +528,21 @@ class A2X(AttrDict):
                 mimetypes.add_type(mimetype, ext)
             else:
                 self.resource_files.append(r)
-        for p in (os.path.dirname(self.asciidoc), CONF_DIR):
-            for d in ('images', 'stylesheets'):
-                d = os.path.join(p, d)
-                if os.path.isdir(d):
-                    self.resource_dirs.append(d)
+        for d in ('images', 'stylesheets'):
+            d = os.path.join(CONF_DIR, d)
+            if os.path.isdir(d):
+                self.resource_dirs.append(d)
         verbose('resource files: %s' % self.resource_files)
         verbose('resource directories: %s' % self.resource_dirs)
         if not self.doctype and self.format == 'manpage':
             self.doctype = 'manpage'
         if self.doctype:
-            self.asciidoc_opts += ' --doctype %s' % self.doctype
+            self.asciidoc_opts.append(('--doctype', self.doctype))
         for attr in self.attributes:
-            self.asciidoc_opts += ' --attribute "%s"' % attr
+            self.asciidoc_opts.append(('--attribute', attr))
 #        self.xsltproc_opts += ' --nonet'
         if self.verbose:
-            self.asciidoc_opts += ' --verbose'
+            self.asciidoc_opts.append((' --verbose'))
             self.dblatex_opts += ' -V'
         if self.icons or self.icons_dir:
             params = [
@@ -599,17 +595,16 @@ class A2X(AttrDict):
         '''
         return os.path.basename(os.path.splitext(self.asciidoc_file)[0]) + ext
 
-    def asciidoc_conf_file(self, path):
+    @staticmethod
+    def asciidoc_conf_file(path):
         '''
         Return full path name of file in asciidoc configuration files directory.
         Search first the directory containing the asciidoc executable then
         the global configuration file directory.
         '''
-        f = os.path.join(os.path.dirname(self.asciidoc), path)
+        f = os.path.join(CONF_DIR, path)
         if not os.path.isfile(f):
-            f = os.path.join(CONF_DIR, path)
-            if not os.path.isfile(f):
-                die('missing configuration file: %s' % f)
+            die('missing configuration file: %s' % f)
         return os.path.normpath(f)
 
     def xsl_stylesheet(self, file_name=None):
@@ -697,8 +692,12 @@ class A2X(AttrDict):
             if not os.path.isfile(docbook_file):
                 die('missing docbook file: %s' % docbook_file)
             return
-        shell('"%s" --backend docbook -a "a2x-format=%s" %s --out-file "%s" "%s"' %
-             (self.asciidoc, self.format, self.asciidoc_opts, docbook_file, self.asciidoc_file))
+        options = self.asciidoc_opts[:]
+        options.append(('--backend', 'docbook'))
+        options.append(('-a', 'a2x-format=%s' % self.format))
+        options.append(('--out-file', docbook_file))
+        asciidoc.reset_asciidoc()
+        asciidoc.execute('asciidoc', options, [self.asciidoc_file])
         if not self.no_xmllint and XMLLINT:
             shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
 
@@ -869,9 +868,13 @@ class A2X(AttrDict):
         text_file = self.dst_path('.text')
         html_file = self.dst_path('.text.html')
         if self.lynx:
-            shell('"%s" %s --conf-file "%s" -b html4 -a "a2x-format=%s" -o "%s" "%s"' %
-                 (self.asciidoc, self.asciidoc_opts, self.asciidoc_conf_file('text.conf'),
-                  self.format, html_file, self.asciidoc_file))
+            options = self.asciidoc_opts[:]
+            options.append(('--conf-file', self.asciidoc_conf_file('text.conf')))
+            options.append(('-b', 'html4'))
+            options.append(('-a', 'a2x-format=%s' % self.format))
+            options.append(('-o', html_file))
+            asciidoc.reset_asciidoc()
+            asciidoc.execute('asciidoc', options, [self.asciidoc_file])
             cmd = '"%s" %s "%s" > "%s"' % (LYNX, LYNX_OPTS, html_file, text_file)
             shell(cmd)
         else:
@@ -888,6 +891,8 @@ class A2X(AttrDict):
 
 
 def cli():
+    global OPTIONS
+
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
     from optparse import OptionParser
     parser = OptionParser(usage='usage: %prog [OPTIONS] SOURCE_FILE',
@@ -995,7 +1000,7 @@ def cli():
     opts, args = parser.parse_args(argv)
     if len(args) != 1:
         parser.error('incorrect number of arguments')
-    opts.asciidoc_opts = ' '.join(opts.asciidoc_opts)
+    opts.asciidoc_opts = [x.split(' ', 1) for x in opts.asciidoc_opts]
     opts.dblatex_opts = ' '.join(opts.dblatex_opts)
     opts.fop_opts = ' '.join(opts.fop_opts)
     opts.xsltproc_opts = ' '.join(opts.xsltproc_opts)
