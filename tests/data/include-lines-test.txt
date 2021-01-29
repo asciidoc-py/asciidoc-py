@@ -14,3 +14,10 @@ Some random ranges:
 ----
 include::../testasciidoc.py[lines="29..44,61..68,70,398..-1"]
 ----
+
+Using ; as separator:
+
+[source,python]
+----
+include::../testasciidoc.py[lines="29..44;61..68"]
+----

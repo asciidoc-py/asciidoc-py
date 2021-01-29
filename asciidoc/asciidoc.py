@@ -4437,7 +4437,10 @@ class Reader1:
                         raise EAsciiDoc("include macro: illegal 'depth' argument")
                 if 'lines' in attrs:
                     try:
-                        ranges = attrs['lines'].split(',')
+                        if ';' in attrs['lines']:
+                            ranges = attrs['lines'].split(';')
+                        else:
+                            ranges = attrs['lines'].split(',')
                         for idx in range(len(ranges)):
                             ranges[idx] = [int(x) for x in ranges[idx].split('..')]
                         self.line_ranges = ranges
