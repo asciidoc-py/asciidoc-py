@@ -1,0 +1,16 @@
+include line test
+=================
+
+The imports:
+
+[source,python]
+----
+include::../testasciidoc.py[lines="6..15"]
+----
+
+Some random ranges:
+
+[source,python]
+----
+include::../testasciidoc.py[lines="29..44,61..68,70,398..-1"]
+----
