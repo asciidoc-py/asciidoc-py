@@ -241,14 +241,6 @@ def userdir():
     return result
 
 
-def localapp():
-    """
-    Return True if we are not executing the system wide version
-    i.e. the configuration is in the executable's directory.
-    """
-    return os.path.isfile(os.path.join(APP_DIR, 'asciidoc.conf'))
-
-
 def file_in(fname, directory):
     """Return True if file fname resides inside directory."""
     assert os.path.isfile(fname)
@@ -278,7 +270,6 @@ def is_safe_file(fname, directory=None):
     return (
         not safe() or
         file_in(fname, directory) or
-        file_in(fname, APP_DIR) or
         file_in(fname, CONF_DIR)
     )
 
@@ -776,10 +767,7 @@ def filter_lines(filter_cmd, lines, attrs={}):
             if USER_DIR:
                 found = findfilter(filtername, USER_DIR, cmd)
             if not found:
-                if localapp():
-                    found = findfilter(filtername, APP_DIR, cmd)
-                else:
-                    found = findfilter(filtername, CONF_DIR, cmd)
+                found = findfilter(filtername, CONF_DIR, cmd)
     else:
         if os.path.isfile(cmd):
             found = cmd
@@ -1445,12 +1433,7 @@ class Document(object):
         t = time.time()
         self.attributes['localdate'], self.attributes['localtime'] = date_time_str(t)
         self.attributes['asciidoc-version'] = VERSION
-        self.attributes['asciidoc-file'] = APP_FILE
-        self.attributes['asciidoc-dir'] = APP_DIR
-        if localapp():
-            self.attributes['asciidoc-confdir'] = APP_DIR
-        else:
-            self.attributes['asciidoc-confdir'] = CONF_DIR
+        self.attributes['asciidoc-confdir'] = CONF_DIR
         self.attributes['user-dir'] = USER_DIR
         if config.verbose:
             self.attributes['verbose'] = ''
@@ -4768,7 +4751,8 @@ class Config:
         self.dumping = False    # True if asciidoc -c option specified.
         self.filters = []       # Filter names specified by --filter option.
 
-    def init(self, cmd):
+    @staticmethod
+    def init():
         """
         Check Python version and locate the executable and configuration files
         directory.
@@ -4777,13 +4761,6 @@ class Config:
         if sys.version_info[:2] < MIN_PYTHON_VERSION:
             message.stderr('FAILED: Python %d.%d or better required' % MIN_PYTHON_VERSION)
             sys.exit(1)
-        if not os.path.exists(cmd):
-            message.stderr('FAILED: Missing asciidoc command: %s' % cmd)
-            sys.exit(1)
-        global APP_FILE
-        APP_FILE = os.path.realpath(cmd)
-        global APP_DIR
-        APP_DIR = os.path.dirname(APP_FILE)
         global USER_DIR
         USER_DIR = userdir()
         if USER_DIR is not None:
@@ -4921,12 +4898,8 @@ class Config:
         Return list of well known paths with conf files.
         """
         result = []
-        if localapp():
-            # Load from folders in asciidoc executable directory.
-            result.append(APP_DIR)
-        else:
-            # Load from global configuration directory.
-            result.append(CONF_DIR)
+        # Load from global configuration directory.
+        result.append(CONF_DIR)
         # Load configuration files from ~/.asciidoc if it exists.
         if USER_DIR is not None:
             result.append(USER_DIR)
@@ -6108,8 +6081,6 @@ class Plugin:
 # ---------------------------------------------------------------------------
 # Constants
 # ---------
-APP_FILE = None             # This file's full path.
-APP_DIR = None              # This file's directory.
 USER_DIR = None             # ~/.asciidoc
 HELP_FILE = 'help.conf'     # Default (English) help file.
 
@@ -6391,7 +6362,7 @@ def execute(cmd, opts, args):
        >>>
 
     """
-    config.init(cmd)
+    config.init()
     if len(args) > 1:
         usage('Too many arguments')
         sys.exit(1)
@@ -6530,7 +6501,7 @@ def cli():
         if cmd not in Plugin.CMDS:
             die('illegal --%s command: %s' % (plugin, cmd))
         Plugin.type = plugin
-        config.init(sys.argv[0])
+        config.init()
         config.verbose = bool(set(['-v', '--verbose']) & set(opt_names))
         getattr(Plugin, cmd)(args)
     else:
