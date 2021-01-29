@@ -6056,7 +6056,9 @@ class Plugin:
         for d in [os.path.join(d, Plugin.type + 's') for d in config.get_load_dirs()]:
             if os.path.isdir(d):
                 for f in sorted(filter(os.path.isdir, [os.path.join(d, o) for o in os.listdir(d)])):
-                    message.stdout(os.path.join(d, f))
+                    if f.endswith('__pycache__'):
+                        continue
+                    message.stdout(f)
 
     @staticmethod
     def build(args):
