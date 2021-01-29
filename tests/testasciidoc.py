@@ -182,7 +182,6 @@ class AsciiDocTest(object):
         """
         Generate and return test data output for backend.
         """
-        asciidoc.reset_asciidoc()
         outfile = io.StringIO()
         options = self.options[:]
         options.append(('--out-file', outfile))

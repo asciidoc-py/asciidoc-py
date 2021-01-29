@@ -6362,6 +6362,7 @@ def execute(cmd, opts, args):
        >>>
 
     """
+    reset_asciidoc()
     config.init()
     if len(args) > 1:
         usage('Too many arguments')
@@ -6458,11 +6459,13 @@ def execute(cmd, opts, args):
         sys.stdin, sys.stdout = stdin, stdout
 
 
-def cli():
+def cli(argv=None):
+    if argv is None:
+        argv = sys.argv
     # Process command line options.
     try:
         # DEPRECATED: --unsafe option.
-        opts, args = getopt.getopt(sys.argv[1:], 'a:b:cd:ef:hno:svw:',
+        opts, args = getopt.getopt(argv[1:], 'a:b:cd:ef:hno:svw:',
                                    ['attribute=', 'backend=', 'conf-file=', 'doctype=', 'dump-conf',
                                     'help', 'no-conf', 'no-header-footer', 'out-file=',
                                     'section-numbers', 'verbose', 'version', 'safe', 'unsafe',
@@ -6507,7 +6510,7 @@ def cli():
     else:
         # Execute asciidoc.
         try:
-            execute(sys.argv[0], opts, args)
+            execute(argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)
 
