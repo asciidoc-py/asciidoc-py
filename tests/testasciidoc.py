@@ -398,6 +398,7 @@ class Lines(list):
 if __name__ == '__main__':
     # guarantee a stable timestamp matching the test fixtures
     os.environ['SOURCE_DATE_EPOCH'] = '1038184662'
+    asciidoc.set_caller(__name__)
     # Process command line options.
     from argparse import ArgumentParser
     parser = ArgumentParser(

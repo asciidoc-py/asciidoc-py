@@ -187,7 +187,7 @@ class Message:
         if msg == self.prev_msg:  # Suppress repeated messages.
             return
         self.messages.append(msg)
-        if __name__ == '__main__':
+        if APPLICATION_CALLER == '__main__':
             sys.stderr.write('%s: %s%s' % (self.PROG, msg, os.linesep))
         self.prev_msg = msg
 
@@ -6083,6 +6083,7 @@ class Plugin:
 # ---------
 USER_DIR = None             # ~/.asciidoc
 HELP_FILE = 'help.conf'     # Default (English) help file.
+APPLICATION_CALLER = __name__
 
 # Globals
 # -------
@@ -6103,6 +6104,11 @@ trace = Trace()             # Implements trace attribute processing.
 # Used by asciidocapi.py #
 # List of message strings written to stderr.
 messages = message.messages
+
+
+def set_caller(name):
+    global APPLICATION_CALLER
+    APPLICATION_CALLER = name
 
 
 def reset_asciidoc():
@@ -6284,7 +6290,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         if isinstance(e, EAsciiDoc):
             message.stderr('%s%s' % (msg, str(e)))
         else:
-            if __name__ == '__main__':
+            if APPLICATION_CALLER == '__main__':
                 message.stderr(msg + 'unexpected error:')
                 message.stderr('-' * 60)
                 traceback.print_exc(file=sys.stderr)
