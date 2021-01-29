@@ -2700,35 +2700,22 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><p class="table"><em>id</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Unique identifier typically serve as link targets.
-Can also be set by the <em>BlockId</em> element.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>role</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Role contains a string used to classify or subclassify an element and
-can be applied to AsciiDoc block elements.  The AsciiDoc <em>role</em>
-attribute is translated to the <em>role</em> attribute in DocBook outputs and
-is included in the <em>class</em> attribute in HTML outputs, in this respect
-it behaves like the <a href="#X96">quoted text role attribute</a>.</p></div>
-<div class="paragraph"><p>DocBook XSL Stylesheets translate DocBook <em>role</em> attributes to HTML
-<em>class</em> attributes; CSS can then be used
-<a href="http://www.sagehill.net/docbookxsl/UsingCSS.html">to style the
-generated HTML</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>reftext</em></p></td>
 <td align="left" valign="top"><p class="table">docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p><em>reftext</em> is used to set the DocBook <em>xreflabel</em> attribute.
-The <em>reftext</em> attribute can an also be set by the <em>BlockId</em> element.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>floatstyle</em></p></td>
 <td align="left" valign="top"><p class="table">docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p><em>floatstyle</em> is used to specify the floatstyle attribute for the
-titled table, example, image and equation blocks. This is useful when
-used in conjuction with the dblatex toolchain. A typical example
-would be to specify the value as <em>floatstyle="[htbp]"</em>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 </tbody>
 </table>
@@ -10096,336 +10083,142 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><p class="table"><em>badges</em></p></td>
 <td align="left" valign="top"><p class="table">xhtml11, html5</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Link badges (<em>XHTML 1.1</em> and <em>CSS</em>) in document footers. By default
-badges are omitted (<em>badges</em> is undefined).</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<img src="./images/icons/note.png" alt="Note" />
-</td>
-<td class="content">The path names of images, icons and scripts are relative path
-names to the output document not the source document.</td>
-</tr></table>
-</div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>data-uri</em></p></td>
 <td align="left" valign="top"><p class="table">xhtml11, html5</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Embed images using the <a href="#X66">data: uri scheme</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>css-signature</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Set a <em>CSS signature</em> for the document (sets the <em>id</em> attribute of the
-HTML <em>body</em> element). CSS signatures provide a mechanism that allows
-users to personalize the document appearance. The term <em>CSS signature</em>
-was <a href="http://archivist.incutio.com/viewlist/css-discuss/13291">coined by
-Eric Meyer</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>disable-javascript</em></p></td>
 <td align="left" valign="top"><p class="table">xhtml11, html5</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>If the <code>disable-javascript</code> attribute is defined the <code>asciidoc.js</code>
-JavaScript is not embedded or linked to the output document.  By
-default AsciiDoc automatically embeds or links the <code>asciidoc.js</code>
-JavaScript to the output document. The script dynamically generates
-<a href="#X91">table of contents</a> and <a href="#X92">footnotes</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X97"></a> docinfo, docinfo1, docinfo2</em></p></td>
 <td align="left" valign="top"><p class="table">All backends</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>These three attributes control which <a href="#X87">document information files</a> will be included in the the header of the output file:</p></div>
-<div class="dlist"><dl>
-<dt class="hdlist1">
-docinfo
-</dt>
-<dd>
-<p>
-Include <code>&lt;filename&gt;-docinfo.&lt;ext&gt;</code>
-</p>
-</dd>
-<dt class="hdlist1">
-docinfo1
-</dt>
-<dd>
-<p>
-Include <code>docinfo.&lt;ext&gt;</code>
-</p>
-</dd>
-<dt class="hdlist1">
-docinfo2
-</dt>
-<dd>
-<p>
-Include <code>docinfo.&lt;ext&gt;</code> and <code>&lt;filename&gt;-docinfo.&lt;ext&gt;</code>
-</p>
-</dd>
-</dl></div>
-<div class="paragraph"><p>Where <code>&lt;filename&gt;</code> is the file name (sans extension) of the AsciiDoc
-input file and <code>&lt;ext&gt;</code> is <code>.html</code> for HTML outputs or <code>.xml</code> for
-DocBook outputs. If the input file is the standard input then the
-output file name is used. The following example will include the
-<code>mydoc-docinfo.xml</code> docinfo file in the DocBook <code>mydoc.xml</code> output
-file:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ asciidoc -a docinfo -b docbook mydoc.txt</code></pre>
-</div></div>
-<div class="paragraph"><p>This next example will include <code>docinfo.html</code> and <code>mydoc-docinfo.html</code>
-docinfo files in the HTML output file:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ asciidoc -a docinfo2 -b html4 mydoc.txt</code></pre>
-</div></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X54"></a>encoding</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Set the input and output document character set encoding. For example
-the <code>--attribute encoding=ISO-8859-1</code> command-line option will set the
-character set encoding to <code>ISO-8859-1</code>.</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-The default encoding is UTF-8.
-</p>
-</li>
-<li>
-<p>
-This attribute specifies the character set in the output document.
-</p>
-</li>
-<li>
-<p>
-The encoding name must correspond to a Python codec name or alias.
-</p>
-</li>
-<li>
-<p>
-The <em>encoding</em> attribute can be set using an AttributeEntry inside
-  the document header. For example:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><code>:encoding: ISO-8859-1</code></pre>
-</div></div>
-</li>
-</ul></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>hr</em></p></td>
 <td align="left" valign="top"><p class="table">html4</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Defines the <em>html4</em> inter-section horizontal ruler element. By default
-<em>html4</em> top level sections are separated by a horizontal ruler
-element, undefine this attribute or set it to an empty string if you
-do not want them. The default <em>html4</em> backend value for the <em>hr</em>
-attribute is <code>&lt;hr&gt;</code>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X45"></a>icons</em></p></td>
 <td align="left" valign="top"><p class="table">xhtml11, html5</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Link admonition paragraph and admonition block icon images and badge
-images. By default <em>icons</em> is undefined and text is used in place of
-icon images.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X44"></a>iconsdir</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The name of the directory containing linked admonition icons,
-navigation icons and the <code>callouts</code> sub-directory (the <code>callouts</code>
-sub-directory contains <a href="#X105">callout</a> number images). <em>iconsdir</em>
-defaults to <code>./images/icons</code>.  If admonition icons are embedded using
-the <a href="#X66">data-uri</a> scheme then the <em>iconsdir</em> attribute defaults to
-the location of the icons installed in the AsciiDoc configuration
-directory.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>imagesdir</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>If this attribute is defined it is prepended to the target image file
-name paths in inline and block image macros.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>keywords, description, title</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The <em>keywords</em> and <em>description</em> attributes set the correspondingly
-named HTML meta tag contents; the <em>title</em> attribute sets the HTML
-title tag contents.  Their principle use is for SEO (Search Engine
-Optimisation).  All three are optional, but if they are used they must
-appear in the document header (or on the command-line). If <em>title</em> is
-not specified the AsciiDoc document title is used.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>linkcss</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Link CSS stylesheets and JavaScripts. By default <em>linkcss</em> is
-undefined in which case stylesheets and scripts are automatically
-embedded in the output document.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X103"></a>max-width</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Set the document maximum display width (sets the <em>body</em> element CSS
-<em>max-width</em> property).</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>numbered</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11, docbook (XSL Stylesheets)</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Adds section numbers to section titles. The <em>docbook</em> backend ignores
-<em>numbered</em> attribute entries after the document header.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>plaintext</em></p></td>
 <td align="left" valign="top"><p class="table">All backends</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>If this global attribute is defined all inline substitutions are
-suppressed and block indents are retained.  This option is useful when
-dealing with large amounts of imported plain text.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>quirks</em></p></td>
 <td align="left" valign="top"><p class="table">xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Include the <code>xhtml11-quirks.conf</code> configuration file and
-<code>xhtml11-quirks.css</code> <a href="#X35">stylesheet</a> to work around IE6 browser
-incompatibilities. This feature is deprecated and its use is
-discouraged&#8201;&#8212;&#8201;documents are still viewable in IE6 without it.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>revremark</em></p></td>
 <td align="left" valign="top"><p class="table">docbook</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>A short summary of changes in this document revision. Must be defined
-prior to the first document section. The document also needs to be
-dated to output this attribute.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>footer-style</em></p></td>
 <td align="left" valign="top"><p class="table">html4, html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Changes the "Last updated" field in the footer of the document or removes this
-field and the revision number (in the footer only).<br />
-Can take 3 values:</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-none : Don&#8217;t display the "Last updated" and "Revision number" fields in the
-  footer of the document
-</p>
-</li>
-<li>
-<p>
-revdate : The "Last updated" field&#8217;s date in the footer will be the revision
-  date specified in the document (<code>revdate</code> attribute)
-</p>
-</li>
-<li>
-<p>
-default (or any other value) : The "Last updated" field&#8217;s date in the footer
-  will be the date of the input file modification
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>This attribute can be set, for example, using <code>:footer-style: revdate</code> in the
-header of the file or using the <code>--attribute footer-style=revdate</code> command-line
-option.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>scriptsdir</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The name of the directory containing linked JavaScripts.
-See <a href="#X35">HTML stylesheets and JavaScript locations</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>sgml</em></p></td>
 <td align="left" valign="top"><p class="table">docbook45</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The <code>--backend=docbook45</code> command-line option produces DocBook 4.5
-XML.  You can produce the older DocBook SGML format using the
-<code>--attribute sgml</code> command-line option.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>stylesdir</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The name of the directory containing linked or embedded
-<a href="#X35">stylesheets</a>.
-See <a href="#X35">HTML stylesheets and JavaScript locations</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>stylesheet</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>The file name of an optional additional CSS <a href="#X35">stylesheet</a>.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>theme</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Use alternative stylesheet (see <a href="#X35">Stylesheets</a>).</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em><a id="X91"></a>toc</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11, docbook (XSL Stylesheets)</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Adds a table of contents to the start of an article or book document.
-The <code>toc</code> attribute can be specified using the <code>--attribute toc</code>
-command-line option or a <code>:toc:</code> attribute entry in the document
-header. The <em>toc</em> attribute is defined by default when the <em>docbook</em>
-backend is used. To disable table of contents generation undefine the
-<em>toc</em> attribute by putting a <code>:toc!:</code> attribute entry in the document
-header or from the command-line with an <code>--attribute toc!</code> option.</p></div>
-<div class="paragraph"><p><strong>xhtml11 and html5 backends</strong></p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-JavaScript needs to be enabled in your browser.
-</p>
-</li>
-<li>
-<p>
-The following example generates a numbered table of contents using a
-  JavaScript embedded in the <code>mydoc.html</code> output document:
-</p>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ asciidoc -a toc -a numbered mydoc.txt</code></pre>
-</div></div>
-</li>
-</ul></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>toc2</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Adds a scrollable table of contents in the left hand margin of an
-article or book document. Use the <em>max-width</em> attribute to change the
-content width. In all other respects behaves the same as the <em>toc</em>
-attribute.</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>toc-placement</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>When set to <em>auto</em> (the default value) asciidoc(1) will place the
-table of contents in the document header. When <em>toc-placement</em> is set
-to <em>manual</em> the TOC can be positioned anywhere in the document by
-placing the <code>toc::[]</code> block macro at the point you want the TOC to
-appear.</p></div>
-<div class="admonitionblock">
-<table><tr>
-<td class="icon">
-<img src="./images/icons/note.png" alt="Note" />
-</td>
-<td class="content">If you use <em>toc-placement</em> then you also have to define the
-<a href="#X91">toc</a> attribute.</td>
-</tr></table>
-</div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>toc-title</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Sets the table of contents title (defaults to <em>Table of Contents</em>).</p></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>toclevels</em></p></td>
 <td align="left" valign="top"><p class="table">html5, xhtml11</p></td>
-<td align="left" valign="top"><div><div class="paragraph"><p>Sets the number of title levels (1..4) reported in the table of
-contents (see the <em>toc</em> attribute above). Defaults to 2 and must be
-used with the <em>toc</em> attribute. Example usage:</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>$ asciidoc -a toc -a toclevels=3 doc/asciidoc.txt</code></pre>
-</div></div></div></td>
+<td align="left" valign="top"><div></div></td>
 </tr>
 </tbody>
 </table>
@@ -10452,7 +10245,7 @@ General Public License version 2 for more details.</p></div>
 <div id="footer-text">
 Version 9.0.5<br />
 Last updated
- 2021-01-29 01:15:16 UTC
+ 2021-01-29 13:19:05 UTC
 </div>
 </div>
 </body>
