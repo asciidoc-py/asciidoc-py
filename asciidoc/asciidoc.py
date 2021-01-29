@@ -1432,6 +1432,7 @@ class Document(object):
         """
         t = time.time()
         self.attributes['localdate'], self.attributes['localtime'] = date_time_str(t)
+        self.attributes['asciidoc-module'] = 'asciidoc'
         self.attributes['asciidoc-version'] = VERSION
         self.attributes['asciidoc-confdir'] = CONF_DIR
         self.attributes['user-dir'] = USER_DIR
