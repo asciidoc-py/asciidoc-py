@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 10.0.0a2" />
+<title>Slidy backend for AsciiDoc</title>
+<link rel="stylesheet" href="./asciidoc.css" type="text/css" />
+<link rel="stylesheet" href="./layout2.css" type="text/css" />
+<script type="text/javascript" src="./asciidoc.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body style="max-width:70em">
+<div id="layout-menu-box">
+<div id="layout-menu">
+  <div>&#187;<a href="index.html">Home</a></div>
+  <div>&#187;<a href="userguide.html">User&nbsp;Guide</a></div>
+  <div>&#187;<a href="INSTALL.html">Installation</a></div>
+  <div>&#187;<a href="faq.html">FAQ</a></div>
+  <div>&#187;<a href="manpage.html">asciidoc(1)</a></div>
+  <div>&#187;<a href="a2x.1.html">a2x(1)</a></div>
+  <div>&#187;<a href="asciidocapi.html">API</a></div>
+  <div>&#187;<a href="plugins.html">Plugins</a></div>
+  <div>&#187;<a href="http://powerman.name/doc/asciidoc">Cheatsheet</a></div>
+  <div>&#187;<a href="testasciidoc.html">Tests</a></div>
+  <div>&#187;<a href="CHANGELOG.html">ChangeLog</a></div>
+  <div>&#187;<a href="support.html">Support</a></div>
+  <div id="page-source">&#187;<a href="slidy.txt">Page&nbsp;Source</a></div>
+</div>
+</div>
+<div id="layout-content-box">
+<div id="layout-banner">
+  <div id="layout-title">AsciiDoc</div>
+  <div id="layout-description">Text based document generation</div>
+</div>
+<div id="layout-content">
+<div id="header">
+<h1>Slidy backend for AsciiDoc</h1>
+<span id="author">Stuart Rackham</span><br />
+<span id="revision">version 9.0.5,</span>
+24 January 2021
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Use the following command to create this document (<code>slidy.html</code>):</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>asciidoc slidy.txt</code></pre>
+</div></div>
+<div class="paragraph"><p>Press the <em>Space</em> key or the <em>Left Arrow</em> key to continue the
+slideshow.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>AsciiDoc has a <em>slidy</em> backend for generating self contained <em>Slidy</em>
+HTML slideshows.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+An overview of <em>Slidy</em> can be found here:
+  <a href="http://www.w3.org/Talks/Tools/Slidy2/">http://www.w3.org/Talks/Tools/Slidy2/</a>
+</p>
+</li>
+<li>
+<p>
+AsciiDoc ships with the Slidy JavaScript a customised Slidy CSS
+  file.
+</p>
+</li>
+<li>
+<p>
+Use the <em>asciidoc</em> <code>--backend slidy</code> command-line option to generate
+  browser viewable HTML slideshow. Example:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>asciidoc --backend slidy slidy-example.txt</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+By default, <em>asciidoc</em> creates a self contained distributable HTML
+  document which includes all necessary CSS and JavaScripts.  Use the
+  <em>asciidoc</em> <code>--attribute linkcss</code> command-line option if you prefer
+  to link (rather than embed) external CSS and JavaScript files.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_slidy_uses_asciidoc_markup">How Slidy uses AsciiDoc markup</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+The document header is displayed as the first page of the slideshow.
+</p>
+</li>
+<li>
+<p>
+If the document has a <em>preamble</em> (the content between the header and
+  the first section) it will be displayed on the second page.
+</p>
+</li>
+<li>
+<p>
+Each top level section is displayed as a separate slide.
+</p>
+</li>
+<li>
+<p>
+If the AsciiDoc <em>incremental</em> attribute is defined then all lists
+  and OpenBlock elements are treated as <em>incremental</em> i.e. Slidy
+  exposes their child elements one at a time as you progress through
+  the slideshow.
+</p>
+</li>
+<li>
+<p>
+You can explicitly set an element as incremental by setting its
+  <em>role</em> attribute to <em>incremental</em>. Example:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>[role="incremental"]
+Sagittis in vestibulum. Habitasse ante nulla enim bibendum nulla.
+Odio sed pede litora.</code></pre>
+</div></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_slidy_specific_attributes">Slidy Specific Attributes</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+incremental
+</dt>
+<dd>
+<p>
+If this attribute is defined then all lists and OpenBlock elements are
+classed as incremental i.e. Slidy will expose them one at a time as
+you progress through the slideshow.  The default behavior is for the
+show to progress a full slide at at time.  Elements that have been
+explicitly classed as <em>incremental</em> with the <em>role</em> attribute are
+always displayed incrementally.
+</p>
+</dd>
+<dt class="hdlist1">
+duration
+</dt>
+<dd>
+<p>
+Set this to the estimated number of minutes that your presentation
+will take and Slidy will display a countdown timer at the bottom right
+of the slideshow. For example, this <em>asciidoc</em> command-line option
+<code>--attribute duration=5</code> sets the duration to five minutes.
+</p>
+</dd>
+<dt class="hdlist1">
+copyright
+</dt>
+<dd>
+<p>
+If you set the <em>copyright</em> attribute it will be displayed in the Slidy
+menu bar at the bottom of the slide. If the <em>copyright</em> attribute is
+not define then the author name, if it is defined, will be displayed.
+</p>
+</dd>
+<dt class="hdlist1">
+outline
+</dt>
+<dd>
+<p>
+Setting the <em>role</em> attribute to <em>outline</em> in a bulleted or numbered
+list allows nested lists to be expanded and collapsed using the mouse.
+Nested lists are expanded when an enclosing list item (the ones with
+blue bullet points or numbers) is clicked.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stylesheets">Stylesheets</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<em>slidy</em> loads the <em>asciidoc.css</em> stylesheet followed by <em>slidy.css</em>:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>asciidoc.css</code> contains content presentational styles.
+</p>
+</li>
+<li>
+<p>
+The customized <code>slidy.css</code> stylesheet contains Slidy specific
+    styles (table of contents, menu and transition related).
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+You can use AsciiDoc CSS themes. For example, the <em>asciidoc</em>
+  <code>--attribute theme=volnitsky</code> command-line option will substitute
+  the <code>asciidoc.css</code> stylesheet for the distributed Volnitsky
+  <code>volnitsky.css</code> stylesheet.
+</p>
+</li>
+<li>
+<p>
+An additional stylesheet can be specified by setting the
+  <em>stylesheet</em> attribute. For example, the <code>--attribute
+  stylesheet=myslidy.css</code> will load <code>myslidy.css</code> after the standard
+  CSS files.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tips">Tips</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+The Slidy <em>help?</em> and <em>contents?</em> links at the bottom left are your
+  friends.
+</p>
+</li>
+<li>
+<p>
+Use the AsciiDoc <em>data-uri</em> attribute to embed images in your
+  slideshow&#8201;&#8212;&#8201;add this attribute entry to your document&#8217;s header:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>:data-uri:</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+Use the AsciiDoc <em>max-width</em> attribute to set the document display
+  width. For example, add this attribute entry to your document&#8217;s
+  header:
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>:max-width: 45em</code></pre>
+</div></div>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 9.0.5<br />
+Last updated 2021-01-30 05:18:21 UTC<br />
+AsciiDoc is a trademark of the Eclipse Foundation, Inc.
+</div>
+<div id="footer-badges">
+<a href="https://validator.w3.org/check?uri=referer">
+  <img style="border:0;width:88px;height:31px"
+    src="https://www.w3.org/Icons/valid-xhtml11-blue"
+    alt="Valid XHTML 1.1" height="31" width="88" />
+</a>
+<a href="https://jigsaw.w3.org/css-validator/">
+  <img style="border:0;width:88px;height:31px"
+    src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
+    alt="Valid CSS!" />
+</a>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
