@@ -42,10 +42,8 @@ import zipfile
 import xml.dom.minidom
 import mimetypes
 
-try:
-    from . import asciidoc
-except ImportError:
-    import asciidoc
+from . import asciidoc
+from .collections import DefaultAttrDict as AttrDict
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -132,42 +130,6 @@ def flatten(array):
         else:
             ret.append(x)
     return ret
-
-
-class AttrDict(dict):
-    """
-    Like a dictionary except values can be accessed as attributes i.e. obj.foo
-    can be used in addition to obj['foo'].
-    If self._default has been set then it will be returned if a non-existent
-    attribute is accessed (instead of raising an AttributeError).
-    """
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError as k:
-            if '_default' in self:
-                return self['_default']
-            else:
-                raise AttributeError from k
-
-    def __setattr__(self, key, value):
-        self[key] = value
-
-    def __delattr__(self, key):
-        try:
-            del self[key]
-        except KeyError as k:
-            raise AttributeError from k
-
-    def __repr__(self):
-        return '<AttrDict ' + dict.__repr__(self) + '>'
-
-    def __getstate__(self):
-        return dict(self)
-
-    def __setstate__(self, value):
-        for k, v in value.items():
-            self[k] = v
 
 
 def isexecutable(file_name):

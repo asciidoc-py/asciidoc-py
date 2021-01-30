@@ -64,7 +64,10 @@ jobs:
             texlive-latex-base \
             xsltproc
 
-      - run: python asciidoc/asciidoc.py --doctest
+      - run: pip install -U pytest
+
+      - run: python -m asciidoc.asciidoc --doctest
+      - run: python -m pytest
       - run: time python tests/testasciidoc.py run
       - run: git clean -x -f doc tests/data
 
@@ -94,5 +97,5 @@ jobs:
         with:
           python-version: ${{ env.python-version }}
 
-      - run: python asciidoc/asciidoc.py --doctest
+      - run: python -m asciidoc.asciidoc --doctest
       - run: python tests/testasciidoc.py run --number 6
