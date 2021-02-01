@@ -28,6 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# Please note, the contents of this module are considered "private" and may
+# change within the 10.0+ releases. If you come to depend on a specific method
+# or class, please leave a GitHub issue stating as much.
+
 import io
 import os
 import fnmatch

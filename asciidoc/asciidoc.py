@@ -10,6 +10,11 @@ Free use of this software is granted under the terms of the GNU General
 Public License version 2 (GPLv2).
 """
 
+# Please note, the contents of this module are considered "private" with the
+# exception of cli() and execute() and so may change within the 10.0+ releases.
+# If you come to depend on a specific method or class, please leave a GitHub
+# issue stating as much so as to help prevent breaking changes to your toolchain.
+
 import ast
 import copy
 import csv
