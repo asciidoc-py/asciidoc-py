@@ -12,10 +12,10 @@ ASCIIDOCDATE=$(sed -n '3p' configure.ac | grep -o -e "[0-9]* [A-Z][a-z]* [0-9]*"
 # execute this as a function so that we do not run afoul of bash's string interpolation / splitting
 # when trying to execute commands from variables
 asciidoc() {
-    python3 ../asciidoc -a revnumber="${ASCIIDOCVERSION}" -a revdate="${ASCIIDOCDATE}" "$@"
+    python3 -m asciidoc -a revnumber="${ASCIIDOCVERSION}" -a revdate="${ASCIIDOCDATE}" "$@"
 }
 
-A2X="python3 ../asciidoc/a2x.py"
+A2X="python3 -m asciidoc.a2x"
 
 # Step 0: Initialize the gh-pages folder
 if [ ! -d gh-pages ]; then
@@ -48,7 +48,7 @@ for file in ${files[@]}; do
     name=$(basename ${file})
     set -x
     cp ${file} gh-pages/${name}
-    set +x
+    { set +x; } 2>/dev/null
 done
 
 set -x
@@ -59,14 +59,12 @@ cp -R asciidoc/resources/icons gh-pages/images
 
 cp doc/asciidoc.1.txt gh-pages/manpage.txt
 cp doc/asciidoc.txt gh-pages/userguide.txt
-set +x
-
-pushd gh-pages
+{ set +x; } 2>/dev/null
 
 # Step 2: Build the files
-ASCIIDOC="asciidoc -b xhtml11 -f ${LAYOUT}.conf -a icons -a badges -a max-width=70em -a source-highlighter=highlight"
-for file in *.txt; do
-    name=${file:0:-4}
+ASCIIDOC="asciidoc -b xhtml11 -f gh-pages/${LAYOUT}.conf -a icons -a badges -a max-width=70em -a source-highlighter=highlight"
+for file in gh-pages/*.txt; do
+    name=${file:9:-4}
     opts=""
     if [ "${name}" = "userguide" ] || [ "${name}" = "faq" ]; then
         opts="-a toc -a numbered"
@@ -84,40 +82,44 @@ for file in *.txt; do
     fi
     set -x
     ${ASCIIDOC} ${opts} ${file}
-    set +x
+    { set +x; } 2>/dev/null
 done
 
 # Step 3: build out remaining specific files from doc
 ASCIIDOC="asciidoc"
 # TODO: investigate epub generation (--epubcheck fails)
 set -x
-${ASCIIDOC} -a data-uri -a icons -a toc -a max-width=55em -o article-standalone.html article.txt
-${ASCIIDOC} -b html5 -a icons -a toc2 -a theme=flask -o article-html5-toc2.html article.txt
+${ASCIIDOC} -a data-uri -a icons -a toc -a max-width=55em -o gh-pages/article-standalone.html gh-pages/article.txt
+${ASCIIDOC} -b html5 -a icons -a toc2 -a theme=flask -o gh-pages/article-html5-toc2.html gh-pages/article.txt
 
-${ASCIIDOC} -d manpage -b html4 asciidoc.1.txt
-${ASCIIDOC} -b xhtml11 -d manpage -o asciidoc.1.css-embedded.html asciidoc.1.txt
-${ASCIIDOC} -d manpage -b docbook asciidoc.1.txt
+${ASCIIDOC} -d manpage -b html4 gh-pages/asciidoc.1.txt
+${ASCIIDOC} -b xhtml11 -d manpage -o gh-pages/asciidoc.1.css-embedded.html gh-pages/asciidoc.1.txt
+${ASCIIDOC} -d manpage -b docbook gh-pages/asciidoc.1.txt
+pushd gh-pages
 xsltproc --nonet ../asciidoc/resources/docbook-xsl/manpage.xsl asciidoc.1.xml
 rm asciidoc.1.xml
+popd
 
-${ASCIIDOC} -b xhtml11 -n -a toc -a toclevels=2 -o asciidoc.css-embedded.html asciidoc.txt
+${ASCIIDOC} -b xhtml11 -n -a toc -a toclevels=2 -o gh-pages/asciidoc.css-embedded.html gh-pages/asciidoc.txt
 # ${A2X} -f epub -d book --epubcheck --icons asciidoc.txt
-${A2X} -f chunked -dbook --icons -D ./ asciidoc.txt
-mv asciidoc.chunked chunked
+${A2X} -f chunked -d book --icons -D ./gh-pages gh-pages/asciidoc.txt
+mv gh-pages/asciidoc.chunked gh-pages/chunked
 
 # ${A2X} -f epub -d book --epubcheck --icons book.txt
 
-${ASCIIDOC} -n -b docbook article.txt
+${ASCIIDOC} -n -b docbook gh-pages/article.txt
+pushd gh-pages
 xsltproc --nonet --stringparam admon.textlabel 0 ../asciidoc/resources/docbook-xsl/fo.xsl article.xml > article.fo
 fop article.fo article.pdf
-set +x
-rm article.xml
-rm article.fo
+{ set +x; } 2>/dev/null
+rm gh-pages/article.xml
+rm gh-pages/article.fo
+popd
 
 set -x
-${ASCIIDOC} -b docbook asciidoc.txt
+${ASCIIDOC} -b docbook gh-pages/asciidoc.txt
+pushd gh-pages
 dblatex -p ../asciidoc/resources/dblatex/asciidoc-dblatex.xsl -s ../asciidoc/resources/dblatex/asciidoc-dblatex.sty -o asciidoc.pdf asciidoc.xml
-set +x
+{ set +x; } 2>/dev/null
 rm asciidoc.xml
-
 popd

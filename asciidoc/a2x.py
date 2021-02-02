@@ -28,6 +28,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# Please note, the contents of this module are considered "private" and may
+# change within the 10.0+ releases. If you come to depend on a specific method
+# or class, please leave a GitHub issue stating as much.
+
 import io
 import os
 import fnmatch
@@ -42,10 +46,8 @@ import zipfile
 import xml.dom.minidom
 import mimetypes
 
-try:
-    from . import asciidoc
-except ImportError:
-    import asciidoc
+from . import asciidoc
+from .collections import DefaultAttrDict as AttrDict
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -124,40 +126,14 @@ def verbose(msg):
         infomsg(msg)
 
 
-class AttrDict(dict):
-    """
-    Like a dictionary except values can be accessed as attributes i.e. obj.foo
-    can be used in addition to obj['foo'].
-    If self._default has been set then it will be returned if a non-existent
-    attribute is accessed (instead of raising an AttributeError).
-    """
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError as k:
-            if '_default' in self:
-                return self['_default']
-            else:
-                raise AttributeError from k
-
-    def __setattr__(self, key, value):
-        self[key] = value
-
-    def __delattr__(self, key):
-        try:
-            del self[key]
-        except KeyError as k:
-            raise AttributeError from k
-
-    def __repr__(self):
-        return '<AttrDict ' + dict.__repr__(self) + '>'
-
-    def __getstate__(self):
-        return dict(self)
-
-    def __setstate__(self, value):
-        for k, v in value.items():
-            self[k] = v
+def flatten(array):
+    ret = []
+    for x in array:
+        if isinstance(x, (list, tuple)):
+            ret += x
+        else:
+            ret.append(x)
+    return ret
 
 
 def isexecutable(file_name):
@@ -442,9 +418,8 @@ class A2X(AttrDict):
         Load a2x configuration file from default locations and --conf-file
         option.
         '''
-        global ASCIIDOC
         CONF_FILE = 'a2x.conf'
-        a2xdir = os.path.dirname(os.path.realpath(__file__))
+        a2xdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resources')
         conf_files = []
         # From a2x.py directory.
         conf_files.append(os.path.join(a2xdir, CONF_FILE))
@@ -546,7 +521,7 @@ class A2X(AttrDict):
             self.asciidoc_opts.append(('--attribute', attr))
 #        self.xsltproc_opts += ' --nonet'
         if self.verbose:
-            self.asciidoc_opts.append((' --verbose'))
+            self.asciidoc_opts.append(('--verbose',))
             self.dblatex_opts += ' -V'
         if self.icons or self.icons_dir:
             params = [
@@ -700,8 +675,7 @@ class A2X(AttrDict):
         options.append(('--backend', 'docbook'))
         options.append(('-a', 'a2x-format=%s' % self.format))
         options.append(('--out-file', docbook_file))
-        asciidoc.reset_asciidoc()
-        asciidoc.execute('asciidoc', options, [self.asciidoc_file])
+        asciidoc.cli(flatten(['asciidoc'] + options + [self.asciidoc_file]))
         if not self.no_xmllint and XMLLINT:
             shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
 
@@ -877,8 +851,7 @@ class A2X(AttrDict):
             options.append(('-b', 'html4'))
             options.append(('-a', 'a2x-format=%s' % self.format))
             options.append(('-o', html_file))
-            asciidoc.reset_asciidoc()
-            asciidoc.execute('asciidoc', options, [self.asciidoc_file])
+            asciidoc.cli(flatten(['asciidoc'] + options + [self.asciidoc_file]))
             cmd = '"%s" %s "%s" > "%s"' % (LYNX, LYNX_OPTS, html_file, text_file)
             shell(cmd)
         else:

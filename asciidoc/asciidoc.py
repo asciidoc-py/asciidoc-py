@@ -10,6 +10,11 @@ Free use of this software is granted under the terms of the GNU General
 Public License version 2 (GPLv2).
 """
 
+# Please note, the contents of this module are considered "private" with the
+# exception of cli() and execute() and so may change within the 10.0+ releases.
+# If you come to depend on a specific method or class, please leave a GitHub
+# issue stating as much so as to help prevent breaking changes to your toolchain.
+
 import ast
 import copy
 import csv
@@ -31,6 +36,8 @@ import zipfile
 
 from ast import literal_eval
 from collections import OrderedDict
+
+from .collections import AttrDict, InsensitiveDict
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -67,63 +74,6 @@ DEFAULT_NEWLINE = '\r\n'
 
 class EAsciiDoc(Exception):
     pass
-
-
-class AttrDict(dict):
-    """
-    Like a dictionary except values can be accessed as attributes i.e. obj.foo
-    can be used in addition to obj['foo'].
-    If an item is not present None is returned.
-    """
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError:
-            return None
-
-    def __setattr__(self, key, value):
-        self[key] = value
-
-    def __delattr__(self, key):
-        try:
-            del self[key]
-        except KeyError as k:
-            raise AttributeError(k)
-
-    def __repr__(self):
-        return '<AttrDict ' + dict.__repr__(self) + '>'
-
-    def __getstate__(self):
-        return dict(self)
-
-    def __setstate__(self, value):
-        for k, v in list(value.items()):
-            self[k] = v
-
-
-class InsensitiveDict(dict):
-    """
-    Like a dictionary except key access is case insensitive.
-    Keys are stored in lower case.
-    """
-    def __getitem__(self, key):
-        return dict.__getitem__(self, key.lower())
-
-    def __setitem__(self, key, value):
-        dict.__setitem__(self, key.lower(), value)
-
-    def has_key(self, key):
-        return key.lower() in self
-
-    def get(self, key, default=None):
-        return dict.get(self, key.lower(), default)
-
-    def update(self, dict):
-        for k, v in list(dict.items()):
-            self[k] = v
-
-    def setdefault(self, key, default=None):
-        return dict.setdefault(self, key.lower(), default)
 
 
 class Trace(object):
@@ -187,7 +137,7 @@ class Message:
         if msg == self.prev_msg:  # Suppress repeated messages.
             return
         self.messages.append(msg)
-        if __name__ == '__main__':
+        if APPLICATION_CALLER == '__main__':
             sys.stderr.write('%s: %s%s' % (self.PROG, msg, os.linesep))
         self.prev_msg = msg
 
@@ -241,14 +191,6 @@ def userdir():
     return result
 
 
-def localapp():
-    """
-    Return True if we are not executing the system wide version
-    i.e. the configuration is in the executable's directory.
-    """
-    return os.path.isfile(os.path.join(APP_DIR, 'asciidoc.conf'))
-
-
 def file_in(fname, directory):
     """Return True if file fname resides inside directory."""
     assert os.path.isfile(fname)
@@ -278,7 +220,6 @@ def is_safe_file(fname, directory=None):
     return (
         not safe() or
         file_in(fname, directory) or
-        file_in(fname, APP_DIR) or
         file_in(fname, CONF_DIR)
     )
 
@@ -776,10 +717,7 @@ def filter_lines(filter_cmd, lines, attrs={}):
             if USER_DIR:
                 found = findfilter(filtername, USER_DIR, cmd)
             if not found:
-                if localapp():
-                    found = findfilter(filtername, APP_DIR, cmd)
-                else:
-                    found = findfilter(filtername, CONF_DIR, cmd)
+                found = findfilter(filtername, CONF_DIR, cmd)
     else:
         if os.path.isfile(cmd):
             found = cmd
@@ -1444,13 +1382,9 @@ class Document(object):
         """
         t = time.time()
         self.attributes['localdate'], self.attributes['localtime'] = date_time_str(t)
+        self.attributes['asciidoc-module'] = 'asciidoc'
         self.attributes['asciidoc-version'] = VERSION
-        self.attributes['asciidoc-file'] = APP_FILE
-        self.attributes['asciidoc-dir'] = APP_DIR
-        if localapp():
-            self.attributes['asciidoc-confdir'] = APP_DIR
-        else:
-            self.attributes['asciidoc-confdir'] = CONF_DIR
+        self.attributes['asciidoc-confdir'] = CONF_DIR
         self.attributes['user-dir'] = USER_DIR
         if config.verbose:
             self.attributes['verbose'] = ''
@@ -4797,7 +4731,8 @@ class Config:
         self.dumping = False    # True if asciidoc -c option specified.
         self.filters = []       # Filter names specified by --filter option.
 
-    def init(self, cmd):
+    @staticmethod
+    def init():
         """
         Check Python version and locate the executable and configuration files
         directory.
@@ -4806,13 +4741,6 @@ class Config:
         if sys.version_info[:2] < MIN_PYTHON_VERSION:
             message.stderr('FAILED: Python %d.%d or better required' % MIN_PYTHON_VERSION)
             sys.exit(1)
-        if not os.path.exists(cmd):
-            message.stderr('FAILED: Missing asciidoc command: %s' % cmd)
-            sys.exit(1)
-        global APP_FILE
-        APP_FILE = os.path.realpath(cmd)
-        global APP_DIR
-        APP_DIR = os.path.dirname(APP_FILE)
         global USER_DIR
         USER_DIR = userdir()
         if USER_DIR is not None:
@@ -4950,12 +4878,8 @@ class Config:
         Return list of well known paths with conf files.
         """
         result = []
-        if localapp():
-            # Load from folders in asciidoc executable directory.
-            result.append(APP_DIR)
-        else:
-            # Load from global configuration directory.
-            result.append(CONF_DIR)
+        # Load from global configuration directory.
+        result.append(CONF_DIR)
         # Load configuration files from ~/.asciidoc if it exists.
         if USER_DIR is not None:
             result.append(USER_DIR)
@@ -6111,7 +6035,9 @@ class Plugin:
         for d in [os.path.join(d, Plugin.type + 's') for d in config.get_load_dirs()]:
             if os.path.isdir(d):
                 for f in sorted(filter(os.path.isdir, [os.path.join(d, o) for o in os.listdir(d)])):
-                    message.stdout(os.path.join(d, f))
+                    if f.endswith('__pycache__'):
+                        continue
+                    message.stdout(f)
 
     @staticmethod
     def build(args):
@@ -6137,10 +6063,9 @@ class Plugin:
 # ---------------------------------------------------------------------------
 # Constants
 # ---------
-APP_FILE = None             # This file's full path.
-APP_DIR = None              # This file's directory.
 USER_DIR = None             # ~/.asciidoc
 HELP_FILE = 'help.conf'     # Default (English) help file.
+APPLICATION_CALLER = __name__
 
 # Globals
 # -------
@@ -6161,6 +6086,11 @@ trace = Trace()             # Implements trace attribute processing.
 # Used by asciidocapi.py #
 # List of message strings written to stderr.
 messages = message.messages
+
+
+def set_caller(name):
+    global APPLICATION_CALLER
+    APPLICATION_CALLER = name
 
 
 def reset_asciidoc():
@@ -6342,7 +6272,7 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         if isinstance(e, EAsciiDoc):
             message.stderr('%s%s' % (msg, str(e)))
         else:
-            if __name__ == '__main__':
+            if APPLICATION_CALLER == '__main__':
                 message.stderr(msg + 'unexpected error:')
                 message.stderr('-' * 60)
                 traceback.print_exc(file=sys.stderr)
@@ -6420,7 +6350,8 @@ def execute(cmd, opts, args):
        >>>
 
     """
-    config.init(cmd)
+    reset_asciidoc()
+    config.init()
     if len(args) > 1:
         usage('Too many arguments')
         sys.exit(1)
@@ -6516,11 +6447,13 @@ def execute(cmd, opts, args):
         sys.stdin, sys.stdout = stdin, stdout
 
 
-def cli():
+def cli(argv=None):
+    if argv is None:
+        argv = sys.argv
     # Process command line options.
     try:
         # DEPRECATED: --unsafe option.
-        opts, args = getopt.getopt(sys.argv[1:], 'a:b:cd:ef:hno:svw:',
+        opts, args = getopt.getopt(argv[1:], 'a:b:cd:ef:hno:svw:',
                                    ['attribute=', 'backend=', 'conf-file=', 'doctype=', 'dump-conf',
                                     'help', 'no-conf', 'no-header-footer', 'out-file=',
                                     'section-numbers', 'verbose', 'version', 'safe', 'unsafe',
@@ -6559,13 +6492,13 @@ def cli():
         if cmd not in Plugin.CMDS:
             die('illegal --%s command: %s' % (plugin, cmd))
         Plugin.type = plugin
-        config.init(sys.argv[0])
+        config.init()
         config.verbose = bool(set(['-v', '--verbose']) & set(opt_names))
         getattr(Plugin, cmd)(args)
     else:
         # Execute asciidoc.
         try:
-            execute(sys.argv[0], opts, args)
+            execute(argv[0], opts, args)
         except KeyboardInterrupt:
             sys.exit(1)
 

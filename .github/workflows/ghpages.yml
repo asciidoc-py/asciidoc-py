@@ -29,6 +29,7 @@ jobs:
         cd gh-pages
         git config --local user.email "matt.peveler@gmail.com"
         git config --local user.name "MasterOdin"
+        git add . || :
         git commit -s -m "deploy: ${{ steps.slug.outputs.sha8 }}" -a || :
 
     - name: Push changes

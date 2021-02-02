@@ -27,3 +27,8 @@ MANIFEST
 build/
 dist/
 *.egg-info/
+
+# test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
