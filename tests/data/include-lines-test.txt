@@ -5,19 +5,19 @@ The imports:
 
 [source,python]
 ----
-include::./data/dummy_file.py[lines="6..15"]
+include::./dummy_file.py[lines="6..15"]
 ----
 
 Some random ranges:
 
 [source,python]
 ----
-include::./data/dummy_file.py[lines="29..44,61..68,70,398..-1"]
+include::./dummy_file.py[lines="29..44,61..68,70,398..-1"]
 ----
 
 Using ; as separator:
 
 [source,python]
 ----
-include::./data/dummy_file.py[lines="29..44;61..68"]
+include::./dummy_file.py[lines="29..44;61..68"]
 ----
