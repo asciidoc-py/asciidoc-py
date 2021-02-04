@@ -1,0 +1,23 @@
+include line test
+=================
+
+The imports:
+
+[source,python]
+----
+include::./dummy_file.py[lines="6..15"]
+----
+
+Some random ranges:
+
+[source,python]
+----
+include::./dummy_file.py[lines="29..44,61..68,70,398..-1"]
+----
+
+Using ; as separator:
+
+[source,python]
+----
+include::./dummy_file.py[lines="29..44;61..68"]
+----
