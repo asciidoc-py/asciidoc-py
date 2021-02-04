@@ -202,7 +202,13 @@ The <span class="emphasis"><em>depth</em></span> macro attribute sets the maximu
   nesting inside the included file. By default, nesting is limited to
   a depth of ten.
 </li><li class="listitem">
-If the he <span class="emphasis"><em>warnings</em></span> attribute is set to <span class="emphasis"><em>False</em></span> (or any other
+The <code class="literal">lines</code> macro attribute can be used to include specific lines of
+  the file. You can specify a range of pages by using <code class="literal">..</code> between
+  the two numbers, for example <code class="literal">1..10</code> would include the first 10
+  lines. You can include multiple ranges or invdividual pages by using
+  a comma or semi-colon, for example <code class="literal">1..10,45,50..60</code>.
+</li><li class="listitem">
+If the <span class="emphasis"><em>warnings</em></span> attribute is set to <span class="emphasis"><em>False</em></span> (or any other
   Python literal that evaluates to boolean false) then no warning
   message is printed if the included file does not exist. By default
   <span class="emphasis"><em>warnings</em></span> are enabled.
