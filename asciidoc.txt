@@ -2954,7 +2954,7 @@ asciimath, latexmath::
   characters and you can prefix with quoted attributes in the inline
   version. Example:
 
-  Red [red]+++`sum_(i=1)\^n i=(n(n+1))/2`$+++ AsciiMathML formula
+  Red [red]+++`sum_(i=1)\^n i=(n(n+1))/2`$+++ AsciiMath formula
 
 $$::
   Inline and block. The double-dollar passthrough is functionally
@@ -3702,7 +3702,7 @@ documents generated using the AsciiDoc 'xhtml11' and 'html5' backends.
 AsciiDoc uses the
 https://www.maths.nottingham.ac.uk/plp/pmadw/lm.html[original
 LaTeXMathML] by Douglas Woodall.  'LaTeXMathML' is derived from
-ASCIIMathML and is for users who are more familiar with or prefer
+ASCIIMath and is for users who are more familiar with or prefer
 using LaTeX math formulas (it recognizes a subset of LaTeX Math, the
 differences are documented on the 'LaTeXMathML' web page).  To enable
 LaTeXMathML support you must define the 'latexmath' attribute, for
@@ -3724,10 +3724,10 @@ apply to 'MathJax' which does not use any of the 'latexmath' macros
 (but only requires the 'latexmath' passthrough blocks for identification
 of the equations).
 
-ASCIIMathML
+ASCIIMath
 ~~~~~~~~~~~
 /////////////////////////////////////////////////////////////////////
-The older ASCIIMathML 1.47 version is used instead of version 2
+The older ASCIIMath 1.47 version is used instead of version 2
 because:
 
 1. Version 2 doesn't work when embedded.
@@ -3736,14 +3736,14 @@ because:
 
 http://asciimath.org/[ASCIIMath] formulas can be included in XHTML
 documents generated using the 'xhtml11' and 'html5' backends. To enable
-ASCIIMathML support you must define the 'asciimath' attribute, for
+ASCIIMath support you must define the 'asciimath' attribute, for
 example using the `-a asciimath` command-line option.  Example inline
 formula:
 
   asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]
 
 For more examples see the {website}[AsciiDoc website] or the
-distributed `doc/asciimathml.txt` file.
+distributed `doc/asciimath.txt` file.
 
 MathML
 ~~~~~~

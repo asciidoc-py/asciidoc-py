@@ -163,7 +163,7 @@ https://pygments.org/[Pygments] highlighter.
 Mathematical Formulae
 ---------------------
 You can include mathematical formulae in AsciiDoc XHTML documents using
-link:asciimathml.html[ASCIIMathML] or link:latexmathml.html[LaTeXMathML]
+link:asciimath.html[ASCIIMath] or link:latexmathml.html[LaTeXMathML]
 notation.
 
 The link:latex-filter.html[AsciiDoc LaTeX filter] translates LaTeX
