@@ -1,4 +1,4 @@
-ASCIIMathML Formulae
+ASCIIMath Formulae
 ====================
 
 http://asciimath.org/[ASCIIMath] is a clever JavaScript written by
@@ -8,16 +8,16 @@ https://www.w3.org/Math/[MathML] markup which is displayed as
 standard mathematical notation by the Web Browser.  See 'Appendix E'
 in the AsciiDoc User Guide for more details.
 
-The AsciiDoc `xhtml11` backend supports ASCIIMathML -- it links the
-ASCIIMathML script and escapes ASCIIMathML delimiters and special
-characters to yield valid XHTML. To use ASCIIMathML:
+The AsciiDoc `xhtml11` backend supports ASCIIMath -- it links the
+ASCIIMath script and escapes ASCIIMath delimiters and special
+characters to yield valid XHTML. To use ASCIIMath:
 
 1. Include the `-a asciimath` command-line option when you run
    `asciidoc(1)`.
-2. Enclose ASCIIMathML formulas inside math or double-dollar
+2. Enclose ASCIIMath formulas inside math or double-dollar
    passthroughs or in math passthrough blocks.
 
-Here's the link:asciimathml.txt[AsciiDoc source] that generated this
+Here's the link:asciimath.txt[AsciiDoc source] that generated this
 page.
 
 .NOTE
@@ -25,7 +25,7 @@ page.
   characters in the formulas with a backslash, escaping is unnecessary
   if you use the double-dollar macro (for examples see the second
   formula below).
-- See the http://asciimath.org[ASCIIMath] website for ASCIIMathML
+- See the http://asciimath.org[ASCIIMath] website for ASCIIMath
   documentation and the latest version.
 - If the formulas don't appear to be correct you probably need to
   install the correct math fonts (see the
