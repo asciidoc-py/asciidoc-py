@@ -25,3 +25,11 @@ MANIFEST
 /tags
 /gh-pages/
 build/
+
+# python package build files
+*.egg-info/
+dist/
+
+# coverage files
+.coverage
+htmlcov/
