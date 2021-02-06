@@ -267,7 +267,7 @@ slidy
 <dd>
 <p>
   Use this backend to generate self-contained
-  <a href="http://www.w3.org/Talks/Tools/Slidy2/">Slidy</a> HTML slideshows for
+  <a href="https://www.w3.org/Talks/Tools/Slidy2">Slidy</a> HTML slideshows for
   your web browser from AsciiDoc documents. The Slidy backend is
   documented in the distribution <code>doc/slidy.txt</code> file and
   <a href="https://asciidoc.org/slidy.html">online</a>.
@@ -279,7 +279,7 @@ wordpress
 <dd>
 <p>
   A minor variant of the <em>html4</em> backend to support
-  <a href="http://srackham.wordpress.com/blogpost1/">blogpost</a>.
+  <a href="https://srackham.wordpress.com/blogpost1/">blogpost</a>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -351,15 +351,16 @@ By default backends plugins are installed in
 <h2 id="_docbook">5. DocBook</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>AsciiDoc generates <em>article</em>, <em>book</em> and <em>refentry</em>
-<a href="http://www.docbook.org/">DocBook</a> documents (corresponding to the
+<a href="https://docbook.org/">DocBook</a> documents (corresponding to the
 AsciiDoc <em>article</em>, <em>book</em> and <em>manpage</em> document types).</p></div>
 <div class="paragraph"><p>Most Linux distributions come with conversion tools (collectively
 called a toolchain) for <a href="#X12">converting DocBook files</a> to
 presentation formats such as Postscript, HTML, PDF, EPUB, DVI,
 PostScript, LaTeX, roff (the native man page format), HTMLHelp,
 JavaHelp and text.  There are also programs that allow you to view
-DocBook files directly, for example <a href="http://live.gnome.org/Yelp">Yelp</a>
-(the GNOME help viewer).</p></div>
+DocBook files directly, for example
+<a href="https://wiki.gnome.org/action/show/Apps/Yelp">Yelp</a> (the GNOME help
+viewer).</p></div>
 <div class="sect2">
 <h3 id="X12">5.1. Converting DocBook to other file formats</h3>
 <div class="paragraph"><p>DocBook files are validated, parsed and translated various
@@ -533,7 +534,7 @@ AsciiDoc
 </p>
 </dd>
 <dt class="hdlist1">
-<a id="X14"></a><a href="http://xmlgraphics.apache.org/fop/">FOP</a>
+<a id="X14"></a><a href="https://xmlgraphics.apache.org/fop/">FOP</a>
 </dt>
 <dd>
 <p>
@@ -551,7 +552,7 @@ AsciiDoc
   The Microsoft HTML Help Compiler (<code>hhc.exe</code>) is a command-line tool
   that converts HTML Help source files to a single HTML Help (<code>.chm</code>)
   file. It runs on MS Windows platforms and can be downloaded from
-  <a href="http://www.microsoft.com">http://www.microsoft.com</a>.
+  <a href="https://www.microsoft.com/">https://www.microsoft.com/</a>.
 </p>
 </dd>
 </dl></div>
@@ -1646,7 +1647,7 @@ outputs. The CSS class names are:</p></div>
 </li>
 </ul></div>
 <div class="paragraph"><p>Where <em>&lt;color&gt;</em> can be any of the
-<a href="http://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML
+<a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML
 color names</a>.  Examples:</p></div>
 <div class="literalblock">
 <div class="content">
@@ -1975,7 +1976,7 @@ block the second attribute value in the AttributeList is quoted to
 ensure the <em>http</em> macro is expanded to a hyperlink.</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><code>[quote,'http://en.wikipedia.org/wiki/Samuel_Johnson[Samuel Johnson]']
+<pre><code>[quote,'https://en.wikipedia.org/wiki/Samuel_Johnson[Samuel Johnson]']
 _____________________________________________________________________
 Sir, a woman's preaching is like a dog's walking on his hind legs. It
 is not done well; but you are surprised to find it done at all.
@@ -3688,7 +3689,7 @@ inline macros) and <code>&lt;name&gt;::&lt;target&gt;[&lt;attrlist&gt;]</code> (
 macros).  Here are some examples:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>http://www.docbook.org/[DocBook.org]
+<pre><code>https://docbook.org/[DocBook.org]
 include::chapt1.txt[tabsize=2]
 mailto:srackham@gmail.com[]</code></pre>
 </div></div>
@@ -3780,14 +3781,14 @@ If the <code>&lt;attrlist&gt;</code> is empty the URL is displayed.
 <div class="paragraph"><p>Here are some examples:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>http://www.docbook.org/[DocBook.org]
-http://www.docbook.org/
+<pre><code>https://docbook.org/[DocBook.org]
+https://docbook.org/
 mailto:joe.bloggs@foobar.com[email Joe Bloggs]
 joe.bloggs@foobar.com</code></pre>
 </div></div>
 <div class="paragraph"><p>Which are rendered:</p></div>
-<div class="paragraph"><p><a href="http://www.docbook.org/">DocBook.org</a></p></div>
-<div class="paragraph"><p><a href="http://www.docbook.org/">http://www.docbook.org/</a></p></div>
+<div class="paragraph"><p><a href="https://docbook.org/">DocBook.org</a></p></div>
+<div class="paragraph"><p><a href="https://docbook.org/">https://docbook.org/</a></p></div>
 <div class="paragraph"><p><a href="mailto:joe.bloggs@foobar.com">email Joe Bloggs</a></p></div>
 <div class="paragraph"><p><a href="mailto:joe.bloggs@foobar.com">joe.bloggs@foobar.com</a></p></div>
 <div class="paragraph"><p>If the <code>&lt;target&gt;</code> necessitates space characters use <code>%20</code>, for example
@@ -3902,7 +3903,7 @@ referring document.</p></div>
 The optional <em>alt</em> attribute is also the first positional attribute,
   it specifies alternative text which is displayed if the output
   application is unable to display the image file (see also
-  <a href="http://htmlhelp.com/feature/art3.htm">Use of ALT texts in IMGs</a>). For
+  <a href="https://htmlhelp.com/feature/art3.htm">Use of ALT texts in IMGs</a>). For
   example:
 </p>
 <div class="literalblock">
@@ -4068,7 +4069,7 @@ image::images/layout.png[J14P main circuit board]</code></pre>
 <div class="title">Embedding images in XHTML documents</div>
 <div class="paragraph"><p>If you define the <code>data-uri</code> attribute then images will be embedded in
 XHTML outputs using the
-<a href="http://en.wikipedia.org/wiki/Data:_URI_scheme">data URI scheme</a>.  You
+<a href="https://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>.  You
 can use the <em>data-uri</em> attribute with the <em>xhtml11</em> and <em>html5</em>
 backends to produce single-file XHTML documents with embedded images
 and CSS, for example:</p></div>
@@ -5723,7 +5724,7 @@ white space character on either side. For example:</p></div>
 <div class="sect2">
 <h3 id="_refmiscinfo_attributes">24.4. refmiscinfo attributes</h3>
 <div class="paragraph"><p>In addition to the automatically created man page <a href="#X60">intrinsic attributes</a> you can assign DocBook
-<a href="http://www.docbook.org/tdg5/en/html/refmiscinfo.html">refmiscinfo</a>
+<a href="https://tdg.docbook.org/tdg/4.5/refmiscinfo.html">refmiscinfo</a>
 element <em>source</em>, <em>version</em> and <em>manual</em> values using AsciiDoc
 <code>{mansource}</code>, <code>{manversion}</code> and <code>{manmanual}</code> attributes
 respectively. This example is from the AsciiDoc header of a man page
@@ -5758,7 +5759,7 @@ distributed <code>doc/latexmath.txt</code> file.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_mathjax">25.2. MathJax</h3>
-<div class="paragraph"><p><a href="http://www.mathjax.org/">MathJax</a> allows LaTeX Math style formulas to be included
+<div class="paragraph"><p><a href="https://www.mathjax.org/">MathJax</a> allows LaTeX Math style formulas to be included
 in XHTML documents generated via the AsciiDoc <em>xhtml11</em> and <em>html5</em> backends.
 This route overcomes several restrictions of the MathML-based approaches,
 notably, restricted support of MathML by many mainstream browsers. To enable
@@ -5773,7 +5774,7 @@ you are offline (but it can be configured differently).</p></div>
 <div class="paragraph"><p><em>LaTeXMathML</em> allows LaTeX Math style formulas to be included in XHTML
 documents generated using the AsciiDoc <em>xhtml11</em> and <em>html5</em> backends.
 AsciiDoc uses the
-<a href="http://www.maths.nottingham.ac.uk/personal/drw/lm.html">original
+<a href="https://www.maths.nottingham.ac.uk/plp/pmadw/lm.html">original
 LaTeXMathML</a> by Douglas Woodall.  <em>LaTeXMathML</em> is derived from
 ASCIIMathML and is for users who are more familiar with or prefer
 using LaTeX math formulas (it recognizes a subset of LaTeX Math, the
@@ -5806,11 +5807,11 @@ of the equations).</td>
 </div>
 <div class="sect2">
 <h3 id="_asciimathml">25.4. ASCIIMathML</h3>
-<div class="paragraph"><p><a href="http://www1.chapman.edu/~jipsen/mathml/asciimath.html">ASCIIMathML</a>
-formulas can be included in XHTML documents generated using the
-<em>xhtml11</em> and <em>html5</em> backends. To enable ASCIIMathML support you must
-define the <em>asciimath</em> attribute, for example using the <code>-a asciimath</code>
-command-line option.  Example inline formula:</p></div>
+<div class="paragraph"><p><a href="http://asciimath.org/">ASCIIMath</a> formulas can be included in XHTML
+documents generated using the <em>xhtml11</em> and <em>html5</em> backends. To enable
+ASCIIMathML support you must define the <em>asciimath</em> attribute, for
+example using the <code>-a asciimath</code> command-line option.  Example inline
+formula:</p></div>
 <div class="literalblock">
 <div class="content">
 <pre><code>asciimath:[`x/x={(1,if x!=0),(text{undefined},if x=0):}`]</code></pre>
@@ -5820,7 +5821,7 @@ distributed <code>doc/asciimathml.txt</code> file.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_mathml">25.5. MathML</h3>
-<div class="paragraph"><p><a href="http://www.w3.org/Math/">MathML</a> is a low level XML markup for
+<div class="paragraph"><p><a href="https://www.w3.org/Math/">MathML</a> is a low level XML markup for
 mathematics. AsciiDoc has no macros for MathML but users familiar with
 this markup could use passthrough macros and passthrough blocks to
 include MathML in output documents.</p></div>
@@ -6883,8 +6884,8 @@ Attribute entries can be used to make your documents easier to read
 and write, here are some examples:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>:1:         http://freshmeat.net/projects/asciidoc/
-:homepage:  http://asciidoc.org[AsciiDoc home page]
+<pre><code>:1:         http://freshmeat.sourceforge.net/projects/asciidoc/
+:homepage:  https://asciidoc.org[AsciiDoc home page]
 :new:       image:./images/smallnew.png[]
 :footnote1: footnote:[A meaningless latin term]</code></pre>
 </div></div>
@@ -7608,7 +7609,7 @@ If the input file is the standard input and the output file is not
 <li>
 <p>
 See
-   <a href="http://en.wikipedia.org/wiki/Non-English_usage_of_quotation_marks">non-English
+   <a href="https://en.wikipedia.org/wiki/Quotation_mark#Summary_table">non-English
    usage of quotation marks</a>.
 </p>
 </li>
@@ -8288,7 +8289,7 @@ cellspacing="0" cellpadding="4">
 <td align="left" valign="top"><p class="table"><em>music</em></p></td>
 <td align="left" valign="top"><p class="table">A <a href="https://asciidoc.org/music-filter.html">music filter</a> is included in the
 distribution <code>./filters/</code> directory. It translates music in
-<a href="http://lilypond.org/">LilyPond</a> or <a href="http://abcnotation.org.uk/">ABC</a>
+<a href="https://lilypond.org/">LilyPond</a> or <a href="https://abcnotation.com/">ABC</a>
 notation to standard classical notation.</p></td>
 </tr>
 <tr>
@@ -8304,7 +8305,7 @@ AsciiDoc output documents.</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table"><em>graphviz</em></p></td>
-<td align="left" valign="top"><p class="table">Gouichi Iisaka has written a <a href="http://www.graphviz.org/">Graphviz</a>
+<td align="left" valign="top"><p class="table">Gouichi Iisaka has written a <a href="https://www.graphviz.org/">Graphviz</a>
 filter for AsciiDoc.  Graphviz generates diagrams from a textual
 specification. Gouichi Iisaka&#8217;s Graphviz filter is included in the
 AsciiDoc distribution. Here are some
@@ -8473,7 +8474,7 @@ Put <code>set</code> commands in your <code>~/.vimrc</code> file so you don&#821
 </li>
 <li>
 <p>
-The Vim website (<a href="http://www.vim.org">http://www.vim.org</a>) has a wealth of resources,
+The Vim website (<a href="https://www.vim.org/">https://www.vim.org/</a>) has a wealth of resources,
   including scripts for automated spell checking and ASCII Art
   drawing.
 </p>
@@ -8768,8 +8769,8 @@ Change the indentation and layout of configuration file markup
 </li>
 <li>
 <p>
-Use Dave Raggett&#8217;s <a href="http://tidy.sourceforge.net/">HTML Tidy</a> program
-   to tidy <code>asciidoc(1)</code> output. Example:
+Use <a href="https://www.html-tidy.org/">HTML Tidy</a> program to tidy
+   <code>asciidoc(1)</code> output. Example:
 </p>
 <div class="literalblock">
 <div class="content">
@@ -8881,7 +8882,7 @@ type&#8217;s DTD, if the DTD is not installed in your system&#8217;s catalog the
 it will be fetched from its Internet location. If you omit the
 <code>--valid</code> option the document will only be checked that it is well
 formed.</p></div>
-<div class="paragraph"><p>The online <a href="http://validator.w3.org/#validate_by_uri+with_options">W3C
+<div class="paragraph"><p>The online <a href="https://validator.w3.org/#validate_by_uri+with_options">W3C
 Markup Validation Service</a> is the defacto standard when it comes to
 validating HTML (it validates all HTML standards including HTML5).</p></div>
 </div>
@@ -9430,7 +9431,7 @@ names to the output document not the source document.</td>
 <td align="left" valign="top"><div><div class="paragraph"><p>Set a <em>CSS signature</em> for the document (sets the <em>id</em> attribute of the
 HTML <em>body</em> element). CSS signatures provide a mechanism that allows
 users to personalize the document appearance. The term <em>CSS signature</em>
-was <a href="http://archivist.incutio.com/viewlist/css-discuss/13291">coined by
+was <a href="https://juicystudio.com/article/css-selectors.php">coined by
 Eric Meyer</a>.</p></div></div></td>
 </tr>
 <tr>
@@ -9762,7 +9763,7 @@ General Public License version 2 for more details.</p></div>
 <div id="footer">
 <div id="footer-text">
 Version 9.0.5<br />
-Last updated 2021-02-06 03:13:49 UTC<br />
+Last updated 2021-02-06 04:30:33 UTC<br />
 AsciiDoc is a trademark of the Eclipse Foundation, Inc.
 </div>
 <div id="footer-badges">

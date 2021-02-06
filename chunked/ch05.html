@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Chapter 5. DocBook</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="AsciiDoc User Guide" /><link rel="up" href="index.html" title="AsciiDoc User Guide" /><link rel="prev" href="ch04.html" title="Chapter 4. AsciiDoc Backends" /><link rel="next" href="ch06.html" title="Chapter 6. Generating Plain Text Files" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ch04.html"><img src="images/icons/prev.png" alt="Prev" /></a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch06.html"><img src="images/icons/next.png" alt="Next" /></a></td></tr></table><hr /></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="_docbook"></a>Chapter 5. DocBook</h1></div></div></div><p>AsciiDoc generates <span class="emphasis"><em>article</em></span>, <span class="emphasis"><em>book</em></span> and <span class="emphasis"><em>refentry</em></span>
-<a class="ulink" href="http://www.docbook.org/" target="_top">DocBook</a> documents (corresponding to the
+<a class="ulink" href="https://docbook.org/" target="_top">DocBook</a> documents (corresponding to the
 AsciiDoc <span class="emphasis"><em>article</em></span>, <span class="emphasis"><em>book</em></span> and <span class="emphasis"><em>manpage</em></span> document types).</p><p>Most Linux distributions come with conversion tools (collectively
 called a toolchain) for <a class="link" href="ch05.html#X12" title="5.1. Converting DocBook to other file formats">converting DocBook files</a> to
 presentation formats such as Postscript, HTML, PDF, EPUB, DVI,
 PostScript, LaTeX, roff (the native man page format), HTMLHelp,
 JavaHelp and text.  There are also programs that allow you to view
-DocBook files directly, for example <a class="ulink" href="http://live.gnome.org/Yelp" target="_top">Yelp</a>
-(the GNOME help viewer).</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X12"></a>5.1. Converting DocBook to other file formats</h2></div></div></div><p>DocBook files are validated, parsed and translated various
+DocBook files directly, for example
+<a class="ulink" href="https://wiki.gnome.org/action/show/Apps/Yelp" target="_top">Yelp</a> (the GNOME help
+viewer).</p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="X12"></a>5.1. Converting DocBook to other file formats</h2></div></div></div><p>DocBook files are validated, parsed and translated various
 presentation file formats using a combination of applications
 collectively called a DocBook <span class="emphasis"><em>tool chain</em></span>. The function of a tool
 chain is to read the DocBook markup (produced by AsciiDoc) and
@@ -90,7 +91,7 @@ AsciiDoc
   DocBook source via the intermediate LaTeX typesetting language —   uses <a class="link" href="ch05.html#X13">DocBook XSL Stylesheets</a>, <a class="link" href="ch05.html#X40">xsltproc(1)</a> and
   <code class="literal">latex(1)</code>.
 </dd><dt><span class="term">
-<a id="X14"></a><a class="ulink" href="http://xmlgraphics.apache.org/fop/" target="_top">FOP</a>
+<a id="X14"></a><a class="ulink" href="https://xmlgraphics.apache.org/fop/" target="_top">FOP</a>
 </span></dt><dd>
   The Apache Formatting Objects Processor converts XSL-FO (<code class="literal">.fo</code>)
   files to PDF files.  The XSL-FO files are generated from DocBook
@@ -102,7 +103,7 @@ AsciiDoc
   The Microsoft HTML Help Compiler (<code class="literal">hhc.exe</code>) is a command-line tool
   that converts HTML Help source files to a single HTML Help (<code class="literal">.chm</code>)
   file. It runs on MS Windows platforms and can be downloaded from
-  <a class="ulink" href="http://www.microsoft.com" target="_top">http://www.microsoft.com</a>.
+  <a class="ulink" href="https://www.microsoft.com/" target="_top">https://www.microsoft.com/</a>.
 </dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_asciidoc_dblatex_configuration_files"></a>5.7. AsciiDoc dblatex configuration files</h2></div></div></div><p>The AsciiDoc distribution <code class="literal">./dblatex</code> directory contains
 <code class="literal">asciidoc-dblatex.xsl</code> (customized XSL parameter settings) and
 <code class="literal">asciidoc-dblatex.sty</code> (customized LaTeX settings). These are examples

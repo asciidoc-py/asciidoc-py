@@ -132,8 +132,9 @@ The following software is necessary for using the LaTeX backend:
 
 - An up-to-date version of https://asciidoc.org/[Asciidoc]
 - An up-to-date TeX distribution, e.g.:
-  * http://www.miktex.org/[MiKTeX] for Windows
-  * http://www.tug.org/tetex/[teTeX] for Linux
+  * https://miktex.org/[MiKTeX] for Windows
+  * https://tug.org/texlive/[teTeX] for Linux
+  * https://www.tug.org/mactex/ for macOS
 
 [[packageRequirements]]
 === TeX/LaTeX Package requirements
@@ -175,7 +176,7 @@ For more special characters take a look in the `[replacements2]` sections. `[rep
 
 === Code listing block
 
-For creating highlighted code listings I suggest the use of http://www.andre-simon.de/[Highlight] or http://www.gnu.org/software/src-highlite/[GNU Source Highlight]. Both are suited for use as Asciidoc filters.
+For creating highlighted code listings I suggest the use of http://www.andre-simon.de/[Highlight] or https://www.gnu.org/software/src-highlite/[GNU Source Highlight]. Both are suited for use as Asciidoc filters.
 
 == Known Bugs
 

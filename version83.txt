@@ -29,7 +29,7 @@ New Features
   macros] along with 'asciimath' and 'latexmath'
   link:userguide.html#X76[passthrough blocks] provide a (backend
   dependent) mechanism for rendering mathematical formulas. There are
-  link:latexmath.pdf[LaTeX Math], link:asciimathml.html[AsciiMathML]
+  link:latexmath.pdf[LaTeX Math], link:asciimath.html[AsciiMath]
   and link:latexmathml.html[LaTeXMathML] examples on the AsciiDoc
   website.
 

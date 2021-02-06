@@ -286,7 +286,7 @@ REQUISITES
 - *dblatex* (pdf, dvi, ps, tex formats):
   http://dblatex.sourceforge.net/
 - *FOP* (pdf format -- alternative PDF file generator):
-  http://xmlgraphics.apache.org/fop/
+  https://xmlgraphics.apache.org/fop/
 - *w3m* (text format):
   http://w3m.sourceforge.net/index.en.html
 - *Lynx* (text format -- alternative text file generator):

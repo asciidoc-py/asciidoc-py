@@ -3,7 +3,7 @@
 documents.</p><p>Macros have a <span class="emphasis"><em>name</em></span>, a single <span class="emphasis"><em>target</em></span> argument and an <span class="emphasis"><em>attribute
 list</em></span>.  The usual syntax is <code class="literal">&lt;name&gt;:&lt;target&gt;[&lt;attrlist&gt;]</code> (for
 inline macros) and <code class="literal">&lt;name&gt;::&lt;target&gt;[&lt;attrlist&gt;]</code> (for block
-macros).  Here are some examples:</p><pre class="literallayout">http://www.docbook.org/[DocBook.org]
+macros).  Here are some examples:</p><pre class="literallayout">https://docbook.org/[DocBook.org]
 include::chapt1.txt[tabsize=2]
 mailto:srackham@gmail.com[]</pre><div class="itemizedlist"><p class="title"><strong>Macro behavior</strong></p><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">&lt;name&gt;</code> is the macro name. It can only contain letters, digits or
@@ -44,10 +44,10 @@ If you don’t need a custom link caption you can enter the <span class="emphasi
   macro syntax.
 </li><li class="listitem">
 If the <code class="literal">&lt;attrlist&gt;</code> is empty the URL is displayed.
-</li></ul></div><p>Here are some examples:</p><pre class="literallayout">http://www.docbook.org/[DocBook.org]
-http://www.docbook.org/
+</li></ul></div><p>Here are some examples:</p><pre class="literallayout">https://docbook.org/[DocBook.org]
+https://docbook.org/
 mailto:joe.bloggs@foobar.com[email Joe Bloggs]
-joe.bloggs@foobar.com</pre><p>Which are rendered:</p><p><a class="ulink" href="http://www.docbook.org/" target="_top">DocBook.org</a></p><p><a class="ulink" href="http://www.docbook.org/" target="_top">http://www.docbook.org/</a></p><p><a class="ulink" href="mailto:joe.bloggs@foobar.com" target="_top">email Joe Bloggs</a></p><p><a class="ulink" href="mailto:joe.bloggs@foobar.com" target="_top">joe.bloggs@foobar.com</a></p><p>If the <code class="literal">&lt;target&gt;</code> necessitates space characters use <code class="literal">%20</code>, for example
+joe.bloggs@foobar.com</pre><p>Which are rendered:</p><p><a class="ulink" href="https://docbook.org/" target="_top">DocBook.org</a></p><p><a class="ulink" href="https://docbook.org/" target="_top">https://docbook.org/</a></p><p><a class="ulink" href="mailto:joe.bloggs@foobar.com" target="_top">email Joe Bloggs</a></p><p><a class="ulink" href="mailto:joe.bloggs@foobar.com" target="_top">joe.bloggs@foobar.com</a></p><p>If the <code class="literal">&lt;target&gt;</code> necessitates space characters use <code class="literal">%20</code>, for example
 <code class="literal">large%20image.png</code>.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_internal_cross_references"></a>21.1.2. Internal Cross References</h3></div></div></div><p>Two AsciiDoc inline macros are provided for creating hypertext links
 within an AsciiDoc document. You can use either the standard macro
 syntax or the (preferred) alternative.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="X30"></a>anchor</h4></div></div></div><p>Used to specify hypertext link targets:</p><pre class="literallayout">[[&lt;id&gt;,&lt;xreflabel&gt;]]
@@ -87,7 +87,7 @@ referring document.</p><div class="itemizedlist"><a id="X55"></a><p class="title
 The optional <span class="emphasis"><em>alt</em></span> attribute is also the first positional attribute,
   it specifies alternative text which is displayed if the output
   application is unable to display the image file (see also
-  <a class="ulink" href="http://htmlhelp.com/feature/art3.htm" target="_top">Use of ALT texts in IMGs</a>). For
+  <a class="ulink" href="https://htmlhelp.com/feature/art3.htm" target="_top">Use of ALT texts in IMGs</a>). For
   example:
 </p><pre class="literallayout">image:images/logo.png[Company Logo]</pre></li><li class="listitem">
 The optional <span class="emphasis"><em>title</em></span> attribute provides a title for the image. The
@@ -144,7 +144,7 @@ image::images/layout.png[J14P main circuit board]</pre><p>is equivalent to:</p><
 [caption="Figure 2: "]
 image::images/layout.png[J14P main circuit board]</pre><div class="sidebar"><a id="X66"></a><div class="titlepage"><div><div><p class="title"><strong>Embedding images in XHTML documents</strong></p></div></div></div><p>If you define the <code class="literal">data-uri</code> attribute then images will be embedded in
 XHTML outputs using the
-<a class="ulink" href="http://en.wikipedia.org/wiki/Data:_URI_scheme" target="_top">data URI scheme</a>.  You
+<a class="ulink" href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_top">data URI scheme</a>.  You
 can use the <span class="emphasis"><em>data-uri</em></span> attribute with the <span class="emphasis"><em>xhtml11</em></span> and <span class="emphasis"><em>html5</em></span>
 backends to produce single-file XHTML documents with embedded images
 and CSS, for example:</p><pre class="literallayout">$ asciidoc -a data-uri mydocument.txt</pre><div class="note" style="margin-left: 0; margin-right: 10%;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/icons/note.png" /></td><th align="left"></th></tr><tr><td align="left" valign="top"><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">

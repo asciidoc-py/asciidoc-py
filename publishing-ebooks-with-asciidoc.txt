@@ -18,7 +18,7 @@ ifdef::blogpost[]
 endif::blogpost[]
 
 It's easy to write and publish books in
-http://en.wikipedia.org/wiki/EPUB[EPUB] and PDF formats using
+https://en.wikipedia.org/wiki/EPUB[EPUB] and PDF formats using
 https://asciidoc.org/[AsciiDoc].
 ifdef::blogpost[]
 This article was originally published on the
@@ -44,13 +44,8 @@ system.
 NOTE: A number of 'asciidoc' and 'a2x' features used in this article
 require newer versions of AsciiDoc -- version 8.6.5 or better is
 recommended. The version of
-http://wiki.docbook.org/topic/DocBookXslStylesheets[DocBook XSL
+https://github.com/docbook/wiki/wiki/DocBookXslStylesheets[DocBook XSL
 Stylesheets] used was 1.76.1.
-
-TIP: If you are experiencing 'xsltproc' errors when you run 'a2x' take
-a look at Francis Shanahan's
-http://francisshanahan.com/index.php/2011/fixing-epub-problem-docbook-xsl-asciidoc-a2x/[Fixing
-the ePub problem with Docbook-XSL/A2X/Asciidoc] blog post.
 
 
 [[X1]]
@@ -92,7 +87,7 @@ version (`minimal-book.pdf`) with 'dblatex' run:
   a2x -fpdf -dbook minimal-book.txt
 
 The distributed example PDFs were built using FOP -- if you prefer
-http://xmlgraphics.apache.org/fop/[FOP] over
+https://xmlgraphics.apache.org/fop/[FOP] over
 http://dblatex.sourceforge.net/[dblatex] use:
 
   a2x -fpdf -dbook --fop minimal-book.txt
@@ -116,7 +111,7 @@ prepackaged for your Linux distribution):
 - https://github.com/docbook/xslt10-stylesheets[DocBook XSL
   Stylesheets]
 - http://dblatex.sourceforge.net/[dblatex] (PDF file generator)
-- http://xmlgraphics.apache.org/fop/[FOP] (alternative PDF file
+- https://xmlgraphics.apache.org/fop/[FOP] (alternative PDF file
   generator)
 - https://github.com/w3c/epubcheck[epubcheck] (optional EPUB file
   validator)
@@ -128,7 +123,7 @@ The Brothers Karamazov
 ----------------------
 'The Brothers Karamazov' is an example of a multi-part book. To
 generate the AsciiDoc source I downloaded the
-http://www.gutenberg.org[Project Gutenberg] plain text source and
+https://www.gutenberg.org/[Project Gutenberg] plain text source and
 edited it manually (this took around 15 minutes). To generate the
 `brothers-karamazov.epub` EPUB file run this command:
 
@@ -145,7 +140,7 @@ edited it manually (this took around 15 minutes). To generate the
 
 |link:examples/books/brothers-karamazov.zip[brothers-karamazov.zip]
 
-|http://www.gutenberg.org/etext/28054
+|https://www.gutenberg.org/ebooks/28054
 
 |====================================================================
 
@@ -154,7 +149,7 @@ specific meta-data:
 
 ---------------------------------------------------------------------
 //
-// Text from Project Gutenburg http://www.gutenberg.org/etext/28054
+// Text from Project Gutenburg https://www.gutenberg.org/etext/28054
 //
 // Formatted for AsciiDoc by Stuart Rackham.
 //
@@ -257,12 +252,12 @@ this command:
 
 |link:examples/books/adventures-of-sherlock-holmes.zip[adventures-of-sherlock-holmes.zip]
 
-|http://www.gutenberg.org/etext/1661
+|https://www.gutenberg.org/etext/1661
 
 |====================================================================
 
 Here's a screenshot of the first page of the first chapter (rendered
-by the http://www.epubread.com/en/[Firefox EPUBReader addon]):
+by the https://www.epubread.com/en/[Firefox EPUBReader addon]):
 
 image::examples/books/sherlock-epub.png[]
 
@@ -271,7 +266,7 @@ Zip file] contains the following files:
 
 `adventures-of-sherlock-holmes.txt`::
   The AsciiDoc source (derived from the
-  http://www.gutenberg.org/etext/1661[Project Gutenberg plain text
+  https://www.gutenberg.org/etext/1661[Project Gutenberg plain text
   source]).
 
 `adventures-of-sherlock-holmes.jpg`::
@@ -302,7 +297,7 @@ specific meta-data:
 
 ---------------------------------------------------------------------
 //
-// Text from Project Gutenburg http://www.gutenberg.org/etext/1661
+// Text from Project Gutenburg https://www.gutenberg.org/etext/1661
 //
 // Formatted for AsciiDoc by Stuart Rackham.
 //
@@ -374,7 +369,7 @@ See https://asciidoc.org/faq.html#X5[this FAQ].
 Reading EPUB documents
 ----------------------
 To view and read epub files, you can use
-http://www.epubread.com/en/[EPUBReader addon], which is available for
+https://www.epubread.com/en/[EPUBReader addon], which is available for
 Firefox, Chrome / Chromium, and Opera. EPUBReader honors the book's
 CSS styling rules and renders the page as the author intended (many
 EPUB readers only process a sub-set of CSS styling rules).
@@ -388,6 +383,6 @@ Non-fiction Books and Manuals
 AsciiDoc supports a rich set of markup conventions and can generate
 reference works and technical manuals complete with tables,
 illustrations, indexes, bibliographies and appendices. All the
-examples on the http:///asciidoc.org/[AsciiDoc web site]
+examples on the https://asciidoc.org/[AsciiDoc web site]
 can be formatted as EPUB eBooks.
 
