@@ -1,7 +1,6 @@
 AsciiDoc User Guide
 ===================
-Stuart Rackham <srackham@gmail.com>
-:Author Initials: SJR
+AsciiDoc.py Team
 :toc:
 :icons:
 :numbered:
