@@ -834,7 +834,7 @@ Version 8.6.0 (2010-08-16)
 - Added 'style' and 'role' CSS classes to xhtml11 section templates.
 - Added the 'role' element to xhtml11 backend block templates.
 - Suppressed md5 module deprecation warning from music and Graphviz filters.
-- Pygments (http://pygments.org/) option added to source code
+- Pygments (https://pygments.org/) option added to source code
   highlight filter.  Based on Pygments source code filter written by
   David Hajage
   (http://groups.google.com/group/asciidoc/browse_thread/thread/d8d042f5a3021369/8934ebbb8cb7144b).
