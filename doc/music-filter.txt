@@ -2,8 +2,8 @@ Music Filter
 ============
 
 The AsciiDoc distribution includes a Music Block filter that
-translates music in http://lilypond.org/[LilyPond] or
-http://abcnotation.org.uk/[ABC] notation to standard classical
+translates music in https://lilypond.org/[LilyPond] or
+https://abcnotation.com/[ABC] notation to standard classical
 notation in the form of a trimmed PNG image which is automatically
 inserted into the AsciiDoc output document (see the examples below).
 
@@ -130,9 +130,9 @@ Installation
 ------------
 In addition to AsciiDoc you will need to have installed:
 
-- http://lilypond.org/web/[LilyPond] (most Linux distributions include
+- https://lilypond.org/[LilyPond] (most Linux distributions include
   this package).
-- http://www.imagemagick.org[ImageMagick] (most Linux distributions
+- https://imagemagick.org/[ImageMagick] (most Linux distributions
   include this package).
 
 Test the music filter it by converting the test file to HTML with AsciiDoc:

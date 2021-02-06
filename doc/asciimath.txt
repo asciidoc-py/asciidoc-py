@@ -1,10 +1,10 @@
 ASCIIMathML Formulae
 ====================
 
-http://www1.chapman.edu/~jipsen/mathml/asciimath.html[ASCIIMathML] is
-a clever JavaScript written by Peter Jipsen that dynamically
-transforms mathematical formulae written in a wiki-like plain text
-markup to http://www.w3.org/Math/[MathML] markup which is displayed as
+http://asciimath.org/[ASCIIMath] is a clever JavaScript written by
+Peter Jipsen that dynamically transforms mathematical formulae
+written in a wiki-like plain text markup to
+https://www.w3.org/Math/[MathML] markup which is displayed as
 standard mathematical notation by the Web Browser.  See 'Appendix E'
 in the AsciiDoc User Guide for more details.
 
@@ -25,13 +25,11 @@ page.
   characters in the formulas with a backslash, escaping is unnecessary
   if you use the double-dollar macro (for examples see the second
   formula below).
-- See the
-  http://www1.chapman.edu/~jipsen/mathml/asciimath.html[ASCIIMathML]
-  website for ASCIIMathML documentation and the latest version.
+- See the http://asciimath.org[ASCIIMath] website for ASCIIMathML
+  documentation and the latest version.
 - If the formulas don't appear to be correct you probably need to
   install the correct math fonts (see the
-  http://www1.chapman.edu/~jipsen/mathml/asciimath.html[ASCIIMathML]
-  website for details).
+  http://asciimath.org[ASCIIMath] website for details).
 - See the link:latexmathml.html[LaTeXMathML page] if you prefer to use
   LaTeX math formulas.
 

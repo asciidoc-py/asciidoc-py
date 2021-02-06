@@ -18,7 +18,7 @@ Prerequisites
 AsciiDoc is written in Python so you need a Python interpreter
 (version 3.5 or later) to execute asciidoc(1). Python is installed by
 default in most Linux distributions.  You can download Python from the
-official Python website http://www.python.org.
+official Python website https://www.python.org/.
 
 
 Obtaining AsciiDoc

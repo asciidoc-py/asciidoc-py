@@ -311,12 +311,12 @@ NOTE: link:userguide.html#X26[Comment blocks] are never displayed.
 
 
 == What is the preferred file name extension for AsciiDoc files?
-The `.txt` http://en.wikipedia.org/wiki/Text_file[text file] extension
+The `.txt` https://en.wikipedia.org/wiki/Text_file[text file] extension
 is preferred, but it's just a convention and it's not enforced by the
 software.
 
 AsciiDoc source files are human readable
-http://en.wikipedia.org/wiki/Plain_text[plain text] files which is
+https://en.wikipedia.org/wiki/Plain_text[plain text] files which is
 what the `.txt` extension is for. All text editors recognize and open
 files with a `.txt` extension. The `.txt` extension is universally
 recognized and unambiguous -- you are not left asking questions like
@@ -470,7 +470,7 @@ substitutions in the monospaced text, for example:
 == How can I generate a single HTML document file containing images and CSS styles?
 With the advent of Internet Explorer 8 all major web browsers now
 support the
-http://en.wikipedia.org/wiki/Data:_URI_scheme[data URI scheme] for
+https://en.wikipedia.org/wiki/Data_URI_scheme[data URI scheme] for
 embedded images. The AsciiDoc 'xhtml11' and 'html5' backends supports
 the data URI scheme for embedded images and by default it embeds the
 CSS stylesheet. For example the following command will generate a
@@ -636,13 +636,13 @@ b. List 2.
 
 There are a number of programs available that generate presentation
 charts from textual specification, for example
-http://home.gna.org/pychart/[Pychart] is a library for writing chart
+https://pypi.org/project/PyChart/[Pychart] is a library for writing chart
 scripts in Python. Here's an example from the 'Pychart' documentation:
 
 .barchart.py
 ---------------------------------------------------------------------
 #
-# Example bar chart (from Pychart documentation http://home.gna.org/pychart/).
+# Example bar chart (from Pychart documentation https://pypi.org/project/PyChart/).
 #
 from pychart import *
 theme.get_options()
@@ -939,8 +939,9 @@ from the command-line.
 
 == Are there any DocBook viewers?
 
-http://live.gnome.org/Yelp[Yelp], the GNOME help viewer, does a
-creditable job of displaying DocBook XML files directly.
+https://wiki.gnome.org/action/show/Apps/Yelp[Yelp], the GNOME help
+viewer, does a creditable job of displaying DocBook XML files
+directly.
 
 
 == Can you create ODF and PDF files using LibreOffice?
@@ -1358,12 +1359,12 @@ example:
 
 
 == How can I convert documents from other formats to AsciiDoc?
-You can use http://johnmacfarlane.net/pandoc/[Pandoc] to convert
-documents in http://daringfireball.net/projects/markdown/[markdown],
-http://docutils.sourceforge.net/docs/ref/rst/introduction.html[reStructuredText],
-http://redcloth.org/textile[textile],
-http://www.w3.org/TR/html40/[HTML], http://www.docbook.org/[DocBook],
-or http://www.latex-project.org/[LaTeX] to AsciiDoc.
+You can use https://pandoc.org/[Pandoc] to convert documents in
+https://daringfireball.net/projects/markdown/[markdown],
+https://docutils.sourceforge.io/rst.html[reStructuredText],
+https://www.promptworks.com/textile/[textile],
+https://html.spec.whatwg.org/[HTML], https://docbook.org/[DocBook],
+or https://www.latex-project.org/[LaTeX] to AsciiDoc.
 
 
 == How can I insert raw HTML in a document processed by a2x?

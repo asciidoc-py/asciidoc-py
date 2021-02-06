@@ -35,8 +35,7 @@ into the toc.ncx navigation control file:
    <ncx:meta name="dtb:depth" content="-1"/>
 
 Shouldn't it be a positive integer equal to the depth navPoint nesting in the
-navMap element (see
-http://www.niso.org/workrooms/daisy/Z39-86-2005.html#NavMeta)? Though epubcheck 1.05 doesn't flag it as invalid -- are they both wrong?
+navMap element? Though epubcheck 1.05 doesn't flag it as invalid -- are they both wrong?
 
 
 [[X1]]

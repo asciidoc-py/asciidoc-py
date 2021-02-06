@@ -21,7 +21,7 @@ AsciiDoc has a 'slidy' backend for generating self contained 'Slidy'
 HTML slideshows.
 
 - An overview of 'Slidy' can be found here:
-  http://www.w3.org/Talks/Tools/Slidy2/
+  https://www.w3.org/Talks/Tools/Slidy2
 - AsciiDoc ships with the Slidy JavaScript a customised Slidy CSS
   file.
 - Use the 'asciidoc' `--backend slidy` command-line option to generate

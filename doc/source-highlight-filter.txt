@@ -31,7 +31,7 @@ load time).
 
 === GNU Source Highlight
 The default highlighter is the
-http://www.gnu.org/software/src-highlite/[GNU source-highlight] which
+https://www.gnu.org/software/src-highlite/[GNU source-highlight] which
 can highlight 'html4', 'html5' and 'xhtml11' outputs.  The GNU
 source-highlight must be installed and the 'source-highlight' command
 must reside in the shell search 'PATH'.
@@ -52,7 +52,7 @@ syntax highlighter for 'xhtml11', 'html5' and 'html4' outputs (set the
   `--encoding` command-line option.
 
 === Pygments
-The http://pygments.org/[Pygments] syntax highlighter can be used for
+The https://pygments.org/[Pygments] syntax highlighter can be used for
 'xhtml11' and 'html5' outputs (set the 'source-highlighter' attribute
 to 'pygments').
 

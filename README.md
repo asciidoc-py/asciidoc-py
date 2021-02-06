@@ -25,7 +25,7 @@ website http://www.python.org.
 ## Obtaining AsciiDoc
 
 Documentation and installation instructions are on the AsciiDoc website
-http://asciidoc.org/. Additionally, for 10.x, you can install it using pip:
+https://asciidoc.org/. Additionally, for 10.x, you can install it using pip:
 
 ```
 pip3 install asciidoc
