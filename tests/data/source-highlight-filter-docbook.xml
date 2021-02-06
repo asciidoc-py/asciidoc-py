@@ -42,7 +42,7 @@ load time).</simpara></note>
 <section id="_gnu_source_highlight">
 <title>GNU Source Highlight</title>
 <simpara>The default highlighter is the
-<ulink url="http://www.gnu.org/software/src-highlite/">GNU source-highlight</ulink> which
+<ulink url="https://www.gnu.org/software/src-highlite/">GNU source-highlight</ulink> which
 can highlight <emphasis>html4</emphasis>, <emphasis>html5</emphasis> and <emphasis>xhtml11</emphasis> outputs.  The GNU
 source-highlight must be installed and the <emphasis>source-highlight</emphasis> command
 must reside in the shell search <emphasis>PATH</emphasis>.</simpara>
@@ -76,7 +76,7 @@ The AsciiDoc <emphasis>encoding</emphasis> attribute is passed to Highlighter us
 </section>
 <section id="_pygments">
 <title>Pygments</title>
-<simpara>The <ulink url="http://pygments.org/">Pygments</ulink> syntax highlighter can be used for
+<simpara>The <ulink url="https://pygments.org/">Pygments</ulink> syntax highlighter can be used for
 <emphasis>xhtml11</emphasis> and <emphasis>html5</emphasis> outputs (set the <emphasis>source-highlighter</emphasis> attribute
 to <emphasis>pygments</emphasis>).</simpara>
 <itemizedlist>
