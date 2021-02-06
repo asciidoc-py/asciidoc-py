@@ -699,7 +699,10 @@ class A2X(AttrDict):
         shell('"%s" --backend docbook -a "a2x-format=%s" %s --out-file "%s" "%s"' %
              (self.asciidoc, self.format, self.asciidoc_opts, docbook_file, self.asciidoc_file))
         if not self.no_xmllint and XMLLINT:
-            shell('"%s" --nonet --noout --valid "%s"' % (XMLLINT, docbook_file))
+            xmllint_options = ['--nonet', '--noout', '--valid']
+            if 'SGML_CATALOG_FILES' in os.environ:
+                xmllint_options.append('--catalogs')
+            shell('"%s" %s "%s"' % (XMLLINT, " ".join(xmllint_options), docbook_file))
 
     def to_xhtml(self):
         self.to_docbook()
