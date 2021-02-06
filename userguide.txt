@@ -5694,16 +5694,13 @@ Syntax highlighting is incredibly useful, in addition to making
 reading AsciiDoc documents much easier syntax highlighting also helps
 you catch AsciiDoc syntax errors as you write your documents.
 
-The AsciiDoc distribution directory contains a Vim syntax highlighter
-for AsciiDoc (`./vim/syntax/asciidoc.vim`), you can find the latest
-version in the online
-https://code.google.com/p/asciidoc/source/browse/[AsciiDoc
-repository].
+If you use the Vim editor, it comes with an
+https://github.com/vim/vim/blob/master/runtime/syntax/asciidoc.vim[AsciiDoc
+syntax highlighter pre-included]. By default, it will activate for
+files that use the .asciidoc or .adoc file extensions.
 
-Install the highlighter by copying `asciidoc.vim` to your
-`$HOME/.vim/syntax` directory (create it if it doesn't already exist).
-
-To enable syntax highlighting:
+Alternatively, to enable syntax highlighting for the current document or
+other extensions:
 
 - Put a Vim 'autocmd' in your Vim configuration file (see the
   <<X61,example vimrc file>>).
