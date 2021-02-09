@@ -14,8 +14,9 @@ EPUB, man page.
 AsciiDoc.py is a legacy processor for this syntax, handling an older
 specification of AsciiDoc. As such, this will not properly handle the
 [current AsciiDoc specification](https://projects.eclipse.org/projects/technology.asciidoc).
-It is suggested that unless you specifically require AsciiDoc.py, you
-should find a processor that handles the modern AsciiDoc syntax.
+It is suggested that unless you specifically require AsciiDoc.py
+toolchain, you should find a processor that handles the modern AsciiDoc
+syntax.
 
 AsciiDoc.py is highly configurable: both the AsciiDoc source file syntax
 and the backend output markups (which can be almost any type of
