@@ -1,5 +1,5 @@
-AsciiDoc
-========
+AsciiDoc.py
+===========
 
 [![Build Status](https://github.com/asciidoc/asciidoc-py3/workflows/Test/badge.svg?branch=master)](https://github.com/asciidoc/asciidoc-py3/actions?query=workflow%3ATest+branch%3Amaster)
 
@@ -11,20 +11,26 @@ articles, books, ebooks, slideshows, web pages, man pages and blogs.
 AsciiDoc files can be translated to many formats including HTML, PDF,
 EPUB, man page.
 
-AsciiDoc is highly configurable: both the AsciiDoc source file syntax
+AsciiDoc.py is a legacy processor for this syntax, handling an older
+specification of AsciiDoc. As such, this will not properly handle the
+[current AsciiDoc specification](https://projects.eclipse.org/projects/technology.asciidoc).
+It is suggested that unless you specifically require AsciiDoc.py, you
+should find a processor that handles the modern AsciiDoc syntax.
+
+AsciiDoc.py is highly configurable: both the AsciiDoc source file syntax
 and the backend output markups (which can be almost any type of
 SGML/XML markup) can be customized and extended by the user.
 
 ## Prerequisites
 
-AsciiDoc is written in Python so you need a Python interpreter
+AsciiDoc.py is written in Python so you need a Python interpreter
 (version 3.5 or later) to execute asciidoc(1). You can install Python using the
 package manager for your OS or by downloading it from the official Python
 website http://www.python.org.
 
-## Obtaining AsciiDoc
+## Obtaining AsciiDoc.py
 
-Documentation and installation instructions are on the AsciiDoc website
+Documentation and installation instructions are on the AsciiDoc.py website
 https://asciidoc.org/. Additionally, for 10.x, you can install it using pip:
 
 ```
@@ -33,7 +39,7 @@ pip3 install asciidoc
 
 ## Tools
 
-Current AsciiDoc version tested on Ubuntu 18.04 with:
+Current AsciiDoc.py version tested on Ubuntu 18.04 with:
 
 - Python 3.6.5
 - DocBook XSL Stylesheets 1.76.1
@@ -45,7 +51,7 @@ Current AsciiDoc version tested on Ubuntu 18.04 with:
 ## Copying
 
 Copyright (C) 2002-2013 Stuart Rackham.  
-Copyright (C) 2013-2021 AsciiDoc Contributors.
+Copyright (C) 2013-2021 AsciiDoc.py Contributors.
 
 Free use of this software is granted under the terms of the GNU General
 Public License version 2 (GPLv2).
