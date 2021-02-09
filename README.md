@@ -12,9 +12,9 @@ AsciiDoc files can be translated to many formats including HTML, PDF,
 EPUB, man page.
 
 AsciiDoc.py is a legacy processor for this syntax, handling an older
-specification of AsciiDoc. As such, this will not properly handle the
+rendition of AsciiDoc. As such, this will not properly handle the
 [current AsciiDoc specification](https://projects.eclipse.org/projects/technology.asciidoc).
-It is suggested that unless you specifically require AsciiDoc.py
+It is suggested that unless you specifically require the AsciiDoc.py
 toolchain, you should find a processor that handles the modern AsciiDoc
 syntax.
 
