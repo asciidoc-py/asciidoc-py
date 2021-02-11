@@ -3,86 +3,92 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.1.0 (2021-02-08)
+--------------------------
+.Features
+- Can specify a line range when using the `include` macro.
+- Setting the `SGML_CATALOG_FILES` environment variable will set `--catalogs` on xmllint within a2x.
+
 Version 9.0.5 (2021-01-24)
 --------------------------
 .Bug fixes
-- Use config newline setting in system attribute evaulation (thanks @hoadlck)
+- Use config newline setting in system attribute evaluation (thanks @hoadlck).
 
 .Testing
-- Update to deadsnakes/python@v2.0.2
+- Update to deadsnakes/python@v2.0.2.
 
 Version 9.0.4 (2020-10-20)
 --------------------------
 .Bug fixes
-- Fix listing out installed plugins (e.g. --filter list)
-- Fix python version check failing on 3.10 (thanks @hroncok)
+- Fix listing out installed plugins (e.g. --filter list).
+- Fix python version check failing on 3.10 (thanks @hroncok).
 
 .Testing
-- Update to deadsnakes/python@v2.0.0 for testing dev python versions
-- Move from testing against 3.9-dev to stable 3.9
-- Add 3.10-dev test target
+- Update to deadsnakes/python@v2.0.0 for testing dev python versions.
+- Move from testing against 3.9-dev to stable 3.9.
+- Add 3.10-dev test target.
 
 Version 9.0.3 (2020-10-05)
 --------------------------
 .Bug fixes
-- Fix extra newline characters inserted into generated source (thanks @hoadlck)
+- Fix extra newline characters inserted into generated source (thanks @hoadlck).
 
 .Testing
-- Validate line endings as part of test suite
+- Validate line endings as part of test suite.
 
 Version 9.0.2 (2020-07-21)
 --------------------------
 .Bug fixes
-- Revert to using optparse from argparse for a2x
+- Revert to using optparse from argparse for a2x.
 
 Version 9.0.1 (2020-06-26)
 --------------------------
 .Bug fixes
-- Fix a2x crashing on decoding generated HTML pages
+- Fix a2x crashing on decoding generated HTML pages.
 
 .Building
-- Fix generated tar.gz not having files under top-level asciidoc folder
+- Fix generated tar.gz not having files under top-level asciidoc folder.
 
 .Testing
-- Test against Python 3.9
+- Test against Python 3.9.
 
 Version 9.0.0 (2020-06-02)
 --------------------------
 .Additions and changes
-- Port asciidoc to run on Python 3.5+ (see https://github.com/asciidoc/asciidoc for the EOL Python 2 implementation)
-- Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead
-- Implement Dockerfile for running asciidoc
-- Add Catalan translation
-- Add docbook5 backend
-- Fix misspellings in various files and documents
-- Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time)
-- Use "with" context statement for opening and closing files instead of older try/finally pattern
-- Search sibling paths before system wide paths in asciidocapi
-- Add manpage for testasciidoc.py
-- Use argparse instead of optparse for argument parsing
-- Add simplified Chinese translation (thanks @muirmok)
-- vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch)
-- Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris)
-- Use https://pypi.org/project/trans/[trans python module] (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel)
-- Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing
+- Port asciidoc to run on Python 3.5+ (see https://github.com/asciidoc/asciidoc for the EOL Python 2 implementation).
+- Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead.
+- Implement Dockerfile for running asciidoc.
+- Add Catalan translation.
+- Add docbook5 backend.
+- Fix misspellings in various files and documents.
+- Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
+- Use "with" context statement for opening and closing files instead of older try/finally pattern.
+- Search sibling paths before system wide paths in asciidocapi.
+- Add manpage for testasciidoc.py.
+- Use argparse instead of optparse for argument parsing.
+- Add simplified Chinese translation (thanks @muirmok).
+- vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch).
+- Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris).
+- Use https://pypi.org/project/trans/[trans python module] (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel).
+- Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing.
 
 .Bug fixes
-- Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876)
-- Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181)
-- make install did not include the unwraplatex.py filter
-- Fix a2x option collection from input file with non-ascii encoding
-- Fix options attribute not being properly parsed in Delimited Blocks attribute list
+- Fix index terms requiring two characters instead of just one (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876).
+- Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181).
+- make install did not include the unwraplatex.py filter.
+- Fix a2x option collection from input file with non-ascii encoding.
+- Fix options attribute not being properly parsed in Delimited Blocks attribute list.
 
 .Building
-- Migrate from hierarchical A-A-P build system to top-level Makefile
-- Add `make help` target that prints out usage message for make
-- Fix double slash issue in Makefile when installing asciidoc or its docs
+- Migrate from hierarchical A-A-P build system to top-level Makefile.
+- Add `make help` target that prints out usage message for make.
+- Fix double slash issue in Makefile when installing asciidoc or its docs.
 
 .Testing
-- Commit generated test files to the repository for continuous integration
-- Test against Python 3.5+ on Travis-CI
-- Remove symlink tests/asciidocapi.py in favor of just appending to sys.path
-- Add requires directive to testasciidoc.conf to indicate necessary external dependencies (e.g. source-highlight)
+- Commit generated test files to the repository for continuous integration.
+- Test against Python 3.5+ on Travis-CI.
+- Remove symlink tests/asciidocapi.py in favor of just appending to sys.path.
+- Add requires directive to testasciidoc.conf to indicate necessary external dependencies (e.g. source-highlight).
 
 Version 8.6.10 (2017-09-22)
 ---------------------------
