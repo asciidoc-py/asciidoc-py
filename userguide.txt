@@ -14,6 +14,15 @@ AsciiDoc source file syntax and the backend output markups (which can
 be almost any type of SGML/XML markup) can be customized and extended
 by the user.
 
+[WARNING]
+This user guide is for AsciiDoc.py, which is a legacy processor for
+this syntax, handling an older rendition of AsciiDoc. As such, this
+will not properly handle the
+https://projects.eclipse.org/projects/technology.asciidoc[current AsciiDoc specification].
+It is suggested that unless you specifically require the AsciiDoc.py
+toolchain, you should find a processor that handles the modern
+AsciiDoc syntax.
+
 .This document
 **********************************************************************
 This is an overly large document, it probably needs to be refactored
