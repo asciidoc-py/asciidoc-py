@@ -6,14 +6,14 @@
 <article lang="en">
 <articleinfo>
     <title>The Article Title</title>
-    <date>24 January 2021</date>
+    <date>08 February 2021</date>
     <author>
         <firstname>Author's</firstname>
         <surname>Name</surname>
         <email>authors@email.address</email>
     </author>
     <authorinitials>AN</authorinitials>
-<revhistory><revision><revnumber>9.0.5</revnumber><date>24 January 2021</date><authorinitials>AN</authorinitials></revision></revhistory>
+<revhistory><revision><revnumber>9.1.0</revnumber><date>08 February 2021</date><authorinitials>AN</authorinitials></revision></revhistory>
 </articleinfo>
 <simpara>This is the optional preamble (an untitled section body). Useful for
 writing simple sectionless documents consisting only of a preamble.</simpara>

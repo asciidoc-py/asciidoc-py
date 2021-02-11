@@ -43,19 +43,36 @@ asciidoc.install();
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_version_9_1_0_2021_02_08">Version 9.1.0 (2021-02-08)</h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">Features</div><ul>
+<li>
+<p>
+Can specify a line range when using the <code>include</code> macro.
+</p>
+</li>
+<li>
+<p>
+Setting the <code>SGML_CATALOG_FILES</code> environment variable will set <code>--catalogs</code> on xmllint within a2x.
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_version_9_0_5_2021_01_24">Version 9.0.5 (2021-01-24)</h2>
 <div class="sectionbody">
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Use config newline setting in system attribute evaluation (thanks @hoadlck)
+Use config newline setting in system attribute evaluation (thanks @hoadlck).
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Testing</div><ul>
 <li>
 <p>
-Update to deadsnakes/python@v2.0.2
+Update to deadsnakes/python@v2.0.2.
 </p>
 </li>
 </ul></div>
@@ -67,29 +84,29 @@ Update to deadsnakes/python@v2.0.2
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Fix listing out installed plugins (e.g. --filter list)
+Fix listing out installed plugins (e.g. --filter list).
 </p>
 </li>
 <li>
 <p>
-Fix python version check failing on 3.10 (thanks @hroncok)
+Fix python version check failing on 3.10 (thanks @hroncok).
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Testing</div><ul>
 <li>
 <p>
-Update to deadsnakes/python@v2.0.0 for testing dev python versions
+Update to deadsnakes/python@v2.0.0 for testing dev python versions.
 </p>
 </li>
 <li>
 <p>
-Move from testing against 3.9-dev to stable 3.9
+Move from testing against 3.9-dev to stable 3.9.
 </p>
 </li>
 <li>
 <p>
-Add 3.10-dev test target
+Add 3.10-dev test target.
 </p>
 </li>
 </ul></div>
@@ -101,14 +118,14 @@ Add 3.10-dev test target
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Fix extra newline characters inserted into generated source (thanks @hoadlck)
+Fix extra newline characters inserted into generated source (thanks @hoadlck).
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Testing</div><ul>
 <li>
 <p>
-Validate line endings as part of test suite
+Validate line endings as part of test suite.
 </p>
 </li>
 </ul></div>
@@ -120,7 +137,7 @@ Validate line endings as part of test suite
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Revert to using optparse from argparse for a2x
+Revert to using optparse from argparse for a2x.
 </p>
 </li>
 </ul></div>
@@ -132,21 +149,21 @@ Revert to using optparse from argparse for a2x
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Fix a2x crashing on decoding generated HTML pages
+Fix a2x crashing on decoding generated HTML pages.
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Building</div><ul>
 <li>
 <p>
-Fix generated tar.gz not having files under top-level asciidoc folder
+Fix generated tar.gz not having files under top-level asciidoc folder.
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Testing</div><ul>
 <li>
 <p>
-Test against Python 3.9
+Test against Python 3.9.
 </p>
 </li>
 </ul></div>
@@ -158,148 +175,148 @@ Test against Python 3.9
 <div class="ulist"><div class="title">Additions and changes</div><ul>
 <li>
 <p>
-Port asciidoc to run on Python 3.5+ (see <a href="https://github.com/asciidoc/asciidoc">https://github.com/asciidoc/asciidoc</a> for the EOL Python 2 implementation)
+Port asciidoc to run on Python 3.5+ (see <a href="https://github.com/asciidoc/asciidoc">https://github.com/asciidoc/asciidoc</a> for the EOL Python 2 implementation).
 </p>
 </li>
 <li>
 <p>
-Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead
+Drop internal implementation of OrderedDict and use the standard library collections.OrderedDict instead.
 </p>
 </li>
 <li>
 <p>
-Implement Dockerfile for running asciidoc
+Implement Dockerfile for running asciidoc.
 </p>
 </li>
 <li>
 <p>
-Add Catalan translation
+Add Catalan translation.
 </p>
 </li>
 <li>
 <p>
-Add docbook5 backend
+Add docbook5 backend.
 </p>
 </li>
 <li>
 <p>
-Fix misspellings in various files and documents
+Fix misspellings in various files and documents.
 </p>
 </li>
 <li>
 <p>
-Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time)
+Use UTC for testing instead of Pacific/Auckland (which observes daylight saving time).
 </p>
 </li>
 <li>
 <p>
-Use "with" context statement for opening and closing files instead of older try/finally pattern
+Use "with" context statement for opening and closing files instead of older try/finally pattern.
 </p>
 </li>
 <li>
 <p>
-Search sibling paths before system wide paths in asciidocapi
+Search sibling paths before system wide paths in asciidocapi.
 </p>
 </li>
 <li>
 <p>
-Add manpage for testasciidoc.py
+Add manpage for testasciidoc.py.
 </p>
 </li>
 <li>
 <p>
-Use argparse instead of optparse for argument parsing
+Use argparse instead of optparse for argument parsing.
 </p>
 </li>
 <li>
 <p>
-Add simplified Chinese translation (thanks @muirmok)
+Add simplified Chinese translation (thanks @muirmok).
 </p>
 </li>
 <li>
 <p>
-vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch)
+vim-asciidoc: speed up the refresh process for big files (thanks @aerostitch).
 </p>
 </li>
 <li>
 <p>
-Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris)
+Allow specifying floatstyle attribute for figures, tables, equations, examples in docbook (thanks @psaris).
 </p>
 </li>
 <li>
 <p>
-Use <a href="https://pypi.org/project/trans/">trans python module</a> (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel)
+Use <a href="https://pypi.org/project/trans/">trans python module</a> (if available) to better handle character decomposition to ascii for ascii-ids (thanks @rkel).
 </p>
 </li>
 <li>
 <p>
-Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing
+Use lru_cache to memoize repeated calls to macro look-up, giving potential ~15% speed-up on parsing.
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Bug fixes</div><ul>
 <li>
 <p>
-Fix index terms requiring two characters instead of just one (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876</a>)
+Fix index terms requiring two characters instead of just one (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392605876</a>).
 </p>
 </li>
 <li>
 <p>
-Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181</a>)
+Properly capture and use colophon, dedication, and preface for docbooks in Japanese (see <a href="https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181">https://github.com/asciidoc/asciidoc-py3/pull/2#issuecomment-392623181</a>).
 </p>
 </li>
 <li>
 <p>
-make install did not include the unwraplatex.py filter
+make install did not include the unwraplatex.py filter.
 </p>
 </li>
 <li>
 <p>
-Fix a2x option collection from input file with non-ascii encoding
+Fix a2x option collection from input file with non-ascii encoding.
 </p>
 </li>
 <li>
 <p>
-Fix options attribute not being properly parsed in Delimited Blocks attribute list
+Fix options attribute not being properly parsed in Delimited Blocks attribute list.
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Building</div><ul>
 <li>
 <p>
-Migrate from hierarchical A-A-P build system to top-level Makefile
+Migrate from hierarchical A-A-P build system to top-level Makefile.
 </p>
 </li>
 <li>
 <p>
-Add <code>make help</code> target that prints out usage message for make
+Add <code>make help</code> target that prints out usage message for make.
 </p>
 </li>
 <li>
 <p>
-Fix double slash issue in Makefile when installing asciidoc or its docs
+Fix double slash issue in Makefile when installing asciidoc or its docs.
 </p>
 </li>
 </ul></div>
 <div class="ulist"><div class="title">Testing</div><ul>
 <li>
 <p>
-Commit generated test files to the repository for continuous integration
+Commit generated test files to the repository for continuous integration.
 </p>
 </li>
 <li>
 <p>
-Test against Python 3.5+ on Travis-CI
+Test against Python 3.5+ on Travis-CI.
 </p>
 </li>
 <li>
 <p>
-Remove symlink tests/asciidocapi.py in favor of just appending to sys.path
+Remove symlink tests/asciidocapi.py in favor of just appending to sys.path.
 </p>
 </li>
 <li>
 <p>
-Add requires directive to testasciidoc.conf to indicate necessary external dependencies (e.g. source-highlight)
+Add requires directive to testasciidoc.conf to indicate necessary external dependencies (e.g. source-highlight).
 </p>
 </li>
 </ul></div>
@@ -8298,8 +8315,8 @@ Fixed error that occurred when <em>==</em> title underline was
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Version 9.0.5<br />
-Last updated 2021-02-11 01:46:07 UTC<br />
+Version 9.1.0<br />
+Last updated 2021-02-11 01:55:29 UTC<br />
 AsciiDoc is a trademark of the Eclipse Foundation, Inc.
 </div>
 <div id="footer-badges">
