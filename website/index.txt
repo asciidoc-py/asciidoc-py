@@ -22,11 +22,18 @@ Introduction
 ------------
 {description}
 
-AsciiDoc is highly configurable: both the AsciiDoc source file syntax
+AsciiDoc.py is a legacy processor for this syntax, handling an older
+rendition of AsciiDoc. As such, this will not properly handle the
+https://projects.eclipse.org/projects/technology.asciidoc[current AsciiDoc specification].
+It is suggested that unless you specifically require the AsciiDoc.py
+toolchain, you should find a processor that handles the modern AsciiDoc
+syntax.
+
+AsciiDoc.py is highly configurable: both the AsciiDoc source file syntax
 and the backend output markups (which can be almost any type of
 SGML/XML markup) can be customized and extended by the user.
 
-AsciiDoc is free software and is licensed under the terms of the 'GNU
+AsciiDoc.py is free software and is licensed under the terms of the 'GNU
 General Public License version 2' (GPLv2).
 
 TIP: The pages you are reading were written using AsciiDoc, to view
