@@ -6259,8 +6259,6 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
                     writer.close()
             finally:
                 reader.closefile()
-    except KeyboardInterrupt:
-        raise
     except Exception as e:
         # Cleanup.
         if outfile and outfile != '<stdout>' and os.path.isfile(outfile):
