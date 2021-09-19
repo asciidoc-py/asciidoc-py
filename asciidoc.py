@@ -33,7 +33,7 @@ from ast import literal_eval
 from collections import OrderedDict
 
 # Used by asciidocapi.py #
-VERSION = '9.1.0'           # See CHANGELOG file for version history.
+VERSION = '9.1.1'           # See CHANGELOG file for version history.
 
 MIN_PYTHON_VERSION = (3, 5)  # Require this version of Python or better.
 
