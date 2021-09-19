@@ -38,6 +38,7 @@ from ast import literal_eval
 from collections import OrderedDict
 
 from .collections import AttrDict, InsensitiveDict
+from .exceptions import EAsciiDoc
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -70,11 +71,6 @@ DEFAULT_NEWLINE = '\r\n'
 # ---------------------------------------------------------------------------
 # Utility functions and classes.
 # ---------------------------------------------------------------------------
-
-
-class EAsciiDoc(Exception):
-    pass
-
 
 class Trace(object):
     """

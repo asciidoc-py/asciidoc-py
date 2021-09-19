@@ -1,8 +1,5 @@
 from . import asciidoc
-
-
-class AsciiDocError(Exception):
-    pass
+from .exceptions import AsciiDocError
 
 
 class Options(object):
