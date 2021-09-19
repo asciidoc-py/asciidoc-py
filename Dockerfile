@@ -11,7 +11,7 @@ COPY . "/srv/asciidoc"
 
 # Install the dependencies that asciidoc needs. The mkdir line is needed as something pulls in java jdk and it
 # will fail if that folder does not already exist because...java.
-RUN mkdir /usr/share/man/man1/ \
+RUN mkdir -p /usr/share/man/man1/ \
     && echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list && apt-get update \
     && apt-get install -y --no-install-recommends \
         autoconf \
