@@ -3,6 +3,14 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc.org/
 
+Version 9.1.1 (2021-09-18)
+--------------------------
+.Bug fixes
+- Cleanup outfile on system-exiting exceptions (thanks @felipec)
+
+.Testing
+- Add missing requires directive for source-highlight (thanks @marv)
+
 Version 9.1.0 (2021-02-08)
 --------------------------
 .Features
