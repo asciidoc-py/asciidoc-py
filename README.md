@@ -2,6 +2,7 @@ AsciiDoc.py
 ===========
 
 [![Build Status](https://github.com/asciidoc/asciidoc-py3/workflows/Test/badge.svg?branch=master)](https://github.com/asciidoc/asciidoc-py3/actions?query=workflow%3ATest+branch%3Amaster)
+[![codecov](https://codecov.io/gh/asciidoc-py/asciidoc-py/branch/main/graph/badge.svg?token=fNh3QlLTw0)](https://codecov.io/gh/asciidoc-py/asciidoc-py)
 
 __This branch is tracking the alpha, in-progress 10.x release. For the stable 9.x code,
 please go to the [9.x branch](https://github.com/asciidoc/asciidoc-py3/tree/9.x)!__
@@ -51,7 +52,7 @@ Current AsciiDoc.py version tested on Ubuntu 18.04 with:
 
 ## Copying
 
-Copyright (C) 2002-2013 Stuart Rackham.  
+Copyright (C) 2002-2013 Stuart Rackham.
 Copyright (C) 2013-2021 AsciiDoc.py Contributors.
 
 Free use of this software is granted under the terms of the GNU General
