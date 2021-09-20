@@ -1,7 +1,10 @@
+import locale
 import math
 import os
 import re
+import time
 from typing import Optional
+import unicodedata
 
 
 def userdir() -> Optional[str]:
@@ -137,3 +140,45 @@ def py2round(n, d=0):
     back that functionality."""
     p = 10 ** d
     return float(math.floor((n * p) + math.copysign(0.5, n))) / p
+
+
+east_asian_widths = {
+    'W': 2,   # Wide
+    'F': 2,   # Full-width (wide)
+    'Na': 1,  # Narrow
+    'H': 1,   # Half-width (narrow)
+    'N': 1,   # Neutral (not East Asian, treated as narrow)
+    'A': 1,   # Ambiguous (s/b wide in East Asian context, narrow otherwise, but that doesn't work)
+}
+"""Mapping of result codes from `unicodedata.east_asian_width()` to character
+column widths."""
+
+
+def column_width(s):
+    width = 0
+    for c in s:
+        width += east_asian_widths[unicodedata.east_asian_width(c)]
+    return width
+
+
+def date_time_str(t):
+    """Convert seconds since the Epoch to formatted local date and time strings."""
+    source_date_epoch = os.environ.get('SOURCE_DATE_EPOCH')
+    if source_date_epoch is not None:
+        t = time.gmtime(min(t, int(source_date_epoch)))
+    else:
+        t = time.localtime(t)
+    date_str = time.strftime('%Y-%m-%d', t)
+    time_str = time.strftime('%H:%M:%S', t)
+    if source_date_epoch is not None:
+        time_str += ' UTC'
+    elif time.daylight and t.tm_isdst == 1:
+        time_str += ' ' + time.tzname[1]
+    else:
+        time_str += ' ' + time.tzname[0]
+    # Attempt to convert the localtime to the output encoding.
+    try:
+        time_str = time_str.decode(locale.getdefaultlocale()[1])
+    except Exception:
+        pass
+    return date_str, time_str
