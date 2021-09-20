@@ -148,7 +148,8 @@ east_asian_widths = {
     'Na': 1,  # Narrow
     'H': 1,   # Half-width (narrow)
     'N': 1,   # Neutral (not East Asian, treated as narrow)
-    'A': 1,   # Ambiguous (s/b wide in East Asian context, narrow otherwise, but that doesn't work)
+    'A': 1,   # Ambiguous (s/b wide in East Asian context, narrow otherwise, but that
+              #   doesn't work)
 }
 """Mapping of result codes from `unicodedata.east_asian_width()` to character
 column widths."""
