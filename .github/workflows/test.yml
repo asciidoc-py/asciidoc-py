@@ -1,10 +1,6 @@
 name: Test
 
-on:
-  push:
-    branches: [ '*' ]
-  pull_request:
-    branches: [ '*' ]
+on: ['push', 'pull_request']
 
 jobs:
   lint:
@@ -64,10 +60,12 @@ jobs:
             texlive-latex-base \
             xsltproc
 
-      - run: pip install -U pytest
+      - run: pip install -U pytest coverage
 
-      - run: python -m asciidoc.asciidoc --doctest
-      - run: python -m pytest
+      - run: coverage run -m asciidoc.asciidoc --doctest
+      - run: coverage run --append --source=asciidoc -m pytest
+      - run: coverage xml
+
       - run: time python tests/testasciidoc.py run
       - run: git clean -x -f doc tests/data
 
@@ -82,6 +80,8 @@ jobs:
 
       - run: asciidoc --version
       - run: asciidoc --filter list
+
+      - uses: codecov/codecov-action@v2
 
   test-windows:
     needs: lint
