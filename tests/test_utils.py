@@ -1,6 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
-from typing import Optional
+from typing import Optional, Tuple
 
 from asciidoc import utils
 
@@ -40,7 +40,7 @@ def test_strip_quotes(input: str, expected: str) -> None:
         (('', 'a', 'b', ''), ('a', 'b', '')),
     ),
 )
-def test_lstrip_list(input: tuple[str, ...], expected: tuple[str, ...]) -> None:
+def test_lstrip_list(input: Tuple[str, ...], expected: Tuple[str, ...]) -> None:
     assert utils.lstrip_list(input) == expected
 
 
@@ -53,7 +53,7 @@ def test_lstrip_list(input: tuple[str, ...], expected: tuple[str, ...]) -> None:
         (('', 'a', 'b', ''), ('', 'a', 'b')),
     ),
 )
-def test_rstrip_list(input: tuple[str, ...], expected: tuple[str, ...]) -> None:
+def test_rstrip_list(input: Tuple[str, ...], expected: Tuple[str, ...]) -> None:
     assert utils.rstrip_list(input) == expected
 
 
@@ -66,7 +66,7 @@ def test_rstrip_list(input: tuple[str, ...], expected: tuple[str, ...]) -> None:
         (('', 'a', 'b', ''), ('a', 'b')),
     ),
 )
-def test_strip_list(input: tuple[str, ...], expected: tuple[str, ...]) -> None:
+def test_strip_list(input: Tuple[str, ...], expected: Tuple[str, ...]) -> None:
     assert utils.strip_list(input) == expected
 
 
