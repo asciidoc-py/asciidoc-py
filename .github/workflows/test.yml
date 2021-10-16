@@ -52,6 +52,7 @@ jobs:
             docbook-xml \
             docbook-xsl \
             dvipng \
+            dvisvgm \
             graphviz \
             imagemagick \
             libxml2-utils \
