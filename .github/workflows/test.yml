@@ -19,7 +19,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python3 -m pip install -U pip
-          python3 -m pip install -U pytest pytest-runner flake8
+          python3 -m pip install -U flake8
 
       - name: Lint codebase
         run: python3 -m flake8
@@ -60,7 +60,7 @@ jobs:
             texlive-latex-base \
             xsltproc
 
-      - run: pip install -U pytest coverage
+      - run: pip install -U pytest pytest-mock coverage
 
       - run: coverage run -m asciidoc.asciidoc --doctest
       - run: coverage run --append --source=asciidoc -m pytest
