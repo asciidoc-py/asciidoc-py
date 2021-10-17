@@ -2,9 +2,12 @@ comment: false
 
 coverage:
     status:
-      project:
-        default:
-            target: auto
+        patch:
+            default:
+                target: auto
+        project:
+            default:
+                target: auto
 
 github_checks:
     annotations: false
