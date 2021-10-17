@@ -31,74 +31,12 @@ ASCIIDOCVERSION = @PACKAGE_VERSION@
 ASCIIDOCDATE = @PACKAGE_DATE@
 ASCIIDOCCONF = $(sysconfdir)/asciidoc
 
-prog = asciidoc.py a2x.py
-progdir = $(bindir)
-
 manp = $(patsubst %1.txt,%1,$(wildcard doc/*.1.txt))
 manpdir = $(mandir)/man1
 
-conf = $(wildcard *.conf)
-confdir = $(ASCIIDOCCONF)
-
-filtersdir = $(ASCIIDOCCONF)/filters
-
-codefilter = filters/code/code-filter.py
-codefilterdir = $(filtersdir)/code
-codefilterconf = filters/code/code-filter.conf
-codefilterconfdir = $(filtersdir)/code
-
-graphvizfilter = filters/graphviz/graphviz2png.py
-graphvizfilterdir = $(filtersdir)/graphviz
-graphvizfilterconf = filters/graphviz/graphviz-filter.conf
-graphvizfilterconfdir = $(filtersdir)/graphviz
-
-musicfilter = filters/music/music2png.py
-musicfilterdir = $(filtersdir)/music
-musicfilterconf = filters/music/music-filter.conf
-musicfilterconfdir = $(filtersdir)/music
-
-sourcefilterconf = filters/source/source-highlight-filter.conf
-sourcefilterconfdir = $(filtersdir)/source
-
-latexfilter = filters/latex/latex2img.py
-latexfilterdir = $(filtersdir)/latex
-latexfilterconf = filters/latex/latex-filter.conf
-latexfilterconfdir = $(filtersdir)/latex
-
-unwraplatexfilter = filters/unwraplatex.py
-unwraplatexfilterdir = $(filtersdir)
-
-themesdir = $(ASCIIDOCCONF)/themes
-
-flasktheme = themes/flask/flask.css
-flaskthemedir = $(themesdir)/flask
-
-volnitskytheme = themes/volnitsky/volnitsky.css
-volnitskythemedir = $(themesdir)/volnitsky
-
-docbook = $(wildcard docbook-xsl/*.xsl)
-docbookdir = $(ASCIIDOCCONF)/docbook-xsl
-
-dblatex = $(wildcard dblatex/*.xsl) $(wildcard dblatex/*.sty)
-dblatexdir = $(ASCIIDOCCONF)/dblatex
-
-css = $(wildcard stylesheets/*.css)
-cssdir = $(ASCIIDOCCONF)/stylesheets
-
-js = $(wildcard javascripts/*.js)
-jsdir = $(ASCIIDOCCONF)/javascripts
-
-callouts = $(wildcard images/icons/callouts/*)
-calloutsdir = $(ASCIIDOCCONF)/images/icons/callouts
-
-icons = $(wildcard images/icons/*.png) images/icons/README
-iconsdir = $(ASCIIDOCCONF)/images/icons
-
 doc = $(wildcard README*) $(wildcard BUGS*) $(wildcard INSTALL*) $(wildcard CHANGELOG*)
 
-DATATARGETS = manp conf docbook dblatex css js callouts icons codefilterconf graphvizfilterconf latexfilterconf musicfilterconf sourcefilterconf flasktheme volnitskytheme
-PROGTARGETS = prog codefilter graphvizfilter latexfilter musicfilter unwraplatexfilter
-TARGETS = $(DATATARGETS) $(PROGTARGETS) doc
+TARGETS = doc
 
 INSTDIRS = $(TARGETS:%=%dir)
 
@@ -121,35 +59,8 @@ help : Makefile
 $(INSTDIRS):
 	$(INSTALL) -d $(DESTDIR)$($@)
 
-$(PROGTARGETS): % : %dir
-	$(INSTALL_PROG) $($@) $(DESTDIR)$($<)/
-
-$(DATATARGETS): % : %dir
-	$(INSTALL_DATA) $($@) $(DESTDIR)$($<)/
-
 $(manp): %.1 : %.1.txt
 	python3 -m asciidoc.a2x -f manpage $<
-
-progsymlink:
-	(cd $(DESTDIR)$(progdir); ln -sf asciidoc.py asciidoc)
-	(cd $(DESTDIR)$(progdir); ln -sf a2x.py a2x)
-
-##.
-
-##   version: print out the version to use for the other targets
-.PHONY: version
-version:
-	@echo "Version $(ASCIIDOCVERSION) (released $(ASCIIDOCDATE))";
-
-##   vers_update: updates the version string in asciidoc and a2x
-.PHONY: vers_update
-vers_update:
-	@for f in $(prog); do \
-		echo "Setting VERSION in $$f to $(ASCIIDOCVERSION)"; \
-		$(SED) "s#^VERSION = '.*'#VERSION = '$(ASCIIDOCVERSION)'#" $$f > $$f.out; \
-		mv $$f.out $$f; \
-		chmod +x $$f; \
-	done
 
 ##.
 
@@ -157,8 +68,6 @@ DOC_FILES = CHANGELOG.txt README.asciidoc BUGS.txt INSTALL.txt doc/a2x.1.txt \
 	 		doc/faq.txt doc/asciidocapi.txt doc/testasciidoc.txt \
 			doc/epub-notes.txt doc/publishing-ebooks-with-asciidoc.txt \
 			doc/source-highlight-filter.txt doc/slidy.txt doc/slidy-example.txt
-
-WEBSITE_FILES = $(wildcard website/*.txt)
 
 ##   spell: run doc_spell and website_spell
 .PHONY: spell
@@ -173,19 +82,15 @@ doc_spell:
 		aspell check -p ./doc/asciidoc.dict $$f; \
 	done
 
-##   website_spell: run aspell over all files under website/
-.PHONY: website_spell
-website_spell:
-	@for f in $(WEBSITE_FILES); do \
-		echo "aspell check -p ./website/asciidoc-website.dict $$f"; \
-		aspell check -p ./website/asciidoc-website.dict $$f; \
-	done
-
 ##.
+
+.PHONY: pip
+pip:
+	python3 -m pip install .
 
 ##   install: install asciidoc to target directory
 .PHONY: install
-install: all $(PROGTARGETS) $(DATATARGETS) progsymlink
+install: all pip $(DATATARGETS)
 
 ##   build: runs manpages
 .PHONY: build
@@ -212,28 +117,11 @@ docs:
 	$(INSTALL) -d $(DESTDIR)$(docdir)/doc
 	( cd doc && \
 		cp -R * $(DESTDIR)$(docdir)/doc )
-	$(INSTALL) -d $(DESTDIR)$(docdir)/website
-	( cd website && \
-		cp -R * $(DESTDIR)$(docdir)/website )
-
-##   website: generates the website into ./gh-pages directory (which will point at gh-pages branch)
-.PHONY: website
-website:
-	bash build_website.sh
-
-##   tags: generate tags index files for use with vim and other tags-capable editors
-.PHONY: tags
-tags:
-	rm -f tags
-	ctags asciidoc.py asciidocapi.py tests/testasciidoc.py
 
 ##   uninstall: uninstall asciidoc
 .PHONY: uninstall
 uninstall:
-	rm -f $(DESTDIR)$(progdir)/asciidoc
-	rm -f $(DESTDIR)$(progdir)/asciidoc.py
-	rm -f $(DESTDIR)$(progdir)/a2x
-	rm -f $(DESTDIR)$(progdir)/a2x.py
+	python3 -m pip uninstall asciidoc
 	rm -f $(DESTDIR)$(manpdir)/asciidoc.1
 	rm -f $(DESTDIR)$(manpdir)/testasciidoc.1
 	rm -f $(DESTDIR)$(manpdir)/a2x.1
@@ -251,7 +139,7 @@ MANIFEST: MANIFEST.in
 ##.
 ##   dist: creates the zip and tarball for release
 .PHONY: dist
-dist: vers_update manpages MANIFEST
+dist: manpages MANIFEST
 	mkdir -p build
 	rm -rf build/*
 	tar -czf build/asciidoc-tmp.tar.gz -T MANIFEST
