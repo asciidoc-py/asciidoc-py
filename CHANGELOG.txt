@@ -1,7 +1,23 @@
 AsciiDoc ChangeLog
 ==================
 
-:website: https://asciidoc.org/
+:website: https://asciidoc-py.github.io/
+
+Version 10.0.0 (2021-10-16)
+--------------------------
+.Breaking Changes
+AsciiDoc.py has been rewritten to be a https://pypi.org/project/asciidoc/[proper Python package], installable via pip. Downloading and running asciidoc from the repo is not recommended, but can be done through `python3 -m asciidoc` or `python3 -m asciidoc.a2x`. CLI usage should remain the same where both `asciidoc` and `a2x` CLI commands are available after pip installation. Support for overriding the bundled *.conf files is done through CLI flags, environment variables, etc., and not through directly editing the files within the installation. Importing asciidoc should no longer require the `asciidocapi.py` script, and can be done through regular python import, e.g. `import asciidoc; asciidoc.execute(...)`.
+
+The APIs of the asciidoc and a2x scripts are now considered "provisional" with no guarantee of BC between releases with the exception of the `asciidoc.execute` method. Please post an issue on our tracker for any method you directly rely on and would like to have BC for.
+
+.Features
+- Install using `pip install asciidoc`
+
+.Miscellaneous
+- Changed website domain to https://asciidoc-py.github.io/. The old domain will redirect for a period of time, but will be updated at some point to point at website created by the https://asciidoc-wg.eclipse.org/[AsciiDoc Working Group].
+
+.Testing
+- Test against 3.10 stable
 
 Version 9.1.1 (2021-09-18)
 --------------------------
