@@ -14,4 +14,4 @@ AsciiDoc
 
 dblatex
 -------
-See `./dblatex/dblatex-readme.txt`.
+See `./asciidoc/resources/dblatex/dblatex/dblatex-readme.txt`.
