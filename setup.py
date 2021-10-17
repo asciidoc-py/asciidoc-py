@@ -69,8 +69,8 @@ setup(
     name=NAME,
     version=about['__version__'],
     description=DESCRIPTION,
-    long_description=open(os.path.join(here, 'README.md')).read(),
     long_description_content_type='text/markdown',  # This is important!
+    long_description=open(os.path.join(here, 'README.md')).read(),
     author=AUTHOR,
     python_requires=REQUIRES_PYTHON,
     url=URL,
