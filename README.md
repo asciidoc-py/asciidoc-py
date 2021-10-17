@@ -3,9 +3,7 @@ AsciiDoc.py
 
 [![Build Status](https://github.com/asciidoc/asciidoc-py3/workflows/Test/badge.svg?branch=master)](https://github.com/asciidoc/asciidoc-py3/actions?query=workflow%3ATest+branch%3Amaster)
 [![codecov](https://codecov.io/gh/asciidoc-py/asciidoc-py/branch/main/graph/badge.svg?token=fNh3QlLTw0)](https://codecov.io/gh/asciidoc-py/asciidoc-py)
-
-__This branch is tracking the alpha, in-progress 10.x release. For the stable 9.x code,
-please go to the [9.x branch](https://github.com/asciidoc/asciidoc-py3/tree/9.x)!__
+[![PyPI version](https://badge.fury.io/py/asciidoc.svg)](https://badge.fury.io/py/asciidoc)
 
 AsciiDoc is a text document format for writing notes, documentation,
 articles, books, ebooks, slideshows, web pages, man pages and blogs.
@@ -33,24 +31,13 @@ website http://www.python.org.
 ## Obtaining AsciiDoc.py
 
 Documentation and installation instructions are on the AsciiDoc.py website
-https://asciidoc.org/. Additionally, for 10.x, you can install it using pip:
+https://asciidoc.org/. Simply, you should use use pip to install it:
 
 ```
 pip3 install asciidoc
 ```
 
-## Tools
-
-Current AsciiDoc.py version tested on Ubuntu 18.04 with:
-
-- Python 3.6.5
-- DocBook XSL Stylesheets 1.76.1
-- xsltproc (libxml 20706, libxslt 10126 and libexslt 815).
-- w3m 0.5.2
-- dblatex 0.3
-- FOP 0.95
-
-## Copying
+## LICENSE
 
 Copyright (C) 2002-2013 Stuart Rackham.
 Copyright (C) 2013-2021 AsciiDoc.py Contributors.
