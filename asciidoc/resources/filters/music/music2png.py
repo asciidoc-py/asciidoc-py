@@ -151,7 +151,13 @@ def music2png(format, infile, outfile, modified):
     # Chop the bottom 75 pixels off to get rid of the page footer then crop the
     # music image. The -strip option necessary because FOP does not like the
     # custom PNG color profile used by Lilypond.
-    run('convert "%s" -strip -gravity South -chop 0x75 -trim "%s"' % (outfile, outfile))
+    # We reset the +gravity before running -trim to avoid a bug in GraphicsMagick.
+    run(
+        'convert "%s" -strip -gravity South -chop 0x75 +gravity -trim "%s"' % (
+            outfile,
+            outfile
+        )
+    )
     for f in temps:
         if os.path.isfile(f):
             print_verbose('deleting: %s' % f)
