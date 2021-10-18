@@ -7,8 +7,16 @@ import pytest
     "input,expected",
     (
         (
+            '{attach}file.txt',
+            '<div class="paragraph"><p></p></div>\r\n'
+        ),
+        (
             '\\{attach}file.txt',
             '<div class="paragraph"><p>{attach}file.txt</p></div>\r\n'
+        ),
+        (
+            'link:{attach}file.txt[file]',
+            '<div class="paragraph"><p></p></div>\r\n'
         ),
         (
             'link:\\{attach}file.txt[file]',
