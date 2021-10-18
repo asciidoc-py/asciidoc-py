@@ -780,7 +780,7 @@ def system(name, args, is_macro=False, attrs=None):
     return result
 
 
-def subs_attrs(lines, dictionary=None):
+def subs_attrs(lines, dictionary=None, ignore_skipped=False):
     """Substitute 'lines' of text with attributes from the global
     document.attributes dictionary and from 'dictionary' ('dictionary'
     entries take precedence). Return a tuple of the substituted lines.  'lines'
@@ -829,7 +829,7 @@ def subs_attrs(lines, dictionary=None):
             if v is None:
                 del dictionary[k]
             else:
-                v = subs_attrs(str(v))
+                v = subs_attrs(str(v), ignore_skipped=(dictionary.get('name', None) is not None and k == 'target'))
                 if v is None:
                     del dictionary[k]
                 else:
@@ -838,6 +838,7 @@ def subs_attrs(lines, dictionary=None):
     # Substitute all attributes in all lines.
     result = []
     for line in lines:
+        ignore_skipped_line = ignore_skipped
         # Make it easier for regular expressions.
         line = line.replace('\\{', '{\\')
         line = line.replace('\\}', '}\\')
@@ -849,13 +850,16 @@ def subs_attrs(lines, dictionary=None):
             mo = reo.search(line, pos)
             if not mo:
                 break
-            s = attrs.get(mo.group('name'))
+            attr_name = mo.group('name')
+            s = attrs.get(attr_name)
             if s is None:
                 pos = mo.end()
             else:
                 s = str(s)
                 line = line[:mo.start()] + s + line[mo.end():]
                 pos = mo.start() + len(s)
+                if attr_name == 'target' and dictionary.get('name', None) is not None and re.search(r'{[0-9]+%?}', line) is None:
+                    ignore_skipped_line = True
         # Expand conditional attributes.
         # Single name -- higher precedence.
         reo1 = re.compile(
@@ -869,6 +873,7 @@ def subs_attrs(lines, dictionary=None):
             r'(?P<op>\=|\?|!|#|%|@|\$)'
             r'(?P<value>.*?)\}(?!\\)'
         )
+        force_skip = False
         for reo in [reo1, reo2]:
             pos = 0
             while True:
@@ -908,7 +913,7 @@ def subs_attrs(lines, dictionary=None):
                 # mo.end() not good enough because '{x={y}}' matches '{x={y}'.
                 end = end_brace(line, mo.start())
                 rval = line[mo.start('value'):end - 1]
-                UNDEFINED = '{zzzzz}'
+                s = ''
                 if lval is None:
                     if op == '=':
                         s = rval
@@ -917,11 +922,11 @@ def subs_attrs(lines, dictionary=None):
                     elif op == '!':
                         s = rval
                     elif op == '#':
-                        s = UNDEFINED  # So the line is dropped.
+                        force_skip = True
                     elif op == '%':
                         s = rval
                     elif op in ('@', '$'):
-                        s = UNDEFINED  # So the line is dropped.
+                        force_skip = True
                     else:
                         assert False, 'illegal attribute: %s' % attr
                 else:
@@ -934,7 +939,7 @@ def subs_attrs(lines, dictionary=None):
                     elif op == '#':
                         s = rval
                     elif op == '%':
-                        s = UNDEFINED  # So the line is dropped.
+                        force_skip = True
                     elif op in ('@', '$'):
                         v = re.split(r'(?<!\\):', rval)
                         if len(v) not in (2, 3):
@@ -959,12 +964,12 @@ def subs_attrs(lines, dictionary=None):
                                     if len(v) == 2:   # {<name>$<re>:<v1>}
                                         s = v[1]
                                     elif v[1] == '':  # {<name>$<re>::<v2>}
-                                        s = UNDEFINED  # So the line is dropped.
+                                        force_skip = True
                                     else:             # {<name>$<re>:<v1>:<v2>}
                                         s = v[1]
                                 else:
                                     if len(v) == 2:   # {<name>$<re>:<v1>}
-                                        s = UNDEFINED  # So the line is dropped.
+                                        force_skip = True
                                     else:             # {<name>$<re>:<v1>:<v2>}
                                         s = v[2]
                     else:
@@ -972,9 +977,8 @@ def subs_attrs(lines, dictionary=None):
                 s = str(s)
                 line = line[:mo.start()] + s + line[end:]
                 pos = mo.start() + len(s)
-        # Drop line if it contains  unsubstituted {name} references.
-        skipped = re.search(r'(?s)\{[^\\\W][-\w]*?\}(?!\\)', line)
-        if skipped:
+        # Drop line if it contains unsubstituted {name} references.
+        if force_skip or (not ignore_skipped_line and re.search(r'(?s)\{[^\\\W][-\w]*?\}(?!\\)', line) is not None):
             trace('dropped line', line)
             continue
         # Expand system attributes (eval has precedence).
