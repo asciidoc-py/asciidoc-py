@@ -799,12 +799,12 @@ def subs_attrs(lines, dictionary=None):
         n = 0
         result = start
         for c in text[start:]:
-            # Skip braces that are followed by a backslash.
-            if result == len(text) - 1 or text[result + 1] != '\\':
-                if c == '{':
-                    n = n + 1
-                elif c == '}':
-                    n = n - 1
+            if result == len(text):
+                break
+            if c == '{':
+                n = n + 1
+            elif c == '}':
+                n = n - 1
             result = result + 1
             if n == 0:
                 break
@@ -872,6 +872,7 @@ def subs_attrs(lines, dictionary=None):
         for reo in [reo1, reo2]:
             pos = 0
             while True:
+                line = line.replace('\\{', '{\\')
                 mo = reo.search(line, pos)
                 if not mo:
                     break
@@ -971,6 +972,7 @@ def subs_attrs(lines, dictionary=None):
                         assert False, 'illegal attribute: %s' % attr
                 s = str(s)
                 line = line[:mo.start()] + s + line[end:]
+                line = line.replace('{\\', '\\{')
                 pos = mo.start() + len(s)
         # Drop line if it contains  unsubstituted {name} references.
         skipped = re.search(r'(?s)\{[^\\\W][-\w]*?\}(?!\\)', line)
@@ -991,7 +993,7 @@ def subs_attrs(lines, dictionary=None):
                     break
                 expr = mo.group('expr')
                 action = mo.group('action')
-                expr = expr.replace('{\\', '{')
+                expr = expr.replace('{\\', '\\{')
                 expr = expr.replace('}\\', '}')
                 s = system(action, expr, attrs=dictionary)
                 if dictionary is not None and action in ('counter', 'counter2', 'set', 'set2'):
@@ -1006,8 +1008,9 @@ def subs_attrs(lines, dictionary=None):
             if skipped:
                 break
         if not skipped:
-            # Remove backslash from escaped entries.
-            line = line.replace('{\\', '{')
+            # Put back slash for leftmost curly brace for subsequent parses of
+            # escaped attributes. We don't need the escaped right curly braces though.
+            line = line.replace('{\\', '\\{')
             line = line.replace('}\\', '}')
             result.append(line)
     if string_result:
@@ -4441,7 +4444,8 @@ class Writer:
 
     def write_line(self, line=None):
         if not (self.skip_blank_lines and (not line or not line.strip())):
-            self.f.write((line or '') + self.newline)
+            # Replace out any escaped attributes with non-escaped versions
+            self.f.write((re.sub(r'\\({[a-zA-Z0-9_][a-zA-Z0-9_\-]*)', '\\1', line) or '') + self.newline)
             self.lines_out = self.lines_out + 1
 
     def write(self, *args, **kwargs):
