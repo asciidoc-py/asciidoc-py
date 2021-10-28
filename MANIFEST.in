@@ -1,1 +1,1 @@
-recursive-include asciidoc/resources *.conf *.txt *.py *.png *.js *.css
+recursive-include asciidoc/resources *.conf *.txt *.py *.png *.js *.css *.xsl *.sty
