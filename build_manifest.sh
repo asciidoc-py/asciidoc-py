@@ -13,8 +13,8 @@ tests/data/*
 tests/testasciidoc.py
 tests/testasciidoc.conf
 *.sh
-BUGS.txt
-CHANGELOG.txt
+BUGS.adoc
+CHANGELOG.adoc
 configure
 configure.ac
 COPYRIGHT
@@ -22,7 +22,7 @@ Dockerfile
 MANIFEST
 MANIFEST.in
 install-sh
-INSTALL.txt
+INSTALL.adoc
 Makefile
 Makefile.in
 README.md

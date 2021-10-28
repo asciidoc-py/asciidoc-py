@@ -64,7 +64,7 @@ $(manp): %.1 : %.1.txt
 
 ##.
 
-DOC_FILES = CHANGELOG.txt README.asciidoc BUGS.txt INSTALL.txt doc/a2x.1.txt \
+DOC_FILES = CHANGELOG.adoc README.asciidoc BUGS.adoc INSTALL.adoc doc/a2x.1.txt \
 	 		doc/faq.txt doc/asciidocapi.txt doc/testasciidoc.txt \
 			doc/epub-notes.txt doc/publishing-ebooks-with-asciidoc.txt \
 			doc/source-highlight-filter.txt doc/slidy.txt doc/slidy-example.txt
