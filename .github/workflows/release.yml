@@ -43,10 +43,10 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-      # - name: Update Homebrew formula
-      #  uses: dawidd6/action-homebrew-bump-formula@v3
-      #  with:
-      #    token: ${{secrets.BREW_TOKEN}}
-      #    formula: asciidoc
-      #    tag: ${{github.ref}}
-      #    revision: ${{github.sha}}
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{secrets.BREW_TOKEN}}
+          formula: asciidoc
+          tag: ${{github.ref}}
+          revision: ${{github.sha}}
