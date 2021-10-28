@@ -3,8 +3,16 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc-py.github.io/
 
+Version 10.0.1 (2021-10-28)
+---------------------------
+.Bug fixes
+- Fix running make docs
+- Fix warning in music filter when using GraphicsMagick
+- Fix handling escaped attributes inside of macros
+- Include *.xsl and *.sty files in pip installations
+
 Version 10.0.0 (2021-10-16)
---------------------------
+---------------------------
 .Breaking Changes
 AsciiDoc.py has been rewritten to be a https://pypi.org/project/asciidoc/[proper Python package], installable via pip. Downloading and running asciidoc from the repo is not recommended, but can be done through `python3 -m asciidoc` or `python3 -m asciidoc.a2x`. CLI usage should remain the same where both `asciidoc` and `a2x` CLI commands are available after pip installation. Support for overriding the bundled *.conf files is done through CLI flags, environment variables, etc., and not through directly editing the files within the installation. Importing asciidoc should no longer require the `asciidocapi.py` script, and can be done through regular python import, e.g. `import asciidoc; asciidoc.execute(...)`.
 
