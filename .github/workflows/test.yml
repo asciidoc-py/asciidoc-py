@@ -70,12 +70,16 @@ jobs:
       - run: time python tests/testasciidoc.py run
       - run: git clean -x -f doc tests/data
 
-      - name: Test make install
+      - name: Configure make
         run: |
           autoconf
           ./configure
-          make
-          pip3 install .
+
+      - run: make install
+      - run: sudo make docs
+
+      - name: Print versions
+        run: |
           asciidoc --version
           a2x --version
 

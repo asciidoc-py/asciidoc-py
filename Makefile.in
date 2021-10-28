@@ -104,13 +104,9 @@ docs:
 	$(INSTALL) -d $(DESTDIR)$(docdir)
 	$(INSTALL_DATA) $(doc) $(DESTDIR)$(docdir)
 	$(INSTALL) -d $(DESTDIR)$(docdir)/docbook-xsl
-	$(INSTALL_DATA) docbook-xsl/asciidoc-docbook-xsl.txt $(DESTDIR)$(docdir)/docbook-xsl
+	$(INSTALL_DATA) asciidoc/resources/docbook-xsl/asciidoc-docbook-xsl.txt $(DESTDIR)$(docdir)/docbook-xsl
 	$(INSTALL) -d $(DESTDIR)$(docdir)/dblatex
-	$(INSTALL_DATA) dblatex/dblatex-readme.txt $(DESTDIR)$(docdir)/dblatex
-	$(INSTALL) -d $(DESTDIR)$(docdir)/stylesheets
-	$(INSTALL_DATA) $(css) $(DESTDIR)$(docdir)/stylesheets
-	$(INSTALL) -d $(DESTDIR)$(docdir)/javascripts
-	$(INSTALL_DATA) $(js) $(DESTDIR)$(docdir)/javascripts
+	$(INSTALL_DATA) asciidoc/resources/dblatex/dblatex-readme.txt $(DESTDIR)$(docdir)/dblatex
 	$(INSTALL) -d $(DESTDIR)$(docdir)/images
 	( cd images && \
 		cp -R * $(DESTDIR)$(docdir)/images )
