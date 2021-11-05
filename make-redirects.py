@@ -1,24 +1,24 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 links = [
-        'CHANGELOG',
-        'INSTALL',
-        'a2x.1',
-        'article-standalone',
-        'asciidocapi',
-        'asciidoc-graphviz-sample',
-        'faq',
-        'index',
-        'latex-filter',
-        'manpage',
-        'music-filter',
-        'plugins',
-        'slidy',
-        'source-highlight-filter',
-        'support',
-        'testasciidoc',
-        'userguide',
-        ]
+    'CHANGELOG',
+    'INSTALL',
+    'a2x.1',
+    'article-standalone',
+    'asciidocapi',
+    'asciidoc-graphviz-sample',
+    'faq',
+    'index',
+    'latex-filter',
+    'manpage',
+    'music-filter',
+    'plugins',
+    'slidy',
+    'source-highlight-filter',
+    'support',
+    'testasciidoc',
+    'userguide',
+]
 
 for link in links:
     with open('{}.html'.format(link), 'w', newline='\n') as file:
