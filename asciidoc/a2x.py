@@ -980,7 +980,7 @@ def cli():
     opts, args = parser.parse_args(argv)
     if len(args) != 1:
         parser.error('incorrect number of arguments')
-    opts.asciidoc_opts = [x.split(' ', 1) for x in opts.asciidoc_opts]
+    opts.asciidoc_opts = [x.split(' ') for x in opts.asciidoc_opts]
     opts.dblatex_opts = ' '.join(opts.dblatex_opts)
     opts.fop_opts = ' '.join(opts.fop_opts)
     opts.xsltproc_opts = ' '.join(opts.xsltproc_opts)
