@@ -48,6 +48,11 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
 
+  homebrew:
+    runs-on: macos-latest
+    needs:
+      - release
+    steps:
       - name: Update Homebrew formula
         uses: dawidd6/action-homebrew-bump-formula@v3
         with:
