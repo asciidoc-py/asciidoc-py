@@ -31,6 +31,7 @@ class AsciiDocAPI(object):
         self.options = Options()
         self.attributes = {}
         self.messages = []
+        self.cmd = 'asciidoc'
 
     def execute(self, infile, outfile=None, backend=None):
         """
@@ -56,7 +57,7 @@ class AsciiDocAPI(object):
             try:
                 asciidoc.execute(self.cmd, opts.values, args)
             finally:
-                self.messages = self.asciidoc.messages[:]
+                self.messages = asciidoc.messages[:]
         except SystemExit as e:
             if e.code:
                 raise AsciiDocError(self.messages[-1])
