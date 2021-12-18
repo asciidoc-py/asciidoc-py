@@ -68,23 +68,6 @@ jobs:
       - run: coverage xml
 
       - run: time python tests/testasciidoc.py run
-      - run: git clean -x -f doc tests/data
-
-      - name: Configure make
-        run: |
-          autoconf
-          ./configure
-
-      - run: make install
-      - run: sudo make docs
-
-      - name: Print versions
-        run: |
-          asciidoc --version
-          a2x --version
-
-      - run: asciidoc --version
-      - run: asciidoc --filter list
 
       - uses: codecov/codecov-action@v2
 
@@ -104,3 +87,52 @@ jobs:
 
       - run: python -m asciidoc.asciidoc --doctest
       - run: python tests/testasciidoc.py run --number 6
+
+  make:
+    needs: lint
+    runs-on: ubuntu-latest
+    env:
+      python-version: 3.5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            docbook-xml \
+            docbook-xsl \
+            dvipng \
+            dvisvgm \
+            graphviz \
+            imagemagick \
+            libxml2-utils \
+            lilypond \
+            source-highlight \
+            texlive-latex-base \
+            xsltproc
+
+      - run: pip install -U pytest pytest-mock
+
+      - name: Configure make
+        run: |
+          autoconf
+          ./configure
+
+      - run: make test
+
+      - run: make install
+      - run: sudo make docs
+
+      - name: Print versions
+        run: |
+          asciidoc --version
+          a2x --version
+
+      - run: asciidoc --version
+      - run: asciidoc --filter list
