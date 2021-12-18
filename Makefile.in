@@ -149,5 +149,5 @@ dist: manpages MANIFEST
 ##   test: run the asciidoc test suite
 .PHONY: test
 test:
-	python3 ./asciidoc/asciidoc.py --doctest
+	python3 -m asciidoc.asciidoc --doctest
 	python3 tests/testasciidoc.py run
