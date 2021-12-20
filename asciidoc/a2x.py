@@ -676,10 +676,7 @@ class A2X(AttrDict):
         options.append(('-a', 'a2x-format=%s' % self.format))
         options.append(('--out-file', docbook_file))
 
-        verbose("executing: asciidoc {} {}".format(
-            ' '.join(map(lambda x: "{}{}".format(x[0], " " + x[1] if x[1] else ""), options)),
-            self.asciidoc_file
-        ))
+        verbose("executing: asciidoc {}".format(options))
 
         asciidoc.cli(flatten(['asciidoc'] + options + [self.asciidoc_file]))
         if not self.no_xmllint and XMLLINT:
