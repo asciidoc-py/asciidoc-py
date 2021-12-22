@@ -1,4 +1,4 @@
-Source Hightlight Filter Test
+Source Highlight Filter Test
 =============================
 
 Details of the filter can be found in

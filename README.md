@@ -28,7 +28,7 @@ AsciiDoc.py is written in Python so you need a Python interpreter
 package manager for your OS or by downloading it from the official Python
 website http://www.python.org.
 
-Additionally, you wil need:
+Additionally, you will need:
 
 * DocBook XSL Stylesheets 1.76.1
 * xsltproc (libxml 20706, libxslt 10126 and libexslt 815).

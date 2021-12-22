@@ -67,7 +67,7 @@ Cause:: The table models in LaTeX and HTML are too dissimilar for one
 `asciidoc` specification to generate valid output in both formats by
 simple regexp replacement. Related to this is the unfortunate fact
 that `<COLGROUP>` and related tags aren't a required part of HTML4,
-and some broswers (at least Firefox and Konqueror) don't implement
+and some browsers (at least Firefox and Konqueror) don't implement
 them.
 
 Solution:: Perhaps table processing could be handled by a Python

@@ -669,7 +669,7 @@ chart_object.set_defaults(bar_plot.T, direction="horizontal", data=data)
 # Attribute cluster=(0,3) tells that you are going to draw three bar
 # plots side by side.  The plot labeled "foo" will the leftmost (i.e.,
 # 0th out of 3).  Attribute hcol tells the column from which to
-# retrive sample values from.  It defaults to one.
+# retrieve sample values from.  It defaults to one.
 ar.add_plot(bar_plot.T(label="foo", cluster=(0,3)))
 ar.add_plot(bar_plot.T(label="bar", hcol=2, cluster=(1,3)))
 ar.add_plot(bar_plot.T(label="baz", hcol=3, cluster=(2,3)))
@@ -1372,7 +1372,7 @@ or https://www.latex-project.org/[LaTeX] to AsciiDoc.
 use a passthrough block it must contain DocBook (not HTML).
 Fortunately DocBook XSL Stylesheets has a
 http://www.sagehill.net/docbookxsl/InsertExtHtml.html[dbhtml-include
-processing instruction] which will inlcude a file containing raw HTML
+processing instruction] which will include a file containing raw HTML
 into the generated HTML output. For example:
 
 ---------------------------------------------------------------
