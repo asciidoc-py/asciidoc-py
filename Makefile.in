@@ -22,7 +22,7 @@ datadir = @datadir@
 docdir = @docdir@
 sysconfdir = @sysconfdir@
 datarootdir = @datarootdir@
-mandir=@mandir@
+mandir = @mandir@
 srcdir = @srcdir@
 
 VPATH = @srcdir@
@@ -37,6 +37,8 @@ manpdir = $(mandir)/man1
 doc = $(wildcard README*) $(wildcard BUGS*) $(wildcard INSTALL*) $(wildcard CHANGELOG*)
 
 TARGETS = doc
+
+DESTDIR ?= /
 
 INSTDIRS = $(TARGETS:%=%dir)
 
@@ -86,7 +88,7 @@ doc_spell:
 
 .PHONY: pip
 pip:
-	python3 -m pip install .
+	python3 -m pip install --root $(DESTDIR) .
 
 ##   install: install asciidoc to target directory
 .PHONY: install
