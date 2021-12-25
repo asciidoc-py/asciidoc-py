@@ -10,26 +10,17 @@
 .NOTPARALLEL:
 
 INSTALL = @INSTALL@
-INSTALL_PROG = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
-PACKAGE_TARNAME = @PACKAGE_TARNAME@
-SED = @SED@
 
-prefix = @prefix@
-exec_prefix = @exec_prefix@
-bindir = @bindir@
-datadir = @datadir@
 docdir = @docdir@
-sysconfdir = @sysconfdir@
-datarootdir = @datarootdir@
 mandir = @mandir@
 srcdir = @srcdir@
 
-VPATH = @srcdir@
+# unused setting, but keeping it to avoid warning when running ./configure
+datarootdir = @datarootdir@
 
 ASCIIDOCVERSION = @PACKAGE_VERSION@
 ASCIIDOCDATE = @PACKAGE_DATE@
-ASCIIDOCCONF = $(sysconfdir)/asciidoc
 
 manp = $(patsubst %1.txt,%1,$(wildcard doc/*.1.txt))
 manpdir = $(mandir)/man1
@@ -71,18 +62,17 @@ DOC_FILES = CHANGELOG.adoc README.asciidoc BUGS.adoc INSTALL.adoc doc/a2x.1.txt 
 			doc/epub-notes.txt doc/publishing-ebooks-with-asciidoc.txt \
 			doc/source-highlight-filter.txt doc/slidy.txt doc/slidy-example.txt
 
-##   spell: run doc_spell and website_spell
+##   spell: run aspell over all files under doc/
 .PHONY: spell
-spell: doc_spell website_spell
-
-
-##   doc_spell: run aspell over all files under doc/
-.PHONY: doc_spell
-doc_spell:
+spell:
 	@for f in $(DOC_FILES); do \
 		echo "aspell check -p ./doc/asciidoc.dict $$f"; \
 		aspell check -p ./doc/asciidoc.dict $$f; \
 	done
+
+##   doc_spell: (deprecated) runs spell target
+.PHONY: doc_spell
+doc_spell: spell
 
 ##.
 
@@ -123,7 +113,6 @@ uninstall:
 	rm -f $(DESTDIR)$(manpdir)/asciidoc.1
 	rm -f $(DESTDIR)$(manpdir)/testasciidoc.1
 	rm -f $(DESTDIR)$(manpdir)/a2x.1
-	rm -rf $(DESTDIR)$(confdir)
 	rm -rf $(DESTDIR)$(docdir)
 
 ##   clean: delete built asciidoc doc files
