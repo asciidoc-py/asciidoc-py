@@ -1089,7 +1089,7 @@ Version 8.5.1 (2009-10-31)
 - The 'xhtml11' backend dynamically processes footnotes using
   JavaScript.
 - Tidied up and namespaced 'xhtml11' JavaScript.
-- Superceded `javascripts/toc.js` with `javascripts/asciidoc-xhtml11.js`.
+- Superseded `javascripts/toc.js` with `javascripts/asciidoc-xhtml11.js`.
 - Added 'disable-javascript' attribute ('xhtml11' backend).
 - Styled HTML footnotes.
 - Added links to HTML footnote refs.
@@ -1115,7 +1115,7 @@ Version 8.5.1 (2009-10-31)
 Regression issues
 ~~~~~~~~~~~~~~~~~
 There's been quite a bit of tiding up to the xhtml11 JavaScript. The
-most obvious change is that the toc.js script has been superceded by
+most obvious change is that the toc.js script has been superseded by
 asciidoc-xhtml11.js so if you're linking you'll need get a copy of
 the new file from the distribution javascripts directory.
 
@@ -1762,7 +1762,7 @@ to the previous 8.2.7 release:
   are rendered vertically.
 - The list 'compact' style has been dropped and is now a list option
   (use `options="compact"` in attribute lists).
-- AsciiDoc version 6 sytnax no longer supported.
+- AsciiDoc version 6 syntax no longer supported.
 - Linuxdoc been removed from the distribution.
 - The unsupported experimental 'latex' backend has not been tested on
   this release.

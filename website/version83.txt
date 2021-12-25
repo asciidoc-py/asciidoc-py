@@ -7,7 +7,7 @@ introduces a decent
 https://asciidoc.org/newtables.html[tables] syntax.
 There are a few fairly minor backward compatibility issues, please
 read the link:CHANGELOG.html#X1[compatibility issues] section in the
-CHANGLOG before upgrading.
+CHANGELOG before upgrading.
 
 New Features
 ------------

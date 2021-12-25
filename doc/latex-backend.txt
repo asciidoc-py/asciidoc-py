@@ -85,7 +85,7 @@ autoref::
 Let's LaTeX print the number of the section, subsection, figure, table or theorem the referenced anchor resides preceded with a contextual label.
 
 cite::
-Let's LaTeX interprete this reference as a reference to a bibliography entry. If the attribute 'latex-use-bibliography-environment' is set, references with 'cite' style as well as their corresponding bibliography anchors are presented as automatically generated numbers.
+Let's LaTeX interpret this reference as a reference to a bibliography entry. If the attribute 'latex-use-bibliography-environment' is set, references with 'cite' style as well as their corresponding bibliography anchors are presented as automatically generated numbers.
 
 If the 'style' attribute is not set the reference is printed the common way.
 

@@ -2,7 +2,7 @@ LaTeXMathML Formulae
 ====================
 
 https://www.maths.nottingham.ac.uk/plp/pmadw/lm.html[LaTeXMathML]
-capability has been added to AsciiDoc for users who are more familar
+capability has been added to AsciiDoc for users who are more familiar
 with or prefer LaTeX math formulas to the
 https://asciidoc.org/asciimath.html[ASCIIMath]
 notation.

@@ -1359,7 +1359,7 @@ The 'reftext' attribute can an also be set by the 'BlockId' element.
 |floatstyle |docbook |
 'floatstyle' is used to specify the floatstyle attribute for the
 titled table, example, image and equation blocks. This is useful when
-used in conjuction with the dblatex toolchain. A typical example
+used in conjunction with the dblatex toolchain. A typical example
 would be to specify the value as 'floatstyle="[htbp]"'.
 
 |====================================================================

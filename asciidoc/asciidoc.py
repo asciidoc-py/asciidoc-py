@@ -4051,7 +4051,7 @@ class Reader1:
         self._lineno = 0        # The last line read from file object f.
         self.line_ranges = None # line ranges to include
         self.current_depth = 0  # Current include depth.
-        self.max_depth = 10     # Initial maxiumum allowed include depth.
+        self.max_depth = 10     # Initial maximum allowed include depth.
         self.bom = None         # Byte order mark (BOM).
         self.infile = None      # Saved document 'infile' attribute.
         self.indir = None       # Saved document 'indir' attribute.

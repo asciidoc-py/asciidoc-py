@@ -214,7 +214,7 @@ homero verear ea mea, qui.
 ---------------------------------------------------------------------
 
 
-.Horizontal and vertial headings
+.Horizontal and vertical headings
 [cols="h,4*",options="header",width="50%"]
 |==================================
 |      |West |Central |East | Total
@@ -226,7 +226,7 @@ homero verear ea mea, qui.
 
 .AsciiDoc source
 ---------------------------------------------------------------------
-.Horizontal and vertial headings
+.Horizontal and vertical headings
 [cols="h,4*",options="header",width="50%"]
 |==================================
 |      |West |Central |East | Total
