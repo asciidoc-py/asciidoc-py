@@ -1,0 +1,177 @@
+AsciiDoc Installation
+=====================
+
+NOTE: The current version of AsciiDoc requires *Python 3.5 or later*
+to run.  If you don't already have an up-to-date version of Python
+installed it can be downloaded from the official Python website
+http://www.python.org/.
+
+Prerequisites
+-------------
+
+- Python 3.5+
+- DocBook XSL Stylesheets
+- xsltproc
+- w3m
+- dblatex
+- FOP
+- make
+
+Installing from PyPI
+--------------------
+Starting from 10.0 release, AsciiDoc.py can be installed from PyPI repository
+by doing the following:
+
+  $ python3 -m pip install asciidoc
+
+Installing from the GitHub repository
+-------------------------------------
+The AsciiDoc repository is hosted by https://github.com[GitHub].
+To browse the repository go to https://github.com/asciidoc/asciidoc-py3.
+You can install AsciiDoc from the repository if you don't have an up to
+date packaged version, or you want to get the latest version from the master
+branch:
+
+- Make sure you have https://git-scm.com/[Git]
+  installed; you can check with:
+
+  $ git --version
+
+- Go to the directory you want to install AsciiDoc into and download
+  the repository.  This example gets the {revnumber} tagged release:
+
+[subs="attributes"]
+  $ cd ~/bin
+  $ git clone https://github.com/asciidoc/asciidoc-py3 asciidoc-{revnumber}
+  $ cd asciidoc-{revnumber}
+  $ git checkout {revnumber}
+
+You now have two choices: you can run asciidoc locally from your
+repository (e.g. `python3 -m asciidoc` or `python3 -m asciidoc.a2x`) or you
+can use 'autoconf(1)' and 'make(1)' to perform a system-wide install. If you
+wish to update your installation, run `git pull` and re-run `make(1)` to
+re-install the updated version
+
+Uninstalling AsciiDoc.py
+------------------------
+
+To uninstall AsciiDoc.py, if you installed it via PyPI, then simply do the
+following:
+
+  $ python3 -m pip uninstall asciidoc
+
+If you installed it via `make(1)`, please do the following:
+
+  $ sudo make uninstall
+
+
+[[X1]]
+Distribution tarball installation
+---------------------------------
+The distribution source tarballs can be downloaded from GitHub
+releases page https://github.com/asciidoc/asciidoc-py3/releases.
+
+If your flavor of UNIX or Linux does not have a packaged AsciiDoc
+distribution or if you prefer to install the latest AsciiDoc version
+from source, use the `configure` shell script in the tarball root
+directory.
+
+The `autoconf(1)`-generated `configure` script creates a `Makefile`
+that is tailored for your system. To install:
+
+[subs="attributes"]
+  $ tar -xzf asciidoc-{revnumber}.tar.gz
+  $ cd asciidoc-{revnumber}
+  $ ./configure
+  $ sudo make install
+
+To install the documentation:
+
+  $ sudo make docs
+
+To uninstall AsciiDoc:
+
+  $ sudo make uninstall
+
+If Vim is installed on your system the AsciiDoc Vim syntax highlighter
+and filetype detection are already installed as built into the vim runtime.
+
+
+[[X3]]
+Microsoft Windows installation
+------------------------------
+AsciiDoc is developed and tested on Linux but there seem to be quite a
+few people using it on Windows. To install AsciiDoc on Windows unzip
+the distribution zip file contents:
+
+[subs="attributes"]
+  $ unzip asciidoc-{revnumber}.zip
+
+This will create the folder +asciidoc-{revnumber}+ containing the
+`asciidoc.py` and `a2x.py` executables along with configuration files
+and documentation.
+
+To generate DocBook based outputs (e.g. PDFs) you will also need a
+working DocBook toolchain. Installing and configuring a DocBook
+toolchain on Windows can be a challenge -- this blog post explains
+http://blog.rainwebs.net/2010/02/25/how-to-create-handsome-pdf-documents-without-frustration/[How
+to Create Handsome PDF Documents Without Frustration] using
+http://www.cygwin.com/[Cygwin],
+http://dblatex.sourceforge.net/[dblatex] and AsciiDoc.
+
+
+Testing your installation
+-------------------------
+To test out AsciiDoc.py, you will need to install `pytest` and `pytest-mock`
+from PyPI.
+
+Test out asciidoc by changing to the AsciiDoc application directory
+and converting the User Guide document (`./doc/asciidoc.txt`) to XHTML
+(`./doc/asciidoc.html`):
+
+  $ python3 asciidoc.py doc/asciidoc.txt
+
+The link:testasciidoc.html[testasciidoc] tool offers a more extensive set of
+conformance tests. You can run the tests by executing this command:
+
+  $ python3 ./tests/testasciidoc.py run
+
+Unit tests can be run by doing:
+
+  $ python3 -m pytest
+
+Doctests can be run by doing:
+
+  $ python3 -m asciidoc.asciidoc --doctest
+
+Running all three of these can be accomplished through the Makefile:
+
+  $ make test
+
+
+[[X2]]
+Prepackaged AsciiDoc installation
+---------------------------------
+The following platform-specific AsciiDoc packages are available:
+
+*Fedora Linux*::
+  AsciiDoc is included in Fedora Extras, which is available in
+  the default Fedora installation. To install asciidoc, execute the
+  following command:
+
+  $ yum install asciidoc
+
+*Ubuntu / Debian*::
+  AsciiDoc is included in Ubuntu / Debian package manager. To install,
+  execute the following command:
+
+  $ apt install asciidoc
+
+*macOS Homebrew*::
+  AsciiDoc has been packaged in homebrew and is installable using the
+  following command:
+
+  $ brew install asciidoc
+
+See also link:userguide.html#X38[Packager Notes] in the 'AsciiDoc User
+Guide'.
