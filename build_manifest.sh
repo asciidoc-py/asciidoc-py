@@ -2,30 +2,32 @@
 
 cat > MANIFEST.tmp <<- EOM
 asciidoc/*.py
-asciidoc/**/*
+asciidoc/resources/**/*
+asciidoc/resources/*.conf
 doc/asciidoc.conf
 doc/article-docinfo.xml
 doc/customers.csv
 doc/*.1
 doc/*.txt
 doc/asciidoc.dict
+images/*
 tests/data/*
-tests/testasciidoc.py
+tests/inputs/*
+tests/*.py
 tests/testasciidoc.conf
 *.sh
 BUGS.adoc
 CHANGELOG.adoc
-configure
 configure.ac
 COPYRIGHT
 Dockerfile
-MANIFEST
-MANIFEST.in
 install-sh
 INSTALL.adoc
-Makefile
+LICENSE
+MANIFEST.in
 Makefile.in
 README.md
+setup.py
 EOM
 
 rm -f MANIFEST

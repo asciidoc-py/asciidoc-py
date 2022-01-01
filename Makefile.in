@@ -120,7 +120,7 @@ uninstall:
 clean:
 	rm -f $(manp)
 
-MANIFEST: MANIFEST.in
+MANIFEST: MANIFEST.in build_manifest.sh
 	bash build_manifest.sh
 
 ##.
