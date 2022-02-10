@@ -873,9 +873,7 @@ class A2X(AttrDict):
             shell_rm(html_file)
 
 
-def cli():
-    global OPTIONS
-
+def parse_args(argv):
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
     from optparse import OptionParser
     import shlex
@@ -977,11 +975,11 @@ def cli():
     parser.add_option('-v', '--verbose',
         action='count', dest='verbose', default=0,
         help='increase verbosity')
-    if len(sys.argv) == 1:
+    if len(argv) == 1:
         parser.parse_args(['--help'])
-    source_options = get_source_options(sys.argv[-1])
-    argv = source_options + sys.argv[1:]
-    opts, args = parser.parse_args(argv)
+    source_options = get_source_options(argv[-1])
+    new_argv = source_options + argv[1:]
+    opts, args = parser.parse_args(new_argv)
     if len(args) != 1:
         parser.error('incorrect number of arguments')
     opts.asciidoc_opts = shlex.split(' ' .join(opts.asciidoc_opts))
@@ -989,6 +987,12 @@ def cli():
     opts.fop_opts = ' '.join(opts.fop_opts)
     opts.xsltproc_opts = ' '.join(opts.xsltproc_opts)
     opts.backend_opts = ' '.join(opts.backend_opts)
+    return (new_argv, opts, args)
+
+
+def cli():
+    global OPTIONS
+    argv, opts, args = parse_args(sys.argv)
     opts = eval(str(opts))  # Convert optparse.Values to dict.
     a2x = A2X(opts)
     OPTIONS = a2x           # verbose and dry_run used by utility functions.
