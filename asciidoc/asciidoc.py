@@ -37,6 +37,7 @@ from collections import OrderedDict
 from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
 from .exceptions import EAsciiDoc
+from .message import Message
 from . import utils
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
@@ -109,71 +110,6 @@ class Trace(object):
                         after = '\n'.join(after)
                     msg += '\n<<<\n%s\n>>>\n%s\n' % (before, after)
                 message.stderr(msg)
-
-
-class Message:
-    """
-    Message functions.
-    """
-    PROG = os.path.basename(os.path.splitext(__file__)[0])
-
-    def __init__(self):
-        # Set to True or False to globally override line numbers method
-        # argument. Has no effect when set to None.
-        self.linenos = None
-        self.messages = []
-        self.prev_msg = ''
-
-    @staticmethod
-    def stdout(msg):
-        print(msg)
-
-    def stderr(self, msg=''):
-        if msg == self.prev_msg:  # Suppress repeated messages.
-            return
-        self.messages.append(msg)
-        if APPLICATION_CALLER == '__main__':
-            sys.stderr.write('%s: %s%s' % (self.PROG, msg, os.linesep))
-        self.prev_msg = msg
-
-    def verbose(self, msg, linenos=True):
-        if config.verbose:
-            msg = self.format(msg, linenos=linenos)
-            self.stderr(msg)
-
-    def warning(self, msg, linenos=True, offset=0):
-        msg = self.format(msg, 'WARNING: ', linenos, offset=offset)
-        document.has_warnings = True
-        self.stderr(msg)
-
-    def deprecated(self, msg, linenos=True):
-        msg = self.format(msg, 'DEPRECATED: ', linenos)
-        self.stderr(msg)
-
-    def format(self, msg, prefix='', linenos=True, cursor=None, offset=0):
-        """Return formatted message string."""
-        if self.linenos is not False and ((linenos or self.linenos) and reader.cursor):
-            if cursor is None:
-                cursor = reader.cursor
-            prefix += '%s: line %d: ' % (os.path.basename(cursor[0]), cursor[1]+offset)
-        return prefix + msg
-
-    def error(self, msg, cursor=None, halt=False):
-        """
-        Report fatal error.
-        If halt=True raise EAsciiDoc exception.
-        If halt=False don't exit application, continue in the hope of reporting
-        all fatal errors finishing with a non-zero exit code.
-        """
-        if halt:
-            raise EAsciiDoc(self.format(msg, linenos=False, cursor=cursor))
-        else:
-            msg = self.format(msg, 'ERROR: ', cursor=cursor)
-            self.stderr(msg)
-            document.has_errors = True
-
-    def unsafe(self, msg):
-        self.error('unsafe: '+msg)
 
 
 def safe():
@@ -5802,7 +5738,7 @@ document = Document()       # The document being processed.
 config = Config()           # Configuration file reader.
 reader = Reader()           # Input stream line reader.
 writer = Writer()           # Output stream line writer.
-message = Message()         # Message functions.
+message = Message(APPLICATION_CALLER, document, config, reader)  # Message functions.
 paragraphs = Paragraphs()   # Paragraph definitions.
 lists = Lists()             # List definitions.
 blocks = DelimitedBlocks()  # DelimitedBlock definitions.
@@ -5820,6 +5756,7 @@ messages = message.messages
 def set_caller(name: str) -> None:
     global APPLICATION_CALLER
     APPLICATION_CALLER = name
+    message.set_caller(APPLICATION_CALLER)
 
 
 def reset_asciidoc():
@@ -5831,7 +5768,7 @@ def reset_asciidoc():
     config = Config()
     reader = Reader()
     writer = Writer()
-    message = Message()
+    message = Message(APPLICATION_CALLER, document, config, reader)
     paragraphs = Paragraphs()
     lists = Lists()
     blocks = DelimitedBlocks()
