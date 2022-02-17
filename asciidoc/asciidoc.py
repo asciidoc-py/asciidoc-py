@@ -1333,9 +1333,9 @@ class Document(object):
         attrs = self.attributes  # Alias for readability.
         s = s.strip()
         mo = re.match(r'^(?P<name1>[^<>\s]+)'
-                      '(\s+(?P<name2>[^<>\s]+))?'
-                      '(\s+(?P<name3>[^<>\s]+))?'
-                      '(\s+<(?P<email>\S+)>)?$', s)
+                      r'(\s+(?P<name2>[^<>\s]+))?'
+                      r'(\s+(?P<name3>[^<>\s]+))?'
+                      r'(\s+<(?P<email>\S+)>)?$', s)
         if not mo:
             # Names that don't match the formal specification.
             if s:
@@ -5499,7 +5499,7 @@ class Tables_OLD(AbstractBlocks):
                 + r'(\d*|' + re.escape(b.fillchar) + r'*)' \
                 + r')+' \
                 + re.escape(b.fillchar) + r'+' \
-                + '([\d\.]*)$'
+                + r'([\d\.]*)$'
             delimiters.append(b.delimiter)
             if not b.headrow:
                 b.headrow = b.bodyrow
