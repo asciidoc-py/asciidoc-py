@@ -41,6 +41,7 @@ import shutil
 import subprocess
 import sys
 import traceback
+from typing import List, NoReturn, Tuple, Union
 from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
@@ -97,36 +98,36 @@ XSLTPROC_OPTS = ''
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
 
-def errmsg(msg):
+def errmsg(msg: str) -> None:
     print('%s: %s\n' % (PROG, msg), file=sys.stderr)
 
 
-def warning(msg):
+def warning(msg: str) -> None:
     errmsg('WARNING: %s' % msg)
 
 
-def infomsg(msg):
+def infomsg(msg: str) -> None:
     print('%s: %s' % (PROG, msg))
 
 
-def die(msg, exit_code=1):
+def die(msg: str, exit_code: int = 1) -> NoReturn:
     errmsg('ERROR: %s' % msg)
     sys.exit(exit_code)
 
 
-def trace():
+def trace() -> None:
     """Print traceback to stderr."""
     errmsg('-'*60)
     traceback.print_exc(file=sys.stderr)
     errmsg('-'*60)
 
 
-def verbose(msg):
+def verbose(msg: str) -> None:
     if OPTIONS.verbose or OPTIONS.dry_run:
         infomsg(msg)
 
 
-def flatten(array):
+def flatten(array: Union[List, Tuple]) -> List:
     ret = []
     for x in array:
         if isinstance(x, (list, tuple)):
@@ -136,7 +137,7 @@ def flatten(array):
     return ret
 
 
-def isexecutable(file_name):
+def isexecutable(file_name: str) -> bool:
     return os.path.isfile(file_name) and os.access(file_name, os.X_OK)
 
 

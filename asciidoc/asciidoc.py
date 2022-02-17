@@ -28,6 +28,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import typing
 import traceback
 import unicodedata
 import zipfile
@@ -5681,7 +5682,7 @@ class Tables_OLD(AbstractBlocks):
 # ---------------------------------------------------------------------------
 # filter and theme plugin commands.
 # ---------------------------------------------------------------------------
-def die(msg):
+def die(msg: str) -> typing.NoReturn:
     message.stderr(msg)
     sys.exit(1)
 
@@ -5909,7 +5910,7 @@ trace = Trace()             # Implements trace attribute processing.
 messages = message.messages
 
 
-def set_caller(name):
+def set_caller(name: str) -> None:
     global APPLICATION_CALLER
     APPLICATION_CALLER = name
 
