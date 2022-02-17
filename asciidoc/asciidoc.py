@@ -33,7 +33,6 @@ import traceback
 import unicodedata
 import zipfile
 
-from ast import literal_eval
 from collections import OrderedDict
 
 from .collections import AttrDict, InsensitiveDict
@@ -212,32 +211,6 @@ def safe_filename(fname, parentdir):
     return fname
 
 
-def get_args(val):
-    d = {}
-    args = ast.parse("d(" + val + ")", mode='eval').body.args
-    i = 1
-    for arg in args:
-        if isinstance(arg, ast.Name):
-            d[str(i)] = literal_eval(arg.id)
-        else:
-            d[str(i)] = literal_eval(arg)
-        i += 1
-    return d
-
-
-def get_kwargs(val):
-    d = {}
-    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
-    for arg in args:
-        d[arg.arg] = literal_eval(arg.value)
-    return d
-
-
-def parse_to_list(val):
-    values = ast.parse("[" + val + "]", mode='eval').body.elts
-    return [literal_eval(v) for v in values]
-
-
 def parse_attributes(attrs, dict):
     """Update a dictionary with name/value attributes from the attrs string.
     The attrs string is a comma separated list of values and keyword name=value
@@ -268,8 +241,8 @@ def parse_attributes(attrs, dict):
     s = re.sub(r'\s', ' ', attrs)
     d = {}
     try:
-        d.update(get_args(s))
-        d.update(get_kwargs(s))
+        d.update(utils.get_args(s))
+        d.update(utils.get_kwargs(s))
         for v in list(d.values()):
             if not (isinstance(v, str) or isinstance(v, int) or isinstance(v, float) or v is None):
                 raise Exception
@@ -280,8 +253,8 @@ def parse_attributes(attrs, dict):
         s = ','.join(s)
         try:
             d = {}
-            d.update(get_args(s))
-            d.update(get_kwargs(s))
+            d.update(utils.get_args(s))
+            d.update(utils.get_kwargs(s))
         except Exception:
             return  # If there's a syntax error leave with {0}=attrs.
         for k in list(d.keys()):  # Drop any empty positional arguments.
@@ -303,7 +276,7 @@ def parse_named_attributes(s, attrs):
 
     try:
         d = {}
-        d = get_kwargs(s)
+        d = utils.get_kwargs(s)
         attrs.update(d)
         return True
     except Exception:
@@ -314,7 +287,7 @@ def parse_list(s):
     """Parse comma separated string of Python literals. Return a tuple of of
     parsed values."""
     try:
-        result = tuple(parse_to_list(s))
+        result = tuple(utils.parse_to_list(s))
     except Exception:
         raise EAsciiDoc('malformed list: ' + s)
     return result
@@ -3117,7 +3090,7 @@ class Table(AbstractBlock):
                 self.error('missing section: [tabletags-%s]' % t, halt=True)
         if self.separator:
             # Evaluate escape characters.
-            self.separator = literal_eval('"' + self.separator + '"')
+            self.separator = ast.literal_eval('"' + self.separator + '"')
         # TODO: Move to class Tables
         # Check global table parameters.
         elif config.pagewidth is None:
@@ -4831,7 +4804,7 @@ class Config:
             self.outfilesuffix = d['outfilesuffix']
         if 'newline' in d:
             # Convert escape sequences to their character values.
-            self.newline = literal_eval('"' + d['newline'] + '"')
+            self.newline = ast.literal_eval('"' + d['newline'] + '"')
         if 'subsnormal' in d:
             self.subsnormal = parse_options(d['subsnormal'], SUBS_OPTIONS,
                                             'illegal [%s] %s: %s' % ('miscellaneous', 'subsnormal', d['subsnormal']))
@@ -5495,7 +5468,7 @@ class Table_OLD(AbstractBlock):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         separator = self.attributes.get('separator', ':')
-        separator = literal_eval('"' + separator + '"')
+        separator = ast.literal_eval('"' + separator + '"')
         if len(separator) != 1:
             raise EAsciiDoc('malformed dsv separator: %s' % separator)
         # TODO: If separator is preceded by an odd number of backslashes then
@@ -5506,7 +5479,7 @@ class Table_OLD(AbstractBlock):
             if row == '':
                 continue
             # Un-escape escaped characters.
-            row = literal_eval('"' + row.replace('"', '\\"') + '"')
+            row = ast.literal_eval('"' + row.replace('"', '\\"') + '"')
             data = row.split(separator)
             data = [s.strip() for s in data]
             result.append(data)

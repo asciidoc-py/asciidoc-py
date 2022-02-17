@@ -1,4 +1,5 @@
 import locale
+import ast
 import math
 import os
 import re
@@ -183,3 +184,29 @@ def date_time_str(t: float) -> Tuple[str, str]:
     except Exception:
         pass
     return date_str, time_str
+
+
+def get_args(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.args
+    i = 1
+    for arg in args:
+        if isinstance(arg, ast.Name):
+            d[str(i)] = ast.literal_eval(arg.id)
+        else:
+            d[str(i)] = ast.literal_eval(arg)
+        i += 1
+    return d
+
+
+def get_kwargs(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
+    for arg in args:
+        d[arg.arg] = ast.literal_eval(arg.value)
+    return d
+
+
+def parse_to_list(val):
+    values = ast.parse("[" + val + "]", mode='eval').body.elts
+    return [ast.literal_eval(v) for v in values]
