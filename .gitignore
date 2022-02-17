@@ -28,6 +28,9 @@ build/
 dist/
 *.egg-info/
 
+# test data
+!tests/__test_data__/plugin/backends/__pycache__
+
 # test artifacts
 .coverage
 coverage.xml
