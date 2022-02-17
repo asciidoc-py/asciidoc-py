@@ -1,4 +1,3 @@
-import locale
 import ast
 import math
 import os
@@ -178,11 +177,6 @@ def date_time_str(t: float) -> Tuple[str, str]:
         time_str += ' ' + time.tzname[1]
     else:
         time_str += ' ' + time.tzname[0]
-    # Attempt to convert the localtime to the output encoding.
-    try:
-        time_str = time_str.decode(locale.getdefaultlocale()[1])
-    except Exception:
-        pass
     return date_str, time_str
 
 
