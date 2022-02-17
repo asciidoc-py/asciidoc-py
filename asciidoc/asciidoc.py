@@ -16,7 +16,6 @@ Public License version 2 (GPLv2).
 # issue stating as much so as to help prevent breaking changes to your toolchain.
 
 import ast
-import copy
 import csv
 from functools import lru_cache
 import getopt
@@ -35,6 +34,7 @@ import zipfile
 
 from collections import OrderedDict
 
+from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
 from .exceptions import EAsciiDoc
 from . import utils
@@ -2981,43 +2981,7 @@ class DelimitedBlocks(AbstractBlocks):
         AbstractBlocks.validate(self)
 
 
-class Column:
-    """Table column."""
-    def __init__(self, width=None, align_spec=None, style=None):
-        self.width = width or '1'
-        self.halign, self.valign = Table.parse_align_spec(align_spec)
-        self.style = style      # Style name or None.
-        # Calculated attribute values.
-        self.abswidth = None    # 1..   (page units).
-        self.pcwidth = None     # 1..99 (percentage).
-
-
-class Cell:
-    def __init__(self, data, span_spec=None, align_spec=None, style=None):
-        self.data = data
-        self.span, self.vspan = Table.parse_span_spec(span_spec)
-        self.halign, self.valign = Table.parse_align_spec(align_spec)
-        self.style = style
-        self.reserved = False
-
-    def __repr__(self):
-        return '<Cell: %d.%d %s.%s %s "%s">' % (
-            self.span, self.vspan,
-            self.halign, self.valign,
-            self.style or '',
-            self.data)
-
-    def clone_reserve(self):
-        """Return a clone of self to reserve vertically spanned cell."""
-        result = copy.copy(self)
-        result.vspan = 1
-        result.reserved = True
-        return result
-
-
 class Table(AbstractBlock):
-    ALIGN = {'<': 'left', '>': 'right', '^': 'center'}
-    VALIGN = {'<': 'top', '>': 'bottom', '^': 'middle'}
     FORMATS = ('psv', 'csv', 'dsv')
     SEPARATORS = dict(
         csv=',',
@@ -3038,36 +3002,6 @@ class Table(AbstractBlock):
         self.pcwidth = None     # 1..99 (percentage).
         self.rows = []            # Parsed rows, each row is a list of Cells.
         self.columns = []         # List of Columns.
-
-    @staticmethod
-    def parse_align_spec(align_spec):
-        """
-        Parse AsciiDoc cell alignment specifier and return 2-tuple with
-        horizontal and vertical alignment names. Unspecified alignments
-        set to None.
-        """
-        result = (None, None)
-        if align_spec:
-            mo = re.match(r'^([<\^>])?(\.([<\^>]))?$', align_spec)
-            if mo:
-                result = (Table.ALIGN.get(mo.group(1)),
-                          Table.VALIGN.get(mo.group(3)))
-        return result
-
-    @staticmethod
-    def parse_span_spec(span_spec):
-        """
-        Parse AsciiDoc cell span specifier and return 2-tuple with horizontal
-        and vertical span counts. Set default values (1,1) if not
-        specified.
-        """
-        result = (None, None)
-        if span_spec:
-            mo = re.match(r'^(\d+)?(\.(\d+))?$', span_spec)
-            if mo:
-                result = (mo.group(1) and int(mo.group(1)),
-                          mo.group(3) and int(mo.group(3)))
-        return (result[0] or 1, result[1] or 1)
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -3426,15 +3360,16 @@ class Table(AbstractBlock):
             self.error('csv parse error: %s' % row)
         return rows
 
-    def parse_psv_dsv(self, text):
+    def parse_psv_dsv(self, text: str) -> typing.List[Cell]:
         """
         Parse list of PSV or DSV table source text lines and return a list of
         Cells.
         """
+        cells = []
         def append_cell(data, span_spec, op, align_spec, style):
             op = op or '+'
             if op == '*':   # Cell multiplier.
-                span = Table.parse_span_spec(span_spec)[0]
+                span = parse_table_span_spec(span_spec)[0]
                 for i in range(span):
                     cells.append(Cell(data, '1', align_spec, style))
             elif op == '+':  # Column spanner.
@@ -3449,7 +3384,6 @@ class Table(AbstractBlock):
         op = None
         align = None
         style = None
-        cells = []
         data = ''
         for mo in re.finditer(separator, text):
             data += text[start:mo.start()]
