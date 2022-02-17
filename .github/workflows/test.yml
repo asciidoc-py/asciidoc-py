@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ env.python-version }}
 
@@ -75,13 +75,13 @@ jobs:
     needs: lint
     runs-on: windows-latest
     env:
-      python-version: 3.6
+      python-version: 3.7
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ env.python-version }}
 
