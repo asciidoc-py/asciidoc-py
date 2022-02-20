@@ -2,6 +2,7 @@
 
 cat > MANIFEST.tmp <<- EOM
 asciidoc/*.py
+asciidoc/**/*.py
 asciidoc/resources/**/*
 asciidoc/resources/*.conf
 doc/asciidoc.conf
