@@ -4,19 +4,26 @@ import os
 from os import path
 import glob
 
-manifest_list = []
 
 def sort_files(files):
     return sorted(files, key=lambda v: v.lower())
+
 
 def get_files(basedir):
     return_files = []
 
     entries = os.listdir(basedir)
-    files = sort_files(filter(lambda x: path.isfile(path.join(basedir, x)) and not x.endswith('.pyc'), entries))
+    files = sort_files(
+        filter(
+            lambda x: path.isfile(path.join(basedir, x)) and not x.endswith('.pyc'),
+            entries
+        ),
+    )
     dirs = sort_files(
         filter(
-            lambda x: path.isdir(path.join(basedir, x)) and (x != '__pycache__' or '.gitkeep' in os.listdir(path.join(basedir, x))),
+            lambda x: path.isdir(path.join(basedir, x)) and
+            (x != '__pycache__' or
+                '.gitkeep' in os.listdir(path.join(basedir, x))),
             entries,
         )
     )
@@ -24,6 +31,9 @@ def get_files(basedir):
         return_files += get_files(path.join(basedir, dir))
     return_files += [path.join(basedir, f) for f in files]
     return return_files
+
+
+manifest_list = []
 
 manifest_list += get_files('asciidoc')
 
