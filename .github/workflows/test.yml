@@ -136,3 +136,61 @@ jobs:
 
       - run: asciidoc --version
       - run: asciidoc --filter list
+
+  make-dist:
+    needs: lint
+    runs-on: ubuntu-latest
+    env:
+      python-version: 3.5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            docbook-xml \
+            docbook-xsl \
+            dvipng \
+            dvisvgm \
+            graphviz \
+            imagemagick \
+            libxml2-utils \
+            lilypond \
+            source-highlight \
+            texlive-latex-base \
+            xsltproc
+
+      - run: pip install -U pytest pytest-mock
+
+      - name: Configure make
+        run: |
+          autoconf
+          ./configure
+
+      - run: make dist
+
+      - run: mkdir dist
+
+      - run: tar -xvf build/asciidoc-*.tar.gz -C dist --strip-components=1
+
+      - run: |
+          autoconf
+          ./configure
+        working-directory: dist
+
+      - run: python3 -m pytest
+        working-directory: dist
+
+      - run: python3 tests/testasciidoc.py run --number 1
+        working-directory: dist
+
+      - run: make install
+        working-directory: dist
+
+      - run: asciidoc --version

@@ -120,8 +120,8 @@ uninstall:
 clean:
 	rm -f $(manp)
 
-MANIFEST: MANIFEST.in build_manifest.sh
-	bash build_manifest.sh
+MANIFEST: build_manifest.py
+	python3 build_manifest.py
 
 ##.
 ##   dist: creates the zip and tarball for release
