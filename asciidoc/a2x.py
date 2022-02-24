@@ -297,26 +297,6 @@ def find_resources(files, tagname, attrname, filter=None):
     return result
 
 
-# NOT USED.
-def copy_files(files, src_dir, dst_dir):
-    '''
-    Copy list of relative file names from src_dir to dst_dir.
-    '''
-    for filename in files:
-        filename = os.path.normpath(filename)
-        if os.path.isabs(filename):
-            continue
-        src = os.path.join(src_dir, filename)
-        dst = os.path.join(dst_dir, filename)
-        if not os.path.exists(dst):
-            if not os.path.isfile(src):
-                warning('missing file: %s' % src)
-                continue
-            dstdir = os.path.dirname(dst)
-            shell_makedirs(dstdir)
-            shell_copy(src, dst)
-
-
 def find_files(path, pattern):
     '''
     Return list of file names matching pattern in directory path.
