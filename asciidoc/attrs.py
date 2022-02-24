@@ -37,7 +37,8 @@ def parse_attributes(attrs: str, output_dict: typing.Dict) -> None:
         d.update(get_args(s))
         d.update(get_kwargs(s))
         for v in list(d.values()):
-            if not (isinstance(v, str) or isinstance(v, int) or isinstance(v, float) or v is None):
+            if not (isinstance(v, str)
+                    or isinstance(v, int) or isinstance(v, float) or v is None):
                 raise Exception
     except Exception:
         s = s.replace('"', '\\"')
