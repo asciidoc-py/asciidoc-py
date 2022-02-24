@@ -20,13 +20,6 @@ def parse_attributes(attrs: str, output_dict: typing.Dict) -> None:
     attrs: '"hello", planet="earth"'
     output_dict: {'planet': 'earth', '0': '"hello", planet="earth"', '1': 'hello'}
     """
-    def f(*args, **keywords):
-        # Name and add arguments '1','2'... to keywords.
-        for i in range(len(args)):
-            if not str(i + 1) in keywords:
-                keywords[str(i + 1)] = args[i]
-        return keywords
-
     if not attrs:
         return
     output_dict['0'] = attrs

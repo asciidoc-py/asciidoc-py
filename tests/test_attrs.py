@@ -35,12 +35,10 @@ import pytest
                 '2': 'second one', '3': 'third',
             },
         ),
-        """
-        (
-            'first,,third,',
-            {'0': 'first,,third,', '1': 'first', '2': None, '3': 'third', '4': None}
-        ),
-        """
+        # (
+        #     'first,,third,',
+        #     {'0': 'first,,third,', '1': 'first', '2': None, '3': 'third', '4': None}
+        # ),
         ('=foo=', {'0': '=foo=', '1': '=foo='}),
         # ('foo=bar', {'0': 'foo=bar', 'foo': 'bar'}),
         ('foo="bar"', {'0': 'foo="bar"', 'foo': 'bar'}),
@@ -65,56 +63,54 @@ import pytest
         ),
         # ('foo=', {'0': 'foo=', 'foo': ''}),
         # ('foo=,bar=baz', {'0': 'foo=,bar=baz', 'foo': '', 'bar': 'baz'}),
-        """
-        (
-            'first=value, second=two, third=3',
-            {
-                '0': 'first=value, second=two, third=3',
-                'first': 'value',
-                'second': 'two',
-                'third': '3',
-            },
-        ),
-        (
-            'first=\'value\', second="value two", third=three',
-            {
-                '0': 'first=\'value\', second="value two", third=three',
-                'first': 'value',
-                'second': 'value two',
-                'third': 'three',
-            },
-        ),
-        (
-            "     first    =     'value', second     =\"value two\"     , third=       three      ", # noqa: E501
-            {
-                '0': "     first    =     'value', second     =\"value two\"     , third=       three      ", # noqa: E501
-                'first': 'value',
-                'second': 'value two',
-                'third': 'three',
-            },
-        ),
-        (
-            'first, second="value two", third=three, Sherlock Holmes',
-            {
-                '0': 'first, second="value two", third=three, Sherlock Holmes',
-                '1': 'first',
-                'second': 'value two',
-                'third': 'three',
-                '4': 'Sherlock Holmes',
-            },
-        ),
-        (
-            'first,,third=,,fifth=five',
-            {
-                '0': 'first,,third=,,fifth=five',
-                '1': 'first',
-                '2': None,
-                'third': '',
-                '4': None,
-                'fifth': 'five',
-            },
-        ),
-        """
+        # (
+        #     'first=value, second=two, third=3',
+        #     {
+        #         '0': 'first=value, second=two, third=3',
+        #         'first': 'value',
+        #         'second': 'two',
+        #         'third': '3',
+        #     },
+        # ),
+        # (
+        #     'first=\'value\', second="value two", third=three',
+        #     {
+        #         '0': 'first=\'value\', second="value two", third=three',
+        #         'first': 'value',
+        #         'second': 'value two',
+        #         'third': 'three',
+        #     },
+        # ),
+        # (
+        #     "     first    =     'value', second     =\"value two\"     , third=       three      ", # noqa: E501
+        #     {
+        #         '0': "     first    =     'value', second     =\"value two\"     , third=       three      ", # noqa: E501
+        #         'first': 'value',
+        #         'second': 'value two',
+        #         'third': 'three',
+        #     },
+        # ),
+        # (
+        #     'first, second="value two", third=three, Sherlock Holmes',
+        #     {
+        #         '0': 'first, second="value two", third=three, Sherlock Holmes',
+        #         '1': 'first',
+        #         'second': 'value two',
+        #         'third': 'three',
+        #         '4': 'Sherlock Holmes',
+        #     },
+        # ),
+        # (
+        #     'first,,third=,,fifth=five',
+        #     {
+        #         '0': 'first,,third=,,fifth=five',
+        #         '1': 'first',
+        #         '2': None,
+        #         'third': '',
+        #         '4': None,
+        #         'fifth': 'five',
+        #     },
+        # ),
     )
 )
 def test_parse_attributes(input, expected):
