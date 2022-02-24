@@ -253,6 +253,17 @@ def shell(cmd, raise_error=True):
     return (stdoutdata, stderrdata, popen.returncode)
 
 
+def get_encoding(string: bytes) -> str:
+    """
+    Given a byte representation of a XML or HTML document, find and return the encoding set
+    as an attribute, or return utf-8 if none could be found.
+    """
+    mo = re.search(br'^<\?xml.* encoding="(.*?)"', string)
+    if mo is None:
+        mo = re.search(br'<meta http\-equiv="Content\-Type" content="text\/html; charset=(.*?)">', string)
+    return mo.group(1).decode('utf-8') if mo else 'utf-8'
+
+
 def find_resources(files, tagname, attrname, filter=None):
     '''
     Search all files and return a list of local URIs from attrname attribute
@@ -286,10 +297,7 @@ def find_resources(files, tagname, attrname, filter=None):
         parser = FindResources()
         with open(filename, 'rb') as open_file:
             contents = open_file.read()
-        mo = re.search(b'\A<\?xml.* encoding="(.*?)"', contents)
-        if mo is None:
-            mo = re.search(br'<meta http\-equiv="Content\-Type" content="text\/html; charset=(.*?)">', contents)
-        contents = contents.decode(mo.group(1).decode('utf-8') if mo else 'utf-8')
+        contents = contents.decode(get_encoding(contents))
         parser.feed(contents)
         parser.close()
     result = list(set(result))   # Drop duplicate values.
@@ -318,51 +326,53 @@ def exec_xsltproc(xsl_file, xml_file, dst_dir, opts=''):
         shell_cd(cwd)
 
 
-def get_source_options(asciidoc_file):
+def get_source_options(asciidoc_file: str) -> List[str]:
     '''
     Look for a2x command options in AsciiDoc source file.
     Limitation: options cannot contain double-quote characters.
     '''
-    def parse_options():
-        # Parse options to result sequence.
-        inquotes = False
-        opt = ''
-        for c in options:
-            if c == '"':
-                if inquotes:
-                    result.append(opt)
-                    opt = ''
-                    inquotes = False
-                else:
-                    inquotes = True
-            elif c == ' ':
-                if inquotes:
-                    opt += c
-                elif opt:
-                    result.append(opt)
-                    opt = ''
-            else:
-                opt += c
-        if opt:
-            result.append(opt)
-
     result = []
-    if os.path.isfile(asciidoc_file):
-        options = ''
-        with open(asciidoc_file, 'rb') as f:
-            line_number = 0
-            for line in f:
-                line_number += 1
-                mo = re.search(b'^//\s*a2x:', line)
-                if mo:
-                    try:
-                        options += ' ' + line[mo.end():].strip().decode('ascii')
-                    except UnicodeDecodeError as e:
-                        warning(
-                            "Could not decode option to %s " % e.encoding +
-                            "on line %s in %s" % (line_number, asciidoc_file)
-                        )
-        parse_options()
+
+    if not os.path.isfile(asciidoc_file):
+        return result
+
+    options = ''
+    with open(asciidoc_file, 'rb') as f:
+        line_number = 0
+        for line in f:
+            line_number += 1
+            mo = re.search(br'^//\s*a2x:', line)
+            if mo:
+                try:
+                    options += ' ' + line[mo.end():].strip().decode('ascii')
+                except UnicodeDecodeError as e:
+                    warning(
+                        "Could not decode option to %s " % e.encoding +
+                        "on line %s in %s" % (line_number, asciidoc_file)
+                    )
+
+    # Parse options to result sequence.
+    inquotes = False
+    opt = ''
+    for c in options:
+        if c == '"':
+            if inquotes:
+                result.append(opt)
+                opt = ''
+                inquotes = False
+            else:
+                inquotes = True
+        elif c == ' ':
+            if inquotes:
+                opt += c
+            elif opt:
+                result.append(opt)
+                opt = ''
+        else:
+            opt += c
+    if opt:
+        result.append(opt)
+
     return result
 
 

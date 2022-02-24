@@ -32,3 +32,48 @@ def test_parse_args(input, expected_argv, expected_opts, expected_args):
     assert argv == expected_argv
     assert opts == expected_opts
     assert args == expected_args
+
+
+@pytest.mark.parametrize(
+    "input,expected",
+    (
+        (b'', 'utf-8'),
+        (b'<?xml version="1.0" encoding="ASCII"?>', 'ASCII'),
+        (b'<?xml version="1.0"?>', 'utf-8'),
+        (
+            b'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=ASCII">',
+            'ASCII',
+        ),
+        (
+            b'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n<html>\n<head>\n<title>Foo</title>\n</head>',
+            'utf-8',
+        ),
+    ),
+)
+def test_get_encoding(input, expected):
+    assert a2x.get_encoding(input) == expected
+
+
+@pytest.mark.parametrize(
+    "input,expected",
+    (
+        ('', []),
+        (
+            """
+// a2x: --foo --bar
+//      a2x: --baz
+// a2x: "--foo --bar
+// a2x: --baz" --qux
+            """,
+            ['--foo', '--bar', '--baz', "--foo --bar --baz", '--qux'],
+        ),
+    )
+)
+def test_get_source_options(tmp_path, input, expected):
+    test_file = tmp_path / 'test_file.adoc'
+    test_file.write_text(input)
+    assert a2x.get_source_options(str(test_file)) == expected
+
+
+def test_get_source_options_non_existing_file():
+    assert a2x.get_source_options('/some/non/existing/file') == []
