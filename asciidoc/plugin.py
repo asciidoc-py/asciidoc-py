@@ -5,6 +5,7 @@ import sys
 from typing import NoReturn
 import zipfile
 
+from .message import Message
 from .utils import userdir
 
 
@@ -14,7 +15,7 @@ class Plugin:
     """
     CMDS = ('install', 'remove', 'list', 'build')
 
-    def __init__(self, type: str, message, config):
+    def __init__(self, type: str, message: Message, config):
         self.type = type
         self.message = message
         self.config = config
