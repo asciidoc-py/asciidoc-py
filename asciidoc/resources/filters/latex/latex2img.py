@@ -55,7 +55,7 @@ AUTHOR
 
 COPYING
     Copyright (C) 2002-2013 Stuart Rackham.
-    Copyright (C) 2013-2020 AsciiDoc Contributors.
+    Copyright (C) 2013-2022 AsciiDoc Contributors.
 
     Free use of this software is granted under the terms of the GNU General
     Public License version 2 (GPLv2).

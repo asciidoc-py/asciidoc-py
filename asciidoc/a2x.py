@@ -7,7 +7,7 @@ a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
 Free use of this software is granted under the terms of the MIT license.
 
 Copyright (C) 2002-2013 Stuart Rackham.
-Copyright (C) 2013-2020 AsciiDoc Contributors.
+Copyright (C) 2013-2022 AsciiDoc Contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
