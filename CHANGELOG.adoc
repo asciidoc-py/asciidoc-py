@@ -3,6 +3,12 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc-py.github.io/
 
+Version 10.1.4 (2022-03-01)
+---------------------------
+.Bug fixes
+- Add missing test py files to dist archives
+- Fix DeprecationWarnings in a2x regexes
+
 Version 10.1.3 (2022-02-20)
 ---------------------------
 .Bug fixes
