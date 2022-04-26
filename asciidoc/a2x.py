@@ -28,7 +28,7 @@ GNU General Public License for more details.
 Free use of this software is granted under the terms of the MIT license.
 
 Copyright (C) 2002-2013 Stuart Rackham.
-Copyright (C) 2013-2021 AsciiDoc Contributors.
+Copyright (C) 2013-2022 AsciiDoc Contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,7 @@ import shutil
 import subprocess
 import sys
 import traceback
+from typing import List, NoReturn, Tuple, Union
 from urllib.parse import urlparse
 import zipfile
 import xml.dom.minidom
@@ -118,36 +119,36 @@ XSLTPROC_OPTS = ''
 OPTIONS = None  # These functions read verbose and dry_run command options.
 
 
-def errmsg(msg):
+def errmsg(msg: str) -> None:
     print('%s: %s\n' % (PROG, msg), file=sys.stderr)
 
 
-def warning(msg):
+def warning(msg: str) -> None:
     errmsg('WARNING: %s' % msg)
 
 
-def infomsg(msg):
+def infomsg(msg: str) -> None:
     print('%s: %s' % (PROG, msg))
 
 
-def die(msg, exit_code=1):
+def die(msg: str, exit_code: int = 1) -> NoReturn:
     errmsg('ERROR: %s' % msg)
     sys.exit(exit_code)
 
 
-def trace():
+def trace() -> None:
     """Print traceback to stderr."""
     errmsg('-'*60)
     traceback.print_exc(file=sys.stderr)
     errmsg('-'*60)
 
 
-def verbose(msg):
+def verbose(msg: str) -> None:
     if OPTIONS.verbose or OPTIONS.dry_run:
         infomsg(msg)
 
 
-def flatten(array):
+def flatten(array: Union[List, Tuple]) -> List:
     ret = []
     for x in array:
         if isinstance(x, (list, tuple)):
@@ -157,7 +158,7 @@ def flatten(array):
     return ret
 
 
-def isexecutable(file_name):
+def isexecutable(file_name: str) -> bool:
     return os.path.isfile(file_name) and os.access(file_name, os.X_OK)
 
 
@@ -273,6 +274,17 @@ def shell(cmd, raise_error=True):
     return (stdoutdata, stderrdata, popen.returncode)
 
 
+def get_encoding(string: bytes) -> str:
+    """
+    Given a byte representation of a XML or HTML document, find and return the encoding set
+    as an attribute, or return utf-8 if none could be found.
+    """
+    mo = re.search(br'^<\?xml.* encoding="(.*?)"', string)
+    if mo is None:
+        mo = re.search(br'<meta http\-equiv="Content\-Type" content="text\/html; charset=(.*?)">', string)
+    return mo.group(1).decode('utf-8') if mo else 'utf-8'
+
+
 def find_resources(files, tagname, attrname, filter=None):
     '''
     Search all files and return a list of local URIs from attrname attribute
@@ -306,35 +318,12 @@ def find_resources(files, tagname, attrname, filter=None):
         parser = FindResources()
         with open(filename, 'rb') as open_file:
             contents = open_file.read()
-        mo = re.search(b'\A<\?xml.* encoding="(.*?)"', contents)
-        if mo is None:
-            mo = re.search(br'<meta http\-equiv="Content\-Type" content="text\/html; charset=(.*?)">', contents)
-        contents = contents.decode(mo.group(1).decode('utf-8') if mo else 'utf-8')
+        contents = contents.decode(get_encoding(contents))
         parser.feed(contents)
         parser.close()
     result = list(set(result))   # Drop duplicate values.
     result.sort()
     return result
-
-
-# NOT USED.
-def copy_files(files, src_dir, dst_dir):
-    '''
-    Copy list of relative file names from src_dir to dst_dir.
-    '''
-    for filename in files:
-        filename = os.path.normpath(filename)
-        if os.path.isabs(filename):
-            continue
-        src = os.path.join(src_dir, filename)
-        dst = os.path.join(dst_dir, filename)
-        if not os.path.exists(dst):
-            if not os.path.isfile(src):
-                warning('missing file: %s' % src)
-                continue
-            dstdir = os.path.dirname(dst)
-            shell_makedirs(dstdir)
-            shell_copy(src, dst)
 
 
 def find_files(path, pattern):
@@ -358,51 +347,53 @@ def exec_xsltproc(xsl_file, xml_file, dst_dir, opts=''):
         shell_cd(cwd)
 
 
-def get_source_options(asciidoc_file):
+def get_source_options(asciidoc_file: str) -> List[str]:
     '''
     Look for a2x command options in AsciiDoc source file.
     Limitation: options cannot contain double-quote characters.
     '''
-    def parse_options():
-        # Parse options to result sequence.
-        inquotes = False
-        opt = ''
-        for c in options:
-            if c == '"':
-                if inquotes:
-                    result.append(opt)
-                    opt = ''
-                    inquotes = False
-                else:
-                    inquotes = True
-            elif c == ' ':
-                if inquotes:
-                    opt += c
-                elif opt:
-                    result.append(opt)
-                    opt = ''
-            else:
-                opt += c
-        if opt:
-            result.append(opt)
-
     result = []
-    if os.path.isfile(asciidoc_file):
-        options = ''
-        with open(asciidoc_file, 'rb') as f:
-            line_number = 0
-            for line in f:
-                line_number += 1
-                mo = re.search(b'^//\s*a2x:', line)
-                if mo:
-                    try:
-                        options += ' ' + line[mo.end():].strip().decode('ascii')
-                    except UnicodeDecodeError as e:
-                        warning(
-                            "Could not decode option to %s " % e.encoding +
-                            "on line %s in %s" % (line_number, asciidoc_file)
-                        )
-        parse_options()
+
+    if not os.path.isfile(asciidoc_file):
+        return result
+
+    options = ''
+    with open(asciidoc_file, 'rb') as f:
+        line_number = 0
+        for line in f:
+            line_number += 1
+            mo = re.search(br'^//\s*a2x:', line)
+            if mo:
+                try:
+                    options += ' ' + line[mo.end():].strip().decode('ascii')
+                except UnicodeDecodeError as e:
+                    warning(
+                        "Could not decode option to %s " % e.encoding +
+                        "on line %s in %s" % (line_number, asciidoc_file)
+                    )
+
+    # Parse options to result sequence.
+    inquotes = False
+    opt = ''
+    for c in options:
+        if c == '"':
+            if inquotes:
+                result.append(opt)
+                opt = ''
+                inquotes = False
+            else:
+                inquotes = True
+        elif c == ' ':
+            if inquotes:
+                opt += c
+            elif opt:
+                result.append(opt)
+                opt = ''
+        else:
+            opt += c
+    if opt:
+        result.append(opt)
+
     return result
 
 
@@ -894,11 +885,10 @@ class A2X(AttrDict):
             shell_rm(html_file)
 
 
-def cli():
-    global OPTIONS
-
+def parse_args(argv):
     description = '''A toolchain manager for AsciiDoc (converts Asciidoc text files to other file formats)'''
     from optparse import OptionParser
+    import shlex
     parser = OptionParser(usage='usage: %prog [OPTIONS] SOURCE_FILE',
         version='%s %s' % (PROG,VERSION),
         description=description)
@@ -997,18 +987,24 @@ def cli():
     parser.add_option('-v', '--verbose',
         action='count', dest='verbose', default=0,
         help='increase verbosity')
-    if len(sys.argv) == 1:
+    if len(argv) == 1:
         parser.parse_args(['--help'])
-    source_options = get_source_options(sys.argv[-1])
-    argv = source_options + sys.argv[1:]
-    opts, args = parser.parse_args(argv)
+    source_options = get_source_options(argv[-1])
+    new_argv = source_options + argv[1:]
+    opts, args = parser.parse_args(new_argv)
     if len(args) != 1:
         parser.error('incorrect number of arguments')
-    opts.asciidoc_opts = [x.split(' ') for x in opts.asciidoc_opts]
+    opts.asciidoc_opts = shlex.split(' ' .join(opts.asciidoc_opts))
     opts.dblatex_opts = ' '.join(opts.dblatex_opts)
     opts.fop_opts = ' '.join(opts.fop_opts)
     opts.xsltproc_opts = ' '.join(opts.xsltproc_opts)
     opts.backend_opts = ' '.join(opts.backend_opts)
+    return (new_argv, opts, args)
+
+
+def cli():
+    global OPTIONS
+    argv, opts, args = parse_args(sys.argv)
     opts = eval(str(opts))  # Convert optparse.Values to dict.
     a2x = A2X(opts)
     OPTIONS = a2x           # verbose and dry_run used by utility functions.

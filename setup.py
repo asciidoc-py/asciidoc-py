@@ -74,7 +74,7 @@ setup(
     author=AUTHOR,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(exclude=('tests',)),
+    packages=find_packages(include=('asciidoc*',)),
     entry_points={
         'console_scripts': [
             'asciidoc=asciidoc.asciidoc:cli',

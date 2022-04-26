@@ -3,12 +3,34 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc-py.github.io/
 
+Version 10.1.4 (2022-03-01)
+---------------------------
+.Bug fixes
+- Add missing test py files to dist archives
+- Fix DeprecationWarnings in a2x regexes
+
+Version 10.1.3 (2022-02-20)
+---------------------------
+.Bug fixes
+- Add missing py files to dist archives
+- Fix setup.py including packages outside of asciidoc
+
+Version 10.1.2 (2022-02-17)
+---------------------------
+.Bug fixes
+- DESTDIR passed to pip as part of make install
+- Add number of missing files to release tarballs
+- Fix parsing asciidoc_opt values with spaces for a2x
+
+.Miscellaneous
+- Cleanup unused parts of Makefile
+- Website files removed from main asciidoc-py repo
+
 Version 10.1.1 (2021-12-20)
 ---------------------------
 .Bug fixes
 - Fix RuntimeWarning when executing asciidoc or a2x within repository
 - Fix index out of range error in a2x (thanks @osmith42)
-
 
 Version 10.1.0 (2021-12-17)
 ---------------------------

@@ -101,3 +101,38 @@ def test_is_array(input, expected):
 )
 def test_py2round(n: float, d: int, expected: float) -> None:
     assert utils.py2round(n, d) == expected
+
+
+@pytest.mark.parametrize(
+    "input,expected",
+    (
+        ('"hello","world"', {'1': 'hello', '2': 'world'}),
+        ('"hello", planet="earth"', {'1': 'hello'}),
+    )
+)
+def test_get_args(input, expected):
+    assert utils.get_args(input) == expected
+
+
+@pytest.mark.parametrize(
+    "input,expected",
+    (
+        ('"hello", "world"', {}),
+        ('planet="earth"', {'planet': 'earth'}),
+        ('"hello",planet="earth"', {'planet': 'earth'}),
+        ('planet="earth",foo="bar"', {'planet': 'earth', 'foo': 'bar'}),
+    )
+)
+def test_get_kwargs(input, expected):
+    assert utils.get_kwargs(input) == expected
+
+
+@pytest.mark.parametrize(
+    "input,expected",
+    (
+        ('1,2,3', [1, 2, 3]),
+        ('"a", "b", "c"', ['a', 'b', 'c'])
+    )
+)
+def test_parse_to_list(input, expected):
+    assert utils.parse_to_list(input) == expected

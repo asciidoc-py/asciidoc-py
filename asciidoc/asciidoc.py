@@ -10,27 +10,28 @@ asciidoc - converts an AsciiDoc text file to HTML or DocBook
 # issue stating as much so as to help prevent breaking changes to your toolchain.
 
 import ast
-import copy
 import csv
 from functools import lru_cache
 import getopt
 import io
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
 import time
+import typing
 import traceback
 import unicodedata
-import zipfile
 
-from ast import literal_eval
 from collections import OrderedDict
 
+from .attrs import parse_attributes
+from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
 from .exceptions import EAsciiDoc
+from .message import Message
+from .plugin import Plugin
 from . import utils
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
@@ -105,71 +106,6 @@ class Trace(object):
                 message.stderr(msg)
 
 
-class Message:
-    """
-    Message functions.
-    """
-    PROG = os.path.basename(os.path.splitext(__file__)[0])
-
-    def __init__(self):
-        # Set to True or False to globally override line numbers method
-        # argument. Has no effect when set to None.
-        self.linenos = None
-        self.messages = []
-        self.prev_msg = ''
-
-    @staticmethod
-    def stdout(msg):
-        print(msg)
-
-    def stderr(self, msg=''):
-        if msg == self.prev_msg:  # Suppress repeated messages.
-            return
-        self.messages.append(msg)
-        if APPLICATION_CALLER == '__main__':
-            sys.stderr.write('%s: %s%s' % (self.PROG, msg, os.linesep))
-        self.prev_msg = msg
-
-    def verbose(self, msg, linenos=True):
-        if config.verbose:
-            msg = self.format(msg, linenos=linenos)
-            self.stderr(msg)
-
-    def warning(self, msg, linenos=True, offset=0):
-        msg = self.format(msg, 'WARNING: ', linenos, offset=offset)
-        document.has_warnings = True
-        self.stderr(msg)
-
-    def deprecated(self, msg, linenos=True):
-        msg = self.format(msg, 'DEPRECATED: ', linenos)
-        self.stderr(msg)
-
-    def format(self, msg, prefix='', linenos=True, cursor=None, offset=0):
-        """Return formatted message string."""
-        if self.linenos is not False and ((linenos or self.linenos) and reader.cursor):
-            if cursor is None:
-                cursor = reader.cursor
-            prefix += '%s: line %d: ' % (os.path.basename(cursor[0]), cursor[1]+offset)
-        return prefix + msg
-
-    def error(self, msg, cursor=None, halt=False):
-        """
-        Report fatal error.
-        If halt=True raise EAsciiDoc exception.
-        If halt=False don't exit application, continue in the hope of reporting
-        all fatal errors finishing with a non-zero exit code.
-        """
-        if halt:
-            raise EAsciiDoc(self.format(msg, linenos=False, cursor=cursor))
-        else:
-            msg = self.format(msg, 'ERROR: ', cursor=cursor)
-            self.stderr(msg)
-            document.has_errors = True
-
-    def unsafe(self, msg):
-        self.error('unsafe: '+msg)
-
-
 def safe():
     return document.safe
 
@@ -205,85 +141,6 @@ def safe_filename(fname, parentdir):
     return fname
 
 
-def get_args(val):
-    d = {}
-    args = ast.parse("d(" + val + ")", mode='eval').body.args
-    i = 1
-    for arg in args:
-        if isinstance(arg, ast.Name):
-            d[str(i)] = literal_eval(arg.id)
-        else:
-            d[str(i)] = literal_eval(arg)
-        i += 1
-    return d
-
-
-def get_kwargs(val):
-    d = {}
-    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
-    for arg in args:
-        d[arg.arg] = literal_eval(arg.value)
-    return d
-
-
-def parse_to_list(val):
-    values = ast.parse("[" + val + "]", mode='eval').body.elts
-    return [literal_eval(v) for v in values]
-
-
-def parse_attributes(attrs, dict):
-    """Update a dictionary with name/value attributes from the attrs string.
-    The attrs string is a comma separated list of values and keyword name=value
-    pairs. Values must precede keywords and are named '1','2'... The entire
-    attributes list is named '0'. If keywords are specified string values must
-    be quoted. Examples:
-
-    attrs: ''
-    dict: {}
-
-    attrs: 'hello,world'
-    dict: {'2': 'world', '0': 'hello,world', '1': 'hello'}
-
-    attrs: '"hello", planet="earth"'
-    dict: {'planet': 'earth', '0': '"hello",planet="earth"', '1': 'hello'}
-    """
-    def f(*args, **keywords):
-        # Name and add arguments '1','2'... to keywords.
-        for i in range(len(args)):
-            if not str(i + 1) in keywords:
-                keywords[str(i + 1)] = args[i]
-        return keywords
-
-    if not attrs:
-        return
-    dict['0'] = attrs
-    # Replace line separators with spaces so line spanning works.
-    s = re.sub(r'\s', ' ', attrs)
-    d = {}
-    try:
-        d.update(get_args(s))
-        d.update(get_kwargs(s))
-        for v in list(d.values()):
-            if not (isinstance(v, str) or isinstance(v, int) or isinstance(v, float) or v is None):
-                raise Exception
-    except Exception:
-        s = s.replace('"', '\\"')
-        s = s.split(',')
-        s = ['"' + x.strip() + '"' for x in s]
-        s = ','.join(s)
-        try:
-            d = {}
-            d.update(get_args(s))
-            d.update(get_kwargs(s))
-        except Exception:
-            return  # If there's a syntax error leave with {0}=attrs.
-        for k in list(d.keys()):  # Drop any empty positional arguments.
-            if d[k] == '':
-                del d[k]
-    dict.update(d)
-    assert len(d) > 0
-
-
 def parse_named_attributes(s, attrs):
     """Update a attrs dictionary with name="value" attributes from the s string.
     Returns False if invalid syntax.
@@ -296,18 +153,18 @@ def parse_named_attributes(s, attrs):
 
     try:
         d = {}
-        d = get_kwargs(s)
+        d = utils.get_kwargs(s)
         attrs.update(d)
         return True
     except Exception:
         return False
 
 
-def parse_list(s):
+def parse_list(s) -> typing.Tuple:
     """Parse comma separated string of Python literals. Return a tuple of of
     parsed values."""
     try:
-        result = tuple(parse_to_list(s))
+        result = tuple(utils.parse_to_list(s))
     except Exception:
         raise EAsciiDoc('malformed list: ' + s)
     return result
@@ -325,11 +182,6 @@ def parse_options(options, allowed, errmsg):
                 raise EAsciiDoc('%s: %s' % (errmsg, s))
             result.append(s)
     return tuple(result)
-
-
-def symbolize(s):
-    """Drop non-symbol characters and convert to lowercase."""
-    return re.sub(r'[^\w\-_]', '', s).lower()
 
 
 def is_name(s):
@@ -1418,9 +1270,9 @@ class Document(object):
         attrs = self.attributes  # Alias for readability.
         s = s.strip()
         mo = re.match(r'^(?P<name1>[^<>\s]+)'
-                      '(\s+(?P<name2>[^<>\s]+))?'
-                      '(\s+(?P<name3>[^<>\s]+))?'
-                      '(\s+<(?P<email>\S+)>)?$', s)
+                      r'(\s+(?P<name2>[^<>\s]+))?'
+                      r'(\s+(?P<name3>[^<>\s]+))?'
+                      r'(\s+<(?P<email>\S+)>)?$', s)
         if not mo:
             # Names that don't match the formal specification.
             if s:
@@ -3001,43 +2853,7 @@ class DelimitedBlocks(AbstractBlocks):
         AbstractBlocks.validate(self)
 
 
-class Column:
-    """Table column."""
-    def __init__(self, width=None, align_spec=None, style=None):
-        self.width = width or '1'
-        self.halign, self.valign = Table.parse_align_spec(align_spec)
-        self.style = style      # Style name or None.
-        # Calculated attribute values.
-        self.abswidth = None    # 1..   (page units).
-        self.pcwidth = None     # 1..99 (percentage).
-
-
-class Cell:
-    def __init__(self, data, span_spec=None, align_spec=None, style=None):
-        self.data = data
-        self.span, self.vspan = Table.parse_span_spec(span_spec)
-        self.halign, self.valign = Table.parse_align_spec(align_spec)
-        self.style = style
-        self.reserved = False
-
-    def __repr__(self):
-        return '<Cell: %d.%d %s.%s %s "%s">' % (
-            self.span, self.vspan,
-            self.halign, self.valign,
-            self.style or '',
-            self.data)
-
-    def clone_reserve(self):
-        """Return a clone of self to reserve vertically spanned cell."""
-        result = copy.copy(self)
-        result.vspan = 1
-        result.reserved = True
-        return result
-
-
 class Table(AbstractBlock):
-    ALIGN = {'<': 'left', '>': 'right', '^': 'center'}
-    VALIGN = {'<': 'top', '>': 'bottom', '^': 'middle'}
     FORMATS = ('psv', 'csv', 'dsv')
     SEPARATORS = dict(
         csv=',',
@@ -3058,36 +2874,6 @@ class Table(AbstractBlock):
         self.pcwidth = None     # 1..99 (percentage).
         self.rows = []            # Parsed rows, each row is a list of Cells.
         self.columns = []         # List of Columns.
-
-    @staticmethod
-    def parse_align_spec(align_spec):
-        """
-        Parse AsciiDoc cell alignment specifier and return 2-tuple with
-        horizontal and vertical alignment names. Unspecified alignments
-        set to None.
-        """
-        result = (None, None)
-        if align_spec:
-            mo = re.match(r'^([<\^>])?(\.([<\^>]))?$', align_spec)
-            if mo:
-                result = (Table.ALIGN.get(mo.group(1)),
-                          Table.VALIGN.get(mo.group(3)))
-        return result
-
-    @staticmethod
-    def parse_span_spec(span_spec):
-        """
-        Parse AsciiDoc cell span specifier and return 2-tuple with horizontal
-        and vertical span counts. Set default values (1,1) if not
-        specified.
-        """
-        result = (None, None)
-        if span_spec:
-            mo = re.match(r'^(\d+)?(\.(\d+))?$', span_spec)
-            if mo:
-                result = (mo.group(1) and int(mo.group(1)),
-                          mo.group(3) and int(mo.group(3)))
-        return (result[0] or 1, result[1] or 1)
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -3110,7 +2896,7 @@ class Table(AbstractBlock):
                 self.error('missing section: [tabletags-%s]' % t, halt=True)
         if self.separator:
             # Evaluate escape characters.
-            self.separator = literal_eval('"' + self.separator + '"')
+            self.separator = ast.literal_eval('"' + self.separator + '"')
         # TODO: Move to class Tables
         # Check global table parameters.
         elif config.pagewidth is None:
@@ -3446,15 +3232,16 @@ class Table(AbstractBlock):
             self.error('csv parse error: %s' % row)
         return rows
 
-    def parse_psv_dsv(self, text):
+    def parse_psv_dsv(self, text: str) -> typing.List[Cell]:
         """
         Parse list of PSV or DSV table source text lines and return a list of
         Cells.
         """
+        cells = []
         def append_cell(data, span_spec, op, align_spec, style):
             op = op or '+'
             if op == '*':   # Cell multiplier.
-                span = Table.parse_span_spec(span_spec)[0]
+                span = parse_table_span_spec(span_spec)[0]
                 for i in range(span):
                     cells.append(Cell(data, '1', align_spec, style))
             elif op == '+':  # Column spanner.
@@ -3469,7 +3256,6 @@ class Table(AbstractBlock):
         op = None
         align = None
         style = None
-        cells = []
         data = ''
         for mo in re.finditer(separator, text):
             data += text[start:mo.start()]
@@ -4824,7 +4610,7 @@ class Config:
             self.outfilesuffix = d['outfilesuffix']
         if 'newline' in d:
             # Convert escape sequences to their character values.
-            self.newline = literal_eval('"' + d['newline'] + '"')
+            self.newline = ast.literal_eval('"' + d['newline'] + '"')
         if 'subsnormal' in d:
             self.subsnormal = parse_options(d['subsnormal'], SUBS_OPTIONS,
                                             'illegal [%s] %s: %s' % ('miscellaneous', 'subsnormal', d['subsnormal']))
@@ -5488,7 +5274,7 @@ class Table_OLD(AbstractBlock):
         """Parse the list of source table rows. Each row item in the returned
         list contains a list of cell data elements."""
         separator = self.attributes.get('separator', ':')
-        separator = literal_eval('"' + separator + '"')
+        separator = ast.literal_eval('"' + separator + '"')
         if len(separator) != 1:
             raise EAsciiDoc('malformed dsv separator: %s' % separator)
         # TODO: If separator is preceded by an odd number of backslashes then
@@ -5499,7 +5285,7 @@ class Table_OLD(AbstractBlock):
             if row == '':
                 continue
             # Un-escape escaped characters.
-            row = literal_eval('"' + row.replace('"', '\\"') + '"')
+            row = ast.literal_eval('"' + row.replace('"', '\\"') + '"')
             data = row.split(separator)
             data = [s.strip() for s in data]
             result.append(data)
@@ -5650,7 +5436,7 @@ class Tables_OLD(AbstractBlocks):
                 + r'(\d*|' + re.escape(b.fillchar) + r'*)' \
                 + r')+' \
                 + re.escape(b.fillchar) + r'+' \
-                + '([\d\.]*)$'
+                + r'([\d\.]*)$'
             delimiters.append(b.delimiter)
             if not b.headrow:
                 b.headrow = b.bodyrow
@@ -5672,205 +5458,9 @@ class Tables_OLD(AbstractBlocks):
 # End of deprecated old table classes.
 # ---------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------
-# filter and theme plugin commands.
-# ---------------------------------------------------------------------------
-def die(msg):
+def die(msg: str) -> typing.NoReturn:
     message.stderr(msg)
     sys.exit(1)
-
-
-def extract_zip(zip_file, destdir):
-    """
-    Unzip Zip file to destination directory.
-    Throws exception if error occurs.
-    """
-    zipo = zipfile.ZipFile(zip_file, 'r')
-    try:
-        for zi in zipo.infolist():
-            outfile = zi.filename
-            if not outfile.endswith('/'):
-                d, outfile = os.path.split(outfile)
-                directory = os.path.normpath(os.path.join(destdir, d))
-                if not os.path.isdir(directory):
-                    os.makedirs(directory)
-                outfile = os.path.join(directory, outfile)
-                perms = (zi.external_attr >> 16) & 0o777
-                message.verbose('extracting: %s' % outfile)
-                flags = os.O_CREAT | os.O_WRONLY
-                if sys.platform == 'win32':
-                    flags |= os.O_BINARY
-                if perms == 0:
-                    # Zip files created under Windows do not include permissions.
-                    fh = os.open(outfile, flags)
-                else:
-                    fh = os.open(outfile, flags, perms)
-                try:
-                    os.write(fh, zipo.read(zi.filename))
-                finally:
-                    os.close(fh)
-    finally:
-        zipo.close()
-
-
-def create_zip(zip_file, src, skip_hidden=False):
-    """
-    Create Zip file. If src is a directory archive all contained files and
-    subdirectories, if src is a file archive the src file.
-    Files and directories names starting with . are skipped
-    if skip_hidden is True.
-    Throws exception if error occurs.
-    """
-    zipo = zipfile.ZipFile(zip_file, 'w')
-    try:
-        if os.path.isfile(src):
-            arcname = os.path.basename(src)
-            message.verbose('archiving: %s' % arcname)
-            zipo.write(src, arcname, zipfile.ZIP_DEFLATED)
-        elif os.path.isdir(src):
-            srcdir = os.path.abspath(src)
-            if srcdir[-1] != os.path.sep:
-                srcdir += os.path.sep
-            for root, dirs, files in os.walk(srcdir):
-                arcroot = os.path.abspath(root)[len(srcdir):]
-                if skip_hidden:
-                    for d in dirs[:]:
-                        if d.startswith('.'):
-                            message.verbose('skipping: %s' % os.path.join(arcroot, d))
-                            del dirs[dirs.index(d)]
-                for f in files:
-                    filename = os.path.join(root, f)
-                    arcname = os.path.join(arcroot, f)
-                    if skip_hidden and f.startswith('.'):
-                        message.verbose('skipping: %s' % arcname)
-                        continue
-                    message.verbose('archiving: %s' % arcname)
-                    zipo.write(filename, arcname, zipfile.ZIP_DEFLATED)
-        else:
-            raise ValueError('src must specify directory or file: %s' % src)
-    finally:
-        zipo.close()
-
-
-class Plugin:
-    """
-    --filter and --theme option commands.
-    """
-    CMDS = ('install', 'remove', 'list', 'build')
-
-    type = None     # 'backend', 'filter' or 'theme'.
-
-    @staticmethod
-    def reset_class():
-        Plugin.type = None
-
-    @staticmethod
-    def get_dir():
-        """
-        Return plugins path (.asciidoc/filters or .asciidoc/themes) in user's
-        home directory or None if user home not defined.
-        """
-        result = utils.userdir()
-        if result:
-            result = os.path.join(result, '.asciidoc', Plugin.type + 's')
-        return result
-
-    @staticmethod
-    def install(args):
-        """
-        Install plugin Zip file.
-        args[0] is plugin zip file path.
-        args[1] is optional destination plugins directory.
-        """
-        if len(args) not in (1, 2):
-            die('invalid number of arguments: --%s install %s' % (Plugin.type, ' '.join(args)))
-        zip_file = args[0]
-        if not os.path.isfile(zip_file):
-            die('file not found: %s' % zip_file)
-        reo = re.match(r'^\w+', os.path.split(zip_file)[1])
-        if not reo:
-            die('file name does not start with legal %s name: %s' % (Plugin.type, zip_file))
-        plugin_name = reo.group()
-        if len(args) == 2:
-            plugins_dir = args[1]
-            if not os.path.isdir(plugins_dir):
-                die('directory not found: %s' % plugins_dir)
-        else:
-            plugins_dir = Plugin.get_dir()
-            if not plugins_dir:
-                die('user home directory is not defined')
-        plugin_dir = os.path.join(plugins_dir, plugin_name)
-        if os.path.exists(plugin_dir):
-            die('%s is already installed: %s' % (Plugin.type, plugin_dir))
-        try:
-            os.makedirs(plugin_dir)
-        except Exception as e:
-            die('failed to create %s directory: %s' % (Plugin.type, str(e)))
-        try:
-            extract_zip(zip_file, plugin_dir)
-        except Exception as e:
-            if os.path.isdir(plugin_dir):
-                shutil.rmtree(plugin_dir)
-            die('failed to extract %s: %s' % (Plugin.type, str(e)))
-
-    @staticmethod
-    def remove(args):
-        """
-        Delete plugin directory.
-        args[0] is plugin name.
-        args[1] is optional plugin directory (defaults to ~/.asciidoc/<plugin_name>).
-        """
-        if len(args) not in (1, 2):
-            die('invalid number of arguments: --%s remove %s' % (Plugin.type, ' '.join(args)))
-        plugin_name = args[0]
-        if not re.match(r'^\w+$', plugin_name):
-            die('illegal %s name: %s' % (Plugin.type, plugin_name))
-        if len(args) == 2:
-            d = args[1]
-            if not os.path.isdir(d):
-                die('directory not found: %s' % d)
-        else:
-            d = Plugin.get_dir()
-            if not d:
-                die('user directory is not defined')
-        plugin_dir = os.path.join(d, plugin_name)
-        if not os.path.isdir(plugin_dir):
-            die('cannot find %s: %s' % (Plugin.type, plugin_dir))
-        try:
-            message.verbose('removing: %s' % plugin_dir)
-            shutil.rmtree(plugin_dir)
-        except Exception as e:
-            die('failed to delete %s: %s' % (Plugin.type, str(e)))
-
-    @staticmethod
-    def list(args):
-        """
-        List all plugin directories (global and local).
-        """
-        for d in [os.path.join(d, Plugin.type + 's') for d in config.get_load_dirs()]:
-            if os.path.isdir(d):
-                for f in sorted(filter(os.path.isdir, [os.path.join(d, o) for o in os.listdir(d)])):
-                    if f.endswith('__pycache__'):
-                        continue
-                    message.stdout(f)
-
-    @staticmethod
-    def build(args):
-        """
-        Create plugin Zip file.
-        args[0] is Zip file name.
-        args[1] is plugin directory.
-        """
-        if len(args) != 2:
-            die('invalid number of arguments: --%s build %s' % (Plugin.type, ' '.join(args)))
-        zip_file = args[0]
-        plugin_source = args[1]
-        if not (os.path.isdir(plugin_source) or os.path.isfile(plugin_source)):
-            die('plugin source not found: %s' % plugin_source)
-        try:
-            create_zip(zip_file, plugin_source, skip_hidden=True)
-        except Exception as e:
-            die('failed to create %s: %s' % (zip_file, str(e)))
 
 
 # ---------------------------------------------------------------------------
@@ -5888,7 +5478,7 @@ document = Document()       # The document being processed.
 config = Config()           # Configuration file reader.
 reader = Reader()           # Input stream line reader.
 writer = Writer()           # Output stream line writer.
-message = Message()         # Message functions.
+message = Message(APPLICATION_CALLER, document, config, reader)  # Message functions.
 paragraphs = Paragraphs()   # Paragraph definitions.
 lists = Lists()             # List definitions.
 blocks = DelimitedBlocks()  # DelimitedBlock definitions.
@@ -5903,9 +5493,10 @@ trace = Trace()             # Implements trace attribute processing.
 messages = message.messages
 
 
-def set_caller(name):
+def set_caller(name: str) -> None:
     global APPLICATION_CALLER
     APPLICATION_CALLER = name
+    message.set_caller(APPLICATION_CALLER)
 
 
 def reset_asciidoc():
@@ -5917,7 +5508,7 @@ def reset_asciidoc():
     config = Config()
     reader = Reader()
     writer = Writer()
-    message = Message()
+    message = Message(APPLICATION_CALLER, document, config, reader)
     paragraphs = Paragraphs()
     lists = Lists()
     blocks = DelimitedBlocks()
@@ -5933,7 +5524,6 @@ def reset_asciidoc():
     BlockTitle.reset_class()
     Section.reset_class()
     AbstractBlock.reset_class()
-    Plugin.reset_class()
 
 
 def asciidoc(backend, doctype, confiles, infile, outfile, options):
@@ -6289,11 +5879,12 @@ def cli(argv=None):
             sys.exit(1)
     # Look for plugin management commands.
     count = 0
+    plugin_type = ''
     for o, v in opts:
         if o in ('-b', '--backend', '--filter', '--theme'):
             if o == '-b':
                 o = '--backend'
-            plugin = o[2:]
+            plugin_type = o[2:]
             cmd = v
             if cmd not in Plugin.CMDS:
                 continue
@@ -6303,13 +5894,13 @@ def cli(argv=None):
     if count == 1:
         # Execute plugin management commands.
         if not cmd:
-            die('missing --%s command' % plugin)
+            die('missing --%s command' % plugin_type)
         if cmd not in Plugin.CMDS:
-            die('illegal --%s command: %s' % (plugin, cmd))
-        Plugin.type = plugin
+            die('illegal --%s command: %s' % (plugin_type, cmd))
         config.init()
         config.verbose = bool(set(['-v', '--verbose']) & set(opt_names))
-        getattr(Plugin, cmd)(args)
+        plugin = Plugin(plugin_type, message, config)
+        getattr(plugin, cmd)(args)
     else:
         # Execute asciidoc.
         try:

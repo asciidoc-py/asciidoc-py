@@ -1,9 +1,9 @@
-import locale
+import ast
 import math
 import os
 import re
 import time
-from typing import Optional
+from typing import List, Optional, Tuple, Union
 import unicodedata
 
 
@@ -36,7 +36,7 @@ def assign(dst, src):
         setattr(dst, a, v)
 
 
-def strip_quotes(s):
+def strip_quotes(s: str) -> str:
     """Trim white space and, if necessary, quote characters from s."""
     s = s.strip()
     # Strip quotation mark characters from quoted strings.
@@ -54,7 +54,7 @@ def is_re(s) -> bool:
         return False
 
 
-def re_join(relist):
+def re_join(relist: List) -> List:
     """Join list of regular expressions re1,re2,... to single regular
     expression (re1)|(re2)|..."""
     if len(relist) == 0:
@@ -68,7 +68,7 @@ def re_join(relist):
     return result
 
 
-def lstrip_list(s):
+def lstrip_list(s: Union[List, Tuple]) -> Union[List, Tuple]:
     """
     Return list with empty items from start of list removed.
     """
@@ -80,7 +80,7 @@ def lstrip_list(s):
     return s[i:]
 
 
-def rstrip_list(s):
+def rstrip_list(s: Union[List, Tuple]) -> Union[List, Tuple]:
     """
     Return list with empty items from end of list removed.
     """
@@ -92,7 +92,7 @@ def rstrip_list(s):
     return s[:i + 1]
 
 
-def strip_list(s):
+def strip_list(s: Union[List, Tuple]) -> Union[List, Tuple]:
     """
     Return list with empty items from start and end of list removed.
     """
@@ -133,7 +133,7 @@ def dovetail_tags(stag, content, etag):
     return dovetail(dovetail(stag, content), etag)
 
 
-def py2round(n, d=0):
+def py2round(n: Union[float, int], d: int = 0) -> int:
     """Utility function to get python2 rounding in python3. Python3 changed it such that
     given two equally close multiples, it'll round towards the even choice. For example,
     round(42.5) == 42 instead of the expected round(42.5) == 43). This function gives us
@@ -155,14 +155,14 @@ east_asian_widths = {
 column widths."""
 
 
-def column_width(s):
+def column_width(s: str) -> int:
     width = 0
     for c in s:
         width += east_asian_widths[unicodedata.east_asian_width(c)]
     return width
 
 
-def date_time_str(t):
+def date_time_str(t: float) -> Tuple[str, str]:
     """Convert seconds since the Epoch to formatted local date and time strings."""
     source_date_epoch = os.environ.get('SOURCE_DATE_EPOCH')
     if source_date_epoch is not None:
@@ -177,9 +177,30 @@ def date_time_str(t):
         time_str += ' ' + time.tzname[1]
     else:
         time_str += ' ' + time.tzname[0]
-    # Attempt to convert the localtime to the output encoding.
-    try:
-        time_str = time_str.decode(locale.getdefaultlocale()[1])
-    except Exception:
-        pass
     return date_str, time_str
+
+
+def get_args(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.args
+    i = 1
+    for arg in args:
+        if isinstance(arg, ast.Name):
+            d[str(i)] = ast.literal_eval(arg.id)
+        else:
+            d[str(i)] = ast.literal_eval(arg)
+        i += 1
+    return d
+
+
+def get_kwargs(val):
+    d = {}
+    args = ast.parse("d(" + val + ")", mode='eval').body.keywords
+    for arg in args:
+        d[arg.arg] = ast.literal_eval(arg.value)
+    return d
+
+
+def parse_to_list(val):
+    values = ast.parse("[" + val + "]", mode='eval').body.elts
+    return [ast.literal_eval(v) for v in values]
