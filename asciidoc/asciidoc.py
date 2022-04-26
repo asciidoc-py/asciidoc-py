@@ -2,6 +2,17 @@
 
 """
 asciidoc - converts an AsciiDoc text file to HTML or DocBook
+
+Copyright (C) 2002-2013 Stuart Rackham.
+Copyright (C) 2013-2022 AsciiDoc Contributors.
+
+Free use of this software is granted under the terms of the GNU General Public
+License as published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+    
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 """
 
 # Please note, the contents of this module are considered "private" with the
