@@ -4,6 +4,27 @@
 a2x - A toolchain manager for AsciiDoc (converts Asciidoc text files to other
       file formats)
 
+Please note, the a2x was originally licensed under the MIT license. Any changes
+on or after 12/31/2021 are licensed under the GPLv2+. See below for licenses, and
+due to sub-licensing, this file MUST carry both licenses unless all MIT code has
+been rewritten.
+
+-----
+
+Copyright (C) 2021-2022 AsciiDoc Contributors.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+----
+
 Free use of this software is granted under the terms of the MIT license.
 
 Copyright (C) 2002-2013 Stuart Rackham.

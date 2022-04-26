@@ -6082,14 +6082,14 @@ used with the 'toc' attribute. Example usage:
 [appendix]
 License
 -------
-AsciiDoc is free software; you can redistribute it and/or modify it
-under the terms of the 'GNU General Public License version 2' (GPLv2)
-as published by the Free Software Foundation.
+Free use of this software is granted under the terms of the GNU General
+Public License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
 
-AsciiDoc is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License version 2 for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
 Copyright (C) 2002-2013 Stuart Rackham.
 
