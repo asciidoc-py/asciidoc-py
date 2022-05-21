@@ -1004,6 +1004,7 @@ def parse_args(argv):
 
 def cli():
     global OPTIONS
+    asciidoc.set_caller("__main__")
     argv, opts, args = parse_args(sys.argv)
     opts = eval(str(opts))  # Convert optparse.Values to dict.
     a2x = A2X(opts)
@@ -1021,5 +1022,4 @@ def cli():
 #####################################################################
 
 if __name__ == "__main__":
-    asciidoc.set_caller(__name__)
     cli()
