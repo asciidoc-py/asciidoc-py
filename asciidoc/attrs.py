@@ -54,7 +54,7 @@ def future_parse(s: str) -> dict:
             d[key] = value if value else ''
             key = ''
         else:
-            d[f'{count}'] = value
+            d["{}".format(count)] = value
         count += 1
         value = ''
 
