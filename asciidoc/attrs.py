@@ -28,7 +28,6 @@ def parse_attributes(attrs: str, output_dict: typing.Dict) -> None:
     s = re.sub(r'\s', ' ', attrs)
     d = legacy_parse(s) if get_compat_mode() == 1 else future_parse(s)
     output_dict.update(d)
-    print(d)
     assert len(d) > 0
 
 
@@ -40,41 +39,36 @@ def future_parse(s: str) -> dict:
     quote = None
     in_quotes = False
     had_quotes = False
-    next_value = False
 
     def add_value():
-        nonlocal count, d, key, value, next_value
+        nonlocal count, d, key, value
+        key = key.strip()
+        value = value.strip()
         if had_quotes:
             value = value[1:-1]
-        value = value.rstrip()
-        try:
-            value = int(value)
-        except ValueError:
-            pass
 
-        if next_value and not value and not had_quotes:
+        if not value and not had_quotes:
             value = None
 
         if key:
-            d[key] = value
+            d[key] = value if value else ''
             key = ''
         else:
             d[f'{count}'] = value
-            count += 1
+        count += 1
         value = ''
-        next_value = False
 
     for i in range(len(s)):
         char = s[i]
 
         if char == ',' and not in_quotes:
             add_value()
-            next_value = True
             had_quotes = False
         elif value and char == '=' and not in_quotes:
             key = value
             value = ''
-        elif not in_quotes and (char == '"' or char == "'") and (i == 0 or s[i - 1] != '\\'):
+        elif not in_quotes and (char == '"' or char == "'") \
+                and (i == 0 or s[i - 1] != '\\'):
             in_quotes = True
             quote = char
             value += char
@@ -83,18 +77,19 @@ def future_parse(s: str) -> dict:
             had_quotes = True
             quote = None
             value += char
-        elif char == ' ' and not in_quotes and not value:
-            pass
         elif char == '\\' and i < len(s) - 1 and (s[i + 1] == '"' or s[i + 1] == "'"):
             pass
         else:
             value += char
 
-    if key and not value:
+    if key and key[0] == '=' and not value:
         value = key + "="
         key = ""
 
-    if had_quotes or value or key or next_value:
+    if not value and s.rstrip()[-1] == ',':
+        value = ' '
+
+    if had_quotes or value or key:
         add_value()
     return d
 

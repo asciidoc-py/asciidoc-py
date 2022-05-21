@@ -7,11 +7,14 @@ __all__ = ['VERSION', '__version__']
 
 COMPAT_MODE = 1
 
+
 def set_legacy_compat() -> None:
     set_compat_mode(1)
 
+
 def set_future_compat() -> None:
     set_compat_mode(2)
+
 
 def set_compat_mode(mode: int) -> None:
     if mode < 1 or mode > 2:
@@ -20,8 +23,10 @@ def set_compat_mode(mode: int) -> None:
     global COMPAT_MODE
     COMPAT_MODE = mode
 
+
 def get_compat_mode() -> int:
     return COMPAT_MODE
+
 
 # If running as a script, we avoid these imports to avoid a circular
 # RuntimeWarning, which is fine as we don't use them in that case.
