@@ -47,6 +47,18 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          
+      - name: Publish website
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'asciidoc-py',
+              repo: 'asciidoc-py.github.io',
+              workflow_id: 'publish.yml',
+              ref: 'main'
+            })
 
   homebrew:
     runs-on: macos-latest
@@ -60,3 +72,4 @@ jobs:
           formula: asciidoc
           tag: ${{github.ref}}
           revision: ${{github.sha}}
+          
