@@ -3,6 +3,23 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc-py.github.io/
 
+Version 10.2.0 (2022-05-22)
+---------------------------
+.Future feature
+As part of the intended 10.3.0 release, the following document attribute flags will be reserved for modifying asciidoc-py runtime behavior:
+
+- `future-compat`
+- `legacy-compat`
+- `compat-mode`
+
+Please see https://github.com/asciidoc-py/asciidoc-py/issues/254[GH issue #254] for more information.
+
+.Bug fixes
+- Fix verbose output not working when using a2x or asciidoc entry points
+
+.Miscellaneous
+- Automate publishing asciidoc-py website as part of release process
+
 Version 10.1.4 (2022-03-01)
 ---------------------------
 .Bug fixes
