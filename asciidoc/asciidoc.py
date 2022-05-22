@@ -37,13 +37,14 @@ import unicodedata
 
 from collections import OrderedDict
 
+# from . import set_future_compat, set_legacy_compat
+from . import utils
 from .attrs import parse_attributes
 from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
 from .exceptions import EAsciiDoc
 from .message import Message
 from .plugin import Plugin
-from . import utils
 
 CONF_DIR = os.path.join(os.path.dirname(__file__), 'resources')
 METADATA = {}
@@ -5654,6 +5655,12 @@ def asciidoc(backend, doctype, confiles, infile, outfile, options):
         # Set the default embedded icons directory.
         if 'data-uri' in document.attributes and not os.path.isdir(document.attributes['iconsdir']):
             document.attributes['iconsdir'] = os.path.join(document.attributes['asciidoc-confdir'], 'icons')
+        # Set compat mode
+        # TODO: Enable this in 10.3 (see https://github.com/asciidoc-py/asciidoc-py/issues/254)
+        # if 'future-compat' in document.attributes:
+        #     set_future_compat()
+        # if 'legacy-compat' in document.attributes or 'compat-mode' in document.attributes:
+        #     set_legacy_compat()
         # Configuration is fully loaded.
         config.expand_all_templates()
         # Check configuration for consistency.
