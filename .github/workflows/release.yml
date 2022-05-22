@@ -47,6 +47,10 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          
+      - name: Update website
+        run: curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/asciidoc-py/asciidoc-py.github.io/actions/workflows/publish.yml/dispatches --data '{"ref": "main"}'
+    
 
   homebrew:
     runs-on: macos-latest
@@ -60,3 +64,4 @@ jobs:
           formula: asciidoc
           tag: ${{github.ref}}
           revision: ${{github.sha}}
+          
