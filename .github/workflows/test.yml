@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.python-version }}
 
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         if: "!endsWith(matrix.python-version, '-dev')"
         with:
           python-version: ${{ matrix.python-version }}
@@ -82,7 +82,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.python-version }}
 
@@ -92,16 +92,14 @@ jobs:
   make:
     needs: lint
     runs-on: ubuntu-latest
-    env:
-      python-version: 3.5
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.6
 
       - name: Install apt dependencies
         run: |
@@ -142,16 +140,14 @@ jobs:
   make-dist:
     needs: lint
     runs-on: ubuntu-latest
-    env:
-      python-version: 3.5
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.6
 
       - name: Install apt dependencies
         run: |
