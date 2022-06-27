@@ -35,3 +35,7 @@ def test_insensitive_dict():
     assert 'AbAbA' in d
     del d['abaBA']
     assert ('ababa' in d) is False
+    d.setdefault('D', 'test')
+    assert d['d'] == 'test'
+    d.setdefault('A', 'foo')
+    assert d['a'] == 1
