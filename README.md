@@ -1,7 +1,7 @@
 AsciiDoc.py
 ===========
 
-[![Build Status](https://github.com/asciidoc/asciidoc-py3/workflows/Test/badge.svg?branch=master)](https://github.com/asciidoc/asciidoc-py3/actions?query=workflow%3ATest+branch%3Amaster)
+[![Test](https://github.com/asciidoc-py/asciidoc-py/actions/workflows/test.yml/badge.svg?branch=main&event=push)](https://github.com/asciidoc-py/asciidoc-py/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/asciidoc-py/asciidoc-py/branch/main/graph/badge.svg?token=fNh3QlLTw0)](https://codecov.io/gh/asciidoc-py/asciidoc-py)
 [![PyPI version](https://badge.fury.io/py/asciidoc.svg)](https://badge.fury.io/py/asciidoc)
 
