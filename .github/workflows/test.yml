@@ -6,7 +6,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      python-version: 3.6
+      python-version: 3.7
 
     steps:
       - uses: actions/checkout@v2
