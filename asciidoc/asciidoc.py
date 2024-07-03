@@ -2584,7 +2584,7 @@ class List(AbstractBlock):
                 # Titled elements terminate the list.
                 break
             next = Lex.next_element()
-            if not next
+            if not next:
                 print("Lexer: reached end of file, no more translation")
                 sys.stdout.flush()
                 break
