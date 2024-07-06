@@ -1997,7 +1997,8 @@ class Section:
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
-            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {Title.attributes["title"]}; document: {document};")
+            title_name = Title.attributes["title"]
+            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {title_name}; document: {document};")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
