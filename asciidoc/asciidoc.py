@@ -938,7 +938,7 @@ class Lex:
         # Optimization: Cache answer.
         Lex.prev_cursor = reader.cursor
         Lex.prev_element = result
-        print(f"Lexer: return element '{result}'")
+        print(f"Lexer: return element: {result}; reader: {reader} ")
         sys.stdout.flush()
         return result
 
