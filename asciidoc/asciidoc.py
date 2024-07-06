@@ -1688,7 +1688,7 @@ class Title:
         Title.linecount = None
 
     @staticmethod
-    def __str__():
+    def __repr__():
         return "class Title({})".format(str({
             "subs": Title.subs,
             "pattern": Title.pattern,
@@ -1987,7 +1987,7 @@ class Section:
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
-            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {Title.__str__()}; document: {document};")
+            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {Title.__repr__()}; document: {document};")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
