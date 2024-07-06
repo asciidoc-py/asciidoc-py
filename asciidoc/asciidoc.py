@@ -1058,6 +1058,16 @@ class Document(object):
         self.has_warnings = False  # Set true if warnings were flagged.
         self.safe = False       # Default safe mode.
 
+    def __repr__(self):
+        return "class Document({})".format(json.dumps({
+            "infile": self.infile,
+            "outfile": self.outfile,
+            "attributes": self.attributes,
+            "level": self.level,
+            "has_errors": self.has_errors,
+            "has_warnings": self.has_warnings,
+            "safe" : self.safe,
+        }, indent=2))
     def update_attributes(self, attrs=None):
         """
         Set implicit attributes and attributes in 'attrs'.
