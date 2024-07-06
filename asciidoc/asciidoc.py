@@ -42,7 +42,7 @@ from . import utils
 from .attrs import parse_attributes
 from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
-from .exceptions import EAsciiDoc
+from .exceptions import EAsciiDoc, OnlyBookLvl0Sections
 from .message import Message
 from .plugin import Plugin
 
@@ -1974,7 +1974,7 @@ class Section:
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
-            message.error('only book doctypes can contain level 0 sections')
+            raise OnlyBookLvl0Sections('only book doctypes can contain level 0 sections')
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
