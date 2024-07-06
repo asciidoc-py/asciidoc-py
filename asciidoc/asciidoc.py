@@ -1028,12 +1028,9 @@ class Lex:
             lines[i] = ' ' * margin + lines[i][width:]
         return lines
 
-
-# ---------------------------------------------------------------------------
-# Document element classes parse AsciiDoc reader input and write DocBook writer
-# output.
-# ---------------------------------------------------------------------------
 class Document(object):
+    """ parse AsciiDocand write DocBook
+    """
     # doctype property.
     def getdoctype(self):
         return self.attributes.get('doctype')
