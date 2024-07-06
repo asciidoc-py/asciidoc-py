@@ -1699,7 +1699,7 @@ class Title:
             "section_numbers" : Title.section_numbers,
             "dump_dict" : Title.dump_dict,
             "linecount" : Title.linecount,
-        }))
+        }, indent=2))
 
     @staticmethod
     def translate(skipsubs=False):
