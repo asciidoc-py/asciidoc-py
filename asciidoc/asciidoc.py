@@ -1998,7 +1998,10 @@ class Section:
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
             title_name = Title.attributes["title"]
-            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {title_name}; document: {document};")
+            docfile = document.attributes["docfile"]
+            doctype = document.attributes["doctype"]
+            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title erroring: {title_name}; current doctype: {doctype}; document: {docfile};"
+                                      + "\nNOTE: the problem might come from an import")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
