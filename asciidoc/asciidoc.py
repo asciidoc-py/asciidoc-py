@@ -1690,6 +1690,7 @@ class Title:
 
     @staticmethod
     def __repr__():
+        # TODO this doesn't seem to work automatically with static methods
         return "class Title({})".format(json.dumps({
             "subs": Title.subs,
             "pattern": Title.pattern,
@@ -1988,7 +1989,7 @@ class Section:
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
-            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {Title.__repr__()}; document: {document};")
+            raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title: {Title.attributes["title"]}; document: {document};")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
