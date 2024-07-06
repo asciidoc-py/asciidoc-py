@@ -1690,7 +1690,7 @@ class Title:
 
     @staticmethod
     def __repr__():
-        return pprint.pprint("class Title({})".format(str({
+        return "class Title({})".format(pprint.pprint({
             "subs": Title.subs,
             "pattern": Title.pattern,
             "level": Title.level,
@@ -1699,7 +1699,7 @@ class Title:
             "section_numbers" : Title.section_numbers,
             "dump_dict" : Title.dump_dict,
             "linecount" : Title.linecount,
-        })))
+        }))
 
     @staticmethod
     def translate(skipsubs=False):
