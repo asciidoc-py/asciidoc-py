@@ -1068,6 +1068,7 @@ class Document(object):
             "has_warnings": self.has_warnings,
             "safe" : self.safe,
         }, indent=2))
+
     def update_attributes(self, attrs=None):
         """
         Set implicit attributes and attributes in 'attrs'.
