@@ -26,6 +26,7 @@ from functools import lru_cache
 import getopt
 import io
 import os
+import pprint
 import re
 import subprocess
 import sys
@@ -1689,7 +1690,7 @@ class Title:
 
     @staticmethod
     def __repr__():
-        return "class Title({})".format(str({
+        return pprint.pprint("class Title({})".format(str({
             "subs": Title.subs,
             "pattern": Title.pattern,
             "level": Title.level,
@@ -1698,7 +1699,7 @@ class Title:
             "section_numbers" : Title.section_numbers,
             "dump_dict" : Title.dump_dict,
             "linecount" : Title.linecount,
-        }))
+        })))
 
     @staticmethod
     def translate(skipsubs=False):
