@@ -2001,7 +2001,7 @@ class Section:
             docfile = document.attributes["docfile"]
             doctype = document.attributes["doctype"]
             raise OnlyBookLvl0Sections(f"only book doctypes can contain level 0 sections; Title erroring: {title_name}; current doctype: {doctype}; document: {docfile};"
-                                      + "\nNOTE: the problem might come from an import")
+                                      + "\nNOTE: the problem might come from an import, then `leveloffset:` might help")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
