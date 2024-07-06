@@ -905,13 +905,11 @@ class Lex:
         line of the next element or EOF (leading blank lines are skipped)."""
         reader.skip_blank_lines()
         if reader.eof():
-            print("Lexer: No next element, because eof")
             sys.stdout.flush()
             return None
         # Optimization: If we've already checked for an element at this
         # position return the element.
         if Lex.prev_element and Lex.prev_cursor == reader.cursor:
-            print("Lexer: return already checked element")
             sys.stdout.flush()
             return Lex.prev_element
         if AttributeEntry.isnext():
