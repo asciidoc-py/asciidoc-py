@@ -26,7 +26,7 @@ from functools import lru_cache
 import getopt
 import io
 import os
-import pprint
+import json
 import re
 import subprocess
 import sys
@@ -1690,7 +1690,7 @@ class Title:
 
     @staticmethod
     def __repr__():
-        return "class Title({})".format(pprint.pprint({
+        return "class Title({})".format(json.dumps({
             "subs": Title.subs,
             "pattern": Title.pattern,
             "level": Title.level,
