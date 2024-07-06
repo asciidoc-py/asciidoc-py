@@ -1688,6 +1688,19 @@ class Title:
         Title.linecount = None
 
     @staticmethod
+    def __repr__():
+        return "class Title({})".format(str({
+            "subs": Title.subs,
+            "pattern": Title.pattern,
+            "level": Title.level,
+            "attributes": Title.attributes,
+            "sectname": Title.sectname,
+            "section_numbers" : Title.section_numbers,
+            "dump_dict" : Title.dump_dict,
+            "linecount" : Title.linecount,
+        }))
+
+    @staticmethod
     def translate(skipsubs=False):
         """Parse the Title.attributes and Title.level from the reader. The
         real work has already been done by parse()."""
