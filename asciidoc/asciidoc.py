@@ -1687,6 +1687,25 @@ class BlockTitle:
             BlockTitle.title = None
 
 
+class MetaTitle:
+    """ only to manipulate __repr__ of the Title class
+    """
+
+    
+    def __repr__(cls):
+        # TODO this doesn't seem to work automatically with static methods
+        return "class Title({})".format(json.dumps({
+            "subs": cls.subs,
+            "pattern": cls.pattern,
+            "level": cls.level,
+            "attributes": cls.attributes,
+            "sectname": cls.sectname,
+            "section_numbers" : cls.section_numbers,
+            "dump_dict" : cls.dump_dict,
+            "linecount" : cls.linecount,
+        }, indent=2))
+
+
 class Title:
     """Processes Header and Section titles. Static methods and attributes
     only."""
@@ -1714,20 +1733,6 @@ class Title:
         Title.section_numbers = [0] * len(Title.underlines)
         Title.dump_dict = {}
         Title.linecount = None
-
-    @staticmethod
-    def __repr__():
-        # TODO this doesn't seem to work automatically with static methods
-        return "class Title({})".format(json.dumps({
-            "subs": Title.subs,
-            "pattern": Title.pattern,
-            "level": Title.level,
-            "attributes": Title.attributes,
-            "sectname": Title.sectname,
-            "section_numbers" : Title.section_numbers,
-            "dump_dict" : Title.dump_dict,
-            "linecount" : Title.linecount,
-        }, indent=2))
 
     @staticmethod
     def translate(skipsubs=False):
