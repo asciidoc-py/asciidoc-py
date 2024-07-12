@@ -4049,19 +4049,19 @@ class Reader1:
 
     def __repr__(self):
         return "class Reader1({})".format(json.dumps({
-            "f": self.f,
-            "fname": self.fname,
-            "next": self.next,
-            "cursor": self.cursor,
-            "tabsize": self.tabsize,
-            "parent": self.parent,
-            "_lineno": self._lineno,
-            "line_ranges": self.line_ranges,
-            "current_depth": self.current_depth,
-            "max_depth": self.max_depth,
-            "bom": self.bom,
-            "infile": self.infile,
-            "indir": self.indir,
+            "f": type(self.f),
+            "fname": type(self.fname),
+            "next": type(self.next),
+            "cursor": type(self.cursor),
+            "tabsize": type(self.tabsize),
+            "parent": type(self.parent),
+            "_lineno": type(self._lineno),
+            "line_ranges": type(self.line_ranges),
+            "current_depth": type(self.current_depth),
+            "max_depth": type(self.max_depth),
+            "bom": type(self.bom),
+            "infile": type(self.infile),
+            "indir": type(self.indir),
         }, indent=2))
 
     def open(self, fname):
