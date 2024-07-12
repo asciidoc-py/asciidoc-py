@@ -1458,6 +1458,16 @@ class AttributeEntry:
     def __init__(self):
         raise AssertionError('no class instances allowed')
 
+    def __repr__(self):
+        return "class AttributeEntry({})".format(json.dumps({
+            "pattern": self.pattern,
+            "subs": self.subs,
+            "name": self.name,
+            "name2": self.name2,
+            "value": self.value,
+            "attributes": self.attributes,
+        }, indent=2))
+
     @staticmethod
     def reset_class():
         AttributeEntry.pattern = None
@@ -1554,6 +1564,13 @@ class AttributeList:
     def __init__(self):
         raise AssertionError('no class instances allowed')
 
+    def __repr__(self):
+        return "class AttributeList({})".format(json.dumps({
+            "pattern": self.pattern,
+            "match": self.match,
+            "attrs": self.attrs,
+        }, indent=2))
+
     @staticmethod
     def reset_class():
         AttributeList.pattern = None
@@ -1626,6 +1643,12 @@ class BlockTitle:
 
     def __init__(self):
         raise AssertionError('no class instances allowed')
+
+    def __repr__(self):
+        return "class BlockTitle({})".format(json.dumps({
+            "title": self.title,
+            "pattern": self.pattern,
+        }, indent=2))
 
     @staticmethod
     def reset_class():
@@ -1926,6 +1949,12 @@ class Section:
     def __init__(self):
         raise AssertionError('no class instances allowed')
 
+    def __repr__(self):
+        return "class Section({})".format(json.dumps({
+            "endtags": self.endtags,
+            "ids": self.ids,
+        }, indent=2))
+
     @staticmethod
     def reset_class():
         Section.endtags = []
@@ -2080,6 +2109,25 @@ class AbstractBlock:
         self.parameters = None
         # Leading delimiter match object.
         self.mo = None
+
+    def __repr__(self):
+        return "class AbstractBlock({})".format(json.dumps({
+            "start": self.start,
+            "defname": self.defname,
+            "delimiter": self.delimiter,
+            "delimiter_reo": self.delimiter_reo,
+            "template": self.template,
+            "presubs": self.presubs,
+            "postsubs": self.postsubs,
+            "filter": self.filter,
+            "posattrs": self.posattrs,
+            "style": self.style,
+            "styles": self.styles,
+            "attributes": self.attributes,
+            "PARAM_NAMES": self.PARAM_NAMES,
+            "parameters": self.parameters,
+            "mo": self.mo,
+        }, indent=2))
 
     @staticmethod
     def reset_class():
@@ -2398,6 +2446,14 @@ class AbstractBlocks:
         self.default = None     # Default Block.
         self.delimiters = None  # Combined delimiters regular expression.
 
+    def __repr__(self):
+        return "class AbstractBlocks({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+        }, indent=2))
+
     def load(self, sections):
         """Load block definition from 'sections' dictionary."""
         for k in list(sections.keys()):
@@ -2442,6 +2498,15 @@ class Paragraph(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
         self.text = None          # Text in first line of paragraph.
+
+    def __repr__(self):
+        return "class Paragraph({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "text": self.text,
+        }, indent=2))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2496,6 +2561,15 @@ class Paragraphs(AbstractBlocks):
         AbstractBlocks.__init__(self)
         self.terminators = None    # List of compiled re's.
 
+    def __repr__(self):
+        return "class Paragraphs({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "terminators": self.terminators,
+        }, indent=2))
+
     def initialize(self):
         self.terminators = [
             re.compile(r'^\+$|^$'),
@@ -2539,6 +2613,25 @@ class List(AbstractBlock):
         self.type = None      # List type ('numbered','bulleted','labeled').
         self.ordinal = None   # Current list item ordinal number (1..)
         self.number_style = None  # Current numbered list style ('arabic'..)
+
+    def __repr__(self):
+        return "class List({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "CONF_ENTRIES": self.CONF_ENTRIES,
+            "PARAM_NAMES": self.PARAM_NAMES,
+            "type": self.type,
+            "tags": self.tags,
+            "tag": self.tag,
+            "label": self.label,
+            "text": self.text,
+            "index": self.index,
+            "type": self.type,
+            "ordinal": self.ordinal,
+            "number_style": self.number_style,
+        }, indent=2))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2772,6 +2865,15 @@ class Lists(AbstractBlocks):
         self.tags = {}    # List tags dictionary. Each entry is a tags AttrDict.
         self.terminators = None    # List of compiled re's.
 
+    def __repr__(self):
+        return "class Lists({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "terminators": self.terminators,
+        }, indent=2))
+
     def initialize(self):
         self.terminators = [
             re.compile(r'^\+$|^$'),
@@ -2821,6 +2923,14 @@ class Lists(AbstractBlocks):
 class DelimitedBlock(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
+
+    def __repr__(self):
+        return "class DelimitedBlock({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+        }, indent=2))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2890,6 +3000,14 @@ class DelimitedBlocks(AbstractBlocks):
     def __init__(self):
         AbstractBlocks.__init__(self)
 
+    def __repr__(self):
+        return "class DelimitedBlocks({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+        }, indent=2))
+
     def load(self, sections):
         """Update blocks defined in 'sections' dictionary."""
         AbstractBlocks.load(self, sections)
@@ -2919,6 +3037,22 @@ class Table(AbstractBlock):
         self.pcwidth = None     # 1..99 (percentage).
         self.rows = []            # Parsed rows, each row is a list of Cells.
         self.columns = []         # List of Columns.
+
+    def __repr__(self):
+        return "class Table({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "CONF_ENTRIES": self.CONF_ENTRIES,
+            "format": self.format,
+            "separator": self.separator,
+            "tags": self.tags,
+            "abswidth": self.abswidth,
+            "pcwidth": self.pcwidth,
+            "rows": self.rows,
+            "columns": self.columns,
+        }, indent=2))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -3418,6 +3552,15 @@ class Tables(AbstractBlocks):
         # Table tags dictionary. Each entry is a tags dictionary.
         self.tags = {}
 
+    def __repr__(self):
+        return "class Tables({})".format(json.dumps({
+            "current": self.current,
+            "blocks": self.blocks,
+            "default": self.default,
+            "delimiters": self.delimiters,
+            "tags": self.tags,
+        }, indent=2))
+
     def load(self, sections):
         AbstractBlocks.load(self, sections)
         self.load_tags(sections)
@@ -3516,6 +3659,13 @@ class Macros:
         m.prefix = '+'
         m.reo = re.compile(m.pattern)
         self.macros.append(m)
+
+    def __repr__(self):
+        return "class Macros({})".format(json.dumps({
+            "macros": self.macros,
+            "current": self.current,
+            "passthroughs": self.passthroughs,
+        }, indent=2))
 
     def load(self, entries):
         for entry in entries:
@@ -3616,6 +3766,15 @@ class Macro:
         self.prefix = ''        # '' if inline, '+' if system, '#' if block.
         self.reo = None         # Compiled pattern re object.
         self.subslist = []      # Default subs for macros passtext group.
+
+    def __repr__(self):
+        return "class Macro({})".format(json.dumps({
+            "pattern": self.pattern,
+            "name": self.name,
+            "prefix": self.prefix,
+            "reo": self.reo,
+            "subslist": self.subslist,
+        }, indent=2))
 
     def has_passthrough(self):
         return self.pattern.find(r'(?P<passtext>') >= 0
@@ -3814,6 +3973,13 @@ class CalloutMap:
         self.calloutindex = 0   # Current callout index number.
         self.listnumber = 1     # Current callout list number.
 
+    def __repr__(self):
+        return "class CalloutMap({})".format(json.dumps({
+            "comap": self.comap,
+            "calloutindex": self.calloutindex,
+            "listnumber": self.listnumber,
+        }, indent=2))
+
     def listclose(self):
         # Called when callout list is closed.
         self.listnumber += 1
@@ -3880,6 +4046,23 @@ class Reader1:
         self.bom = None         # Byte order mark (BOM).
         self.infile = None      # Saved document 'infile' attribute.
         self.indir = None       # Saved document 'indir' attribute.
+
+    def __repr__(self):
+        return "class Reader1({})".format(json.dumps({
+            "f": self.f,
+            "fname": self.fname,
+            "next": self.next,
+            "cursor": self.cursor,
+            "tabsize": self.tabsize,
+            "parent": self.parent,
+            "_lineno": self._lineno,
+            "line_ranges": self.line_ranges,
+            "current_depth": self.current_depth,
+            "max_depth": self.max_depth,
+            "bom": self.bom,
+            "infile": self.infile,
+            "indir": self.indir,
+        }, indent=2))
 
     def open(self, fname):
         self.fname = fname
@@ -4077,6 +4260,27 @@ class Reader(Reader1):
         self.skipname = ''      # Name of current endif macro target.
         self.skipto = -1        # The depth at which skipping is re-enabled.
 
+    def __repr__(self):
+        return "class Reader({})".format(json.dumps({
+            "f": self.f,
+            "fname": self.fname,
+            "next": self.next,
+            "cursor": self.cursor,
+            "tabsize": self.tabsize,
+            "parent": self.parent,
+            "_lineno": self._lineno,
+            "line_ranges": self.line_ranges,
+            "current_depth": self.current_depth,
+            "max_depth": self.max_depth,
+            "bom": self.bom,
+            "infile": self.infile,
+            "indir": self.indir,
+            "depth": self.depth,
+            "skip": self.skip,
+            "skipname": self.skipname,
+            "skipto": self.skipto,
+        }, indent=2))
+
     def read_super(self):
         result = Reader1.read(self, self.skip)
         if result is None and self.skip:
@@ -4248,6 +4452,15 @@ class Writer:
         self.lines_out = 0               # Number of lines written.
         self.skip_blank_lines = False    # If True don't output blank lines.
 
+    def __repr__(self):
+        return "class Writer({})".format(json.dumps({
+            "f": self.f,
+            "fname": self.fname,
+            "newline": self.newline,
+            "lines_out": self.lines_out,
+            "skip_blank_lines": self.skip_blank_lines,
+        }, indent=2))
+
     def open(self, fname, bom=None):
         """
         bom is optional byte order mark.
@@ -4376,6 +4589,36 @@ class Config:
         self.include1 = {}      # Holds include1::[] files for {include1:}.
         self.dumping = False    # True if asciidoc -c option specified.
         self.filters = []       # Filter names specified by --filter option.
+
+    def __repr__(self):
+        return "class Config({})".format(json.dumps({
+            "sections": self.sections,
+            "verbose": self.verbose,
+            "header_footer": self.header_footer,
+            "tabsize": self.tabsize,
+            "textwidth": self.textwidth,
+            "newline": self.newline,
+            "pagewidth": self.pagewidth,
+            "pageunits": self.pageunits,
+            "outfilesuffix": self.outfilesuffix,
+            "subsnormal": self.subsnormal,
+            "subsverbatim": self.subsverbatim,
+            "tags": self.tags,
+            "specialchars": self.specialchars,
+            "specialwords": self.specialwords,
+            "replacements": self.replacements,
+            "replacements2": self.replacements2,
+            "replacements3": self.replacements3,
+            "specialsections": self.specialsections,
+            "quotes": self.quotes,
+            "fname": self.fname,
+            "conf_attrs": self.conf_attrs,
+            "cmd_attrs": self.cmd_attrs,
+            "loaded": self.loaded,
+            "include1": self.include1,
+            "dumping": self.dumping,
+            "filters": self.filters,
+        }, indent=2))
 
     @staticmethod
     def init():
