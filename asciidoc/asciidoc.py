@@ -4262,6 +4262,7 @@ class Reader(Reader1):
 
     def __repr__(self):
         return "class Reader({})".format(json.dumps({
+            "f": str(self.f),
             "fname": self.fname,
             "next": self.next,
             "cursor": self.cursor,
@@ -4274,10 +4275,10 @@ class Reader(Reader1):
             "bom": self.bom,
             "infile": self.infile,
             "indir": self.indir,
-            "depth": type(self.depth),
-            "skip": type(self.skip),
-            "skipname": type(self.skipname),
-            "skipto": type(self.skipto),
+            "depth": self.depth,
+            "skip": self.skip,
+            "skipname": self.skipname,
+            "skipto": self.skipto,
         }, indent=2))
 
     def read_super(self):
