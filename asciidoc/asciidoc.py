@@ -3777,7 +3777,7 @@ class Macro:
             "pattern": str(self.pattern),
             "name": self.name,
             "prefix": self.prefix,
-            "reo": self.reo,
+            "reo": str(self.reo),
             "subslist": self.subslist,
         }, indent=2))
 
