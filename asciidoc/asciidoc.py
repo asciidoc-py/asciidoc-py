@@ -2453,10 +2453,10 @@ class AbstractBlocks:
 
     def __repr__(self):
         return "class AbstractBlocks({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "current": str(self.current),
+            "blocks": str(self.blocks),
+            "default": str(self.default),
+            "delimiters": str(self.delimiters),
         }, indent=2))
 
     def load(self, sections):
@@ -2506,11 +2506,8 @@ class Paragraph(AbstractBlock):
 
     def __repr__(self):
         return "class Paragraph({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
-            "text": self.text,
+            "__parent__" : AbstractBlock.__repr__(self),
+            "text": str(self.text),
         }, indent=2))
 
     def load(self, name, entries):
@@ -2568,10 +2565,7 @@ class Paragraphs(AbstractBlocks):
 
     def __repr__(self):
         return "class Paragraphs({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
             "terminators": self.terminators,
         }, indent=2))
 
@@ -2621,10 +2615,7 @@ class List(AbstractBlock):
 
     def __repr__(self):
         return "class List({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "PARAM_NAMES": self.PARAM_NAMES,
             "type": self.type,
@@ -2872,10 +2863,9 @@ class Lists(AbstractBlocks):
 
     def __repr__(self):
         return "class Lists({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
+            "open": self.open,
+            "tags": self.tags,
             "terminators": self.terminators,
         }, indent=2))
 
@@ -2931,10 +2921,7 @@ class DelimitedBlock(AbstractBlock):
 
     def __repr__(self):
         return "class DelimitedBlock({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
         }, indent=2))
 
     def load(self, name, entries):
@@ -3007,10 +2994,7 @@ class DelimitedBlocks(AbstractBlocks):
 
     def __repr__(self):
         return "class DelimitedBlocks({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
         }, indent=2))
 
     def load(self, sections):
@@ -3045,10 +3029,7 @@ class Table(AbstractBlock):
 
     def __repr__(self):
         return "class Table({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "format": self.format,
             "separator": self.separator,
@@ -3559,10 +3540,7 @@ class Tables(AbstractBlocks):
 
     def __repr__(self):
         return "class Tables({})".format(json.dumps({
-            "current": self.current,
-            "blocks": self.blocks,
-            "default": self.default,
-            "delimiters": self.delimiters,
+            "__parent__" : AbstractBlock.__repr__(self),
             "tags": self.tags,
         }, indent=2))
 
