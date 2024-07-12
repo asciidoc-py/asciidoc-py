@@ -4050,18 +4050,18 @@ class Reader1:
     def __repr__(self):
         return "class Reader1({})".format(json.dumps({
             "f": self.f,
-            "fname": (self.fname),
-            "next": (self.next),
-            "cursor": (self.cursor),
-            "tabsize": (self.tabsize),
-            "parent": (self.parent),
-            "_lineno": (self._lineno),
-            "line_ranges": (self.line_ranges),
-            "current_depth": (self.current_depth),
-            "max_depth": (self.max_depth),
-            "bom": (self.bom),
-            "infile": (self.infile),
-            "indir": (self.indir),
+            "fname": self.fname,
+            "next": self.next,
+            "cursor": self.cursor,
+            "tabsize": self.tabsize,
+            "parent": self.parent,
+            "_lineno": self._lineno,
+            "line_ranges": self.line_ranges,
+            "current_depth": self.current_depth,
+            "max_depth": self.max_depth,
+            "bom": self.bom,
+            "infile": self.infile,
+            "indir": self.indir,
         }, indent=2))
 
     def open(self, fname):
@@ -4263,22 +4263,7 @@ class Reader(Reader1):
     def __repr__(self):
         return "class Reader({})".format(json.dumps({
             "f": self.f,
-            "fname": self.fname,
-            "next": self.next,
-            "cursor": self.cursor,
-            "tabsize": self.tabsize,
-            "parent": self.parent,
-            "_lineno": self._lineno,
-            "line_ranges": self.line_ranges,
-            "current_depth": self.current_depth,
-            "max_depth": self.max_depth,
-            "bom": self.bom,
-            "infile": self.infile,
-            "indir": self.indir,
-            "depth": type(self.depth),
-            "skip": type(self.skip),
-            "skipname": type(self.skipname),
-            "skipto": type(self.skipto),
+
         }, indent=2))
 
     def read_super(self):
