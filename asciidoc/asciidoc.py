@@ -1687,7 +1687,7 @@ class BlockTitle:
             BlockTitle.title = None
 
 
-class MetaTitle:
+class MetaTitle(type):
     """ only to manipulate __repr__ of the Title class.
     """
 
