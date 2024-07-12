@@ -2120,7 +2120,7 @@ class AbstractBlock:
             "start": self.start,
             "defname": self.defname,
             "delimiter": self.delimiter,
-            "delimiter_reo": self.delimiter_reo,
+            "delimiter_reo": str(self.delimiter_reo),
             "template": self.template,
             "presubs": self.presubs,
             "postsubs": self.postsubs,
@@ -2131,7 +2131,7 @@ class AbstractBlock:
             "attributes": self.attributes,
             "PARAM_NAMES": self.PARAM_NAMES,
             "parameters": self.parameters,
-            "mo": self.mo,
+            "mo": str(self.mo),
         }, indent=2))
 
     @staticmethod
