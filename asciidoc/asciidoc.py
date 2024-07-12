@@ -3774,7 +3774,7 @@ class Macro:
 
     def __repr__(self):
         return "class Macro({})".format(json.dumps({
-            "pattern": self.pattern,
+            "pattern": str(self.pattern),
             "name": self.name,
             "prefix": self.prefix,
             "reo": self.reo,
