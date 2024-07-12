@@ -1688,7 +1688,7 @@ class BlockTitle:
 
 
 class MetaTitle:
-    """ only to manipulate __repr__ of the Title class
+    """ only to manipulate __repr__ of the Title class.
     """
 
     
@@ -1706,7 +1706,7 @@ class MetaTitle:
         }, indent=2))
 
 
-class Title:
+class Title(metaclass=MetaTitle):
     """Processes Header and Section titles. Static methods and attributes
     only."""
     # Class variables
