@@ -4247,7 +4247,7 @@ class Reader(Reader1):
     def __repr__(self):
         return "class Reader({})".format(json.dumps({
             "fname": self.fname,
-            "cursor": self.cursor,
+            "next": self.next[0],
         }))
 
     def read_super(self):
