@@ -1446,7 +1446,18 @@ class Header:
                 attrs['manvolnum'] = mo.group('manvolnum').strip()
 
 
-class AttributeEntry:
+class AttributeEntryMeta(type):
+    def __repr__(cls):
+        return "class AttributeEntry({})".format(json.dumps({
+            "pattern": cls.pattern,
+            "subs": cls.subs,
+            "name": cls.name,
+            "name2": cls.name2,
+            "value": cls.value,
+            "attributes": cls.attributes,
+        }, indent=2))
+
+class AttributeEntry(metaclass=AttributeEntryMeta):
     """Static methods and attributes only."""
     pattern = None
     subs = None
@@ -1457,16 +1468,6 @@ class AttributeEntry:
 
     def __init__(self):
         raise AssertionError('no class instances allowed')
-
-    def __repr__(self):
-        return "class AttributeEntry({})".format(json.dumps({
-            "pattern": self.pattern,
-            "subs": self.subs,
-            "name": self.name,
-            "name2": self.name2,
-            "value": self.value,
-            "attributes": self.attributes,
-        }, indent=2))
 
     @staticmethod
     def reset_class():
