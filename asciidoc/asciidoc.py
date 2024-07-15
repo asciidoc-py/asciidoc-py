@@ -2108,21 +2108,8 @@ class AbstractBlock:
 
     def __repr__(self):
         return "class AbstractBlock({})".format(json.dumps({
-            "start": self.start,
             "defname": self.defname,
-            "delimiter": self.delimiter,
-            "delimiter_reo": str(self.delimiter_reo),
-            "template": self.template,
-            "presubs": self.presubs,
-            "postsubs": self.postsubs,
-            "filter": self.filter,
-            "posattrs": self.posattrs,
-            "style": self.style,
-            "styles": self.styles,
-            "attributes": self.attributes,
-            "PARAM_NAMES": self.PARAM_NAMES,
-            "parameters": self.parameters,
-            "mo": str(self.mo),
+            "match": str(self.mo.match),
         }, indent=2))
 
     @staticmethod
