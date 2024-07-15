@@ -3738,6 +3738,13 @@ class Macros:
 
 
 class Macro:
+    """ supposedly finding Macros?
+
+    TODO: why are comment blocks parsed as Macro? The language documentation says the content is ignored. [1] And Asciidoc has Attributes, named blocks, and these `:doSomething:aboutStuff[]` processors,
+          which can be hooked by plugin writers. There's no need for in-comment macro processing, afaik.
+
+    [1] https://docs.asciidoctor.org/asciidoc/latest/comments/
+    """
     def __init__(self):
         self.pattern = None     # Matching regular expression.
         self.name = ''          # Conf file macro name (None if implicit).
