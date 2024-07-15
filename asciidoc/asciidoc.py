@@ -2606,7 +2606,7 @@ class List(AbstractBlock):
 
     def __repr__(self):
         return "class List({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__parent__" : json.loads(AbstractBlock.__repr__(self)),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "PARAM_NAMES": self.PARAM_NAMES,
             "type": self.type,
