@@ -1449,13 +1449,9 @@ class Header:
 class AttributeEntryMeta(type):
     def __repr__(cls):
         return "class AttributeEntry({})".format(json.dumps({
-            "pattern": cls.pattern,
-            "subs": cls.subs,
             "name": cls.name,
-            "name2": cls.name2,
             "value": cls.value,
-            "attributes": cls.attributes,
-        }, indent=2))
+        }))
 
 class AttributeEntry(metaclass=AttributeEntryMeta):
     """Static methods and attributes only."""
