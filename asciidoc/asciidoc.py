@@ -1696,15 +1696,9 @@ class MetaTitle(type):
     def __repr__(cls):
         # TODO this doesn't seem to work automatically with static methods
         return "class Title({})".format(json.dumps({
-            "subs": cls.subs,
-            "pattern": cls.pattern,
-            "level": cls.level,
-            "attributes": cls.attributes,
-            "sectname": cls.sectname,
-            "section_numbers" : cls.section_numbers,
-            "dump_dict" : cls.dump_dict,
-            "linecount" : cls.linecount,
-        }, indent=2))
+            "title": cls.attributes["title"],
+            "level": cls.attributes["level"],
+        }))
 
 
 class Title(metaclass=MetaTitle):
