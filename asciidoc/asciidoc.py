@@ -2601,7 +2601,7 @@ class List(AbstractBlock):
             "text": self.text,
             "type": self.type,
             "ordinal": self.ordinal,
-        }, indent=2))
+        }))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
