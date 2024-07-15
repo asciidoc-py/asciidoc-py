@@ -2106,11 +2106,14 @@ class AbstractBlock:
         # Leading delimiter match object.
         self.mo = None
 
-    def __repr__(self):
-        return "class AbstractBlock({})".format(json.dumps({
+    def get_repr_dict(self):
+        return {    
             "defname": self.defname,
             "match": str(self.mo),
-        }, indent=2))
+        }
+
+    def __repr__(self):
+        return "class AbstractBlock({})".format(self.get_repr_dict(), indent=2))
 
     @staticmethod
     def reset_class():
@@ -2595,7 +2598,7 @@ class List(AbstractBlock):
         print("__parent__", AbstractBlock.__repr__(self))
         sys.stdout.flush()
         return "class List({})".format(json.dumps({
-            "__parent_parsed__" : json.loads(AbstractBlock.__repr__(self)),
+            "__parent__" : AbstractBlock.get_repr_dict(self),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "PARAM_NAMES": self.PARAM_NAMES,
             "type": self.type,
