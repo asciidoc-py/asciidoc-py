@@ -2605,8 +2605,10 @@ class List(AbstractBlock):
         self.number_style = None  # Current numbered list style ('arabic'..)
 
     def __repr__(self):
+        print({"__parent__", AbstractBlock.__repr__(self))
+        sys.stdout.flush()
         return "class List({})".format(json.dumps({
-            "__parent__" : json.loads(AbstractBlock.__repr__(self)),
+            "__parent_parsed__" : json.loads(AbstractBlock.__repr__(self)),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "PARAM_NAMES": self.PARAM_NAMES,
             "type": self.type,
