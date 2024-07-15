@@ -2597,17 +2597,10 @@ class List(AbstractBlock):
     def __repr__(self):
         return "class List({})".format(json.dumps({
             "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
-            "CONF_ENTRIES": self.CONF_ENTRIES,
-            "PARAM_NAMES": self.PARAM_NAMES,
             "type": self.type,
-            "tags": self.tags,
-            "tag": self.tag,
-            "label": self.label,
             "text": self.text,
-            "index": self.index,
             "type": self.type,
             "ordinal": self.ordinal,
-            "number_style": self.number_style,
         }, indent=2))
 
     def load(self, name, entries):
