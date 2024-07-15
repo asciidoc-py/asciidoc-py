@@ -2487,7 +2487,7 @@ class Paragraph(AbstractBlock):
 
     def __repr__(self):
         return "class Paragraph({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
             "text": str(self.text),
         }, indent=2))
 
@@ -2546,7 +2546,7 @@ class Paragraphs(AbstractBlocks):
 
     def __repr__(self):
         return "class Paragraphs({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
             "terminators": self.terminators,
         }, indent=2))
 
@@ -2837,7 +2837,7 @@ class Lists(AbstractBlocks):
 
     def __repr__(self):
         return "class Lists({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
             "open": self.open,
             "tags": self.tags,
             "terminators": self.terminators,
@@ -2895,7 +2895,7 @@ class DelimitedBlock(AbstractBlock):
 
     def __repr__(self):
         return "class DelimitedBlock({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
         }, indent=2))
 
     def load(self, name, entries):
@@ -2968,7 +2968,7 @@ class DelimitedBlocks(AbstractBlocks):
 
     def __repr__(self):
         return "class DelimitedBlocks({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
         }, indent=2))
 
     def load(self, sections):
@@ -3003,7 +3003,7 @@ class Table(AbstractBlock):
 
     def __repr__(self):
         return "class Table({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
             "CONF_ENTRIES": self.CONF_ENTRIES,
             "format": self.format,
             "separator": self.separator,
@@ -3514,7 +3514,7 @@ class Tables(AbstractBlocks):
 
     def __repr__(self):
         return "class Tables({})".format(json.dumps({
-            "__parent__" : AbstractBlock.__repr__(self),
+            "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
             "tags": self.tags,
         }, indent=2))
 
