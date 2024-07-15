@@ -2488,8 +2488,7 @@ class Paragraph(AbstractBlock):
     def __repr__(self):
         return "class Paragraph({})".format(json.dumps({
             "__AbstractBlock__" : AbstractBlock.get_repr_dict(self),
-            "text": str(self.text),
-        }, indent=2))
+        }))
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
