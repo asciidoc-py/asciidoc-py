@@ -2108,6 +2108,8 @@ class AbstractBlock:
 
     def __repr__(self):
         match = self.mo
+        print(match, match.string, match.start, match.end)
+        sys.stdout.flush()
         match_string = match.string[:match.start] + "[" + match.string[match.start:match.end] + "]" + match.string[m.end:]
         return "class AbstractBlock({})".format(json.dumps({
             "defname": self.defname,
