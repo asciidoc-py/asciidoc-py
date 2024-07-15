@@ -3754,12 +3754,9 @@ class Macro:
 
     def __repr__(self):
         return "class Macro({})".format(json.dumps({
-            "pattern": str(self.pattern),
             "name": self.name,
             "prefix": self.prefix,
-            "reo": str(self.reo),
-            "subslist": self.subslist,
-        }, indent=2))
+        }))
 
     def has_passthrough(self):
         return self.pattern.find(r'(?P<passtext>') >= 0
