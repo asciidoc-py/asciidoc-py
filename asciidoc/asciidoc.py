@@ -1815,10 +1815,7 @@ class Title(metaclass=MetaTitle):
             for k, v in list(Title.attributes.items()):
                 if v is None:
                     del Title.attributes[k]
-        try:
-            Title.level += int(document.attributes.get('leveloffset', '0'))
-        except:
-            pass
+
         Title.attributes['level'] = str(Title.level)
         return result
 
