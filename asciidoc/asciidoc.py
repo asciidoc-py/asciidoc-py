@@ -2113,7 +2113,7 @@ class AbstractBlock:
         }
 
     def __repr__(self):
-        return "class AbstractBlock({})".format(self.get_repr_dict(), indent=2))
+        return "class AbstractBlock({})".format(self.get_repr_dict(), indent=2)
 
     @staticmethod
     def reset_class():
