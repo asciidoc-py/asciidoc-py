@@ -39,6 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set pip trusted host (Python3.5)
+        run: echo 'PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org"' >> $GITHUB_ENV
+        if: ${{ matrix.python-version == '3.5' }}
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         if: "!endsWith(matrix.python-version, '-dev')"
