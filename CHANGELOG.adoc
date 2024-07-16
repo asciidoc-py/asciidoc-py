@@ -3,7 +3,7 @@ AsciiDoc ChangeLog
 
 :website: https://asciidoc-py.github.io/
 
-Version 10.2.1 (2023-07-07)
+Version 10.2.1 (2024-07-16)
 ---------------------------
 .Bug fixes
 - Fix deprecation warning on escaping table separators
