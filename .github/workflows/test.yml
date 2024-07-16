@@ -33,21 +33,20 @@ jobs:
         include:
           - python-version: 3.5
             runs-on: ubuntu-20.04
+            trusted-host: "pypi.python.org pypi.org files.pythonhosted.org"
           - python-version: 3.6
             runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set pip trusted host (Python3.5)
-        run: echo 'PIP_TRUSTED_HOST="pypi.python.org pypi.org files.pythonhosted.org"' >> $GITHUB_ENV
-        if: ${{ matrix.python-version == '3.5' }}
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         if: "!endsWith(matrix.python-version, '-dev')"
         with:
           python-version: ${{ matrix.python-version }}
+        env:
+          PIP_TRUSTED_HOST: ${{ matrix.trusted-host }}
 
       - name: Set up Python ${{ matrix.python-version }} (deadsnakes)
         uses: deadsnakes/action@v2.1.1
