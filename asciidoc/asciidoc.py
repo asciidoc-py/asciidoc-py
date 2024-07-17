@@ -1463,7 +1463,7 @@ class AttributeEntryMeta(type):
         
     def __repr__(cls):
         # TODO limit to important attributes for one-line format
-        return json.dumps(cls.get_repr_dict(), indent=2)
+        return json.dumps(cls.get_repr_dict())
 
 class AttributeEntry(metaclass=AttributeEntryMeta):
     """Static methods and attributes only."""
