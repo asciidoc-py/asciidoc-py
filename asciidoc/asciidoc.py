@@ -4317,7 +4317,7 @@ class Reader(Reader1):
         }
         
     def __repr__(self):
-        return json.dumps(self.get_repr_dict(), indent=2)
+        return json.dumps(self.get_repr_dict())
 
     def read_super(self):
         result = Reader1.read(self, self.skip)
