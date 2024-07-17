@@ -10,6 +10,7 @@ Version 10.2.1 (2024-07-16)
 
 .Miscellaneous
 - Include manpage source files to sdist archive
+- Fix setting up debian backports in Dockerfile
 
 Version 10.2.0 (2022-05-22)
 ---------------------------
