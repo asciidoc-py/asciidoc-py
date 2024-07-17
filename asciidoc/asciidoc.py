@@ -26,6 +26,7 @@ from functools import lru_cache
 import getopt
 import io
 import os
+import json
 import re
 import subprocess
 import sys
@@ -937,6 +938,8 @@ class Lex:
         # Optimization: Cache answer.
         Lex.prev_cursor = reader.cursor
         Lex.prev_element = result
+        print(f"Lexer: return element: {result}; reader: {reader}")
+        sys.stdout.flush() # needed in github actions for some reason
         return result
 
     @staticmethod
@@ -1053,6 +1056,22 @@ class Document(object):
         self.has_errors = False  # Set true if processing errors were flagged.
         self.has_warnings = False  # Set true if warnings were flagged.
         self.safe = False       # Default safe mode.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Document",
+            "infile": self.infile,
+            "outfile": self.outfile,
+            "attributes": self.attributes,
+            "level": self.level,
+            "has_errors": self.has_errors,
+            "has_warnings": self.has_warnings,
+            "safe" : self.safe,
+        }
+
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     def update_attributes(self, attrs=None):
         """
@@ -1434,8 +1453,19 @@ class Header:
                 attrs['mantitle'] = mantitle
                 attrs['manvolnum'] = mo.group('manvolnum').strip()
 
+class AttributeEntryMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.AttributeEntry",
+            "name": cls.infile,
+            "value": cls.value,
+        }
+        
+    def __repr__(cls):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(cls.get_repr_dict(), indent=2)
 
-class AttributeEntry:
+class AttributeEntry(metaclass=AttributeEntryMeta):
     """Static methods and attributes only."""
     pattern = None
     subs = None
@@ -1534,7 +1564,21 @@ class AttributeEntry:
             attr.attributes[attr.name] = attr.value
 
 
-class AttributeList:
+class AttributeListMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.AttributeList",
+            "pattern": cls.pattern,
+            "match": cls.match,
+            "attrs": cls.attrs,
+        }
+        
+    def __repr__(cls):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(cls.get_repr_dict(), indent=2)
+
+    
+class AttributeList(metaclass=AttributeListMeta):
     """Static methods and attributes only."""
     pattern = None
     match = None
@@ -1608,7 +1652,19 @@ class AttributeList:
                     d[option + '-option'] = ''
 
 
-class BlockTitle:
+class BlockTitleMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.BlockTitle",
+            "title": cls.title,
+            "pattern": cls.pattern,
+        }
+        
+    def __repr__(cls):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(cls.get_repr_dict(), indent=2)
+
+class BlockTitle(metaclass=BlockTitleMeta):
     """Static methods and attributes only."""
     title = None
     pattern = None
@@ -1653,7 +1709,18 @@ class BlockTitle:
             BlockTitle.title = None
 
 
-class Title:
+class TitleMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.Title",
+            "title": cls.attributes["title"],
+            "level": cls.attributes["level"],
+        }
+        
+    def __repr__(cls):
+        return json.dumps(cls.get_repr_dict())
+
+class Title(metaclass=TitleMeta):
     """Processes Header and Section titles. Static methods and attributes
     only."""
     # Class variables
@@ -1872,7 +1939,21 @@ class Title:
         return number
 
 
-class FloatingTitle(Title):
+class FloatingTitleMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.FloatingTitle",
+            "__super__" : super(Title, self).get_repr_dict(),
+            "title": cls.attributes["title"],
+            "level": cls.attributes["level"],
+        }
+        
+    def __repr__(cls):
+        
+        return json.dumps(cls.get_repr_dict())
+
+
+class FloatingTitle(Title, metaclass=FloatingTitleMeta):
     """Floated titles are translated differently."""
 
     @staticmethod
@@ -1893,7 +1974,19 @@ class FloatingTitle(Title):
             message.warning('missing template section: [%s]' % template)
 
 
-class Section:
+class SectionMeta(type):
+    def get_repr_dict(cls):
+        return {
+            "__type__": "asciidoc.asciidoc.Section",
+            "endtags": cls.endtags,
+            "ids": cls.ids,
+        }
+        
+    def __repr__(cls):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(cls.get_repr_dict(), indent=2)
+
+class Section(metaclass=SectionMeta):
     """Static methods and attributes only."""
     endtags = []  # Stack of currently open section (level,endtag) tuples.
     ids = []      # List of already used ids.
@@ -2020,6 +2113,9 @@ class Section:
                 message.error('empty section is not valid')
 
 
+class AbstractBlockMeta(type):
+
+
 class AbstractBlock:
     blocknames = []  # Global stack of names for push_blockname() and pop_blockname().
 
@@ -2051,6 +2147,16 @@ class AbstractBlock:
         self.parameters = None
         # Leading delimiter match object.
         self.mo = None
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.AbstractBlock",
+            "defname": self.defname,
+            "match": str(self.mo),
+        }
+        
+    def __repr__(self):
+        return json.dumps(self.get_repr_dict())
 
     @staticmethod
     def reset_class():
@@ -2369,6 +2475,19 @@ class AbstractBlocks:
         self.default = None     # Default Block.
         self.delimiters = None  # Combined delimiters regular expression.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.AbstractBlocks",
+            "current": str(self.current),
+            "blocks": str(self.blocks),
+            "default": str(self.default),
+            "delimiters": str(self.delimiters),
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def load(self, sections):
         """Load block definition from 'sections' dictionary."""
         for k in list(sections.keys()):
@@ -2413,6 +2532,15 @@ class Paragraph(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
         self.text = None          # Text in first line of paragraph.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Paragraph",
+            "__super__": super(Paragraph, self).get_repr_dict(),
+        }
+        
+    def __repr__(self):
+        return json.dumps(self.get_repr_dict())
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2467,6 +2595,17 @@ class Paragraphs(AbstractBlocks):
         AbstractBlocks.__init__(self)
         self.terminators = None    # List of compiled re's.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Paragraphs",
+            "__super__": super(Paragraphs, self).get_repr_dict(),
+            "terminators": self.terminators,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def initialize(self):
         self.terminators = [
             re.compile(r'^\+$|^$'),
@@ -2510,6 +2649,18 @@ class List(AbstractBlock):
         self.type = None      # List type ('numbered','bulleted','labeled').
         self.ordinal = None   # Current list item ordinal number (1..)
         self.number_style = None  # Current numbered list style ('arabic'..)
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.List",
+            "__super__": super(List, self).get_repr_dict(),
+            "type": self.type,
+            "text": self.text,
+            "ordinal": self.ordinal,
+        }
+        
+    def __repr__(self):
+        return json.dumps(self.get_repr_dict())
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2578,6 +2729,10 @@ class List(AbstractBlock):
                 # Titled elements terminate the list.
                 break
             next = Lex.next_element()
+            if not next:
+                print("Lexer: reached end of file, no more translation")
+                sys.stdout.flush()
+                break
             if next in lists.open:
                 break
             elif isinstance(next, List):
@@ -2739,6 +2894,19 @@ class Lists(AbstractBlocks):
         self.tags = {}    # List tags dictionary. Each entry is a tags AttrDict.
         self.terminators = None    # List of compiled re's.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Lists",
+            "__super__": super(Lists, self).get_repr_dict(),
+            "open": self.open,
+            "tags": self.tags,
+            "terminators": self.terminators,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def initialize(self):
         self.terminators = [
             re.compile(r'^\+$|^$'),
@@ -2788,6 +2956,16 @@ class Lists(AbstractBlocks):
 class DelimitedBlock(AbstractBlock):
     def __init__(self):
         AbstractBlock.__init__(self)
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.DelimitedBlock",
+            "__super__": super(DelimitedBlock, self).get_repr_dict(),
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -2857,6 +3035,16 @@ class DelimitedBlocks(AbstractBlocks):
     def __init__(self):
         AbstractBlocks.__init__(self)
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.DelimitedBlocks",
+            "__super__": super(DelimitedBlocks, self).get_repr_dict(),
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def load(self, sections):
         """Update blocks defined in 'sections' dictionary."""
         AbstractBlocks.load(self, sections)
@@ -2886,6 +3074,16 @@ class Table(AbstractBlock):
         self.pcwidth = None     # 1..99 (percentage).
         self.rows = []            # Parsed rows, each row is a list of Cells.
         self.columns = []         # List of Columns.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Table",
+            "__super__": super(Table, self).get_repr_dict(),
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     def load(self, name, entries):
         AbstractBlock.load(self, name, entries)
@@ -3385,6 +3583,17 @@ class Tables(AbstractBlocks):
         # Table tags dictionary. Each entry is a tags dictionary.
         self.tags = {}
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Tables",
+            "__super__": super(Tables, self).get_repr_dict(),
+            "tags": self.tags,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def load(self, sections):
         AbstractBlocks.load(self, sections)
         self.load_tags(sections)
@@ -3483,6 +3692,19 @@ class Macros:
         m.prefix = '+'
         m.reo = re.compile(m.pattern)
         self.macros.append(m)
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Macros",
+            "__super__": super(Macros, self).get_repr_dict(),
+            "macros": self.macros,
+            "current": self.current,
+            "passthroughs": self.passthroughs,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     def load(self, entries):
         for entry in entries:
@@ -3583,6 +3805,17 @@ class Macro:
         self.prefix = ''        # '' if inline, '+' if system, '#' if block.
         self.reo = None         # Compiled pattern re object.
         self.subslist = []      # Default subs for macros passtext group.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Macro",
+            "__super__": super(Macro, self).get_repr_dict(),
+            "name": self.name,
+            "prefix": self.prefix,
+        }
+        
+    def __repr__(self):
+        return json.dumps(self.get_repr_dict())
 
     def has_passthrough(self):
         return self.pattern.find(r'(?P<passtext>') >= 0
@@ -3781,6 +4014,19 @@ class CalloutMap:
         self.calloutindex = 0   # Current callout index number.
         self.listnumber = 1     # Current callout list number.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.CalloutMap",
+            "__super__": super(CalloutMap, self).get_repr_dict(),
+            "comap": self.macros,
+            "calloutindex": self.current,
+            "listnumber": self.passthroughs,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def listclose(self):
         # Called when callout list is closed.
         self.listnumber += 1
@@ -3847,6 +4093,28 @@ class Reader1:
         self.bom = None         # Byte order mark (BOM).
         self.infile = None      # Saved document 'infile' attribute.
         self.indir = None       # Saved document 'indir' attribute.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Reader1",
+            "__super__": super(Reader1, self).get_repr_dict(),
+            "f": self.f,
+            "fname": self.fname,
+            "cursor": self.cursor,
+            "tabsize": self.tabsize,
+            "parent": self.parent,
+            "_lineno": self._lineno,
+            "line_ranges": self.line_ranges,
+            "current_depth": self.current_depth,
+            "max_depth": self.max_depth,
+            "bom": self.bom,
+            "infile": self.infile,
+            "indir": self.indir,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     def open(self, fname):
         self.fname = fname
@@ -4044,6 +4312,17 @@ class Reader(Reader1):
         self.skipname = ''      # Name of current endif macro target.
         self.skipto = -1        # The depth at which skipping is re-enabled.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Reader",
+            "__super__": "Reader1 ignored, TODO?",
+            "fname": self.fname,
+            "next": self.next[0],
+        }
+        
+    def __repr__(self):
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def read_super(self):
         result = Reader1.read(self, self.skip)
         if result is None and self.skip:
@@ -4215,6 +4494,20 @@ class Writer:
         self.lines_out = 0               # Number of lines written.
         self.skip_blank_lines = False    # If True don't output blank lines.
 
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Writer",
+            "f": self.f,
+            "fname": self.fname,
+            "newline": self.newline,
+            "lines_out": self.lines_out,
+            "skip_blank_lines": self.skip_blank_lines,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
+
     def open(self, fname, bom=None):
         """
         bom is optional byte order mark.
@@ -4343,6 +4636,41 @@ class Config:
         self.include1 = {}      # Holds include1::[] files for {include1:}.
         self.dumping = False    # True if asciidoc -c option specified.
         self.filters = []       # Filter names specified by --filter option.
+
+    def get_repr_dict(self):
+        return {
+            "__type__": "asciidoc.asciidoc.Config",
+            "sections": self.sections,
+            "verbose": self.verbose,
+            "header_footer": self.header_footer,
+            "tabsize": self.tabsize,
+            "textwidth": self.textwidth,
+            "newline": self.newline,
+            "pagewidth": self.pagewidth,
+            "pageunits": self.pageunits,
+            "outfilesuffix": self.outfilesuffix,
+            "subsnormal": self.subsnormal,
+            "subsverbatim": self.subsverbatim,
+            "tags": self.tags,
+            "specialchars": self.specialchars,
+            "specialwords": self.specialwords,
+            "replacements": self.replacements,
+            "replacements2": self.replacements2,
+            "replacements3": self.replacements3,
+            "specialsections": self.specialsections,
+            "quotes": self.quotes,
+            "fname": self.fname,
+            "conf_attrs": self.conf_attrs,
+            "cmd_attrs": self.cmd_attrs,
+            "loaded": self.loaded,
+            "include1": self.include1,
+            "dumping": self.dumping,
+            "filters": self.filters,
+        }
+        
+    def __repr__(self):
+        # TODO limit to important attributes for one-line format
+        return json.dumps(self.get_repr_dict(), indent=2)
 
     @staticmethod
     def init():
