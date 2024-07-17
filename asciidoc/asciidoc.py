@@ -1939,11 +1939,11 @@ class Title(metaclass=TitleMeta):
         return number
 
 
-class FloatingTitleMeta(type):
+class FloatingTitleMeta(TitleMeta):
     def get_repr_dict(cls):
         return {
             "__type__": "asciidoc.asciidoc.FloatingTitle",
-            "__super__" : super(Title, self).get_repr_dict(),
+            "__super__" : super(TitleMeta, self).get_repr_dict(),
             "title": cls.attributes["title"],
             "level": cls.attributes["level"],
         }
