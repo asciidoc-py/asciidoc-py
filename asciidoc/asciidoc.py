@@ -3805,7 +3805,6 @@ class Macro:
     def get_repr_dict(self):
         return {
             "__type__": "asciidoc.asciidoc.Macro",
-            "__super__": super(Macro, self).get_repr_dict(),
             "name": self.name,
             "prefix": self.prefix,
         }
