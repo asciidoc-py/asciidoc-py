@@ -1457,7 +1457,7 @@ class AttributeEntryMeta(type):
     def get_repr_dict(cls):
         return {
             "__type__": "asciidoc.asciidoc.AttributeEntry",
-            "name": cls.infile,
+            "name": cls.name,
             "value": cls.value,
         }
         
