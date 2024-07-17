@@ -2112,10 +2112,6 @@ class Section(metaclass=SectionMeta):
             if document.backend == 'docbook' and Title.sectname != 'index':
                 message.error('empty section is not valid')
 
-
-class AbstractBlockMeta(type):
-
-
 class AbstractBlock:
     blocknames = []  # Global stack of names for push_blockname() and pop_blockname().
 
