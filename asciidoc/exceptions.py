@@ -3,6 +3,12 @@ class EAsciiDoc(Exception):
     pass
 
 
+class EOnlyBookLvl0Sections(EAsciiDoc):
+    """ Parser only allows lvl 0 headings on doctype book
+    """
+    pass
+
+
 class AsciiDocError(Exception):
     """Exceptions raised by the asciidoc API"""
     pass

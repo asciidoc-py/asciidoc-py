@@ -42,7 +42,7 @@ from . import utils
 from .attrs import parse_attributes
 from .blocks.table import parse_table_span_spec, Cell, Column
 from .collections import AttrDict, InsensitiveDict
-from .exceptions import EAsciiDoc
+from .exceptions import EAsciiDoc, EOnlyBookLvl0Sections
 from .message import Message
 from .plugin import Plugin
 
@@ -1771,10 +1771,6 @@ class Title:
             for k, v in list(Title.attributes.items()):
                 if v is None:
                     del Title.attributes[k]
-        try:
-            Title.level += int(document.attributes.get('leveloffset', '0'))
-        except:
-            pass
         Title.attributes['level'] = str(Title.level)
         return result
 
@@ -1968,7 +1964,12 @@ class Section:
         prev_sectname = Title.sectname
         Title.translate()
         if Title.level == 0 and document.doctype != 'book':
-            message.error('only book doctypes can contain level 0 sections')
+            title_name = Title.attributes["title"]
+            docfile = document.attributes["docfile"]
+            doctype = document.attributes["doctype"]
+            raise EOnlyBookLvl0Sections("only book doctypes can contain level 0 sections;"
+                                        + f"Title erroring: {title_name}; current doctype: {doctype}; document: {docfile};"
+                                        + "\nNOTE: the problem might come from an import, then `leveloffset:` might help")
         if Title.level > document.level \
                 and 'basebackend-docbook' in document.attributes \
                 and prev_sectname in ('colophon', 'abstract',
