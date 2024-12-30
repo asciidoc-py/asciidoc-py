@@ -138,7 +138,7 @@ def latex2img(infile, outfile, imgfmt, dpi, modified):
     outdir = os.path.dirname(outfile)
     if not os.path.isdir(outdir):
         raise EApp('directory does not exist: %s' % outdir)
-    texfile = tempfile.mktemp(suffix='.tex', dir=os.path.dirname(outfile))
+    fd, texfile = tempfile.mkstemp(suffix='.tex', dir=os.path.dirname(outfile))
     basefile = os.path.splitext(texfile)[0]
     dvifile = basefile + '.dvi'
     temps = [basefile + ext for ext in ('.tex', '.dvi', '.aux', '.log')]
@@ -190,6 +190,7 @@ def latex2img(infile, outfile, imgfmt, dpi, modified):
             if os.path.isfile(f):
                 print_verbose('deleting: %s' % f)
                 os.remove(f)
+        os.close(fd)
     if 'md5_file' in locals():
         print_verbose('writing: %s' % md5_file)
         write_file(md5_file, checksum, 'wb')
