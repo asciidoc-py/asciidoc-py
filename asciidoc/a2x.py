@@ -684,7 +684,7 @@ class A2X(AttrDict):
                 die('missing docbook file: %s' % docbook_file)
             return
         options = self.asciidoc_opts[:]
-        options.append(('--backend', 'docbook'))
+        options.insert(0, ('--backend', 'docbook'))
         options.append(('-a', 'a2x-format=%s' % self.format))
         options.append(('--out-file', docbook_file))
 
