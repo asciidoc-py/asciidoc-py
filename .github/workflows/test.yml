@@ -135,7 +135,10 @@ jobs:
       - run: make test
 
       - run: make install
-      - run: sudo make docs
+      - name: Check the documentation installation
+        run: |
+          make docs DESTDIR="$RUNNER_TEMP/asciidoc-stage"
+          test -f "$RUNNER_TEMP/asciidoc-stage/usr/local/share/doc/asciidoc/README.md"
 
       - name: Print versions
         run: |

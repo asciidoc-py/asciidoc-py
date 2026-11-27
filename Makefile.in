@@ -12,12 +12,12 @@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 
+prefix = @prefix@
+datarootdir = @datarootdir@
+PACKAGE_TARNAME = @PACKAGE_TARNAME@
 docdir = @docdir@
 mandir = @mandir@
 srcdir = @srcdir@
-
-# unused setting, but keeping it to avoid warning when running ./configure
-datarootdir = @datarootdir@
 
 ASCIIDOCVERSION = @PACKAGE_VERSION@
 ASCIIDOCDATE = @PACKAGE_DATE@
